@@ -1,0 +1,23 @@
+version: "3.8"
+services:
+  backend:
+    build: backend
+    restart: always
+    env_file: backend.prod.env
+    expose:
+      - 9193
+    networks:
+      - backend_envoy
+  envoy:
+    build: envoy
+    restart: always
+    ports:
+      - 8888:8888
+    depends_on:
+      - backend
+    networks:
+      - backend_envoy
+
+networks:
+  backend_envoy:
+    driver: bridge

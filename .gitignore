@@ -1,0 +1,10 @@
+__pycache__/
+venv/
+/data
+
+*.prod.env
+
+*_pb2.py
+*_pb2_grpc.py
+
+descriptors.pb

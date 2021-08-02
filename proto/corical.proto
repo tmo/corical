@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package corical;
+
+import "google/api/annotations.proto";
+
+service Corical {
+  rpc Compute(ComputeReq) returns (ComputeRes) {
+    option (google.api.http) = {
+      post : "/v0/compute"
+      body : "*"
+    };
+  }
+}
+
+message ComputeReq {
+  string gender = 1;
+  uint32 age = 2;
+}
+
+message ComputeRes {
+  bool success = 1;
+}
