@@ -14,8 +14,9 @@ import {
 } from "@material-ui/core";
 import { Controller, useForm } from "react-hook-form";
 import classNames from "classnames";
-
 import { makeStyles } from "@material-ui/core";
+
+import { FormData } from "./api";
 
 const REQUIRED = "This field is required.";
 const YES_NO = [
@@ -48,12 +49,12 @@ const VARIANTS = [
 ];
 const SEX_OPTIONS = [
   {
-    value: "male",
-    label: "Male",
-  },
-  {
     value: "female",
     label: "Female",
+  },
+  {
+    value: "male",
+    label: "Male",
   },
 ];
 const VACCINE_OPTIONS = [
@@ -66,18 +67,6 @@ const VACCINE_OPTIONS = [
     label: "AstraZeneca",
   },
 ];
-
-export type FormData = {
-  variant: string;
-  age?: number;
-  sex: string;
-  dose1: string;
-  vaccine: string;
-  dose1weeks?: number;
-  dose2: string;
-  dose2weeks?: number;
-  had_covid: string;
-};
 
 const useStyles = makeStyles((theme) => ({
   formComp: {

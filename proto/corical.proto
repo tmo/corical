@@ -13,9 +13,36 @@ service Corical {
   }
 }
 
+enum Variant {
+  VARIANT_UNSPECIFIED = 0;
+  VARIANT_ALPHA = 1;
+  VARIANT_BETA = 2;
+  VARIANT_GAMMA = 3;
+  VARIANT_DELTA = 4;
+}
+
+enum Sex {
+  SEX_UNSPECIFIED = 0;
+  SEX_FEMALE = 1;
+  SEX_MALE = 2;
+}
+
+enum Vaccine {
+  VACCINE_UNSPECIFIED = 0;
+  VACCINE_PFIZER = 1;
+  VACCINE_ASTRAZENECA = 2;
+}
+
 message ComputeReq {
-  string gender = 1;
+  Variant variant = 1;
   uint32 age = 2;
+  Sex sex = 3;
+  bool dose1 = 4;
+  Vaccine vaccine = 5;
+  uint32 dose1weeks = 6;
+  bool dose2 = 7;
+  uint32 dose2weeks = 8;
+  bool had_covid = 9;
 }
 
 message ComputeRes {
