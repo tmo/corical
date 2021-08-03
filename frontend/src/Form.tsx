@@ -17,15 +17,51 @@ import classNames from "classnames";
 
 import { makeStyles } from "@material-ui/core";
 
-const VARIANTS = ["Alpha", "Beta", "Delta", "Gamma"];
+const VARIANTS = [
+  {
+    value: "alpha",
+    label: "Alpha",
+  },
+  {
+    value: "beta",
+    label: "Beta",
+  },
+  {
+    value: "delta",
+    label: "Delta",
+  },
+  {
+    value: "gamma",
+    label: "Gamma",
+  },
+];
+const SEX_OPTIONS = [
+  {
+    value: "male",
+    label: "Male",
+  },
+  {
+    value: "female",
+    label: "Female",
+  },
+];
+const YES_NO = [
+  {
+    value: "yes",
+    label: "Yes",
+  },
+  {
+    value: "no",
+    label: "No",
+  },
+];
 
 type FormData = {
   variant: string;
   age?: number;
   sex: string;
+  dose1: string;
 };
-
-const SEX_OPTIONS = ["Male", "Female"];
 
 const useStyles = makeStyles((theme) => ({
   formComp: {
@@ -39,13 +75,17 @@ export default function Form() {
     control,
     handleSubmit,
     formState: { errors },
+    watch,
   } = useForm<FormData>();
   const onSubmit = (data: any) => console.log(data);
 
   const classes = useStyles();
 
+  const vals = watch();
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      {JSON.stringify(vals)}
       <Typography variant="h5" component="h2">
         Step 1: Patient information
       </Typography>
@@ -60,7 +100,7 @@ export default function Form() {
           )}
           <Controller
             control={control}
-            defaultValue={VARIANTS[0]}
+            defaultValue={VARIANTS[0].value}
             rules={{ required: "Required." }}
             name="variant"
             render={({ field: { onChange, value } }) => (
@@ -70,9 +110,9 @@ export default function Form() {
                 id="variant"
                 fullWidth
               >
-                {VARIANTS.map((variant) => (
-                  <MenuItem key={variant} value={variant}>
-                    {variant}
+                {VARIANTS.map(({ value, label }) => (
+                  <MenuItem key={label} value={value}>
+                    {label}
                   </MenuItem>
                 ))}
               </Select>
@@ -102,12 +142,41 @@ export default function Form() {
                 onChange={(e, value) => onChange(value)}
                 value={value}
               >
-                {SEX_OPTIONS.map((option) => (
+                {SEX_OPTIONS.map(({ value, label }) => (
                   <FormControlLabel
-                    key={option}
-                    value={option}
+                    key={label}
+                    value={value}
                     control={<Radio />}
-                    label={option}
+                    label={label}
+                  />
+                ))}
+              </RadioGroup>
+            </FormControl>
+          )}
+        />
+      </div>
+      <div className={classNames(classes.formComp)}>
+        <Controller
+          name="dose1"
+          control={control}
+          defaultValue={""}
+          render={({ field: { onChange, value } }) => (
+            <FormControl component="fieldset">
+              <FormLabel component="legend">
+                Has had first dose of COVID-19 vaccine?
+              </FormLabel>
+              <RadioGroup
+                row
+                name="dose1-radio"
+                onChange={(e, value) => onChange(value)}
+                value={value}
+              >
+                {YES_NO.map(({ value, label }) => (
+                  <FormControlLabel
+                    key={label}
+                    value={value}
+                    control={<Radio />}
+                    label={label}
                   />
                 ))}
               </RadioGroup>
