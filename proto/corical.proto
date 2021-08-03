@@ -13,6 +13,8 @@ service Corical {
   }
 }
 
+// input
+
 enum Variant {
   VARIANT_UNSPECIFIED = 0;
   VARIANT_ALPHA = 1;
@@ -45,7 +47,35 @@ message ComputeReq {
   bool had_covid = 9;
 }
 
+// output
+
+enum MessageType {
+  MESSAGE_TYPE_UNSPECIFIED = 0;
+  MESSAGE_TYPE_INFO = 1;
+  MESSAGE_TYPE_WARNING = 2;
+}
+
+message Message {
+  string heading = 1;
+  string text = 2;
+  MessageType type = 3;
+}
+
+message Risk {
+  string name = 1;
+  double risk = 2;
+  string comment = 3;
+}
+
+message OutputGroup {
+  string heading = 1;
+  string explanation = 2;
+  repeated Risk risks = 3;
+}
+
 message ComputeRes {
-  bool success = 1;
-  string msg = 2;
+  repeated Message messages = 1;
+  repeated OutputGroup output_groups = 2;
+  bool success = 98;
+  string msg = 99;
 }
