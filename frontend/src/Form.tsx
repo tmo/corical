@@ -67,7 +67,7 @@ const VACCINE_OPTIONS = [
   },
 ];
 
-type FormData = {
+export type FormData = {
   variant: string;
   age?: number;
   sex: string;
@@ -76,7 +76,7 @@ type FormData = {
   dose1weeks?: number;
   dose2: string;
   dose2weeks?: number;
-  covid: string;
+  had_covid: string;
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -89,7 +89,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Form() {
+type FormInputs = {
+  callback: (form: FormData) => void;
+};
+
+export default function Form({ callback }: FormInputs) {
   const {
     control,
     getValues,
@@ -99,7 +103,7 @@ export default function Form() {
   } = useForm<FormData>({
     mode: "onBlur",
   });
-  const submit = handleSubmit((data: any) => console.log(data));
+  const submit = handleSubmit(callback);
 
   const classes = useStyles();
 
@@ -361,7 +365,7 @@ export default function Form() {
       </div>
       <div className={classNames(classes.formComp)}>
         <Controller
-          name="covid"
+          name="had_covid"
           control={control}
           rules={{ required: REQUIRED }}
           render={({ field: { onChange, value } }) => (
@@ -369,7 +373,7 @@ export default function Form() {
               <FormLabel component="legend">Has had COVID-19?</FormLabel>
               <RadioGroup
                 row
-                name="covid-radio"
+                name="had_covid-radio"
                 onChange={(e, value) => onChange(value)}
                 value={value}
               >
@@ -382,8 +386,10 @@ export default function Form() {
                   />
                 ))}
               </RadioGroup>
-              {errors?.covid?.message && (
-                <FormHelperText error>{errors.covid.message}</FormHelperText>
+              {errors?.had_covid?.message && (
+                <FormHelperText error>
+                  {errors.had_covid.message}
+                </FormHelperText>
               )}
             </FormControl>
           )}

@@ -1,5 +1,6 @@
 import { Box, Container, Typography } from "@material-ui/core";
 import Form from "./Form";
+import { compute } from "./api";
 
 export default function App() {
   return (
@@ -11,7 +12,7 @@ export default function App() {
         <Typography variant="subtitle1" gutterBottom>
           By, credits line, etc.
         </Typography>
-        <Form />
+        <Form callback={compute} />
       </Container>
     </Box>
   );
