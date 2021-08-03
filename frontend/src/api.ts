@@ -87,6 +87,7 @@ export async function compute(form: FormData) {
     const res = await axios.post(API_URL, apified);
     console.log(res);
     console.log(res.data);
+    return res.data;
   } catch (e) {
     console.error(e);
     return e.message;

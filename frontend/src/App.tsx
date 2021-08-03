@@ -1,8 +1,14 @@
+import { useState } from "react";
 import { Box, Container, Typography } from "@material-ui/core";
 import Form from "./Form";
-import { compute } from "./api";
+import { FormData, compute } from "./api";
 
 export default function App() {
+  const [msg, setMsg] = useState("");
+  const callback = async (form: FormData) => {
+    const res = await compute(form);
+    setMsg(res.msg);
+  };
   return (
     <Box>
       <Container maxWidth="lg">
@@ -12,7 +18,8 @@ export default function App() {
         <Typography variant="subtitle1" gutterBottom>
           By, credits line, etc.
         </Typography>
-        <Form callback={compute} />
+        <pre>{msg}</pre>
+        <Form callback={callback} />
       </Container>
     </Box>
   );

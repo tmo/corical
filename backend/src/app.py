@@ -15,7 +15,10 @@ server.add_insecure_port(f"[::]:21000")
 class Corical(corical_pb2_grpc.CoricalServicer):
     def Compute(self, request, context):
         logger.info(request)
-        return corical_pb2.ComputeRes(success=True)
+        return corical_pb2.ComputeRes(
+            success=True,
+            msg=str(request),
+        )
 
 corical_pb2_grpc.add_CoricalServicer_to_server(Corical(), server)
 server.start()

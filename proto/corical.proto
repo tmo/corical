@@ -47,4 +47,5 @@ message ComputeReq {
 
 message ComputeRes {
   bool success = 1;
+  string msg = 2;
 }
