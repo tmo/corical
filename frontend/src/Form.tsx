@@ -1,15 +1,18 @@
-import { Button, TextField, Typography, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio} from '@material-ui/core';
+import { Button, TextField, Typography, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, InputLabel, FormHelperText, Select, MenuItem} from '@material-ui/core';
 import { Controller, useForm } from "react-hook-form";
 import classNames from "classnames";
 
 import { makeStyles } from "@material-ui/core";
 
+const VARIANTS = ["Alpha", "Beta", "Delta", "Gamma"]
+
 type FormData = {
+  variant: string;
   age?: number;
   sex: string;
 };
 
-const SEX_OPTIONS = ["Male", "Female", "Other"]
+const SEX_OPTIONS = ["Male", "Female"]
 
 const useStyles = makeStyles((theme) => ({
   formComp: {
@@ -33,9 +36,40 @@ export default function Form() {
         Instructional text for form.
       </Typography>
       <div className={classNames(classes.formComp)}>
+        <InputLabel htmlFor="variant">
+        SARS-CoV-2 Variant
+        </InputLabel>
+        <FormControl>
+          {errors?.variant?.message && (
+            <FormHelperText error>
+              {errors.variant.message}
+            </FormHelperText>
+          )}
+          <Controller
+            control={control}
+            defaultValue={VARIANTS[0]}
+            rules={{ required: "Required." }}
+            name="variant"
+            render={({field: { onChange, value }}) => (
+              <Select
+                onChange={e => onChange(e.target.value)}
+                value={value}
+                id="variant"
+                fullWidth
+              >
+                {VARIANTS.map(variant =>
+                  <MenuItem key={variant} value={variant}>{variant}</MenuItem>
+                )}
+              </Select>
+            )}
+          />
+        </FormControl>
+      </div>
+      <div className={classNames(classes.formComp)}>
       <Controller
         name="age"
         control={control}
+        rules={{ min: 16, max: 100 }}
         render={({ field }) => <TextField label="Age" {...field} />}
       />
       </div>
