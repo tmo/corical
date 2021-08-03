@@ -1,5 +1,5 @@
-import { Box, Container, Typography } from '@material-ui/core';
-import Form from './Form';
+import { Box, Container, Typography } from "@material-ui/core";
+import Form from "./Form";
 
 export default function App() {
   return (
