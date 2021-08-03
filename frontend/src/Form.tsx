@@ -63,7 +63,7 @@ const VACCINE_OPTIONS = [
     label: "Pfizer",
   },
   {
-    value: "az",
+    value: "astrazeneca",
     label: "AstraZeneca",
   },
 ];

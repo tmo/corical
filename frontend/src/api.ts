@@ -66,15 +66,21 @@ function vaccineToInt(vaccine: string) {
 // }
 
 export function apifyForm(form: FormData) {
+  // some duplicate logic from Form
+
+  const disableDose1extras = form.dose1 !== "yes";
+  const disableDose2 = disableDose1extras;
+  const disableDose2extras = form.dose1 !== "yes" || form.dose2 !== "yes";
+
   return {
     variant: variantToInt(form.variant),
     age: form.age,
     sex: sexToInt(form.sex),
     dose1: form.dose1 === "yes",
-    vaccine: vaccineToInt(form.vaccine),
-    dose1weeks: form.dose1weeks,
-    dose2: form.dose2 === "yes",
-    dose2weeks: form.dose2weeks,
+    vaccine: disableDose1extras ? undefined : vaccineToInt(form.vaccine),
+    dose1weeks: disableDose1extras ? undefined : form.dose1weeks,
+    dose2: disableDose2 ? undefined : form.dose2 === "yes",
+    dose2weeks: disableDose2extras ? undefined : form.dose2weeks,
     had_covid: form.had_covid === "yes",
   };
 }
