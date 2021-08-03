@@ -2,12 +2,15 @@ import { useState } from "react";
 import { Box, Container, Typography } from "@material-ui/core";
 import Form from "./Form";
 import { FormData, compute } from "./api";
+import Output from "./Output";
 
 export default function App() {
   const [msg, setMsg] = useState("");
+  const [output, setOutput] = useState<any | null>(null);
   const callback = async (form: FormData) => {
     const res = await compute(form);
     setMsg(res.msg);
+    setOutput(res);
   };
   return (
     <Box>
@@ -20,6 +23,7 @@ export default function App() {
         </Typography>
         <pre>{msg}</pre>
         <Form callback={callback} />
+        <Output output={output} />
       </Container>
     </Box>
   );

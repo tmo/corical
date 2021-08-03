@@ -49,16 +49,10 @@ message ComputeReq {
 
 // output
 
-enum MessageType {
-  MESSAGE_TYPE_UNSPECIFIED = 0;
-  MESSAGE_TYPE_INFO = 1;
-  MESSAGE_TYPE_WARNING = 2;
-}
-
 message Message {
   string heading = 1;
   string text = 2;
-  MessageType type = 3;
+  string severity = 3;
 }
 
 message Risk {

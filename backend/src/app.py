@@ -1,6 +1,6 @@
-from concurrent import futures
 import logging
 import signal
+from concurrent import futures
 
 import grpc
 
@@ -45,7 +45,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                 corical_pb2.Message(
                     heading="Test message",
                     text="This is a test message",
-                    type=corical_pb2.MESSAGE_TYPE_INFO,
+                    severity="info",
                 )
             ],
             output_groups=[
