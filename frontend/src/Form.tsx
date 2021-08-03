@@ -330,7 +330,10 @@ export default function Form({ callback }: FormInputs) {
                   return REQUIRED;
                 } else {
                   const dose1w = getValues("dose1weeks") || 0;
-                  if (dose2w > dose1w) {
+                  if (
+                    parseInt(dose2w.toString(), 10) >
+                    parseInt(dose1w.toString(), 10)
+                  ) {
                     return "Second dose must be after first dose.";
                   }
                 }

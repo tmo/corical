@@ -81,9 +81,9 @@ export function apifyForm(form: FormData) {
 
 export async function compute(form: FormData) {
   try {
-    console.log(form);
+    console.log("form", form);
     const apified = apifyForm(form);
-    console.log(apified);
+    console.log("apified", apified);
     const res = await axios.post(API_URL, apified);
     console.log(res);
     console.log(res.data);
