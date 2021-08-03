@@ -17,6 +17,7 @@ import classNames from "classnames";
 
 import { makeStyles } from "@material-ui/core";
 
+const REQUIRED = "This field is required.";
 const YES_NO = [
   {
     value: "yes",
@@ -91,11 +92,14 @@ const useStyles = makeStyles((theme) => ({
 export default function Form() {
   const {
     control,
+    getValues,
     handleSubmit,
     formState: { errors },
     watch,
-  } = useForm<FormData>();
-  const onSubmit = (data: any) => console.log(data);
+  } = useForm<FormData>({
+    mode: "onBlur",
+  });
+  const submit = handleSubmit((data: any) => console.log(data));
 
   const classes = useStyles();
 
@@ -107,8 +111,9 @@ export default function Form() {
     watch("dose1") !== "yes" || watch("dose2") !== "yes";
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={submit}>
       {JSON.stringify(vals)}
+      <FormHelperText error>{JSON.stringify(errors)}</FormHelperText>
       <Typography variant="h5" component="h2">
         Step 1: Patient information
       </Typography>
@@ -118,13 +123,10 @@ export default function Form() {
       <div className={classNames(classes.formComp)}>
         <InputLabel htmlFor="variant">SARS-CoV-2 Variant</InputLabel>
         <FormControl>
-          {errors?.variant?.message && (
-            <FormHelperText error>{errors.variant.message}</FormHelperText>
-          )}
           <Controller
             control={control}
             defaultValue={VARIANTS[0].value}
-            rules={{ required: "Required." }}
+            rules={{ required: REQUIRED }}
             name="variant"
             render={({ field: { onChange, value } }) => (
               <Select
@@ -141,13 +143,20 @@ export default function Form() {
               </Select>
             )}
           />
+          {errors?.variant?.message && (
+            <FormHelperText error>{errors.variant.message}</FormHelperText>
+          )}
         </FormControl>
       </div>
       <div className={classNames(classes.formComp)}>
         <Controller
           name="age"
           control={control}
-          rules={{ min: 16, max: 100 }}
+          rules={{
+            required: REQUIRED,
+            min: { value: 16, message: "Must be at least 16 years old." },
+            max: { value: 100, message: "Please enter an age under 100" },
+          }}
           render={({ field }) => (
             <TextField
               type="number"
@@ -156,6 +165,8 @@ export default function Form() {
               }}
               label="Age"
               {...field}
+              helperText={errors?.age?.message ?? " "}
+              error={!!errors?.age?.message}
             />
           )}
         />
@@ -164,7 +175,7 @@ export default function Form() {
         <Controller
           name="sex"
           control={control}
-          defaultValue=""
+          rules={{ required: REQUIRED }}
           render={({ field: { onChange, value } }) => (
             <FormControl component="fieldset">
               <FormLabel component="legend">Sex</FormLabel>
@@ -183,6 +194,9 @@ export default function Form() {
                   />
                 ))}
               </RadioGroup>
+              {errors?.sex?.message && (
+                <FormHelperText error>{errors.sex.message}</FormHelperText>
+              )}
             </FormControl>
           )}
         />
@@ -191,7 +205,7 @@ export default function Form() {
         <Controller
           name="dose1"
           control={control}
-          defaultValue={""}
+          rules={{ required: REQUIRED }}
           render={({ field: { onChange, value } }) => (
             <FormControl component="fieldset">
               <FormLabel component="legend">
@@ -212,6 +226,9 @@ export default function Form() {
                   />
                 ))}
               </RadioGroup>
+              {errors?.dose1?.message && (
+                <FormHelperText error>{errors.dose1.message}</FormHelperText>
+              )}
             </FormControl>
           )}
         />
@@ -220,7 +237,9 @@ export default function Form() {
         <Controller
           name="vaccine"
           control={control}
-          defaultValue={""}
+          rules={{
+            validate: (value) => disableDose1extras || !!value || REQUIRED,
+          }}
           render={({ field: { onChange, value } }) => (
             <FormControl component="fieldset">
               <FormLabel component="legend">Vaccine</FormLabel>
@@ -240,6 +259,9 @@ export default function Form() {
                   />
                 ))}
               </RadioGroup>
+              {errors?.vaccine?.message && (
+                <FormHelperText error>{errors.vaccine.message}</FormHelperText>
+              )}
             </FormControl>
           )}
         />
@@ -248,7 +270,11 @@ export default function Form() {
         <Controller
           name="dose1weeks"
           control={control}
-          rules={{ min: 0, max: 104 }}
+          rules={{
+            validate: (value) => disableDose1extras || !!value || REQUIRED,
+            min: { value: 0, message: "Must be at least 0." },
+            max: { value: 104, message: "Must be under 104 weeks." },
+          }}
           render={({ field }) => (
             <TextField
               disabled={disableDose1extras}
@@ -257,6 +283,8 @@ export default function Form() {
                 shrink: true,
               }}
               label="Weeks since first dose"
+              helperText={errors?.dose1weeks?.message ?? " "}
+              error={!!errors?.dose1weeks?.message}
               {...field}
             />
           )}
@@ -266,7 +294,7 @@ export default function Form() {
         <Controller
           name="dose2"
           control={control}
-          defaultValue={""}
+          rules={{ validate: (value) => disableDose2 || !!value || REQUIRED }}
           render={({ field: { onChange, value } }) => (
             <FormControl component="fieldset">
               <FormLabel component="legend">
@@ -288,6 +316,9 @@ export default function Form() {
                   />
                 ))}
               </RadioGroup>
+              {errors?.dose2?.message && (
+                <FormHelperText error>{errors.dose2.message}</FormHelperText>
+              )}
             </FormControl>
           )}
         />
@@ -296,7 +327,23 @@ export default function Form() {
         <Controller
           name="dose2weeks"
           control={control}
-          rules={{ min: 0, max: 104 }}
+          rules={{
+            min: { value: 0, message: "Must be at least 0." },
+            max: { value: 104, message: "Must be under 104 weeks." },
+            validate: (dose2w) => {
+              // require dose1weeks <= dose2weeks + this is required if not disableDose2extras
+              if (!disableDose2extras) {
+                if (!dose2w) {
+                  return REQUIRED;
+                } else {
+                  const dose1w = getValues("dose1weeks") || 0;
+                  if (dose2w > dose1w) {
+                    return "Second dose must be after first dose.";
+                  }
+                }
+              }
+            },
+          }}
           render={({ field }) => (
             <TextField
               disabled={disableDose2extras}
@@ -305,6 +352,8 @@ export default function Form() {
                 shrink: true,
               }}
               label="Weeks since second dose"
+              helperText={errors?.dose2weeks?.message ?? " "}
+              error={!!errors?.dose2weeks?.message}
               {...field}
             />
           )}
@@ -314,7 +363,7 @@ export default function Form() {
         <Controller
           name="covid"
           control={control}
-          defaultValue={""}
+          rules={{ required: REQUIRED }}
           render={({ field: { onChange, value } }) => (
             <FormControl component="fieldset">
               <FormLabel component="legend">Has had COVID-19?</FormLabel>
@@ -333,12 +382,20 @@ export default function Form() {
                   />
                 ))}
               </RadioGroup>
+              {errors?.covid?.message && (
+                <FormHelperText error>{errors.covid.message}</FormHelperText>
+              )}
             </FormControl>
           )}
         />
       </div>
       <div className={classNames(classes.formComp)}>
-        <Button variant="contained" color="primary" disableElevation>
+        <Button
+          variant="contained"
+          color="primary"
+          disableElevation
+          onClick={submit}
+        >
           Submit
         </Button>
       </div>
