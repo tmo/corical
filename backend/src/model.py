@@ -129,6 +129,8 @@ def compute_probs(az_vec, age_vec, sex_vec, variant_vec, ct_vec):
     pvt_covid_vec = inf_risk_vec @ (sex_vec @ probability_matrix["PVT_Covid"])
     die_pvt_covid_vec = pvt_covid_vec @ probability_matrix["Die_from_PVT_Covid"]
 
+    symptomatic_infection = inf_risk_vec[0]
+
     die_from_tts = die_from_tts_vec[0]
     die_from_csvt = die_from_csvt_vec[0]
     die_from_pvt = die_from_pvt_vec[0]
@@ -136,4 +138,12 @@ def compute_probs(az_vec, age_vec, sex_vec, variant_vec, ct_vec):
     die_from_csvt_covid = die_csvt_covid_vec[0]
     die_from_pvt_covid = die_pvt_covid_vec[0]
 
-    return (die_from_tts, die_from_csvt, die_from_pvt, die_from_covid, die_from_csvt_covid, die_from_pvt_covid)
+    return (
+        symptomatic_infection,
+        die_from_tts,
+        die_from_csvt,
+        die_from_pvt,
+        die_from_covid,
+        die_from_csvt_covid,
+        die_from_pvt_covid,
+    )

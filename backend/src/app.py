@@ -73,6 +73,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
         explanation = f"For a {age_label} {sex_label} who has {vaccine_label}, and with {variant_label} and under {request.transmission}, the risks of the following events are shown."
 
         (
+            symptomatic_infection,
             die_from_tts,
             die_from_csvt,
             die_from_pvt,
@@ -88,6 +89,10 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                     heading="COVID-19 and outcomes of COVID-19",
                     explanation=explanation,
                     risks=[
+                        corical_pb2.Risk(
+                            name="Risk of getting symptomatic COVID-19 under current transmission and vaccination status",
+                            risk=symptomatic_infection,
+                        ),
                         corical_pb2.Risk(name="Risk of dying from COVID-19", risk=die_from_covid),
                         corical_pb2.Risk(name="Risk of dying from COVID-19 related CSVT", risk=die_from_csvt_covid),
                         corical_pb2.Risk(name="Risk of dying from COVID-19 related PVT", risk=die_from_pvt_covid),

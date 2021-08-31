@@ -53,7 +53,7 @@ const SCENARIOS = [
     label: "VIC 1000 cases",
   },
   {
-    value:  "QLD_1000_case",
+    value:  "QLD_1000_cases",
     label: "QLD 1000 cases",
   },
 ];
