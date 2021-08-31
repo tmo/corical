@@ -42,13 +42,13 @@ export default function Form({ output }: OutputProps) {
             Computed risk outputs below.
           </Typography>
           {/* <code>{JSON.stringify(output)}</code> */}
-          {output.messages.map(({ heading, text, severity }: any) => (
+          {output.messages?.map(({ heading, text, severity }: any) => (
             <Alert key={text} severity={severity} className={classes.message}>
               <AlertTitle>{heading}</AlertTitle>
               {text}
             </Alert>
           ))}
-          {output.output_groups.map(({ heading, explanation, risks }: any) => (
+          {output.output_groups?.map(({ heading, explanation, risks }: any) => (
             <div key={heading}>
               <Typography variant="h6" component="h3">
                 {heading}

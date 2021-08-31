@@ -11,14 +11,9 @@ export type FormData = {
 };
 
 export async function compute(form: FormData) {
-  try {
-    console.log("form", form);
-    const res = await axios.post(API_URL, form);
-    console.log(res);
-    console.log(res.data);
-    return res.data;
-  } catch (e) {
-    console.error(e);
-    return e.message;
-  }
+  console.log("form", form);
+  const res = await axios.post(API_URL, form);
+  console.log(res);
+  console.log(res.data);
+  return res.data;
 }

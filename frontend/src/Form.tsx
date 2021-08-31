@@ -25,35 +25,35 @@ const SCENARIOS = [
     label: "No community transmission",
   },
   {
-    value:  "ATAGI_Low_0_029_percent",
+    value: "ATAGI_Low_0_029_percent",
     label: "ATAGI low",
   },
   {
-    value:  "ATAGI_Med_0_275_percent",
+    value: "ATAGI_Med_0_275_percent",
     label: "ATAGI medium",
   },
   {
-    value:  "ATAGI_High_3_544_percent",
+    value: "ATAGI_High_3_544_percent",
     label: "ATAGI high",
   },
   {
-    value:  "One_percent",
+    value: "One_percent",
     label: "1%",
   },
   {
-    value:  "Two_percent",
+    value: "Two_percent",
     label: "2%",
   },
   {
-    value:  "NSW_1000_cases",
+    value: "NSW_1000_cases",
     label: "NSW 1000 cases",
   },
   {
-    value:  "VIC_1000_cases",
+    value: "VIC_1000_cases",
     label: "VIC 1000 cases",
   },
   {
-    value:  "QLD_1000_cases",
+    value: "QLD_1000_cases",
     label: "QLD 1000 cases",
   },
 ];
@@ -255,7 +255,9 @@ export default function Form({ callback }: FormInputs) {
           }}
           render={({ field: { onChange, value } }) => (
             <FormControl component="fieldset">
-              <FormLabel component="legend">Community transmission scenario</FormLabel>
+              <FormLabel component="legend">
+                Community transmission scenario
+              </FormLabel>
               <RadioGroup
                 name="transmission-radio"
                 onChange={(e, value) => onChange(value)}
@@ -271,7 +273,9 @@ export default function Form({ callback }: FormInputs) {
                 ))}
               </RadioGroup>
               {errors?.transmission?.message && (
-                <FormHelperText error>{errors.transmission.message}</FormHelperText>
+                <FormHelperText error>
+                  {errors.transmission.message}
+                </FormHelperText>
               )}
             </FormControl>
           )}

@@ -8,10 +8,17 @@ import { Alert, AlertTitle } from "@material-ui/lab/";
 export default function App() {
   const [msg, setMsg] = useState("");
   const [output, setOutput] = useState<any | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const callback = async (form: FormData) => {
-    const res = await compute(form);
-    setMsg(res.msg);
-    setOutput(res);
+    setError(null);
+    try {
+      const res = await compute(form);
+      setMsg(res.msg);
+      setOutput(res);
+    } catch (e) {
+      console.error(e);
+      setError(e.message);
+    }
   };
   return (
     <Box>
@@ -22,14 +29,21 @@ export default function App() {
         <Typography variant="subtitle1" gutterBottom>
           By, credits line, etc.
         </Typography>
-        <Alert severity="error">
+        <Alert severity="warning">
           <AlertTitle>Early prototype!</AlertTitle>
           This is an early prototype and is under heavy development.
         </Alert>
         <p>Debugging info:</p>
         <pre>{msg}</pre>
         <Form callback={callback} />
-        <Output output={output} />
+        {error ? (
+          <Alert severity="error">
+            <AlertTitle>An error occured</AlertTitle>
+            {error}
+          </Alert>
+        ) : (
+          <Output output={output} />
+        )}
       </Container>
     </Box>
   );
