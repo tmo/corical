@@ -47,3 +47,5 @@ networks:
     driver: bridge
   envoy_nginx:
     driver: bridge
+  frontend_nginx:
+    driver: bridge
