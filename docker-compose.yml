@@ -5,7 +5,7 @@ services:
     restart: always
     env_file: backend.prod.env
     expose:
-      - 9193
+      - 21000
     networks:
       - backend_envoy
   envoy:
