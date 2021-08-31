@@ -2,7 +2,7 @@ version: "3.8"
 services:
   backend:
     build: backend
-    restart: always
+    restart: unless-stopped
     env_file: backend.prod.env
     expose:
       - 9193
@@ -10,7 +10,7 @@ services:
       - backend_envoy
   envoy:
     build: envoy
-    restart: always
+    restart: unless-stopped
     ports:
       - 8888:8888
     depends_on:

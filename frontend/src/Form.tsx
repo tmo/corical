@@ -19,32 +19,52 @@ import { makeStyles } from "@material-ui/core";
 import { FormData } from "./api";
 
 const REQUIRED = "This field is required.";
-const YES_NO = [
+const SCENARIOS = [
   {
-    value: "yes",
-    label: "Yes",
+    value: "None_0",
+    label: "No community transmission",
   },
   {
-    value: "no",
-    label: "No",
+    value:  "ATAGI_Low_0_029_percent",
+    label: "ATAGI low",
+  },
+  {
+    value:  "ATAGI_Med_0_275_percent",
+    label: "ATAGI medium",
+  },
+  {
+    value:  "ATAGI_High_3_544_percent",
+    label: "ATAGI high",
+  },
+  {
+    value:  "One_percent",
+    label: "1%",
+  },
+  {
+    value:  "Two_percent",
+    label: "2%",
+  },
+  {
+    value:  "NSW_1000_cases",
+    label: "NSW 1000 cases",
+  },
+  {
+    value:  "VIC_1000_cases",
+    label: "VIC 1000 cases",
+  },
+  {
+    value:  "QLD_1000_case",
+    label: "QLD 1000 cases",
   },
 ];
 const VARIANTS = [
   {
     value: "alpha",
-    label: "Alpha",
-  },
-  {
-    value: "beta",
-    label: "Beta",
+    label: "Before Delta variant",
   },
   {
     value: "delta",
-    label: "Delta",
-  },
-  {
-    value: "gamma",
-    label: "Gamma",
+    label: "After Delta variant",
   },
 ];
 const SEX_OPTIONS = [
@@ -56,15 +76,23 @@ const SEX_OPTIONS = [
     value: "male",
     label: "Male",
   },
+  {
+    value: "other",
+    label: "Other/prefer not to say",
+  },
 ];
 const VACCINE_OPTIONS = [
   {
-    value: "pfizer",
-    label: "Pfizer",
+    value: "az1",
+    label: "First shot of AstraZeneca",
   },
   {
-    value: "astrazeneca",
-    label: "AstraZeneca",
+    value: "az2",
+    label: "Two shots of AstraZeneca",
+  },
+  {
+    value: "az0",
+    label: "None",
   },
 ];
 
@@ -85,7 +113,6 @@ type FormInputs = {
 export default function Form({ callback }: FormInputs) {
   const {
     control,
-    getValues,
     handleSubmit,
     formState: { errors },
     watch,
@@ -93,15 +120,8 @@ export default function Form({ callback }: FormInputs) {
     mode: "onBlur",
   });
   const submit = handleSubmit(callback);
-
   const classes = useStyles();
-
   const vals = watch();
-
-  const disableDose1extras = watch("dose1") !== "yes";
-  const disableDose2 = disableDose1extras;
-  const disableDose2extras =
-    watch("dose1") !== "yes" || watch("dose2") !== "yes";
 
   return (
     <form onSubmit={submit}>
@@ -196,42 +216,10 @@ export default function Form({ callback }: FormInputs) {
       </div>
       <div className={classNames(classes.formComp)}>
         <Controller
-          name="dose1"
-          control={control}
-          rules={{ required: REQUIRED }}
-          render={({ field: { onChange, value } }) => (
-            <FormControl component="fieldset">
-              <FormLabel component="legend">
-                Has had first dose of COVID-19 vaccine?
-              </FormLabel>
-              <RadioGroup
-                row
-                name="dose1-radio"
-                onChange={(e, value) => onChange(value)}
-                value={value}
-              >
-                {YES_NO.map(({ value, label }) => (
-                  <FormControlLabel
-                    key={label}
-                    value={value}
-                    control={<Radio />}
-                    label={label}
-                  />
-                ))}
-              </RadioGroup>
-              {errors?.dose1?.message && (
-                <FormHelperText error>{errors.dose1.message}</FormHelperText>
-              )}
-            </FormControl>
-          )}
-        />
-      </div>
-      <div className={classNames(classes.formComp, classes.indent)}>
-        <Controller
           name="vaccine"
           control={control}
           rules={{
-            validate: (value) => disableDose1extras || !!value || REQUIRED,
+            validate: (value) => !!value || REQUIRED,
           }}
           render={({ field: { onChange, value } }) => (
             <FormControl component="fieldset">
@@ -244,7 +232,6 @@ export default function Form({ callback }: FormInputs) {
               >
                 {VACCINE_OPTIONS.map(({ value, label }) => (
                   <FormControlLabel
-                    disabled={disableDose1extras}
                     key={label}
                     value={value}
                     control={<Radio />}
@@ -259,117 +246,22 @@ export default function Form({ callback }: FormInputs) {
           )}
         />
       </div>
-      <div className={classNames(classes.formComp, classes.indent)}>
-        <Controller
-          name="dose1weeks"
-          control={control}
-          rules={{
-            validate: (value) => disableDose1extras || !!value || REQUIRED,
-            min: { value: 0, message: "Must be at least 0." },
-            max: { value: 104, message: "Must be under 104 weeks." },
-          }}
-          render={({ field }) => (
-            <TextField
-              disabled={disableDose1extras}
-              type="number"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              label="Weeks since first dose"
-              helperText={errors?.dose1weeks?.message ?? " "}
-              error={!!errors?.dose1weeks?.message}
-              {...field}
-            />
-          )}
-        />
-      </div>
       <div className={classNames(classes.formComp)}>
         <Controller
-          name="dose2"
+          name="transmission"
           control={control}
-          rules={{ validate: (value) => disableDose2 || !!value || REQUIRED }}
+          rules={{
+            validate: (value) => !!value || REQUIRED,
+          }}
           render={({ field: { onChange, value } }) => (
             <FormControl component="fieldset">
-              <FormLabel component="legend">
-                Has had second dose of COVID-19 vaccine?
-              </FormLabel>
+              <FormLabel component="legend">Community transmission scenario</FormLabel>
               <RadioGroup
-                row
-                name="dose2-radio"
+                name="transmission-radio"
                 onChange={(e, value) => onChange(value)}
                 value={value}
               >
-                {YES_NO.map(({ value, label }) => (
-                  <FormControlLabel
-                    disabled={disableDose2}
-                    key={label}
-                    value={value}
-                    control={<Radio />}
-                    label={label}
-                  />
-                ))}
-              </RadioGroup>
-              {errors?.dose2?.message && (
-                <FormHelperText error>{errors.dose2.message}</FormHelperText>
-              )}
-            </FormControl>
-          )}
-        />
-      </div>
-      <div className={classNames(classes.formComp, classes.indent)}>
-        <Controller
-          name="dose2weeks"
-          control={control}
-          rules={{
-            min: { value: 0, message: "Must be at least 0." },
-            max: { value: 104, message: "Must be under 104 weeks." },
-            validate: (dose2w) => {
-              // require dose1weeks <= dose2weeks + this is required if not disableDose2extras
-              if (!disableDose2extras) {
-                if (!dose2w) {
-                  return REQUIRED;
-                } else {
-                  const dose1w = getValues("dose1weeks") || 0;
-                  if (
-                    parseInt(dose2w.toString(), 10) >
-                    parseInt(dose1w.toString(), 10)
-                  ) {
-                    return "Second dose must be after first dose.";
-                  }
-                }
-              }
-            },
-          }}
-          render={({ field }) => (
-            <TextField
-              disabled={disableDose2extras}
-              type="number"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              label="Weeks since second dose"
-              helperText={errors?.dose2weeks?.message ?? " "}
-              error={!!errors?.dose2weeks?.message}
-              {...field}
-            />
-          )}
-        />
-      </div>
-      <div className={classNames(classes.formComp)}>
-        <Controller
-          name="had_covid"
-          control={control}
-          rules={{ required: REQUIRED }}
-          render={({ field: { onChange, value } }) => (
-            <FormControl component="fieldset">
-              <FormLabel component="legend">Has had COVID-19?</FormLabel>
-              <RadioGroup
-                row
-                name="had_covid-radio"
-                onChange={(e, value) => onChange(value)}
-                value={value}
-              >
-                {YES_NO.map(({ value, label }) => (
+                {SCENARIOS.map(({ value, label }) => (
                   <FormControlLabel
                     key={label}
                     value={value}
@@ -378,10 +270,8 @@ export default function Form({ callback }: FormInputs) {
                   />
                 ))}
               </RadioGroup>
-              {errors?.had_covid?.message && (
-                <FormHelperText error>
-                  {errors.had_covid.message}
-                </FormHelperText>
+              {errors?.transmission?.message && (
+                <FormHelperText error>{errors.transmission.message}</FormHelperText>
               )}
             </FormControl>
           )}

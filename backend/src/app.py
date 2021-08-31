@@ -3,7 +3,9 @@ import signal
 from concurrent import futures
 
 import grpc
+import numpy as np
 
+from model import compute_probs, get_age_bracket, scenario_to_vec
 from proto import corical_pb2, corical_pb2_grpc
 
 logging.basicConfig(format="%(asctime)s: %(name)s: %(message)s", level=logging.INFO)
@@ -17,64 +19,93 @@ class Corical(corical_pb2_grpc.CoricalServicer):
     def Compute(self, request, context):
         logger.info(request)
 
-        if request.sex == corical_pb2.SEX_FEMALE:
+        messages = []
+
+        # sex
+        if request.sex == "female":
             sex_label = "female"
-        elif request.sex == corical_pb2.SEX_MALE:
+            sex_vec = np.array([0.0, 1.0])
+        elif request.sex == "male":
             sex_label = "male"
+            sex_vec = np.array([1.0, 0.0])
+        elif request.sex == "other":
+            sex_label = "person of unspecified sex"
+            sex_vec = np.array([0.5, 0.5])
+            messages.append(
+                corical_pb2.Message(
+                    heading="Sex disclaimer",
+                    text="We do not have data on the chosen sex, so the results reflect a population with 50% females and 50% males",
+                    severity="info",
+                )
+            )
         else:
             context.abort(grpc.StatusCode.FAILED_PRECONDITION, "Invalid sex")
 
-        if not request.dose1:  # TODO or request.dose1weeks < 2:
-            assert request.vaccine == corical_pb2.VACCINE_UNSPECIFIED
-            assert not request.dose2
-            vaccine_label = "not been vaccinated against COVID-19"
-        elif request.dose1:
-            if request.vaccine == corical_pb2.VACCINE_PFIZER:
-                vaccine_name = "Pfizer"
-            if request.vaccine == corical_pb2.VACCINE_ASTRAZENECA:
-                vaccine_name = "AstraZeneca"
-            if not request.dose2:
-                vaccine_label = f"had one immune effective dose of the {vaccine_name} vaccine"
-            else:
-                vaccine_label = f"had two immune effective doses of the {vaccine_name} vaccine"
+        # az shots
+        if request.vaccine == "az0":
+            vaccine_label = f"had no immune effective doses of the AstraZeneca vaccine"
+            az_vec = np.array([1.0, 0.0, 0.0])
+        elif request.vaccine == "az1":
+            vaccine_label = f"had one immune effective dose of the AstraZeneca vaccine"
+            az_vec = np.array([0.0, 1.0, 0.0])
+        elif request.vaccine == "az2":
+            vaccine_label = f"had two immune effective doses of the AstraZeneca vaccine"
+            az_vec = np.array([0.0, 0.0, 1.0])
+        else:
+            context.abort(grpc.StatusCode.FAILED_PRECONDITION, "Invalid vaccine")
 
-        explanation = f"For a {request.age}-year-old {sex_label} who has {vaccine_label}, the risks of the following events are shown."
+        # age
+        age_label, age_vec = get_age_bracket(request.age)
+
+        # community transmission
+        ct_vec = scenario_to_vec(request.transmission)
+
+        # variant
+        if request.variant == "alpha":
+            variant_label = f"no Delta variant"
+            variant_vec = np.array([1.0, 0.0])
+        elif request.variant == "delta":
+            variant_label = f"90% Delta variant"
+            variant_vec = np.array([0.1, 0.9])
+        else:
+            context.abort(grpc.StatusCode.FAILED_PRECONDITION, "Invalid variant")
+
+        explanation = f"For a {age_label} {sex_label} who has {vaccine_label}, and with {variant_label} and under {request.transmission}, the risks of the following events are shown."
+
+        (
+            die_from_tts,
+            die_from_csvt,
+            die_from_pvt,
+            die_from_covid,
+            die_from_csvt_covid,
+            die_from_pvt_covid,
+        ) = compute_probs(az_vec, age_vec, sex_vec, variant_vec, ct_vec)
 
         return corical_pb2.ComputeRes(
-            messages=[
-                corical_pb2.Message(
-                    heading="Test message",
-                    text="This is a test message",
-                    severity="info",
-                )
-            ],
+            messages=messages,
             output_groups=[
                 corical_pb2.OutputGroup(
                     heading="COVID-19 and outcomes of COVID-19",
                     explanation=explanation,
                     risks=[
-                        corical_pb2.Risk(name="Risk of getting COVID-19 AND dying from COVID-19", risk=0.01),
-                        corical_pb2.Risk(name="Risk of getting COVID-19 AND needing ICU due to COVID-19", risk=0.02),
-                        corical_pb2.Risk(
-                            name="Risk of getting COVID-19 AND developing long COVID",
-                            risk=0.03,
-                            comment="Long covid is defined as ...",
-                        ),
-                        corical_pb2.Risk(name="Risk of dying IF get COVID-19", risk=0.04),
-                        corical_pb2.Risk(name="Risk of needing ICU IF get COVID-19", risk=0.05),
-                        corical_pb2.Risk(name="Risk of long COVID IF get COVID-19", risk=0.06),
+                        corical_pb2.Risk(name="Risk of dying from COVID-19", risk=die_from_covid),
+                        corical_pb2.Risk(name="Risk of dying from COVID-19 related CSVT", risk=die_from_csvt_covid),
+                        corical_pb2.Risk(name="Risk of dying from COVID-19 related PVT", risk=die_from_pvt_covid),
                     ],
                 ),
                 corical_pb2.OutputGroup(
                     heading="Major adverse effects of vaccines",
                     explanation=explanation,
                     risks=[
-                        corical_pb2.Risk(name="Risk of getting anaphylaxis", risk=0.07),
-                        corical_pb2.Risk(name="Risk of getting TTS", risk=0.08, comment="TTS is..."),
-                        corical_pb2.Risk(
-                            name="Risk of getting VAM",
-                            risk=0.09,
-                        ),
+                        corical_pb2.Risk(name="Risk of dying from TTS from AZ", risk=die_from_tts),
+                    ],
+                ),
+                corical_pb2.OutputGroup(
+                    heading="Other related things",
+                    explanation=explanation,
+                    risks=[
+                        corical_pb2.Risk(name="Risk of dying from CSVT", risk=die_from_csvt),
+                        corical_pb2.Risk(name="Risk of dying from PVT", risk=die_from_pvt),
                     ],
                 ),
             ],

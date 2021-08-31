@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<smile version="1.0" id="Network1" numsamples="10000" discsamples="10000">
+	<nodes>
+		<cpt id="Community_transmission">
+			<state id="None_0" />
+			<state id="ATAGI_Low_0_029_percent" />
+			<state id="ATAGI_Med_0_275_percent" />
+			<state id="ATAGI_High_3_544_percent" />
+			<state id="One_percent" />
+			<state id="Two_percent" />
+			<state id="NSW_1000_cases" />
+			<state id="VIC_1000_cases" />
+			<state id="QLD_1000_cases" />
+			<probabilities>0.1111111111111111 0.1111111111111111 0.1111111111111111 0.1111111111111111 0.1111111111111111 0.1111111111111111 0.1111111111111111 0.1111111111111109 0.1111111111111111</probabilities>
+		</cpt>
+		<cpt id="Sex">
+			<state id="Male" />
+			<state id="Female" />
+			<probabilities>0.5 0.5</probabilities>
+		</cpt>
+		<cpt id="AZ">
+			<state id="None" />
+			<state id="One" />
+			<state id="Two" />
+			<probabilities>0.4 0.4 0.2</probabilities>
+		</cpt>
+		<cpt id="Variant">
+			<state id="Alpha_Wild" />
+			<state id="Delta" />
+			<probabilities>0.1 0.9</probabilities>
+		</cpt>
+		<cpt id="Vac_effectiveness_infection">
+			<state id="Effective" />
+			<state id="Not_effective" />
+			<parents>Variant AZ</parents>
+			<probabilities>0 1 0.6 0.4 0.8 0.2 0 1 0.45 0.55 0.7 0.3</probabilities>
+		</cpt>
+		<cpt id="Age">
+			<state id="age_0_9" />
+			<state id="age_10_19" />
+			<state id="age_20_29" />
+			<state id="Age_30_39" />
+			<state id="age_40_49" />
+			<state id="age_50_59" />
+			<state id="age_60_69" />
+			<state id="age_70plus" />
+			<probabilities>0.12387612 0.11988012 0.14085914 0.14585415 0.12787213 0.12187812 0.1048951 0.11488511</probabilities>
+		</cpt>
+		<cpt id="Infection_at_10percent">
+			<state id="Yes" />
+			<state id="No" />
+			<parents>Variant Age</parents>
+			<probabilities>0.0416611 0.9583389 0.0702759 0.9297241000000001 0.1589055 0.8410945 0.1212599 0.8787401 0.1005435 0.8994565 0.0977633 0.9022367 0.0812794 0.9187206 0.1126984 0.8873016 0.09182883999999999 0.90817116 0.1423347 0.8576653 0.15400685 0.84599315 0.11311761 0.88688239 0.09119044 0.90880956 0.09033165999999999 0.90966834 0.05484361 0.94515639 0.04305606 0.95694394</probabilities>
+		</cpt>
+		<cpt id="Vac_effectiveness_Death">
+			<state id="Effective" />
+			<state id="Not_effective" />
+			<parents>AZ</parents>
+			<probabilities>0 1 0.8 0.2 0.95 0.05</probabilities>
+		</cpt>
+		<cpt id="Infection_at_current_transmission">
+			<state id="Yes" />
+			<state id="No" />
+			<parents>Infection_at_10percent Vac_effectiveness_infection Community_transmission</parents>
+			<probabilities>0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0.0029 0.9971 0.0275 0.9725 0.3544 0.6456 0.1 0.9 0.2 0.8 0.013708 0.9862919999999999 0.016793 0.9832070000000001 0.02158 0.97842 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1</probabilities>
+		</cpt>
+		<cpt id="Die_from_Covid">
+			<state id="Yes" />
+			<state id="No" />
+			<parents>Infection_at_current_transmission Vac_effectiveness_Death Sex Age</parents>
+			<probabilities>0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0.00053291 0.99946709 0.0006152 0.9993848 0.00086543 0.9991345700000001 0.00488281 0.99511719 0.01970443 0.98029557 0.23383372 0.76616628 0 1 0 1 0 1 0.00032744 0.99967256 0 1 0.00292255 0.99707745 0.00872093 0.99127907 0.20609319 0.79390681 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1</probabilities>
+		</cpt>
+		<cpt id="CSVT">
+			<state id="Yes" />
+			<state id="No" />
+			<parents>Age</parents>
+			<probabilities>3.8e-07 0.99999962 3.8e-07 0.99999962 6.4e-07 0.99999936 6.4e-07 0.99999936 6.4e-07 0.99999936 7.5e-07 0.99999925 7.5e-07 0.99999925 7.3e-07 0.99999927</probabilities>
+		</cpt>
+		<cpt id="TTS_AZ">
+			<state id="Yes" />
+			<state id="No" />
+			<parents>AZ Age</parents>
+			<probabilities>0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 3.2e-05 0.999968 3.2e-05 0.999968 3.2e-05 0.999968 2.8e-05 0.999972 1.6e-05 0.999984 1.95e-05 0.9999805 0 1 0 1 1.8e-06 0.9999981999999999 1.8e-06 0.9999981999999999 1.8e-06 0.9999981999999999 1.8e-06 0.9999981999999999 1.8e-06 0.9999981999999999 1.8e-06 0.9999981999999999</probabilities>
+		</cpt>
+		<cpt id="Die_from_TTS_AZ">
+			<state id="Yes" />
+			<state id="No" />
+			<parents>TTS_AZ</parents>
+			<probabilities>0.1 0.9 0 1</probabilities>
+		</cpt>
+		<cpt id="PVT_Covid">
+			<state id="Yes" />
+			<state id="No" />
+			<parents>Infection_at_current_transmission Sex</parents>
+			<probabilities>0.000482596 0.999517404 0.000318407 0.999681593 0 1 0 1</probabilities>
+		</cpt>
+		<cpt id="PVT">
+			<state id="Yes" />
+			<state id="No" />
+			<parents>Age</parents>
+			<probabilities>0 1 0 1 2e-07 0.9999998 2.6e-07 0.99999974 5.6e-07 0.99999944 9.1e-07 0.99999909 1.76e-06 0.99999824 1.96e-06 0.99999804</probabilities>
+		</cpt>
+		<cpt id="Die_from_PVT">
+			<state id="Yes" />
+			<state id="No" />
+			<parents>PVT</parents>
+			<probabilities>0.27 0.73 0 1</probabilities>
+		</cpt>
+		<cpt id="Die_from_CSVT">
+			<state id="Yes" />
+			<state id="No" />
+			<parents>CSVT</parents>
+			<probabilities>0.07000000000000001 0.93 0 1</probabilities>
+		</cpt>
+		<cpt id="CSVT_Covid">
+			<state id="Yes" />
+			<state id="No" />
+			<parents>Infection_at_current_transmission Sex</parents>
+			<probabilities>2.88732e-05 0.9999711268 5.41969e-05 0.9999458031 0 1 0 1</probabilities>
+		</cpt>
+		<cpt id="Die_from_CSVT_Covid">
+			<state id="Yes" />
+			<state id="No" />
+			<parents>CSVT_Covid</parents>
+			<probabilities>0.174 0.826 0 1</probabilities>
+		</cpt>
+		<cpt id="Die_from_PVT_Covid">
+			<state id="Yes" />
+			<state id="No" />
+			<parents>PVT_Covid</parents>
+			<probabilities>0.199 0.801 0 1</probabilities>
+		</cpt>
+	</nodes>
+	<extensions>
+		<genie version="1.0" app="GeNIe This network was created in GeNIe Academic, which can be used for academic teaching and research purposes only" name="Network1">
+			<node id="Infection_at_10percent">
+				<name>Risk of symptomatic infection by age and variant (if overall risk 10%)</name>
+				<interior color="efefef" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="9" />
+				<position>985 187 1099 258</position>
+				<barchart width="223" height="109" />
+			</node>
+			<node id="Die_from_Covid">
+				<name>Die from Covid</name>
+				<interior color="99ccff" />
+				<outline color="000000" />
+				<font color="000000" name="Arial" size="9" />
+				<position>849 706 905 741</position>
+				<barchart active="true" width="274" height="57" />
+			</node>
+			<node id="Sex">
+				<name>Sex</name>
+				<interior color="ffff99" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="9" />
+				<position>1020 399 1072 431</position>
+				<barchart active="true" width="120" height="57" />
+			</node>
+			<node id="Vac_effectiveness_infection">
+				<name>Vaccine effectiveness against symptomatic infection</name>
+				<interior color="efefef" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="9" />
+				<position>763 319 819 354</position>
+				<barchart active="true" width="277" height="82" />
+			</node>
+			<node id="Vac_effectiveness_Death">
+				<name>Vaccine effectiveness against death if infected</name>
+				<interior color="efefef" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="9" />
+				<position>797 462 853 497</position>
+				<barchart active="true" width="258" height="87" />
+			</node>
+			<node id="Community_transmission">
+				<name>Community transmission at x% over 16 weeks</name>
+				<interior color="ffff99" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="9" />
+				<position>1330 87 1378 117</position>
+				<barchart active="true" width="248" height="124" />
+			</node>
+			<node id="Infection_at_current_transmission">
+				<name>Risk of symptomatic infection under current transmission and vaccination status</name>
+				<interior color="efefef" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="9" />
+				<position>1274 298 1427 381</position>
+				<barchart active="true" width="305" height="84" />
+			</node>
+			<node id="Age">
+				<name>Age distribution of population</name>
+				<interior color="ffff99" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="9" />
+				<position>427 127 479 159</position>
+				<barchart active="true" width="203" height="192" />
+			</node>
+			<node id="Variant">
+				<name>Variant</name>
+				<interior color="ffff99" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="9" />
+				<position>835 66 883 96</position>
+				<barchart active="true" width="221" height="57" />
+			</node>
+			<node id="AZ">
+				<name>AZ</name>
+				<interior color="ffff99" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="9" />
+				<position>115 210 171 245</position>
+				<barchart active="true" width="239" height="76" />
+			</node>
+			<node id="CSVT">
+				<name>CSVT over 6 weeks</name>
+				<interior color="efefef" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="9" />
+				<position>301 395 357 430</position>
+				<barchart active="true" width="256" height="57" />
+			</node>
+			<node id="Die_from_TTS_AZ">
+				<name>Die from TTS</name>
+				<interior color="99ccff" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="9" />
+				<position>113 508 169 543</position>
+				<barchart active="true" width="248" height="57" />
+			</node>
+			<textbox>
+				<caption>Dying from TTS vs Covid in 16 weeks</caption>
+				<font color="000000" name="Arial" size="22" />
+				<position>43 17 284 83</position>
+			</textbox>
+			<node id="PVT_Covid">
+				<name>PVT from Covid</name>
+				<interior color="efefef" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="9" />
+				<position>1421 481 1477 516</position>
+				<barchart active="true" width="276" height="57" />
+			</node>
+			<node id="TTS_AZ">
+				<name>TTS </name>
+				<interior color="efefef" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="9" />
+				<position>112 306 168 341</position>
+				<barchart active="true" width="250" height="57" />
+			</node>
+			<node id="PVT">
+				<name>PVT over 6 weeks</name>
+				<interior color="efefef" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="9" />
+				<position>490 501 546 536</position>
+				<barchart active="true" width="254" height="57" />
+			</node>
+			<node id="Die_from_PVT">
+				<name>Die from PVT</name>
+				<interior color="99ccff" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="9" />
+				<position>488 660 544 695</position>
+				<barchart active="true" width="290" height="57" />
+			</node>
+			<node id="Die_from_CSVT">
+				<name>Die from CSVT</name>
+				<interior color="99ccff" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="9" />
+				<position>301 574 357 609</position>
+				<barchart active="true" width="236" height="57" />
+			</node>
+			<node id="CSVT_Covid">
+				<name>CSVT from Covid</name>
+				<interior color="efefef" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="9" />
+				<position>1197 562 1253 597</position>
+				<barchart active="true" width="265" height="57" />
+			</node>
+			<node id="Die_from_CSVT_Covid">
+				<name>Die from Covid related CSVT</name>
+				<interior color="99ccff" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="9" />
+				<position>1199 733 1255 768</position>
+				<barchart active="true" width="269" height="74" />
+			</node>
+			<node id="Die_from_PVT_Covid">
+				<name>Die from Covid related PVT</name>
+				<interior color="99ccff" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="9" />
+				<position>1421 646 1477 681</position>
+				<barchart active="true" width="267" height="75" />
+			</node>
+			<textbox>
+				<caption>Note: No data exists for AZ : TTS link in people under 18, so its 0</caption>
+				<font color="000000" name="Arial" size="8" />
+				<position>34 360 131 416</position>
+			</textbox>
+			<textbox>
+				<caption>TTS ppm  one does = 2.2 for 70-79 and 1.7 ppm for &gt; 79.  this was averaged to 1.95 ppm for 70+</caption>
+				<font color="3366ff" name="Arial" size="8" />
+				<position>12 429 124 499</position>
+			</textbox>
+		</genie>
+	</extensions>
+</smile>
