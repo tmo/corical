@@ -6,14 +6,12 @@ import Output from "./Output";
 import { Alert, AlertTitle } from "@material-ui/lab/";
 
 export default function App() {
-  const [msg, setMsg] = useState("");
   const [output, setOutput] = useState<any | null>(null);
   const [error, setError] = useState<string | null>(null);
   const callback = async (form: FormData) => {
     setError(null);
     try {
       const res = await compute(form);
-      setMsg(res.msg);
       setOutput(res);
     } catch (e) {
       console.error(e);
@@ -30,11 +28,9 @@ export default function App() {
           By, credits line, etc.
         </Typography>
         <Alert severity="warning">
-          <AlertTitle>Early prototype!</AlertTitle>
-          This is an early prototype and is under heavy development.
+          <AlertTitle>Early prototype! Not official!</AlertTitle>
+          This is an early prototype and is under heavy development. This is not an official Immunisation Coalition service!
         </Alert>
-        <p>Debugging info:</p>
-        <pre>{msg}</pre>
         <Form callback={callback} />
         {error ? (
           <Alert severity="error">

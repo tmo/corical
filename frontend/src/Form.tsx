@@ -115,18 +115,14 @@ export default function Form({ callback }: FormInputs) {
     control,
     handleSubmit,
     formState: { errors },
-    watch,
   } = useForm<FormData>({
     mode: "onBlur",
   });
   const submit = handleSubmit(callback);
   const classes = useStyles();
-  const vals = watch();
 
   return (
     <form onSubmit={submit}>
-      {JSON.stringify(vals)}
-      <FormHelperText error>{JSON.stringify(errors)}</FormHelperText>
       <Typography variant="h5" component="h2">
         Step 1: Patient information
       </Typography>
