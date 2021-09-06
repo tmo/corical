@@ -17,6 +17,12 @@ for domain in $(cat /scripts/domains); do
     # now $flags="-d example.com" or $flags="-d example.com -d *.example.com" (for wildcard certs)
     # and $folder="example.com"
 
+    if [[ -n $ALIAS_DOMAIN ]]; then
+        if [[ $domain != *$ALIAS_DOMAIN ]]; then
+            flags="$flags --challenge-alias $ALIAS_DOMAIN"
+        fi
+    fi
+
     mkdir -p /certs/live/$folder
 
     /scripts/acme.sh/acme.sh --home /certs --issue --dns dns_aws $flags --keylength ec-256 \
