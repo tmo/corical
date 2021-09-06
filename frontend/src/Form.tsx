@@ -78,7 +78,7 @@ const SEX_OPTIONS = [
   },
   {
     value: "other",
-    label: "Other/prefer not to say",
+    label: "Unspecified",
   },
 ];
 const VACCINE_OPTIONS = [
