@@ -22,11 +22,35 @@ const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 650,
   },
+  abbr: {
+    textDecoration: "none",
+  },
 }));
 
 type OutputProps = {
   output: any;
 };
+
+export function RiskDisplay({ risk }: {risk: number}) {
+  const classes = useStyles();
+
+  const riskPerMillion = risk * 1e6;
+  const roundedRiskPerMillion = Math.round(riskPerMillion * 10) / 10;
+  const roundedRiskPerMillionLotsOfDigits = Math.round(riskPerMillion * 1e6) / 1e6;
+
+  let textRepresentation = `${roundedRiskPerMillion} in a million`;
+  if (riskPerMillion === 0.0) {
+    textRepresentation = "0";
+  } else if (roundedRiskPerMillion < 0.1) {
+    textRepresentation = "< 0.1 in a million";
+  }
+
+  return (
+    <abbr title={roundedRiskPerMillionLotsOfDigits.toString()} className={classes.abbr}>
+      {textRepresentation}
+    </abbr>
+  )
+}
 
 export default function Form({ output }: OutputProps) {
   const classes = useStyles();
@@ -74,7 +98,7 @@ export default function Form({ output }: OutputProps) {
                         <TableCell component="th" scope="row">
                           {name}
                         </TableCell>
-                        <TableCell>Risk: {risk}</TableCell>
+                        <TableCell><RiskDisplay risk={risk} /></TableCell>
                         <TableCell>{comment}</TableCell>
                       </TableRow>
                     ))}
