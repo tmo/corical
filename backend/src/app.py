@@ -33,8 +33,8 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             sex_vec = np.array([0.5, 0.5])
             messages.append(
                 corical_pb2.Message(
-                    heading="Sex disclaimer",
-                    text="We do not have data on the chosen sex, so the results reflect a population with 50% females and 50% males",
+                    heading="[SEX_DISCL_TITLE]: Sex disclaimer",
+                    text="[SEX_DISCL_TEXT]: We do not have data on the chosen sex, so the results reflect a population with 50% females and 50% males",
                     severity="info",
                 )
             )
@@ -70,7 +70,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
         else:
             context.abort(grpc.StatusCode.FAILED_PRECONDITION, "Invalid variant")
 
-        explanation = f"For a {age_label} {sex_label} who has {vaccine_label}, and with {variant_label} and under {request.transmission}, the risks of the following events are shown."
+        explanation = f"[EXPLANATION]: For a {age_label} {sex_label} who has {vaccine_label}, and with {variant_label} and under {request.transmission}, the risks of the following events are shown."
 
         (
             symptomatic_infection,
@@ -86,31 +86,56 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             messages=messages,
             output_groups=[
                 corical_pb2.OutputGroup(
-                    heading="COVID-19 and outcomes of COVID-19",
+                    heading="[COVID_OUTCOMES_TITLE]: COVID-19 and outcomes of COVID-19",
                     explanation=explanation,
                     risks=[
                         corical_pb2.Risk(
-                            name="Risk of getting symptomatic COVID-19 under current transmission and vaccination status",
+                            name="[RISK_symptomatic_infection_name]: Risk of getting symptomatic COVID-19 under current transmission and vaccination status",
                             risk=symptomatic_infection,
+                            comment="[RISK_symptomatic_infection_comment]"
                         ),
-                        corical_pb2.Risk(name="Risk of dying from COVID-19", risk=die_from_covid),
-                        corical_pb2.Risk(name="Risk of dying from COVID-19 related CSVT", risk=die_from_csvt_covid),
-                        corical_pb2.Risk(name="Risk of dying from COVID-19 related PVT", risk=die_from_pvt_covid),
+                        corical_pb2.Risk(
+                            name="[RISK_die_from_covid_name]: Risk of dying from COVID-19",
+                            risk=die_from_covid,
+                            comment="[RISK_die_from_covid_comment]"
+                        ),
+                        corical_pb2.Risk(
+                            name="[RISK_die_from_csvt_covid_name]: Risk of dying from COVID-19 related CSVT",
+                            risk=die_from_csvt_covid,
+                            comment="[RISK_die_from_csvt_covid_comment]"
+                        ),
+                        corical_pb2.Risk(
+                            name="[RISK_die_from_pvt_covid_name]: Risk of dying from COVID-19 related PVT",
+                            risk=die_from_pvt_covid,
+                            comment="[RISK_die_from_pvt_covid_comment]"
+                        ),
                     ],
                 ),
                 corical_pb2.OutputGroup(
-                    heading="Major adverse effects of vaccines",
+                    heading="[MAJOR_ADVERSE_TITLE]: Major adverse effects of vaccines",
                     explanation=explanation,
                     risks=[
-                        corical_pb2.Risk(name="Risk of dying from TTS from AZ", risk=die_from_tts),
+                        corical_pb2.Risk(
+                            name="[RISK_die_from_tts_name]: Risk of dying from TTS from AZ",
+                            risk=die_from_tts,
+                            comment="[RISK_die_from_tts_comment]"
+                        ),
                     ],
                 ),
                 corical_pb2.OutputGroup(
-                    heading="Other related things",
+                    heading="[OTHER_TITLE]: Other related things",
                     explanation=explanation,
                     risks=[
-                        corical_pb2.Risk(name="Risk of dying from CSVT", risk=die_from_csvt),
-                        corical_pb2.Risk(name="Risk of dying from PVT", risk=die_from_pvt),
+                        corical_pb2.Risk(
+                            name="[RISK_die_from_csvt_name]: Risk of dying from CSVT",
+                            risk=die_from_csvt,
+                            comment="[RISK_die_from_csvt_comment]"
+                        ),
+                        corical_pb2.Risk(
+                            name="[RISK_die_from_pvt_name]: Risk of dying from PVT",
+                            risk=die_from_pvt,
+                            comment="[RISK_die_from_pvt_comment]"
+                        ),
                     ],
                 ),
             ],

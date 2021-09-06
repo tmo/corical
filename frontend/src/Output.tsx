@@ -10,7 +10,7 @@ import {
   Paper,
 } from "@material-ui/core";
 import { Alert, AlertTitle } from "@material-ui/lab/";
-import { COMMENT_LABEL, DESCRIPTION_LABEL, RISK_LABEL, RISK_PER_MILLION, STEP2_HELPER, STEP2_SUBMIT_FORM_FIRST, STEP2_TITLE, ZERO_RISK } from "./constants";
+import { COMMENT_LABEL, DESCRIPTION_LABEL, LESS_THAN_TENTH_MILLION, RISK_LABEL, RISK_PER_MILLION, STEP2_HELPER, STEP2_SUBMIT_FORM_FIRST, STEP2_TITLE, ZERO_RISK } from "./constants";
 
 const useStyles = makeStyles((theme) => ({
   message: {
@@ -43,7 +43,7 @@ export function RiskDisplay({ risk }: {risk: number}) {
   if (riskPerMillion === 0.0) {
     textRepresentation = ZERO_RISK;
   } else if (roundedRiskPerMillion < 0.1) {
-    textRepresentation = `< 0.1 ${RISK_PER_MILLION}`;
+    textRepresentation = LESS_THAN_TENTH_MILLION;
   }
 
   return (
