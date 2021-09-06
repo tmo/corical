@@ -23,7 +23,7 @@ services:
     build: frontend
     restart: always
     expose:
-      - 3000
+      - 80
     networks:
       - frontend_nginx
   nginx:
