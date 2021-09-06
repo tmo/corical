@@ -10,6 +10,7 @@ import {
   Paper,
 } from "@material-ui/core";
 import { Alert, AlertTitle } from "@material-ui/lab/";
+import { COMMENT_LABEL, DESCRIPTION_LABEL, RISK_LABEL, RISK_PER_MILLION, STEP2_HELPER, STEP2_SUBMIT_FORM_FIRST, STEP2_TITLE, ZERO_RISK } from "./constants";
 
 const useStyles = makeStyles((theme) => ({
   message: {
@@ -38,11 +39,11 @@ export function RiskDisplay({ risk }: {risk: number}) {
   const roundedRiskPerMillion = Math.round(riskPerMillion * 10) / 10;
   const roundedRiskPerMillionLotsOfDigits = Math.round(riskPerMillion * 1e6) / 1e6;
 
-  let textRepresentation = `${roundedRiskPerMillion} in a million`;
+  let textRepresentation = `${roundedRiskPerMillion} ${RISK_PER_MILLION}`;
   if (riskPerMillion === 0.0) {
-    textRepresentation = "0";
+    textRepresentation = ZERO_RISK;
   } else if (roundedRiskPerMillion < 0.1) {
-    textRepresentation = "< 0.1 in a million";
+    textRepresentation = `< 0.1 ${RISK_PER_MILLION}`;
   }
 
   return (
@@ -58,12 +59,12 @@ export default function Form({ output }: OutputProps) {
   return (
     <>
       <Typography variant="h5" component="h2">
-        Step 2: Risk output
+        {STEP2_TITLE}
       </Typography>
       {output ? (
         <>
           <Typography variant="body1" paragraph>
-            Computed risk outputs below.
+            {STEP2_HELPER}
           </Typography>
           {/* <code>{JSON.stringify(output)}</code> */}
           {output.messages?.map(({ heading, text, severity }: any) => (
@@ -87,9 +88,9 @@ export default function Form({ output }: OutputProps) {
                 <Table className={classes.table} aria-label="simple table">
                   <TableHead>
                     <TableRow>
-                      <TableCell>Description</TableCell>
-                      <TableCell>Risk</TableCell>
-                      <TableCell>Comment</TableCell>
+                      <TableCell>{DESCRIPTION_LABEL}</TableCell>
+                      <TableCell>{RISK_LABEL}</TableCell>
+                      <TableCell>{COMMENT_LABEL}</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -105,13 +106,12 @@ export default function Form({ output }: OutputProps) {
                   </TableBody>
                 </Table>
               </TableContainer>
-              {/* {JSON.stringify(risks)} */}
             </div>
           ))}
         </>
       ) : (
         <Typography variant="body1" gutterBottom>
-          Please submit the form for output.
+          {STEP2_SUBMIT_FORM_FIRST}
         </Typography>
       )}
     </>

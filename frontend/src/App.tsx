@@ -4,6 +4,7 @@ import Form from "./Form";
 import { FormData, compute } from "./api";
 import Output from "./Output";
 import { Alert, AlertTitle } from "@material-ui/lab/";
+import { BY_LINE, TITLE } from "./constants";
 
 export default function App() {
   const [output, setOutput] = useState<any | null>(null);
@@ -22,10 +23,10 @@ export default function App() {
     <Box>
       <Container maxWidth="lg">
         <Typography variant="h2" component="h1">
-          CoRiCal: Covid Risk Calculator
+          {TITLE}
         </Typography>
         <Typography variant="subtitle1" gutterBottom>
-          By, credits line, etc.
+          {BY_LINE}
         </Typography>
         <Alert severity="warning">
           <AlertTitle>Early prototype! Not official!</AlertTitle>

@@ -17,84 +17,7 @@ import classNames from "classnames";
 import { makeStyles } from "@material-ui/core";
 
 import { FormData } from "./api";
-
-const REQUIRED = "This field is required.";
-const SCENARIOS = [
-  {
-    value: "None_0",
-    label: "No community transmission",
-  },
-  {
-    value: "ATAGI_Low_0_029_percent",
-    label: "ATAGI low",
-  },
-  {
-    value: "ATAGI_Med_0_275_percent",
-    label: "ATAGI medium",
-  },
-  {
-    value: "ATAGI_High_3_544_percent",
-    label: "ATAGI high",
-  },
-  {
-    value: "One_percent",
-    label: "1%",
-  },
-  {
-    value: "Two_percent",
-    label: "2%",
-  },
-  {
-    value: "NSW_1000_cases",
-    label: "NSW 1000 cases",
-  },
-  {
-    value: "VIC_1000_cases",
-    label: "VIC 1000 cases",
-  },
-  {
-    value: "QLD_1000_cases",
-    label: "QLD 1000 cases",
-  },
-];
-const VARIANTS = [
-  {
-    value: "alpha",
-    label: "Before Delta variant",
-  },
-  {
-    value: "delta",
-    label: "After Delta variant",
-  },
-];
-const SEX_OPTIONS = [
-  {
-    value: "female",
-    label: "Female",
-  },
-  {
-    value: "male",
-    label: "Male",
-  },
-  {
-    value: "other",
-    label: "Unspecified",
-  },
-];
-const VACCINE_OPTIONS = [
-  {
-    value: "az1",
-    label: "First shot of AstraZeneca",
-  },
-  {
-    value: "az2",
-    label: "Two shots of AstraZeneca",
-  },
-  {
-    value: "az0",
-    label: "None",
-  },
-];
+import { AGE_LABEL, VARIANT_LABEL, STEP1_HELPER, STEP1_TITLE, VARIANTS, AGE_TOO_SMALL, AGE_TOO_BIG, SEX_LABEL, SEX_OPTIONS, FIELD_REQUIRED, VACCINE_LABEL, VACCINE_OPTIONS, SCENARIOS_LABEL, SCENARIOS, SUBMIT_LABEL } from "./constants";
 
 const useStyles = makeStyles((theme) => ({
   formComp: {
@@ -103,6 +26,13 @@ const useStyles = makeStyles((theme) => ({
   },
   indent: {
     paddingLeft: "2rem",
+  },
+  transmissionOption: {
+    marginTop: "0.8rem",
+    marginBottom: "0.8rem",
+  },
+  transmissionDescription: {
+    color: "#777",
   },
 }));
 
@@ -124,18 +54,18 @@ export default function Form({ callback }: FormInputs) {
   return (
     <form onSubmit={submit}>
       <Typography variant="h5" component="h2">
-        Step 1: Patient information
+        {STEP1_TITLE}
       </Typography>
       <Typography variant="body1" gutterBottom>
-        Instructional text for form.
+        {STEP1_HELPER}
       </Typography>
       <div className={classNames(classes.formComp)}>
-        <InputLabel htmlFor="variant">SARS-CoV-2 Variant</InputLabel>
+        <InputLabel htmlFor="variant">{VARIANT_LABEL}</InputLabel>
         <FormControl>
           <Controller
             control={control}
             defaultValue={VARIANTS[0].value}
-            rules={{ required: REQUIRED }}
+            rules={{ required: FIELD_REQUIRED }}
             name="variant"
             render={({ field: { onChange, value } }) => (
               <Select
@@ -162,9 +92,9 @@ export default function Form({ callback }: FormInputs) {
           name="age"
           control={control}
           rules={{
-            required: REQUIRED,
-            min: { value: 16, message: "Must be at least 16 years old." },
-            max: { value: 100, message: "Please enter an age under 100" },
+            required: FIELD_REQUIRED,
+            min: { value: 16, message: AGE_TOO_SMALL },
+            max: { value: 100, message: AGE_TOO_BIG },
           }}
           render={({ field }) => (
             <TextField
@@ -172,7 +102,7 @@ export default function Form({ callback }: FormInputs) {
               InputLabelProps={{
                 shrink: true,
               }}
-              label="Age"
+              label={AGE_LABEL}
               {...field}
               helperText={errors?.age?.message ?? " "}
               error={!!errors?.age?.message}
@@ -184,10 +114,10 @@ export default function Form({ callback }: FormInputs) {
         <Controller
           name="sex"
           control={control}
-          rules={{ required: REQUIRED }}
+          rules={{ required: FIELD_REQUIRED }}
           render={({ field: { onChange, value } }) => (
             <FormControl component="fieldset">
-              <FormLabel component="legend">Sex</FormLabel>
+              <FormLabel component="legend">{SEX_LABEL}</FormLabel>
               <RadioGroup
                 row
                 name="sex-radio"
@@ -215,11 +145,11 @@ export default function Form({ callback }: FormInputs) {
           name="vaccine"
           control={control}
           rules={{
-            validate: (value) => !!value || REQUIRED,
+            validate: (value) => !!value || FIELD_REQUIRED,
           }}
           render={({ field: { onChange, value } }) => (
             <FormControl component="fieldset">
-              <FormLabel component="legend">Vaccine</FormLabel>
+              <FormLabel component="legend">{VACCINE_LABEL}</FormLabel>
               <RadioGroup
                 row
                 name="vaccine-radio"
@@ -247,24 +177,32 @@ export default function Form({ callback }: FormInputs) {
           name="transmission"
           control={control}
           rules={{
-            validate: (value) => !!value || REQUIRED,
+            validate: (value) => !!value || FIELD_REQUIRED,
           }}
           render={({ field: { onChange, value } }) => (
             <FormControl component="fieldset">
-              <FormLabel component="legend">
-                Community transmission scenario
-              </FormLabel>
+              <FormLabel component="legend">{SCENARIOS_LABEL}</FormLabel>
               <RadioGroup
                 name="transmission-radio"
                 onChange={(e, value) => onChange(value)}
                 value={value}
               >
-                {SCENARIOS.map(({ value, label }) => (
+                {SCENARIOS.map(({ value, label, description }) => (
                   <FormControlLabel
+                    className={classes.transmissionOption}
                     key={label}
                     value={value}
                     control={<Radio />}
-                    label={label}
+                    label={
+                      <div>
+                        <Typography variant="body2">
+                          {label}
+                        </Typography>
+                        <Typography variant="caption" className={classes.transmissionDescription}>
+                          {description}
+                        </Typography>
+                      </div>
+                      }
                   />
                 ))}
               </RadioGroup>
@@ -284,7 +222,7 @@ export default function Form({ callback }: FormInputs) {
           disableElevation
           onClick={submit}
         >
-          Submit
+          {SUBMIT_LABEL}
         </Button>
       </div>
     </form>
