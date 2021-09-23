@@ -31,16 +31,16 @@ export const SEX_OPTIONS = [
 export const VACCINE_LABEL = "Vaccine"
 export const VACCINE_OPTIONS = [
   {
+    value: "az0",
+    label: "None",
+  },
+  {
     value: "az1",
     label: "First shot of AstraZeneca",
   },
   {
     value: "az2",
     label: "Two shots of AstraZeneca",
-  },
-  {
-    value: "az0",
-    label: "None",
   },
 ];
 
