@@ -43,9 +43,15 @@ message OutputGroup {
   repeated Risk risks = 3;
 }
 
+message BarGraphRisk {
+  string label = 1;
+  double risk = 2;
+}
+
 message ComputeRes {
   repeated Message messages = 1;
   repeated OutputGroup output_groups = 2;
+  repeated BarGraphRisk bar_graph_risks = 3;
   bool success = 98;
   string msg = 99;
 }

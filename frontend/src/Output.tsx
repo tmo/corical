@@ -21,6 +21,14 @@ import {
   STEP2_TITLE,
   ZERO_RISK,
 } from "./constants";
+import {
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  ComposedChart,
+  Tooltip,
+} from "recharts";
 
 const useStyles = makeStyles((theme) => ({
   message: {
@@ -87,6 +95,35 @@ export default function Form({ output }: OutputProps) {
               {text}
             </Alert>
           ))}
+
+          <div>
+            <Typography variant="h6" component="h3">
+              Graph
+            </Typography>
+            <Typography variant="body1" paragraph>
+              The following graph shows per million risks for various outcomes.
+            </Typography>
+
+            <ComposedChart
+              layout="vertical"
+              width={500}
+              height={400}
+              data={output.bar_graph_risks}
+              margin={{
+                top: 20,
+                right: 20,
+                bottom: 20,
+                left: 20,
+              }}
+            >
+              <CartesianGrid stroke="#f5f5f5" />
+              <XAxis type="number" />
+              <YAxis dataKey="label" type="category" scale="band" />
+              <Bar dataKey="risk" barSize={20} fill="#413ea0" />
+              <Tooltip />
+            </ComposedChart>
+          </div>
+
           {output.output_groups?.map(({ heading, explanation, risks }: any) => (
             <div key={heading}>
               <Typography variant="h6" component="h3">

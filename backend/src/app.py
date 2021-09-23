@@ -126,6 +126,24 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                     ],
                 ),
             ],
+            bar_graph_risks=[
+                corical_pb2.BarGraphRisk(
+                    label="Die from COVID-19",
+                    risk=1e6 * die_from_covid,
+                ),
+                corical_pb2.BarGraphRisk(
+                    label="Die from COVID related clot",
+                    risk=1e6 * die_from_clots_covid,
+                ),
+                corical_pb2.BarGraphRisk(
+                    label="Die from TTS from AZ",
+                    risk=1e6 * die_from_tts,
+                ),
+                corical_pb2.BarGraphRisk(
+                    label="Die from clot",
+                    risk=1e6 * die_from_clots,
+                ),
+            ],
             success=True,
             msg=str(request),
         )
