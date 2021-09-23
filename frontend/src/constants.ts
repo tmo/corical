@@ -1,18 +1,18 @@
 // top of page
-export const TITLE = "CoRiCal: Covid Risk Calculator"
-export const BY_LINE = "By, credits, etc"
+export const TITLE = "CoRiCal: Covid Risk Calculator";
+export const BY_LINE = "By, credits, etc";
 
 // form elements
-export const STEP1_TITLE = "Step 1: Patient information"
-export const STEP1_HELPER = "Instructional text for Step 1."
+export const STEP1_TITLE = "Step 1: Patient information";
+export const STEP1_HELPER = "Instructional text for Step 1.";
 
 export const FIELD_REQUIRED = "This field is required.";
 
-export const AGE_LABEL = "Age"
-export const AGE_TOO_SMALL = "Must be at least 16 years old."
-export const AGE_TOO_BIG = "Please enter an age under 100."
+export const AGE_LABEL = "Age";
+export const AGE_TOO_SMALL = "Must be at least 16 years old.";
+export const AGE_TOO_BIG = "Please enter an age under 100.";
 
-export const SEX_LABEL = "Sex"
+export const SEX_LABEL = "Sex";
 export const SEX_OPTIONS = [
   {
     value: "female",
@@ -28,7 +28,7 @@ export const SEX_OPTIONS = [
   },
 ];
 
-export const VACCINE_LABEL = "Vaccine"
+export const VACCINE_LABEL = "Vaccine";
 export const VACCINE_OPTIONS = [
   {
     value: "az0",
@@ -44,7 +44,7 @@ export const VACCINE_OPTIONS = [
   },
 ];
 
-export const SCENARIOS_LABEL = "Community transmission scenario"
+export const SCENARIOS_LABEL = "Community transmission scenario";
 export const SCENARIOS = [
   {
     value: "None_0",
@@ -93,18 +93,17 @@ export const SCENARIOS = [
   },
 ];
 
-export const SUBMIT_LABEL = "Calculate risk"
-
+export const SUBMIT_LABEL = "Calculate risk";
 
 // output
-export const STEP2_TITLE = "Step 2: Risk output"
-export const STEP2_HELPER = "Computed risk outputs below."
-export const STEP2_SUBMIT_FORM_FIRST = "Please submit the form for output."
+export const STEP2_TITLE = "Step 2: Risk output";
+export const STEP2_HELPER = "Computed risk outputs below.";
+export const STEP2_SUBMIT_FORM_FIRST = "Please submit the form for output.";
 
-export const DESCRIPTION_LABEL = "Description"
-export const RISK_LABEL = "Risk"
-export const COMMENT_LABEL = "Comment"
+export const DESCRIPTION_LABEL = "Description";
+export const RISK_LABEL = "Risk";
+export const COMMENT_LABEL = "Comment";
 
-export const RISK_PER_MILLION = "in a million"
-  export const LESS_THAN_TENTH_MILLION = "< 0.1 in a million"
-export const ZERO_RISK = "No risk"
+export const RISK_PER_MILLION = "in a million";
+export const LESS_THAN_TENTH_MILLION = "< 0.1 in a million";
+export const ZERO_RISK = "No risk";

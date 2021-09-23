@@ -10,7 +10,17 @@ import {
   Paper,
 } from "@material-ui/core";
 import { Alert, AlertTitle } from "@material-ui/lab/";
-import { COMMENT_LABEL, DESCRIPTION_LABEL, LESS_THAN_TENTH_MILLION, RISK_LABEL, RISK_PER_MILLION, STEP2_HELPER, STEP2_SUBMIT_FORM_FIRST, STEP2_TITLE, ZERO_RISK } from "./constants";
+import {
+  COMMENT_LABEL,
+  DESCRIPTION_LABEL,
+  LESS_THAN_TENTH_MILLION,
+  RISK_LABEL,
+  RISK_PER_MILLION,
+  STEP2_HELPER,
+  STEP2_SUBMIT_FORM_FIRST,
+  STEP2_TITLE,
+  ZERO_RISK,
+} from "./constants";
 
 const useStyles = makeStyles((theme) => ({
   message: {
@@ -32,12 +42,13 @@ type OutputProps = {
   output: any;
 };
 
-export function RiskDisplay({ risk }: {risk: number}) {
+export function RiskDisplay({ risk }: { risk: number }) {
   const classes = useStyles();
 
   const riskPerMillion = risk * 1e6;
   const roundedRiskPerMillion = Math.round(riskPerMillion * 10) / 10;
-  const roundedRiskPerMillionLotsOfDigits = Math.round(riskPerMillion * 1e6) / 1e6;
+  const roundedRiskPerMillionLotsOfDigits =
+    Math.round(riskPerMillion * 1e6) / 1e6;
 
   let textRepresentation = `${roundedRiskPerMillion} ${RISK_PER_MILLION}`;
   if (riskPerMillion === 0.0) {
@@ -47,10 +58,13 @@ export function RiskDisplay({ risk }: {risk: number}) {
   }
 
   return (
-    <abbr title={roundedRiskPerMillionLotsOfDigits.toString()} className={classes.abbr}>
+    <abbr
+      title={roundedRiskPerMillionLotsOfDigits.toString()}
+      className={classes.abbr}
+    >
       {textRepresentation}
     </abbr>
-  )
+  );
 }
 
 export default function Form({ output }: OutputProps) {
@@ -99,7 +113,9 @@ export default function Form({ output }: OutputProps) {
                         <TableCell component="th" scope="row">
                           {name}
                         </TableCell>
-                        <TableCell><RiskDisplay risk={risk} /></TableCell>
+                        <TableCell>
+                          <RiskDisplay risk={risk} />
+                        </TableCell>
                         <TableCell>{comment}</TableCell>
                       </TableRow>
                     ))}

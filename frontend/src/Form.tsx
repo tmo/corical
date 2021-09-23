@@ -14,7 +14,21 @@ import classNames from "classnames";
 import { makeStyles } from "@material-ui/core";
 
 import { FormData } from "./api";
-import { AGE_LABEL, STEP1_HELPER, STEP1_TITLE, AGE_TOO_SMALL, AGE_TOO_BIG, SEX_LABEL, SEX_OPTIONS, FIELD_REQUIRED, VACCINE_LABEL, VACCINE_OPTIONS, SCENARIOS_LABEL, SCENARIOS, SUBMIT_LABEL } from "./constants";
+import {
+  AGE_LABEL,
+  STEP1_HELPER,
+  STEP1_TITLE,
+  AGE_TOO_SMALL,
+  AGE_TOO_BIG,
+  SEX_LABEL,
+  SEX_OPTIONS,
+  FIELD_REQUIRED,
+  VACCINE_LABEL,
+  VACCINE_OPTIONS,
+  SCENARIOS_LABEL,
+  SCENARIOS,
+  SUBMIT_LABEL,
+} from "./constants";
 
 const useStyles = makeStyles((theme) => ({
   formComp: {
@@ -164,14 +178,15 @@ export default function Form({ callback }: FormInputs) {
                     control={<Radio />}
                     label={
                       <div>
-                        <Typography variant="body2">
-                          {label}
-                        </Typography>
-                        <Typography variant="caption" className={classes.transmissionDescription}>
+                        <Typography variant="body2">{label}</Typography>
+                        <Typography
+                          variant="caption"
+                          className={classes.transmissionDescription}
+                        >
                           {description}
                         </Typography>
                       </div>
-                      }
+                    }
                   />
                 ))}
               </RadioGroup>

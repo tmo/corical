@@ -1,5 +1,15 @@
 import { useState } from "react";
-import { Box, Container, Typography, ThemeProvider, createTheme, CssBaseline, AppBar, Toolbar, Button } from "@material-ui/core";
+import {
+  Box,
+  Container,
+  Typography,
+  ThemeProvider,
+  createTheme,
+  CssBaseline,
+  AppBar,
+  Toolbar,
+  Button,
+} from "@material-ui/core";
 import Form from "./Form";
 import { FormData, compute } from "./api";
 import Output from "./Output";
@@ -19,7 +29,8 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: '-apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", sans-serif',
+    fontFamily:
+      '-apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", sans-serif',
     h1: {
       fontWeight: 700,
     },
@@ -50,7 +61,7 @@ const theme = createTheme({
     body2: {
       fontWeight: 400,
     },
-  }
+  },
 });
 
 export default function App() {
@@ -72,17 +83,39 @@ export default function App() {
       <AppBar position="fixed" color="inherit">
         <Container maxWidth="lg">
           <Toolbar>
-            <a href="https://www.immunisationcoalition.org.au/" style={{"flexGrow": 1}}>
-              <img style={{"padding": "15px 0", "height": "70px"}} src="/ic-logo-with-text.png" alt="Immunisation Coalition Advocating for Immunisation Across the Lifespan" />
+            <a
+              href="https://www.immunisationcoalition.org.au/"
+              style={{ flexGrow: 1 }}
+            >
+              <img
+                style={{ padding: "15px 0", height: "70px" }}
+                src="/ic-logo-with-text.png"
+                alt="Immunisation Coalition Advocating for Immunisation Across the Lifespan"
+              />
             </a>
-            <Button color="primary" href="https://www.immunisationcoalition.org.au/">Home</Button>
-            <Button color="primary" href="https://www.immunisationcoalition.org.au/disclaimer/">Disclaimer</Button>
-            <Button color="primary" href="https://www.immunisationcoalition.org.au/privacy-policy/">Privacy policy</Button>
+            <Button
+              color="primary"
+              href="https://www.immunisationcoalition.org.au/"
+            >
+              Home
+            </Button>
+            <Button
+              color="primary"
+              href="https://www.immunisationcoalition.org.au/disclaimer/"
+            >
+              Disclaimer
+            </Button>
+            <Button
+              color="primary"
+              href="https://www.immunisationcoalition.org.au/privacy-policy/"
+            >
+              Privacy policy
+            </Button>
           </Toolbar>
         </Container>
       </AppBar>
       <Box>
-        <Box py={22} style={{"backgroundColor": "#efecf2"}}>
+        <Box py={22} style={{ backgroundColor: "#efecf2" }}>
           <Container maxWidth="lg">
             <Typography variant="h4" component="h1" paragraph>
               {TITLE}
@@ -92,7 +125,8 @@ export default function App() {
             </Typography>
             <Alert severity="warning">
               <AlertTitle>Early prototype! Not official!</AlertTitle>
-              This is an early prototype and is under heavy development. This is not an official Immunisation Coalition service!
+              This is an early prototype and is under heavy development. This is
+              not an official Immunisation Coalition service!
             </Alert>
           </Container>
         </Box>
