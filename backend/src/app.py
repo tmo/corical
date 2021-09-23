@@ -65,6 +65,11 @@ class Corical(corical_pb2_grpc.CoricalServicer):
 
         explanation = f"For a {age_label} {sex_label} who has {vaccine_label}, and under {request.transmission}, the risks of the following events are shown."
 
+        logger.info(f"{az_vec=}")
+        logger.info(f"{age_vec=}")
+        logger.info(f"{sex_vec=}")
+        logger.info(f"{variant_vec=}")
+        logger.info(f"{ct_vec=}")
         (
             symptomatic_infection,
             die_from_tts,
@@ -74,6 +79,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             die_from_csvt_covid,
             die_from_pvt_covid,
         ) = compute_probs(az_vec, age_vec, sex_vec, variant_vec, ct_vec)
+        logger.info(f"{symptomatic_infection=}, {1-symptomatic_infection=}")
 
         # after discussion on sep 12, assume csvt & pvt are indep and combine into one
         die_from_clots = die_from_csvt + die_from_pvt - die_from_csvt * die_from_pvt
