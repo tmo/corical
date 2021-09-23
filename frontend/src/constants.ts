@@ -8,18 +8,6 @@ export const STEP1_HELPER = "Instructional text for Step 1."
 
 export const FIELD_REQUIRED = "This field is required.";
 
-export const VARIANT_LABEL = "SARS-CoV-2 Variant"
-export const VARIANTS = [
-  {
-    value: "alpha",
-    label: "Before Delta variant",
-  },
-  {
-    value: "delta",
-    label: "After Delta variant",
-  },
-];
-
 export const AGE_LABEL = "Age"
 export const AGE_TOO_SMALL = "Must be at least 16 years old."
 export const AGE_TOO_BIG = "Please enter an age under 100."

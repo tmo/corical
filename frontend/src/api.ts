@@ -3,7 +3,6 @@ import axios from "axios";
 const API_URL = process.env.REACT_APP_API_BASE_URL + "/v0/compute";
 
 export type FormData = {
-  variant: string;
   age?: number;
   sex: string;
   vaccine: string;

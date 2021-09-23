@@ -60,16 +60,10 @@ class Corical(corical_pb2_grpc.CoricalServicer):
         ct_vec = scenario_to_vec(request.transmission)
 
         # variant
-        if request.variant == "alpha":
-            variant_label = f"no Delta variant"
-            variant_vec = np.array([1.0, 0.0])
-        elif request.variant == "delta":
-            variant_label = f"90% Delta variant"
-            variant_vec = np.array([0.1, 0.9])
-        else:
-            context.abort(grpc.StatusCode.FAILED_PRECONDITION, "Invalid variant")
+        # hardcoded as 90% Delta
+        variant_vec = np.array([0.1, 0.9])
 
-        explanation = f"For a {age_label} {sex_label} who has {vaccine_label}, and with {variant_label} and under {request.transmission}, the risks of the following events are shown."
+        explanation = f"For a {age_label} {sex_label} who has {vaccine_label}, and under {request.transmission}, the risks of the following events are shown."
 
         (
             symptomatic_infection,

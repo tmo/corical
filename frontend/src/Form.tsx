@@ -7,17 +7,14 @@ import {
   RadioGroup,
   FormControlLabel,
   Radio,
-  InputLabel,
   FormHelperText,
-  Select,
-  MenuItem,
 } from "@material-ui/core";
 import { Controller, useForm } from "react-hook-form";
 import classNames from "classnames";
 import { makeStyles } from "@material-ui/core";
 
 import { FormData } from "./api";
-import { AGE_LABEL, VARIANT_LABEL, STEP1_HELPER, STEP1_TITLE, VARIANTS, AGE_TOO_SMALL, AGE_TOO_BIG, SEX_LABEL, SEX_OPTIONS, FIELD_REQUIRED, VACCINE_LABEL, VACCINE_OPTIONS, SCENARIOS_LABEL, SCENARIOS, SUBMIT_LABEL } from "./constants";
+import { AGE_LABEL, STEP1_HELPER, STEP1_TITLE, AGE_TOO_SMALL, AGE_TOO_BIG, SEX_LABEL, SEX_OPTIONS, FIELD_REQUIRED, VACCINE_LABEL, VACCINE_OPTIONS, SCENARIOS_LABEL, SCENARIOS, SUBMIT_LABEL } from "./constants";
 
 const useStyles = makeStyles((theme) => ({
   formComp: {
@@ -59,34 +56,6 @@ export default function Form({ callback }: FormInputs) {
       <Typography variant="body1" gutterBottom>
         {STEP1_HELPER}
       </Typography>
-      <div className={classNames(classes.formComp)}>
-        <InputLabel htmlFor="variant">{VARIANT_LABEL}</InputLabel>
-        <FormControl>
-          <Controller
-            control={control}
-            defaultValue={VARIANTS[0].value}
-            rules={{ required: FIELD_REQUIRED }}
-            name="variant"
-            render={({ field: { onChange, value } }) => (
-              <Select
-                onChange={(e) => onChange(e.target.value)}
-                value={value}
-                id="variant"
-                fullWidth
-              >
-                {VARIANTS.map(({ value, label }) => (
-                  <MenuItem key={label} value={value}>
-                    {label}
-                  </MenuItem>
-                ))}
-              </Select>
-            )}
-          />
-          {errors?.variant?.message && (
-            <FormHelperText error>{errors.variant.message}</FormHelperText>
-          )}
-        </FormControl>
-      </div>
       <div className={classNames(classes.formComp)}>
         <Controller
           name="age"
