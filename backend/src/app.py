@@ -75,6 +75,10 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             die_from_pvt_covid,
         ) = compute_probs(az_vec, age_vec, sex_vec, variant_vec, ct_vec)
 
+        # after discussion on sep 12, assume csvt & pvt are indep and combine into one
+        die_from_clots = die_from_csvt + die_from_pvt - die_from_csvt * die_from_pvt
+        die_from_clots_covid = die_from_csvt_covid + die_from_pvt_covid - die_from_csvt_covid * die_from_pvt_covid
+
         return corical_pb2.ComputeRes(
             messages=messages,
             output_groups=[
@@ -93,13 +97,8 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                             comment=""
                         ),
                         corical_pb2.Risk(
-                            name="Risk of dying from COVID-19 related CSVT",
-                            risk=die_from_csvt_covid,
-                            comment=""
-                        ),
-                        corical_pb2.Risk(
-                            name="Risk of dying from COVID-19 related PVT",
-                            risk=die_from_pvt_covid,
+                            name="Risk of dying from COVID-19 related blood clot",
+                            risk=die_from_clots_covid,
                             comment=""
                         ),
                     ],
@@ -120,13 +119,8 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                     explanation=explanation,
                     risks=[
                         corical_pb2.Risk(
-                            name="Risk of dying from CSVT",
-                            risk=die_from_csvt,
-                            comment=""
-                        ),
-                        corical_pb2.Risk(
-                            name="Risk of dying from PVT",
-                            risk=die_from_pvt,
+                            name="Risk of dying from blood clot",
+                            risk=die_from_clots,
                             comment=""
                         ),
                     ],
