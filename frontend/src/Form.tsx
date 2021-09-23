@@ -8,6 +8,13 @@ import {
   FormControlLabel,
   Radio,
   FormHelperText,
+  Checkbox,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  Link,
 } from "@material-ui/core";
 import { Controller, useForm } from "react-hook-form";
 import classNames from "classnames";
@@ -28,7 +35,14 @@ import {
   SCENARIOS_LABEL,
   SCENARIOS,
   SUBMIT_LABEL,
+  TOS_HEADING,
+  TOS_1,
+  TOS_2,
+  TOS_3,
+  TOS_TITLE,
+  TOS_TEXT,
 } from "./constants";
+import { useState } from "react";
 
 const useStyles = makeStyles((theme) => ({
   formComp: {
@@ -61,6 +75,8 @@ export default function Form({ callback }: FormInputs) {
   });
   const submit = handleSubmit(callback);
   const classes = useStyles();
+
+  const [tosBoxOpen, setTosBoxOpen] = useState(false);
 
   return (
     <form onSubmit={submit}>
@@ -194,6 +210,59 @@ export default function Form({ callback }: FormInputs) {
                 <FormHelperText error>
                   {errors.transmission.message}
                 </FormHelperText>
+              )}
+            </FormControl>
+          )}
+        />
+      </div>
+      <Dialog
+        open={tosBoxOpen}
+        onClose={() => setTosBoxOpen(false)}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{TOS_TITLE}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            {TOS_TEXT}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setTosBoxOpen(false)} color="primary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <div className={classNames(classes.formComp)}>
+        <Controller
+          name="tos"
+          control={control}
+          rules={{
+            validate: (value) => !!value || FIELD_REQUIRED,
+          }}
+          render={({ field: { onChange, value } }) => (
+            <FormControl component="fieldset">
+              <FormLabel component="legend">{TOS_HEADING}</FormLabel>
+              <FormControlLabel
+                value={value}
+                control={<Checkbox checked={value} onChange={onChange} />}
+                label={
+                  <span>
+                    {TOS_1}{" "}
+                    <Link
+                      onClick={() => {
+                        onChange(!value);
+                        setTosBoxOpen(true);
+                      }}
+                    >
+                      {TOS_2}
+                    </Link>{" "}
+                    {TOS_3}
+                  </span>
+                }
+              />
+              {errors?.tos?.message && (
+                <FormHelperText error>{errors.tos.message}</FormHelperText>
               )}
             </FormControl>
           )}
