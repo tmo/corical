@@ -14,6 +14,7 @@ logger = logging.getLogger(__name__)
 server = grpc.server(futures.ThreadPoolExecutor(8))
 server.add_insecure_port(f"[::]:21000")
 
+
 class Corical(corical_pb2_grpc.CoricalServicer):
     def Compute(self, request, context):
         logger.info(request)
@@ -59,6 +60,15 @@ class Corical(corical_pb2_grpc.CoricalServicer):
         # community transmission
         ct_vec = scenario_to_vec(request.transmission)
 
+        if request.transmission == "None_0":
+            messages.append(
+                corical_pb2.Message(
+                    heading="Note",
+                    text="You have selected a scenario with no community transmission. This is only a temporary situation and will change when state or national borders open.",
+                    severity="warning",
+                )
+            )
+
         # variant
         # hardcoded as 90% Delta
         variant_vec = np.array([0.1, 0.9])
@@ -95,17 +105,17 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                         corical_pb2.Risk(
                             name="Risk of getting symptomatic COVID-19 under current transmission and vaccination status",
                             risk=symptomatic_infection,
-                            comment=""
+                            comment="",
                         ),
                         corical_pb2.Risk(
                             name="Risk of dying from COVID-19",
                             risk=die_from_covid,
-                            comment=""
+                            comment="",
                         ),
                         corical_pb2.Risk(
                             name="Risk of dying from COVID-19 related blood clot",
                             risk=die_from_clots_covid,
-                            comment=""
+                            comment="",
                         ),
                     ],
                 ),
@@ -116,7 +126,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                         corical_pb2.Risk(
                             name="Risk of dying from TTS from AZ",
                             risk=die_from_tts,
-                            comment=""
+                            comment="",
                         ),
                     ],
                 ),
@@ -127,7 +137,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                         corical_pb2.Risk(
                             name="Risk of dying from blood clot",
                             risk=die_from_clots,
-                            comment=""
+                            comment="",
                         ),
                     ],
                 ),

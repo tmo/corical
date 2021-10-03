@@ -33,6 +33,7 @@ import {
   VACCINE_LABEL,
   VACCINE_OPTIONS,
   SCENARIOS_LABEL,
+  SCENARIOS_DEFAULT,
   SCENARIOS,
   SUBMIT_LABEL,
   TOS_HEADING,
@@ -72,6 +73,9 @@ export default function Form({ callback }: FormInputs) {
     formState: { errors },
   } = useForm<FormData>({
     mode: "onBlur",
+    defaultValues: {
+      transmission: SCENARIOS_DEFAULT,
+    },
   });
   const submit = handleSubmit(callback);
   const classes = useStyles();
@@ -224,7 +228,7 @@ export default function Form({ callback }: FormInputs) {
         <DialogTitle id="alert-dialog-title">{TOS_TITLE}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            {TOS_TEXT}
+            <TOS_TEXT />
           </DialogContentText>
         </DialogContent>
         <DialogActions>
