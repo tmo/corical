@@ -43,7 +43,7 @@ def generate_prob_mx(nodes):
 
 ## load the actual model
 
-with open("Covid_TTS_30Aug.xdsl") as f:
+with open("V2 TTS 6 months 10Sep.xdsl") as f:
     tree = etree.parse(f)
 
 nodes = load_model_facts(tree)
@@ -101,7 +101,7 @@ def compute_probs(az_vec, age_vec, sex_vec, variant_vec, ct_vec):
     # vacc_eff: Vaccine effectiveness against death if infected
 
     # Vac_effectiveness_Death
-    vacc_eff_vec = az_vec @ probability_matrix["Vac_effectiveness_Death"]
+    vacc_eff_vec = variant_vec @ (az_vec @ probability_matrix["Vac_effectiveness_Death"])
 
     # inf_risk: Risk of symptomatic infection under current transmission and vaccination status
 
