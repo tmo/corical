@@ -28,6 +28,7 @@ import {
   CartesianGrid,
   ComposedChart,
   Tooltip,
+  LabelList,
 } from "recharts";
 
 const useStyles = makeStyles((theme) => ({
@@ -43,6 +44,11 @@ const useStyles = makeStyles((theme) => ({
   },
   abbr: {
     textDecoration: "none",
+  },
+  tooltip: {
+    padding: "10px",
+    backgroundColor: "white",
+    border: "1px solid black",
   },
 }));
 
@@ -78,6 +84,9 @@ export function RiskDisplay({ risk }: { risk: number }) {
 export default function Form({ output }: OutputProps) {
   const classes = useStyles();
 
+  const displayRisk = (value: number, mul = 1e2) =>
+    Math.ceil(value * mul) / mul;
+
   return (
     <>
       <Typography variant="h5" component="h2">
@@ -96,46 +105,77 @@ export default function Form({ output }: OutputProps) {
             </Alert>
           ))}
 
-          {output.bar_graphs?.map(({ title, subtitle, risks }: any) => (
-            <div key={title}>
-              <Typography variant="h6" component="h3">
-                {title}
-              </Typography>
-              <Typography variant="body1" paragraph>
-                {subtitle}
-              </Typography>
+          {output.bar_graphs?.map(({ title, subtitle, risks }: any) => {
+            const max_risk = Math.max(...risks.map(({ risk }: any) => risk));
+            let multiplier = 1;
+            let xaxis = "Risk";
+            if (max_risk < 100e-6) {
+              multiplier = 1e6;
+              xaxis = "Risk in a million";
+            } else if (max_risk < 100e-3) {
+              multiplier = 1e3;
+              xaxis = "Risk in a thousand";
+            }
+            const data = risks.map(({ label, risk, is_relatable }: any) => {
+              return {
+                label,
+                risk: multiplier * risk,
+                fill: is_relatable ? "#ccc" : "#413ea0",
+                display_risk: displayRisk(multiplier * risk),
+              };
+            });
+            return (
+              <div key={title}>
+                <Typography variant="h6" component="h3">
+                  {title}
+                </Typography>
+                <Typography variant="body1" paragraph>
+                  {subtitle}
+                </Typography>
 
-              <ComposedChart
-                layout="vertical"
-                width={1000}
-                height={400}
-                data={risks.map(({ label, risk, is_relatable }: any) => {
-                  return {
-                    label,
-                    risk,
-                    fill: is_relatable ? "#999" : "#413ea0",
-                  };
-                })}
-                margin={{
-                  top: 20,
-                  right: 20,
-                  bottom: 20,
-                  left: 20,
-                }}
-              >
-                <CartesianGrid stroke="#f5f5f5" />
-                <XAxis type="number" />
-                <YAxis
-                  dataKey="label"
-                  type="category"
-                  scale="band"
-                  width={400}
-                />
-                <Bar dataKey="risk" barSize={30} />
-                <Tooltip />
-              </ComposedChart>
-            </div>
-          ))}
+                <ComposedChart
+                  layout="vertical"
+                  width={1000}
+                  height={400}
+                  data={data}
+                  margin={{
+                    top: 20,
+                    right: 20,
+                    bottom: 20,
+                    left: 20,
+                  }}
+                >
+                  <CartesianGrid stroke="#f5f5f5" />
+                  <XAxis type="number" label={xaxis} height={100} />
+                  <YAxis
+                    dataKey="label"
+                    type="category"
+                    scale="band"
+                    width={400}
+                  />
+                  <Bar dataKey="risk" barSize={30}>
+                    <LabelList dataKey="display_risk" position="right" />
+                  </Bar>
+                  <Tooltip
+                    content={({ label, payload, active }) => {
+                      if (active && payload && payload.length) {
+                        const { value } = payload![0] as any;
+                        return (
+                          <div className={classes.tooltip}>
+                            {label}
+                            <br />
+                            {xaxis}: {displayRisk(value, 1e5)}
+                          </div>
+                        );
+                      } else {
+                        return null;
+                      }
+                    }}
+                  />
+                </ComposedChart>
+              </div>
+            );
+          })}
 
           {output.output_groups?.map(({ heading, explanation, risks }: any) => (
             <div key={heading}>

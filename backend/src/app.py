@@ -137,7 +137,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
-                                label="Chance of death",
+                                label="Chance of dying from COVID-19",
                                 risk=die_from_covid_given_infected,
                             )
                         ]
