@@ -100,8 +100,8 @@ def generate_relatable_risks(risk_vals):
     if ix_more == 0:
         ix_more = len(risks) - 1
 
-    if ix_more - ix_less > 0:
-        ix_third = ix_more + (ix_more - ix_less) // 2 + 1
+    if ix_more - ix_less > 1:
+        ix_third = ix_more - (ix_more - ix_less) // 2
     else:
         ix_third = ix_more + 1
         if ix_third >= len(risks):

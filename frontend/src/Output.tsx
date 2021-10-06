@@ -107,9 +107,15 @@ export default function Form({ output }: OutputProps) {
 
               <ComposedChart
                 layout="vertical"
-                width={500}
+                width={1000}
                 height={400}
-                data={risks}
+                data={risks.map(({ label, risk, is_relatable }: any) => {
+                  return {
+                    label,
+                    risk,
+                    fill: is_relatable ? "#999" : "#413ea0",
+                  };
+                })}
                 margin={{
                   top: 20,
                   right: 20,
@@ -119,8 +125,13 @@ export default function Form({ output }: OutputProps) {
               >
                 <CartesianGrid stroke="#f5f5f5" />
                 <XAxis type="number" />
-                <YAxis dataKey="label" type="category" scale="band" />
-                <Bar dataKey="risk" barSize={20} fill="#413ea0" />
+                <YAxis
+                  dataKey="label"
+                  type="category"
+                  scale="band"
+                  width={400}
+                />
+                <Bar dataKey="risk" barSize={30} />
                 <Tooltip />
               </ComposedChart>
             </div>

@@ -104,14 +104,18 @@ class Corical(corical_pb2_grpc.CoricalServicer):
         logger.info(f"{symptomatic_infection=}, {1-symptomatic_infection=}")
 
         def generate_bar_graph_risks(input_risks):
-            return input_risks + [
-                corical_pb2.BarGraphRisk(
-                    label=r["event"],
-                    risk=r["risk"],
-                    is_relatable=True,
-                )
-                for r in generate_relatable_risks([risk.risk for risk in input_risks])
-            ]
+            return sorted(
+                input_risks
+                + [
+                    corical_pb2.BarGraphRisk(
+                        label=r["event"],
+                        risk=r["risk"],
+                        is_relatable=True,
+                    )
+                    for r in generate_relatable_risks([risk.risk for risk in input_risks])
+                ],
+                key=lambda br: br.risk,
+            )
 
         return corical_pb2.ComputeRes(
             messages=messages,
