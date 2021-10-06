@@ -96,34 +96,34 @@ export default function Form({ output }: OutputProps) {
             </Alert>
           ))}
 
-          {output.bar_graphs?.map(({title, subtitle, risks}:any) => (
-          <div key={title}>
-            <Typography variant="h6" component="h3">
-              {title}
-            </Typography>
-            <Typography variant="body1" paragraph>
-              {subtitle}
-            </Typography>
+          {output.bar_graphs?.map(({ title, subtitle, risks }: any) => (
+            <div key={title}>
+              <Typography variant="h6" component="h3">
+                {title}
+              </Typography>
+              <Typography variant="body1" paragraph>
+                {subtitle}
+              </Typography>
 
-            <ComposedChart
-              layout="vertical"
-              width={500}
-              height={400}
-              data={risks}
-              margin={{
-                top: 20,
-                right: 20,
-                bottom: 20,
-                left: 20,
-              }}
-            >
-              <CartesianGrid stroke="#f5f5f5" />
-              <XAxis type="number" />
-              <YAxis dataKey="label" type="category" scale="band" />
-              <Bar dataKey="risk" barSize={20} fill="#413ea0" />
-              <Tooltip />
-            </ComposedChart>
-          </div>
+              <ComposedChart
+                layout="vertical"
+                width={500}
+                height={400}
+                data={risks}
+                margin={{
+                  top: 20,
+                  right: 20,
+                  bottom: 20,
+                  left: 20,
+                }}
+              >
+                <CartesianGrid stroke="#f5f5f5" />
+                <XAxis type="number" />
+                <YAxis dataKey="label" type="category" scale="band" />
+                <Bar dataKey="risk" barSize={20} fill="#413ea0" />
+                <Tooltip />
+              </ComposedChart>
+            </div>
           ))}
 
           {output.output_groups?.map(({ heading, explanation, risks }: any) => (

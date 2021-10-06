@@ -7,6 +7,7 @@ import numpy as np
 
 from model import compute_probs, get_age_bracket, scenario_to_vec
 from proto import corical_pb2, corical_pb2_grpc
+from risks import generate_relatable_risks
 
 logging.basicConfig(format="%(asctime)s: %(name)s: %(message)s", level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -102,76 +103,73 @@ class Corical(corical_pb2_grpc.CoricalServicer):
         ) = compute_probs(az_vec, age_vec, sex_vec, variant_vec, ct_vec)
         logger.info(f"{symptomatic_infection=}, {1-symptomatic_infection=}")
 
+        def generate_bar_graph_risks(input_risks):
+            return input_risks + [
+                corical_pb2.BarGraphRisk(
+                    label=r["event"],
+                    risk=r["risk"],
+                    is_relatable=True,
+                )
+                for r in generate_relatable_risks([risk.risk for risk in input_risks])
+            ]
+
         return corical_pb2.ComputeRes(
             messages=messages,
             scenario_description="This is the scenario description",
             bar_graphs=[
                 corical_pb2.BarGraph(
                     title=f"What is my chance of getting COVID-19 if there are {transmission_label} transmissions in the community?",
-                    risks=[
-                        corical_pb2.BarGraphRisk(label="Chance of getting COVID-19", risk=symptomatic_infection),
-                        corical_pb2.BarGraphRisk(
-                            label="Relatable risk 1",
-                            risk=3e-6,
-                        ),
-                        corical_pb2.BarGraphRisk(
-                            label="Relatable risk 2",
-                            risk=2e-6,
-                        ),
-                        corical_pb2.BarGraphRisk(
-                            label="Relatable risk 3",
-                            risk=1e-6,
-                        ),
-                    ],
+                    risks=generate_bar_graph_risks(
+                        [
+                            corical_pb2.BarGraphRisk(
+                                label="Chance of getting COVID-19",
+                                risk=symptomatic_infection,
+                            )
+                        ]
+                    ),
                 ),
                 corical_pb2.BarGraph(
                     title="What is my chance of dying if I get COVID-19?",
-                    risks=[
-                        corical_pb2.BarGraphRisk(
-                            label="Chance of death",
-                            risk=die_from_covid_given_infected,
-                        ),
-                        corical_pb2.BarGraphRisk(
-                            label="Relatable risk 1",
-                            risk=3e-6,
-                        ),
-                        corical_pb2.BarGraphRisk(
-                            label="Relatable risk 2",
-                            risk=2e-6,
-                        ),
-                        corical_pb2.BarGraphRisk(
-                            label="Relatable risk 3",
-                            risk=1e-6,
-                        ),
-                    ],
+                    risks=generate_bar_graph_risks(
+                        [
+                            corical_pb2.BarGraphRisk(
+                                label="Chance of death",
+                                risk=die_from_covid_given_infected,
+                            )
+                        ]
+                    ),
                 ),
                 corical_pb2.BarGraph(
                     title="What is my chance of getting an atypical blood clot?",
                     subtitle="An atypical blood clot is...",
-                    risks=[
-                        corical_pb2.BarGraphRisk(
-                            label="Due to COVID-19",
-                            risk=get_clots_covid,
-                        ),
-                        corical_pb2.BarGraphRisk(
-                            label="Due to the AstraZeneca vaccine",
-                            risk=get_tts,
-                        ),
-                    ],
+                    risks=generate_bar_graph_risks(
+                        [
+                            corical_pb2.BarGraphRisk(
+                                label="Due to COVID-19",
+                                risk=get_clots_covid,
+                            ),
+                            corical_pb2.BarGraphRisk(
+                                label="Due to the AstraZeneca vaccine",
+                                risk=get_tts,
+                            ),
+                        ]
+                    ),
                 ),
                 corical_pb2.BarGraph(
                     title="What is my chance of dying from an atypical blood clot?",
                     subtitle="An atypical blood clot is...",
-                    risks=[
-                        corical_pb2.BarGraphRisk(
-                            label="Due to COVID-19",
-                            risk=die_from_clots_covid,
-                        ),
-                        corical_pb2.BarGraphRisk(
-                            label="Due to the AstraZeneca vaccine",
-                            risk=die_from_tts,
-                        ),
-                    ],
+                    risks=generate_bar_graph_risks(
+                        [
+                            corical_pb2.BarGraphRisk(
+                                label="Due to COVID-19",
+                                risk=die_from_clots_covid,
+                            ),
+                            corical_pb2.BarGraphRisk(
+                                label="Due to the AstraZeneca vaccine",
+                                risk=die_from_tts,
+                            ),
+                        ]
+                    ),
                 ),
             ],
             output_groups=[

@@ -46,6 +46,8 @@ message OutputGroup {
 message BarGraphRisk {
   string label = 1;
   double risk = 2;
+  // so we can fade them out
+  bool is_relatable = 3;
 }
 
 message BarGraph {
