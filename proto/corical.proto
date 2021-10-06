@@ -48,10 +48,17 @@ message BarGraphRisk {
   double risk = 2;
 }
 
+message BarGraph {
+  string title = 1;
+  string subtitle = 2;
+  repeated BarGraphRisk risks = 3;
+}
+
 message ComputeRes {
-  repeated Message messages = 1;
-  repeated OutputGroup output_groups = 2;
-  repeated BarGraphRisk bar_graph_risks = 3;
+  string scenario_description = 1;
+  repeated BarGraph bar_graphs = 2;
+  repeated Message messages = 3;
+  repeated OutputGroup output_groups = 4;
   bool success = 98;
   string msg = 99;
 }

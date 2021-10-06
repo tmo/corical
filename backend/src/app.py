@@ -59,6 +59,16 @@ class Corical(corical_pb2_grpc.CoricalServicer):
 
         # community transmission
         ct_vec = scenario_to_vec(request.transmission)
+        if request.transmission == "None_0":
+            transmission_label = "no"
+        elif request.transmission == "ATAGI_High_3_544_percent":
+            transmission_label = "high"
+        elif request.transmission == "ATAGI_Med_0_275_percent":
+            transmission_label = "medium"
+        elif request.transmission == "ATAGI_Low_0_029_percent":
+            transmission_label = "low"
+        else:
+            transmission_label = request.transmission
 
         if request.transmission == "None_0":
             messages.append(
@@ -73,7 +83,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
         # hardcoded as 90% Delta
         variant_vec = np.array([0.1, 0.9])
 
-        explanation = f"For a {age_label} {sex_label} who has {vaccine_label}, and under {request.transmission}, the risks of the following events are shown."
+        explanation = f"For a {age_label} {sex_label} who has {vaccine_label}, and under {transmission_label} community transmission, the risks of the following events are shown."
 
         logger.info(f"{az_vec=}")
         logger.info(f"{age_vec=}")
@@ -82,21 +92,88 @@ class Corical(corical_pb2_grpc.CoricalServicer):
         logger.info(f"{ct_vec=}")
         (
             symptomatic_infection,
+            get_tts,
+            die_from_covid_given_infected,
             die_from_tts,
-            die_from_csvt,
-            die_from_pvt,
+            die_from_clots,
             die_from_covid,
-            die_from_csvt_covid,
-            die_from_pvt_covid,
+            get_clots_covid,
+            die_from_clots_covid,
         ) = compute_probs(az_vec, age_vec, sex_vec, variant_vec, ct_vec)
         logger.info(f"{symptomatic_infection=}, {1-symptomatic_infection=}")
 
-        # after discussion on sep 12, assume csvt & pvt are indep and combine into one
-        die_from_clots = die_from_csvt + die_from_pvt - die_from_csvt * die_from_pvt
-        die_from_clots_covid = die_from_csvt_covid + die_from_pvt_covid - die_from_csvt_covid * die_from_pvt_covid
-
         return corical_pb2.ComputeRes(
             messages=messages,
+            scenario_description="This is the scenario description",
+            bar_graphs=[
+                corical_pb2.BarGraph(
+                    title=f"What is my chance of getting COVID-19 if there are {transmission_label} transmissions in the community?",
+                    risks=[
+                        corical_pb2.BarGraphRisk(label="Chance of getting COVID-19", risk=symptomatic_infection),
+                        corical_pb2.BarGraphRisk(
+                            label="Relatable risk 1",
+                            risk=3e-6,
+                        ),
+                        corical_pb2.BarGraphRisk(
+                            label="Relatable risk 2",
+                            risk=2e-6,
+                        ),
+                        corical_pb2.BarGraphRisk(
+                            label="Relatable risk 3",
+                            risk=1e-6,
+                        ),
+                    ],
+                ),
+                corical_pb2.BarGraph(
+                    title="What is my chance of dying if I get COVID-19?",
+                    risks=[
+                        corical_pb2.BarGraphRisk(
+                            label="Chance of death",
+                            risk=die_from_covid_given_infected,
+                        ),
+                        corical_pb2.BarGraphRisk(
+                            label="Relatable risk 1",
+                            risk=3e-6,
+                        ),
+                        corical_pb2.BarGraphRisk(
+                            label="Relatable risk 2",
+                            risk=2e-6,
+                        ),
+                        corical_pb2.BarGraphRisk(
+                            label="Relatable risk 3",
+                            risk=1e-6,
+                        ),
+                    ],
+                ),
+                corical_pb2.BarGraph(
+                    title="What is my chance of getting an atypical blood clot?",
+                    subtitle="An atypical blood clot is...",
+                    risks=[
+                        corical_pb2.BarGraphRisk(
+                            label="Due to COVID-19",
+                            risk=get_clots_covid,
+                        ),
+                        corical_pb2.BarGraphRisk(
+                            label="Due to the AstraZeneca vaccine",
+                            risk=get_tts,
+                        ),
+                    ],
+                ),
+                corical_pb2.BarGraph(
+                    title="What is my chance of dying from an atypical blood clot?",
+                    subtitle="An atypical blood clot is...",
+                    risks=[
+                        corical_pb2.BarGraphRisk(
+                            label="Due to COVID-19",
+                            risk=die_from_clots_covid,
+                        ),
+                        corical_pb2.BarGraphRisk(
+                            label="Due to the AstraZeneca vaccine",
+                            risk=die_from_tts,
+                        ),
+                    ],
+                ),
+            ],
             output_groups=[
                 corical_pb2.OutputGroup(
                     heading="COVID-19 and outcomes of COVID-19",
@@ -140,24 +217,6 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                             comment="",
                         ),
                     ],
-                ),
-            ],
-            bar_graph_risks=[
-                corical_pb2.BarGraphRisk(
-                    label="Die from COVID-19",
-                    risk=1e6 * die_from_covid,
-                ),
-                corical_pb2.BarGraphRisk(
-                    label="Die from COVID related clot",
-                    risk=1e6 * die_from_clots_covid,
-                ),
-                corical_pb2.BarGraphRisk(
-                    label="Die from TTS from AZ",
-                    risk=1e6 * die_from_tts,
-                ),
-                corical_pb2.BarGraphRisk(
-                    label="Die from clot",
-                    risk=1e6 * die_from_clots,
                 ),
             ],
             success=True,

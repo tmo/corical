@@ -96,19 +96,20 @@ export default function Form({ output }: OutputProps) {
             </Alert>
           ))}
 
-          <div>
+          {output.bar_graphs?.map(({title, subtitle, risks}:any) => (
+          <div key={title}>
             <Typography variant="h6" component="h3">
-              Graph
+              {title}
             </Typography>
             <Typography variant="body1" paragraph>
-              The following graph shows per million risks for various outcomes.
+              {subtitle}
             </Typography>
 
             <ComposedChart
               layout="vertical"
               width={500}
               height={400}
-              data={output.bar_graph_risks}
+              data={risks}
               margin={{
                 top: 20,
                 right: 20,
@@ -123,6 +124,7 @@ export default function Form({ output }: OutputProps) {
               <Tooltip />
             </ComposedChart>
           </div>
+          ))}
 
           {output.output_groups?.map(({ heading, explanation, risks }: any) => (
             <div key={heading}>

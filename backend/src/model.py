@@ -118,6 +118,12 @@ def compute_probs(az_vec, age_vec, sex_vec, variant_vec, ct_vec):
 
     covid_vec = inf_risk_vec @ (vacc_eff_vec @ (sex_vec @ (age_vec @ probability_matrix["Die_from_Covid"])))
 
+    # Die from COVID conditional on getting it
+    full_inf_risk_vec = np.array([1.0, 0.0])
+    covid_given_inf_vec = full_inf_risk_vec @ (
+        vacc_eff_vec @ (sex_vec @ (age_vec @ probability_matrix["Die_from_Covid"]))
+    )
+
     # Die from Covid related CSVT
 
     csvt_covid_vec = inf_risk_vec @ (sex_vec @ probability_matrix["CSVT_Covid"])
@@ -131,19 +137,30 @@ def compute_probs(az_vec, age_vec, sex_vec, variant_vec, ct_vec):
 
     symptomatic_infection = inf_risk_vec[0]
 
+    get_tts = tts_vec[0]
     die_from_tts = die_from_tts_vec[0]
     die_from_csvt = die_from_csvt_vec[0]
     die_from_pvt = die_from_pvt_vec[0]
     die_from_covid = covid_vec[0]
+    get_csvt_covid = csvt_covid_vec[0]
+    get_pvt_covid = pvt_covid_vec[0]
     die_from_csvt_covid = die_csvt_covid_vec[0]
     die_from_pvt_covid = die_pvt_covid_vec[0]
 
+    die_from_covid_given_infected = covid_given_inf_vec[0]
+
+    # after discussion on sep 12, assume csvt & pvt are indep and combine into one
+    die_from_clots = die_from_csvt + die_from_pvt - die_from_csvt * die_from_pvt
+    die_from_clots_covid = die_from_csvt_covid + die_from_pvt_covid - die_from_csvt_covid * die_from_pvt_covid
+    get_clots_covid = get_csvt_covid + get_pvt_covid - get_csvt_covid * get_pvt_covid
+
     return (
         symptomatic_infection,
+        get_tts,
+        die_from_covid_given_infected,
         die_from_tts,
-        die_from_csvt,
-        die_from_pvt,
+        die_from_clots,
         die_from_covid,
-        die_from_csvt_covid,
-        die_from_pvt_covid,
+        get_clots_covid,
+        die_from_clots_covid,
     )
