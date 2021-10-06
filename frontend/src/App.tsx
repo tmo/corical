@@ -8,6 +8,7 @@ import {
   CssBaseline,
   AppBar,
   Toolbar,
+  Link,
   Button,
 } from "@material-ui/core";
 import Form from "./Form";
@@ -141,6 +142,12 @@ export default function App() {
             ) : (
               <Output output={output} />
             )}
+            <Box py={5}>
+              &copy; 2021 Immunisation Coalition.{" "}
+              <Link href="https://www.immunisationcoalition.org.au">
+                Data sources.
+              </Link>
+            </Box>
           </Container>
         </Box>
       </Box>
