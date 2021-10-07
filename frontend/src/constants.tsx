@@ -110,7 +110,10 @@ export const COMMENT_LABEL = "Comment";
 
 export const RISK_PER_MILLION = "in a million";
 export const LESS_THAN_TENTH_MILLION = "< 0.1 in a million";
-export const ZERO_RISK = "No risk";
+export const ZERO_RISK = "None";
+
+export const RISK_TEXT =
+  "Number of cases per million people of the same age group and sex as you";
 
 export const TOS_HEADING = "Important information";
 export const TOS_1 = "I have read and agree to the";

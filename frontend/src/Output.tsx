@@ -11,11 +11,11 @@ import {
 } from "@material-ui/core";
 import { Alert, AlertTitle } from "@material-ui/lab/";
 import {
-  COMMENT_LABEL,
   DESCRIPTION_LABEL,
   LESS_THAN_TENTH_MILLION,
   RISK_LABEL,
   RISK_PER_MILLION,
+  RISK_TEXT,
   STEP2_HELPER,
   STEP2_SUBMIT_FORM_FIRST,
   STEP2_TITLE,
@@ -56,11 +56,13 @@ type OutputProps = {
   output: any;
 };
 
+const displayRisk = (value: number, mul = 1e2) => Math.round(value * mul) / mul;
+
 export function RiskDisplay({ risk }: { risk: number }) {
   const classes = useStyles();
 
   const riskPerMillion = risk * 1e6;
-  const roundedRiskPerMillion = Math.round(riskPerMillion * 10) / 10;
+  const roundedRiskPerMillion = displayRisk(riskPerMillion);
   const roundedRiskPerMillionLotsOfDigits =
     Math.round(riskPerMillion * 1e6) / 1e6;
 
@@ -84,9 +86,6 @@ export function RiskDisplay({ risk }: { risk: number }) {
 export default function Form({ output }: OutputProps) {
   const classes = useStyles();
 
-  const displayRisk = (value: number, mul = 1e2) =>
-    Math.ceil(value * mul) / mul;
-
   return (
     <>
       <Typography variant="h5" component="h2">
@@ -106,16 +105,7 @@ export default function Form({ output }: OutputProps) {
           ))}
 
           {output.bar_graphs?.map(({ title, subtitle, risks }: any) => {
-            const max_risk = Math.max(...risks.map(({ risk }: any) => risk));
-            let multiplier = 1;
-            let xaxis = "Risk";
-            if (max_risk < 100e-6) {
-              multiplier = 1e6;
-              xaxis = "Risk in a million";
-            } else if (max_risk < 100e-3) {
-              multiplier = 1e3;
-              xaxis = "Risk in a thousand";
-            }
+            let multiplier = 1e6;
             const data = risks.map(({ label, risk, is_relatable }: any) => {
               return {
                 label,
@@ -146,7 +136,7 @@ export default function Form({ output }: OutputProps) {
                   }}
                 >
                   <CartesianGrid stroke="#f5f5f5" />
-                  <XAxis type="number" label={xaxis} height={100} />
+                  <XAxis type="number" label={RISK_TEXT} height={100} />
                   <YAxis
                     dataKey="label"
                     type="category"
@@ -164,7 +154,7 @@ export default function Form({ output }: OutputProps) {
                           <div className={classes.tooltip}>
                             {label}
                             <br />
-                            {xaxis}: {displayRisk(value, 1e5)}
+                            {RISK_TEXT}: {displayRisk(value, 1e5)}
                           </div>
                         );
                       } else {
@@ -194,7 +184,6 @@ export default function Form({ output }: OutputProps) {
                     <TableRow>
                       <TableCell>{DESCRIPTION_LABEL}</TableCell>
                       <TableCell>{RISK_LABEL}</TableCell>
-                      <TableCell>{COMMENT_LABEL}</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -206,7 +195,6 @@ export default function Form({ output }: OutputProps) {
                         <TableCell>
                           <RiskDisplay risk={risk} />
                         </TableCell>
-                        <TableCell>{comment}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>

@@ -145,7 +145,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                 ),
                 corical_pb2.BarGraph(
                     title="What is my chance of getting an atypical blood clot?",
-                    subtitle="An atypical blood clot is...",
+                    subtitle="An atypical blood clot refers to a blood clot like TTS.",
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
@@ -161,7 +161,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                 ),
                 corical_pb2.BarGraph(
                     title="What is my chance of dying from an atypical blood clot?",
-                    subtitle="An atypical blood clot is...",
+                    subtitle="An atypical blood clot refers to a blood clot like TTS.",
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
