@@ -154,7 +154,7 @@ export default function Form({ output }: OutputProps) {
                           <div className={classes.tooltip}>
                             {label}
                             <br />
-                            {RISK_TEXT}: {displayRisk(value, 1e5)}
+                            {RISK_TEXT}: {displayRisk(value)}
                           </div>
                         );
                       } else {

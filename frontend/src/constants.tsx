@@ -110,8 +110,8 @@ export const RISK_LABEL = "Risk";
 export const COMMENT_LABEL = "Comment";
 
 export const RISK_PER_MILLION = "in a million";
-export const LESS_THAN_TENTH_MILLION = "< 0.1 in a million";
-export const ZERO_RISK = "None";
+export const LESS_THAN_TENTH_MILLION = "Less than 0.1 in a million";
+export const ZERO_RISK = LESS_THAN_TENTH_MILLION;
 
 export const RISK_TEXT = "Number of cases per million people";
 
