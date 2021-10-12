@@ -96,7 +96,7 @@ export default function Form({ callback }: FormInputs) {
           control={control}
           rules={{
             required: FIELD_REQUIRED,
-            min: { value: 16, message: AGE_TOO_SMALL },
+            min: { value: 18, message: AGE_TOO_SMALL },
             max: { value: 100, message: AGE_TOO_BIG },
           }}
           render={({ field }) => (

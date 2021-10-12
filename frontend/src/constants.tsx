@@ -3,8 +3,9 @@ export const TITLE = "CoRiCal: Covid Risk Calculator";
 export const BY_LINE = "By, credits, etc";
 
 // form elements
-export const STEP1_TITLE = "Step 1: Patient information";
-export const STEP1_HELPER = "Instructional text for Step 1.";
+export const STEP1_TITLE = "Personal information";
+export const STEP1_HELPER =
+  "Enter a person's age, sex, and vaccination status to check their risks.";
 
 export const FIELD_REQUIRED = "This field is required.";
 
@@ -36,11 +37,11 @@ export const VACCINE_OPTIONS = [
   },
   {
     value: "az1",
-    label: "First shot of AstraZeneca",
+    label: "One dose of AstraZeneca",
   },
   {
     value: "az2",
-    label: "Two shots of AstraZeneca",
+    label: "Two doses of AstraZeneca",
   },
 ];
 
@@ -100,7 +101,7 @@ export const SCENARIOS = [
 export const SUBMIT_LABEL = "Calculate risk";
 
 // output
-export const STEP2_TITLE = "Step 2: Risk output";
+export const STEP2_TITLE = "Risk output";
 export const STEP2_HELPER = "Computed risk outputs below.";
 export const STEP2_SUBMIT_FORM_FIRST = "Please submit the form for output.";
 
@@ -112,8 +113,7 @@ export const RISK_PER_MILLION = "in a million";
 export const LESS_THAN_TENTH_MILLION = "< 0.1 in a million";
 export const ZERO_RISK = "None";
 
-export const RISK_TEXT =
-  "Number of cases per million people of the same age group and sex as you";
+export const RISK_TEXT = "Number of cases per million people";
 
 export const TOS_HEADING = "Important information";
 export const TOS_1 = "I have read and agree to the";

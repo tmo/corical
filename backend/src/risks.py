@@ -4,23 +4,15 @@ risks = [
         "risk": 0,
     },
     {
-        "event": "Chance of winning the Oz Lotto in a given draw",
+        "event": "Chance of winning the Oz Lotto Grand prize in a given draw",
         "risk": 1 / 134490400,
     },
     {
-        "event": "Odds of dying in a tornado",
-        "risk": 1 / 13000000,
-    },
-    {
-        "event": "Risk of death by cow in a year in Australia",
-        "risk": 1 / 3293506,
-    },
-    {
-        "event": "Struck by lightning in a year",
+        "event": "Chance of being struck by lightning in a year",
         "risk": 1 / 500000,
     },
     {
-        "event": "Risk of being in a fatal car accident in a year in Australia",
+        "event": "Chance of being in a fatal car accident in a year in Australia",
         "risk": 1 / 18519,
     },
     {
@@ -32,11 +24,11 @@ risks = [
         "risk": 1 / 8453,
     },
     {
-        "event": "Risk of being diagnosed with melanoma in a year in Australia",
+        "event": "Chance of being diagnosed with melanoma in a year in Australia",
         "risk": 1 / 2041,
     },
     {
-        "event": "Chance of cracking a double-yoked egg",
+        "event": "Chance of cracking a double-yolked egg",
         "risk": 1 / 1000,
     },
     {
@@ -52,11 +44,11 @@ risks = [
         "risk": 1 / 10,
     },
     {
-        "event": "Chance of being audited in a year in Australia",
+        "event": "Chance of being audited by the ATO in a year in Australia",
         "risk": 1 / 7,
     },
     {
-        "event": "Risk of getting food poisoning per year in Australia",
+        "event": "Chance of getting food poisoning per year in Australia",
         "risk": 1 / 6.19,
     },
     {

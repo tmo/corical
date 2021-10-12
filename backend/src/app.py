@@ -44,13 +44,13 @@ class Corical(corical_pb2_grpc.CoricalServicer):
 
         # az shots
         if request.vaccine == "az0":
-            vaccine_label = f"had no immune effective doses of the AstraZeneca vaccine"
+            vaccine_label = f"no doses of the AstraZeneca vaccine"
             az_vec = np.array([1.0, 0.0, 0.0])
         elif request.vaccine == "az1":
-            vaccine_label = f"had one immune effective dose of the AstraZeneca vaccine"
+            vaccine_label = f"one dose of the AstraZeneca vaccine"
             az_vec = np.array([0.0, 1.0, 0.0])
         elif request.vaccine == "az2":
-            vaccine_label = f"had two immune effective doses of the AstraZeneca vaccine"
+            vaccine_label = f"two doses of the AstraZeneca vaccine"
             az_vec = np.array([0.0, 0.0, 1.0])
         else:
             context.abort(grpc.StatusCode.FAILED_PRECONDITION, "Invalid vaccine")
@@ -84,7 +84,15 @@ class Corical(corical_pb2_grpc.CoricalServicer):
         # hardcoded as 90% Delta
         variant_vec = np.array([0.1, 0.9])
 
-        explanation = f"For a {age_label} {sex_label} who has {vaccine_label}, and under {transmission_label} community transmission, the risks of the following events are shown."
+        # explanation = f"For a {age_label} {sex_label} who has had {vaccine_label}, and under {transmission_label} community transmission, the risks of the following events are shown."
+
+        blood_clot_brief = (
+            "An atypical blood clot refers to a blood clot like thrombosis with thrombocytopenia syndrome (TTS)."
+        )
+        # for graphs
+        subtitle = f"Results shown for a {age_label} {sex_label} who has {vaccine_label}, under {transmission_label} transmission scenario."
+        # for output groups
+        explanation = subtitle
 
         logger.info(f"{az_vec=}")
         logger.info(f"{age_vec=}")
@@ -98,8 +106,8 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             die_from_tts,
             die_from_clots,
             die_from_covid,
-            get_clots_covid,
-            die_from_clots_covid,
+            get_clots_covid_given_infected,
+            die_from_clots_covid_given_infected,
         ) = compute_probs(az_vec, age_vec, sex_vec, variant_vec, ct_vec)
         logger.info(f"{symptomatic_infection=}, {1-symptomatic_infection=}")
 
@@ -123,6 +131,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             bar_graphs=[
                 corical_pb2.BarGraph(
                     title=f"What is my chance of getting COVID-19 if there are {transmission_label} transmissions in the community?",
+                    subtitle=subtitle,
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
@@ -134,6 +143,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                 ),
                 corical_pb2.BarGraph(
                     title="What is my chance of dying if I get COVID-19?",
+                    subtitle=subtitle,
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
@@ -145,34 +155,46 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                 ),
                 corical_pb2.BarGraph(
                     title="What is my chance of getting an atypical blood clot?",
-                    subtitle="An atypical blood clot refers to a blood clot like TTS.",
+                    subtitle=blood_clot_brief + " " + subtitle,
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
-                                label="Due to COVID-19",
-                                risk=get_clots_covid,
-                            ),
-                            corical_pb2.BarGraphRisk(
-                                label="Due to the AstraZeneca vaccine",
-                                risk=get_tts,
-                            ),
+                                label="If I get COVID-19",
+                                risk=get_clots_covid_given_infected,
+                            )
                         ]
+                        + (
+                            [
+                                corical_pb2.BarGraphRisk(
+                                    label="Due to the AstraZeneca vaccine",
+                                    risk=get_tts,
+                                )
+                            ]
+                            if get_tts > 0.0
+                            else []
+                        )
                     ),
                 ),
                 corical_pb2.BarGraph(
                     title="What is my chance of dying from an atypical blood clot?",
-                    subtitle="An atypical blood clot refers to a blood clot like TTS.",
+                    subtitle=blood_clot_brief + " " + subtitle,
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
-                                label="Due to COVID-19",
-                                risk=die_from_clots_covid,
-                            ),
-                            corical_pb2.BarGraphRisk(
-                                label="Due to the AstraZeneca vaccine",
-                                risk=die_from_tts,
-                            ),
+                                label="If I get COVID-19",
+                                risk=die_from_clots_covid_given_infected,
+                            )
                         ]
+                        + (
+                            [
+                                corical_pb2.BarGraphRisk(
+                                    label="Due to the AstraZeneca vaccine",
+                                    risk=die_from_tts,
+                                )
+                            ]
+                            if die_from_tts > 0.0
+                            else []
+                        )
                     ),
                 ),
             ],
@@ -192,29 +214,34 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                             comment="",
                         ),
                         corical_pb2.Risk(
+                            name="Risk of dying from COVID-19 if you get infected",
+                            risk=die_from_covid_given_infected,
+                            comment="",
+                        ),
+                    ],
+                ),
+                corical_pb2.OutputGroup(
+                    heading="Death from atypical blood clots",
+                    explanation=blood_clot_brief + " " + explanation,
+                    risks=(
+                        [
+                            corical_pb2.Risk(
+                                name="Risk of dying from thrombosis with thrombocytopenia syndrome (TTS) from the AstraZeneca vaccine",
+                                risk=die_from_tts,
+                                comment="",
+                            )
+                        ]
+                        if die_from_tts > 0.0
+                        else []
+                    )
+                    + [
+                        corical_pb2.Risk(
                             name="Risk of dying from COVID-19 related blood clot",
-                            risk=die_from_clots_covid,
+                            risk=die_from_clots_covid_given_infected,
                             comment="",
                         ),
-                    ],
-                ),
-                corical_pb2.OutputGroup(
-                    heading="Major adverse effects of vaccines",
-                    explanation=explanation,
-                    risks=[
                         corical_pb2.Risk(
-                            name="Risk of dying from TTS from AZ",
-                            risk=die_from_tts,
-                            comment="",
-                        ),
-                    ],
-                ),
-                corical_pb2.OutputGroup(
-                    heading="Other related things",
-                    explanation=explanation,
-                    risks=[
-                        corical_pb2.Risk(
-                            name="Risk of dying from blood clot",
+                            name="Background risk of dying from an atypical blood clot",
                             risk=die_from_clots,
                             comment="",
                         ),
