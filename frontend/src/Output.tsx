@@ -56,7 +56,35 @@ type OutputProps = {
   output: any;
 };
 
-const displayRisk = (value: number, mul = 1e2) => Math.round(value * mul) / mul;
+function displayRisk(value: number) {
+  if (value <= 0.0) {
+    return "0";
+  }
+  const sigfigs = 2;
+  const digits = Math.ceil(Math.log10(value));
+
+  // this avoids some floating point issues!
+  const mul = 10 ** (digits - sigfigs);
+  const div = 10 ** (sigfigs - digits);
+  const rounded = Math.round(value / mul) / div;
+
+  if (rounded < 100) {
+    return rounded.toString();
+  }
+
+  const [l] = rounded.toString().split(".");
+  const out: Array<string> = [];
+
+  for (let i = 1; i <= l.length; ++i) {
+    const dig = l[l.length - i];
+    out.push(dig);
+    if (i % 3 === 0 && i < l.length) {
+      out.push(",");
+    }
+  }
+
+  return out.reverse().join("");
+}
 
 export function RiskDisplay({ risk }: { risk: number }) {
   const classes = useStyles();
@@ -69,7 +97,7 @@ export function RiskDisplay({ risk }: { risk: number }) {
   let textRepresentation = `${roundedRiskPerMillion} ${RISK_PER_MILLION}`;
   if (riskPerMillion === 0.0) {
     textRepresentation = ZERO_RISK;
-  } else if (roundedRiskPerMillion < 0.1) {
+  } else if (roundedRiskPerMillionLotsOfDigits < 0.1) {
     textRepresentation = LESS_THAN_TENTH_MILLION;
   }
 
@@ -96,7 +124,6 @@ export default function Form({ output }: OutputProps) {
           <Typography variant="body1" paragraph>
             {STEP2_HELPER}
           </Typography>
-          {/* <code>{JSON.stringify(output)}</code> */}
           {output.messages?.map(({ heading, text, severity }: any) => (
             <Alert key={text} severity={severity} className={classes.message}>
               <AlertTitle>{heading}</AlertTitle>
@@ -130,7 +157,7 @@ export default function Form({ output }: OutputProps) {
                   data={data}
                   margin={{
                     top: 20,
-                    right: 20,
+                    right: 80,
                     bottom: 20,
                     left: 20,
                   }}
