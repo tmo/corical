@@ -114,6 +114,14 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
               <br />
               <b>Project conception</b>: Andrew Baird, John Litt, Kirsty Short
               <br />
+              <b>Development of interactive tool</b>:{" "}
+              <a
+                href="https://www.aapelivuorinen.com"
+                style={{ textDecoration: "inherit", color: "inherit" }}
+              >
+                Aapeli Vuorinen
+              </a>
+              <br />
               <b>Subject expertise</b>: Andrew Baird, Anoop Enjeti, Colleen Lau,
               John Litt, Kirsty Short, Hassan Vally
               <br />
@@ -127,14 +135,6 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
               <br />
               <b>Data visualisation and communication</b>: Kirsty Short, Jane
               Sinclair, Hassan Vally, Aapeli Vuorinen
-              <br />
-              <b>Online interactive tool</b>:{" "}
-              <a
-                href="https://www.aapelivuorinen.com"
-                style={{ textDecoration: "inherit", color: "inherit" }}
-              >
-                Aapeli Vuorinen
-              </a>
               <br />
               <b>Administration and management</b>: Andrew Baird, Jayne Geddes,
               John Litt, Kim Sampson, Kirsty Short
