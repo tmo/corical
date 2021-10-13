@@ -59,6 +59,7 @@ const useStyles = makeStyles((theme) => ({
   },
   transmissionDescription: {
     color: "#777",
+    fontSize: "0.9rem",
   },
 }));
 
