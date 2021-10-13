@@ -9,7 +9,7 @@ risks = [
     },
     {
         "event": "Chance of being struck by lightning in a year",
-        "risk": 1 / 500000,
+        "risk": 1 / 4_000_000,
     },
     {
         "event": "Chance of being in a fatal car accident in a year in Australia",
