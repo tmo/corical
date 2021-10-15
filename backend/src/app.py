@@ -236,7 +236,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                     )
                     + [
                         corical_pb2.Risk(
-                            name="Risk of dying from COVID-19 related blood clot",
+                            name="Risk of dying from COVID-19 related blood clot if you are infected",
                             risk=die_from_clots_covid_given_infected,
                             comment="",
                         ),

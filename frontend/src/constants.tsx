@@ -10,7 +10,7 @@ export const STEP1_HELPER =
 export const FIELD_REQUIRED = "This field is required.";
 
 export const AGE_LABEL = "Age";
-export const AGE_TOO_SMALL = "Must be at least 16 years old.";
+export const AGE_TOO_SMALL = "Must be at least 18 years old.";
 export const AGE_TOO_BIG = "Please enter an age under 100.";
 
 export const SEX_LABEL = "Sex";
