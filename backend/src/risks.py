@@ -4,56 +4,52 @@ risks = [
         "risk": 0,
     },
     {
-        "event": "Chance of winning the Oz Lotto Grand prize in a given draw",
-        "risk": 1 / 134490400,
+        "event": "Chance of winning the Australian Powerball 1st Division lotto in any given draw",
+        "risk": 1 / 134_490_400,
     },
     {
-        "event": "Chance of being struck by lightning in a year",
+        "event": "Chance of dying from being struck by lightning in a year in Australia",
         "risk": 1 / 4_000_000,
     },
     {
+        "event": "Chance of being killed by an asteroid impact in a lifetime",
+        "risk": 1 / 700_000,
+    },
+    {
         "event": "Chance of being in a fatal car accident in a year in Australia",
-        "risk": 1 / 18519,
+        "risk": 1 / 17_953,
     },
     {
-        "event": "Chance of bowling a perfect game",
-        "risk": 1 / 11500,
+        "event": "Chance of bowling a perfect game in any given match",
+        "risk": 1 / 11_500,
     },
     {
-        "event": "Chance of being bitten by a snake in a year Australia",
-        "risk": 1 / 8453,
+        "event": "Chance of being bitten by a snake in a year in Australia",
+        "risk": 1 / 8667,
     },
     {
         "event": "Chance of being diagnosed with melanoma in a year in Australia",
-        "risk": 1 / 2041,
+        "risk": 1 / 1958,
     },
     {
-        "event": "Chance of cracking a double-yolked egg",
+        "event": "Chance of cracking a double-yolk egg on any given crack",
         "risk": 1 / 1000,
     },
     {
-        "event": "Chance of having a natural pregnancy result in twins",
+        "event": "Chance of having a non-IVF pregnancy result in twins",
         "risk": 1 / 250,
-    },
-    {
-        "event": "Chance of being sent a jury summons in a year in Australia",
-        "risk": 1 / 169,
     },
     {
         "event": "Chance of being left-handed",
         "risk": 1 / 10,
     },
     {
-        "event": "Chance of being audited by the ATO in a year in Australia",
+        "event": "Chance of being audited in a year in Australia",
         "risk": 1 / 7,
     },
     {
-        "event": "Chance of getting food poisoning per year in Australia",
-        "risk": 1 / 6.19,
-    },
-    {
-        "event": "Chance of having your wisdom teeth removed in a year in Australia",
-        "risk": 1 / 5,
+        "event": "Chance of getting food poisoning in a  year in Australia",
+        "risk": 1 / 6,
     },
     {
         "event": "Chance of a baby born in Australia today living to 100",
