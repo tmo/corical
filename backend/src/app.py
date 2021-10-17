@@ -81,8 +81,8 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             )
 
         # variant
-        # hardcoded as 90% Delta
-        variant_vec = np.array([0.1, 0.9])
+        # hardcoded as 100% Delta
+        variant_vec = np.array([0.0, 1.0])
 
         # explanation = f"For a {age_label} {sex_label} who has had {vaccine_label}, and under {transmission_label} community transmission, the risks of the following events are shown."
 
