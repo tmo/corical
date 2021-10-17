@@ -150,6 +150,7 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
               <Link href="/docs/corical_preprint.pdf">Data sources.</Link>{" "}
               <Link href="/docs/relatable_risks.pdf">Relatable risks.</Link>{" "}
               <Link href="/docs/tts_information.pdf">Information on TTS.</Link>
+              <Link href="https://www.immunisationcoalition.org.au/resources/corical/">Printable summary graphs.</Link>
             </Box>
           </Container>
         </Box>
