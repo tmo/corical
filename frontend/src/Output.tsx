@@ -3,8 +3,10 @@ import {
   makeStyles,
   Table,
   TableBody,
+  Button,
   TableCell,
   TableContainer,
+  Box,
   TableHead,
   TableRow,
   Paper,
@@ -193,6 +195,20 @@ export default function Form({ output }: OutputProps) {
               </div>
             );
           })}
+
+          {output.printable && (
+            <Box py={5}>
+              <Button
+                variant="contained"
+                color="primary"
+                disableElevation
+                href={output.printable.url}
+                target="_blank"
+              >
+                {output.printable.text}
+              </Button>
+            </Box>
+          )}
 
           {output.output_groups?.map(({ heading, explanation, risks }: any) => (
             <div key={heading}>

@@ -56,11 +56,17 @@ message BarGraph {
   repeated BarGraphRisk risks = 3;
 }
 
+message PrintableButton {
+  string text = 1;
+  string url = 2;
+}
+
 message ComputeRes {
   string scenario_description = 1;
   repeated BarGraph bar_graphs = 2;
   repeated Message messages = 3;
   repeated OutputGroup output_groups = 4;
+  PrintableButton printable = 5;
   bool success = 98;
   string msg = 99;
 }

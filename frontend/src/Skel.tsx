@@ -7,7 +7,6 @@ import {
   CssBaseline,
   AppBar,
   Toolbar,
-  Link,
   Button,
 } from "@material-ui/core";
 
@@ -146,12 +145,40 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
           <Container maxWidth="lg">
             {children}
             <Box py={5}>
-              &copy; 2021 Immunisation Coalition.{" "}
-              <Link href="/docs/corical_preprint.pdf">Data sources.</Link>{" "}
-              <Link href="/docs/relatable_risks.pdf">Relatable risks.</Link>{" "}
-              <Link href="/docs/tts_information.pdf">Information on TTS.</Link>
-              <Link href="https://www.immunisationcoalition.org.au/resources/corical/">Printable summary graphs.</Link>
+              <Button
+                variant="outlined"
+                color="primary"
+                disableElevation
+                href="/docs/corical_preprint.pdf"
+              >
+                Data sources
+              </Button>{" "}
+              <Button
+                variant="outlined"
+                color="primary"
+                disableElevation
+                href="/docs/relatable_risks.pdf"
+              >
+                Relatable risks
+              </Button>{" "}
+              <Button
+                variant="outlined"
+                color="primary"
+                disableElevation
+                href="/docs/tts_information.pdf"
+              >
+                Information on TTS
+              </Button>{" "}
+              <Button
+                variant="outlined"
+                color="primary"
+                disableElevation
+                href="https://www.immunisationcoalition.org.au/resources/corical/"
+              >
+                Printable summary graphs
+              </Button>
             </Box>
+            <Box py={5}>&copy; 2021 Immunisation Coalition. </Box>
           </Container>
         </Box>
       </Box>

@@ -5,7 +5,7 @@ from concurrent import futures
 import grpc
 import numpy as np
 
-from model import compute_probs, get_age_bracket, scenario_to_vec
+from model import compute_probs, get_age_bracket, get_link, scenario_to_vec
 from proto import corical_pb2, corical_pb2_grpc
 from risks import generate_relatable_risks
 
@@ -56,7 +56,16 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             context.abort(grpc.StatusCode.FAILED_PRECONDITION, "Invalid vaccine")
 
         # age
-        age_label, age_vec = get_age_bracket(request.age)
+        age_label, age_vec, age_ix = get_age_bracket(request.age)
+
+        link = get_link(request.sex, age_ix)
+
+        if link:
+            printable = corical_pb2.PrintableButton(
+                url=link, text=f"Get printable graphs for a {age_label} {sex_label}"
+            )
+        else:
+            printable = None
 
         # community transmission
         ct_vec = scenario_to_vec(request.transmission)
@@ -128,6 +137,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
         return corical_pb2.ComputeRes(
             messages=messages,
             scenario_description="This is the scenario description",
+            printable=printable,
             bar_graphs=[
                 corical_pb2.BarGraph(
                     title=f"What is my chance of getting COVID-19 if there are {transmission_label} transmissions in the community?",
