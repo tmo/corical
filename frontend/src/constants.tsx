@@ -126,8 +126,18 @@ export function TOS_TEXT() {
   return (
     <>
       <p>
-        CoRiCal does not estimate an individual’s personal risks related to
-        COVID-19 and COVID-19 vaccination.
+        The CoRiCal risk calculator intends to provide rough estimates of
+        benefits versus risks of COVID-19 vaccines to help people make informed
+        decisions about vaccination. CoRiCal does not estimate an individual's
+        personal risks related to COVID-19 and COVID-19 vaccination. The risks
+        provided by CoRiCal (e.g. risk of dying from COVID-19) are estimates of
+        the average risk for males and females in each age group, and does not
+        take into account individual level factors such as medical conditions
+        (e.g. diabetes, obesity) or behaviour (e.g. occupation, social
+        activities). The risks were calculated using a{" "}
+        <a href="/docs/corical_preprint.pdf">model</a> based on the best known
+        evidence, but model estimates inevitably come with some level of
+        uncertainty.
       </p>
       <p>
         CoRiCal does not provide advice on diagnosis or medical management. The
@@ -152,10 +162,10 @@ export function TOS_TEXT() {
         information contained in CoRiCal.
       </p>
       <p>
-        CoRiCal may be found in third parties’ programs or materials. This does
+        CoRiCal may be found in third parties' programs or materials. This does
         not imply an endorsement or recommendation by the Immunisation
         Coalition, University of Queensland, La Trobe University, and the
-        members of the CoRiCal development team for such third parties’
+        members of the CoRiCal development team for such third parties'
         organisations, products, services, materials, or information. Any use of
         CoRiCal by another organisation is at its own risk.
       </p>
@@ -163,14 +173,14 @@ export function TOS_TEXT() {
         The entire contents of CoRiCal are subject to copyright protection.{" "}
       </p>
       <p>
-        The CoRiCal website uses cookies to improve users’ experience of the
+        The CoRiCal website uses cookies to improve users' experience of the
         website, and to enable CoRiCal to collect de-identified data about the
         use of CoRiCal. These data are used for analysis and evaluation of
         CoRiCal.{" "}
       </p>
       <p>
         CoRiCal does not require users to provide any personal information.
-        CoRiCal does not collect users’ personal information. CoRiCal has been
+        CoRiCal does not collect users' personal information. CoRiCal has been
         designed to be used anonymously. In using CoRiCal you consent to CoRiCal
         collecting de-identified data for the purposes of analysis and
         evaluation. These data may be collected from user inputs and from user
@@ -182,7 +192,7 @@ export function TOS_TEXT() {
         Australia.
       </p>
       <p>
-        For further information, please refer to the Immunisation Coalition’s
+        For further information, please refer to the Immunisation Coalition's
         statement on cookies and the{" "}
         <a
           href="https://www.immunisationcoalition.org.au/privacy-policy/"
