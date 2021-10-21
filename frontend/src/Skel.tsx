@@ -109,52 +109,42 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
               {title}
             </Typography>
             <Typography variant="caption" paragraph>
-              <ul></ul>
-              <li>
-                CoRiCal aims to help people make informed decisions about the
-                risks versus benefits of COVID-19 vaccines.
-              </li>
-              <li>
-                Risks and benefits vary depending on age, sex, the number of
-                doses of vaccine received, and the level of community
-                transmission. You will be asked to enter this information into
-                the calculator.
-              </li>
-              <li>
-                Using the information that you entered, CoRiCal calculates
-                estimates of the chance of different outcomes for your age and
-                sex.
-              </li>
-              <li>
-                It is important to note that these are estimates of the average
-                chance for people of your sex and age group, and does not take
-                into account individual factors such as medical conditions (e.g.
-                diabetes, obesity) or exposure risks (e.g. occupation).
-              </li>
-              <li>
-                The chances of outcomes are shown as number of cases per million
-                people.
-              </li>
-              <li>
-                To help you put these chances into context, the chances of
-                relatable events are also shown, e.g. chances of being struck by
-                lightning, or dying in a car accident
-              </li>
-              <li>
-                The first version of CoRiCal shows side effects of the
-                AstraZeneca vaccine (serious blood clots). An upcoming version
-                will include side effects of the Pfizer vaccine (myocarditis and
-                pericarditis), and future versions will include other outcomes
-                such as long COVID and ICU admission.
-              </li>
-              <li>
-                Please remember that even if there might be zero or low
-                community transmission in your state now, this is most likely to
-                increase over time as lockdowns end and borders reopen. So it
-                would be useful to have a look at what your risks would be under
-                medium and high transmission scenarios, and see how vaccination
-                can reduce your chances of getting COVID or dying from it.
-              </li>
+              <ul>
+                <li>
+                  CoRiCal aims to help people make informed decisions about the
+                  risks versus benefits of COVID-19 vaccines.
+                </li>
+                <li>
+                  These risks and benefits vary depending on age, sex, the
+                  number of doses of vaccine received, and the level of
+                  community transmission.
+                </li>
+                <li>
+                  CoRiCal calculates estimates of the chance of different
+                  outcomes for your age and sex group per million people.
+                </li>
+                <li>
+                  It is important to note that these are estimates of the
+                  average chance for people of your sex and age group, and does
+                  not take into account individual factors such as medical
+                  conditions (e.g. diabetes, obesity) or exposure risks (e.g.
+                  occupation).
+                </li>
+                <li>
+                  Please remember that even if there might be low community
+                  transmission in your state now, this is most likely to
+                  increase over time as lockdowns end and borders reopen.
+                </li>
+                <li>
+                  An upcoming version will include side effects of the Pfizer
+                  vaccine (myocarditis and pericarditis).
+                </li>
+                <li>
+                  Future versions will include other conditions such as long
+                  COVID and ICU admission, and individual factors such as
+                  medical conditions.
+                </li>
+              </ul>
             </Typography>
           </Container>
         </Box>
