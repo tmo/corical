@@ -145,7 +145,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
-                                label="Chance of getting COVID-19",
+                                label="Chance of getting COVID-19 over 6 months",
                                 risk=symptomatic_infection,
                             )
                         ]
@@ -169,7 +169,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
-                                label="If I get COVID-19",
+                                label="Chance of developing atypical blood clot if I get COVID-19",
                                 risk=get_clots_covid_given_infected,
                             )
                         ]
@@ -191,7 +191,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
-                                label="If I get COVID-19",
+                                label="Chance of dying from atypical blood clot if I get COVID-19",
                                 risk=die_from_clots_covid_given_infected,
                             )
                         ]
