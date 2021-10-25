@@ -1,5 +1,6 @@
 import logging
 import signal
+from base64 import b64encode
 from concurrent import futures
 from datetime import datetime
 from time import perf_counter_ns
@@ -291,14 +292,16 @@ class Corical(corical_pb2_grpc.CoricalServicer):
         )
         duration = (perf_counter_ns() - start) / 1e6  # ms
 
-        b_log = corical_pb2.BinLog(
+        binlog = corical_pb2.BinLog(
             time=time,
             req=request,
             res=out,
             duration_ms=duration,
-        ).SerializeToString()
+        )
 
-        logger.info(f"binlog: {b_log.encode('utf-8')}")
+        binlog_out = b64encode(binlog.SerializeToString()).decode("utf8")
+
+        logger.info(f"binlog: {binlog_out}")
 
         return out
 
