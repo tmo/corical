@@ -1,13 +1,19 @@
 import logging
 import signal
 from concurrent import futures
+from datetime import datetime
+from time import perf_counter_ns
 
 import grpc
 import numpy as np
+import pytz
+from google.protobuf.timestamp_pb2 import Timestamp
 
 from model import compute_probs, get_age_bracket, get_link, scenario_to_vec
 from proto import corical_pb2, corical_pb2_grpc
 from risks import generate_relatable_risks
+
+utc = pytz.UTC
 
 logging.basicConfig(format="%(asctime)s: %(name)s: %(message)s", level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -16,8 +22,21 @@ server = grpc.server(futures.ThreadPoolExecutor(8))
 server.add_insecure_port(f"[::]:21000")
 
 
+def now():
+    return datetime.now(utc)
+
+
+def Timestamp_from_datetime(dt: datetime):
+    pb_ts = Timestamp()
+    pb_ts.FromDatetime(dt)
+    return pb_ts
+
+
 class Corical(corical_pb2_grpc.CoricalServicer):
     def Compute(self, request, context):
+        start = perf_counter_ns()
+        time = Timestamp_from_datetime(now())
+
         logger.info(request)
 
         messages = []
@@ -137,7 +156,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                 key=lambda br: br.risk,
             )
 
-        return corical_pb2.ComputeRes(
+        out = corical_pb2.ComputeRes(
             messages=messages,
             scenario_description="This is the scenario description",
             printable=printable,
@@ -270,6 +289,18 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             success=True,
             msg=str(request),
         )
+        duration = (finished - start) / 1e6  # ms
+
+        b_log = corical_pb2.BinLog(
+            time=time,
+            req=request,
+            res=out,
+            duration=duration,
+        ).SerializeToString()
+
+        logger.info(f"binlog: {b_log.encode('utf-8')}")
+
+        return out
 
 
 corical_pb2_grpc.add_CoricalServicer_to_server(Corical(), server)

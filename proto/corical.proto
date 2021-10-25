@@ -3,6 +3,7 @@ syntax = "proto3";
 package corical;
 
 import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
 
 service Corical {
   rpc Compute(ComputeReq) returns (ComputeRes) {
@@ -69,4 +70,11 @@ message ComputeRes {
   PrintableButton printable = 5;
   bool success = 98;
   string msg = 99;
+}
+
+message BinLog {
+  google.protobuf.Timestamp time = 1;
+  ComputeReq req = 2;
+  ComputeRes res = 3;
+  double duration_ms = 4;
 }
