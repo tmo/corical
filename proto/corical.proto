@@ -22,6 +22,8 @@ message ComputeReq {
   string sex = 3;
   string vaccine = 5;
   string transmission = 6;
+
+  uint32 compute_count = 7;
 }
 
 // output
