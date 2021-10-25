@@ -19,7 +19,7 @@ utc = pytz.UTC
 logging.basicConfig(format="%(asctime)s: %(name)s: %(message)s", level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-server = grpc.server(futures.ThreadPoolExecutor(8))
+server = grpc.server(futures.ThreadPoolExecutor(32))
 server.add_insecure_port(f"[::]:21000")
 
 
