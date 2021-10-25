@@ -295,7 +295,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             time=time,
             req=request,
             res=out,
-            duration=duration,
+            duration_ms=duration,
         ).SerializeToString()
 
         logger.info(f"binlog: {b_log.encode('utf-8')}")
