@@ -171,7 +171,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                     subtitle=blood_clot_brief
                     + " "
                     + subtitle
-                    + f" Results below show the chances of an atypical blood clot after the {first_or_second_az} dose of AZ vaccine.",
+                    + f" Results below show the chances of an atypical blood clot after the {first_or_second_az} dose of the AstraZeneca vaccine.",
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
