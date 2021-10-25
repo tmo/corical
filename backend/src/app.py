@@ -289,7 +289,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             success=True,
             msg=str(request),
         )
-        duration = (finished - start) / 1e6  # ms
+        duration = (perf_counter_ns() - start) / 1e6  # ms
 
         b_log = corical_pb2.BinLog(
             time=time,
