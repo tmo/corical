@@ -67,14 +67,17 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             vaccine_label = f"no doses of the AstraZeneca vaccine"
             az_vec = np.array([1.0, 0.0, 0.0])
             first_or_second_az = "error"
+            had_az = False
         elif request.vaccine == "az1":
             vaccine_label = f"one dose of the AstraZeneca vaccine"
             az_vec = np.array([0.0, 1.0, 0.0])
             first_or_second_az = "first"
+            had_az = True
         elif request.vaccine == "az2":
             vaccine_label = f"two doses of the AstraZeneca vaccine"
             az_vec = np.array([0.0, 0.0, 1.0])
             first_or_second_az = "second"
+            had_az = True
         else:
             context.abort(grpc.StatusCode.FAILED_PRECONDITION, "Invalid vaccine")
 
@@ -191,7 +194,11 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                     subtitle=blood_clot_brief
                     + " "
                     + subtitle
-                    + f" Results below show the chances of an atypical blood clot after the {first_or_second_az} dose of the AstraZeneca vaccine.",
+                    + (
+                        f" Results below show the chances of an atypical blood clot after the {first_or_second_az} dose of the AstraZeneca vaccine."
+                        if had_az
+                        else ""
+                    ),
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
@@ -216,7 +223,11 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                     subtitle=blood_clot_brief
                     + " "
                     + subtitle
-                    + f" Results below show the chances of death from an atypical blood clot after the {first_or_second_az} dose of the AstraZeneca vaccine.",
+                    + (
+                        f" Results below show the chances of death from an atypical blood clot after the {first_or_second_az} dose of the AstraZeneca vaccine."
+                        if had_az
+                        else ""
+                    ),
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
