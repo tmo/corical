@@ -32,6 +32,7 @@ import {
   Tooltip,
   LabelList,
 } from "recharts";
+import { useState } from "react";
 
 const useStyles = makeStyles((theme) => ({
   message: {
@@ -58,10 +59,7 @@ type OutputProps = {
   output: any;
 };
 
-function displayRisk(value: number) {
-  if (value <= 0.0) {
-    return "0";
-  }
+function formatNumber(value: number) {
   const sigfigs = 2;
   const digits = Math.ceil(Math.log10(value));
 
@@ -88,15 +86,35 @@ function displayRisk(value: number) {
   return out.reverse().join("");
 }
 
-export function RiskDisplay({ risk }: { risk: number }) {
+function displayRisk(value: number, one_in_x: boolean) {
+  if (value <= 0.0) {
+    return "0";
+  }
+  if (!one_in_x) {
+    return formatNumber(value * 1e6);
+  } else {
+    return "1 in " + formatNumber(1 / value);
+  }
+}
+
+export function RiskDisplay({
+  risk,
+  oneInX,
+}: {
+  risk: number;
+  oneInX: boolean;
+}) {
   const classes = useStyles();
 
   const riskPerMillion = risk * 1e6;
-  const roundedRiskPerMillion = displayRisk(riskPerMillion);
+  const roundedRiskPerMillion = displayRisk(risk, oneInX);
   const roundedRiskPerMillionLotsOfDigits =
     Math.round(riskPerMillion * 1e6) / 1e6;
 
   let textRepresentation = `${roundedRiskPerMillion} ${RISK_PER_MILLION}`;
+  if (oneInX) {
+    textRepresentation = `${roundedRiskPerMillion}`;
+  }
   if (riskPerMillion === 0.0) {
     textRepresentation = ZERO_RISK;
   } else if (roundedRiskPerMillionLotsOfDigits < 0.1) {
@@ -105,7 +123,11 @@ export function RiskDisplay({ risk }: { risk: number }) {
 
   return (
     <abbr
-      title={roundedRiskPerMillionLotsOfDigits.toString()}
+      title={
+        "Model output: " +
+        roundedRiskPerMillionLotsOfDigits.toString() +
+        " per million"
+      }
       className={classes.abbr}
     >
       {textRepresentation}
@@ -115,6 +137,8 @@ export function RiskDisplay({ risk }: { risk: number }) {
 
 export default function Form({ output }: OutputProps) {
   const classes = useStyles();
+
+  const [oneInX, setOneInX] = useState(false);
 
   return (
     <>
@@ -133,6 +157,16 @@ export default function Form({ output }: OutputProps) {
             </Alert>
           ))}
 
+          <Button
+            onClick={() => setOneInX(!oneInX)}
+            color="primary"
+            variant="outlined"
+          >
+            {oneInX
+              ? "Show risk as per million risk"
+              : "Show risk as reciprocal"}
+          </Button>
+
           {output.bar_graphs?.map(({ title, subtitle, risks }: any) => {
             let multiplier = 1e6;
             const data = risks.map(({ label, risk, is_relatable }: any) => {
@@ -140,7 +174,7 @@ export default function Form({ output }: OutputProps) {
                 label,
                 risk: multiplier * risk,
                 fill: is_relatable ? "#ccc" : "#413ea0",
-                display_risk: displayRisk(multiplier * risk),
+                display_risk: displayRisk(risk, oneInX),
               };
             });
             return (
@@ -183,7 +217,7 @@ export default function Form({ output }: OutputProps) {
                           <div className={classes.tooltip}>
                             {label}
                             <br />
-                            {RISK_TEXT}: {displayRisk(value)}
+                            {RISK_TEXT}: {displayRisk(value, oneInX)}
                           </div>
                         );
                       } else {
@@ -236,7 +270,7 @@ export default function Form({ output }: OutputProps) {
                           {name}
                         </TableCell>
                         <TableCell>
-                          <RiskDisplay risk={risk} />
+                          <RiskDisplay risk={risk} oneInX={oneInX} />
                         </TableCell>
                       </TableRow>
                     ))}

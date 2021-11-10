@@ -95,4 +95,6 @@ def generate_relatable_risks(risk_vals):
         if ix_third >= len(risks):
             ix_third = ix_less - 1
 
-    return [risks[i] for i in sorted([ix_less, ix_more, ix_third]) if i not in [0, len(risks) - 1]]
+    return [risks[ix_more]]
+
+    # return [risks[i] for i in sorted([ix_less, ix_more, ix_third]) if i not in [0, len(risks) - 1]]

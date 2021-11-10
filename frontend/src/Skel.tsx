@@ -216,7 +216,12 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
               John Litt, Kim Sampson, Kirsty Short
               <br />
             </Typography>
-            <Box py={5}>&copy; 2021 Immunisation Coalition. <a href="https://forms.gle/ynwFeiX5bRgp71tTA">Feedback or comments?</a></Box>
+            <Box py={5}>
+              &copy; 2021 Immunisation Coalition.{" "}
+              <a href="https://forms.gle/ynwFeiX5bRgp71tTA">
+                Feedback or comments?
+              </a>
+            </Box>
           </Container>
         </Box>
       </Box>
