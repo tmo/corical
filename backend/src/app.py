@@ -66,16 +66,28 @@ class Corical(corical_pb2_grpc.CoricalServicer):
         if request.vaccine == "az0":
             vaccine_label = f"no doses of the AstraZeneca vaccine"
             az_vec = np.array([1.0, 0.0, 0.0])
+            az_vec1 = np.array([0.0, 1.0, 0.0])
+            az_text1 = "with one shot"
+            az_vec2 = np.array([0.0, 0.0, 1.0])
+            az_text2 = "with two shots"
             first_or_second_az = "error"
             had_az = False
         elif request.vaccine == "az1":
             vaccine_label = f"one dose of the AstraZeneca vaccine"
             az_vec = np.array([0.0, 1.0, 0.0])
+            az_vec1 = np.array([1.0, 0.0, 0.0])
+            az_text1 = "without a shot"
+            az_vec2 = np.array([0.0, 0.0, 1.0])
+            az_text2 = "with two shots"
             first_or_second_az = "first"
             had_az = True
         elif request.vaccine == "az2":
             vaccine_label = f"two doses of the AstraZeneca vaccine"
             az_vec = np.array([0.0, 0.0, 1.0])
+            az_vec1 = np.array([1.0, 0.0, 0.0])
+            az_text1 = "without a shot"
+            az_vec2 = np.array([0.0, 1.0, 0.0])
+            az_text2 = "with one shot"
             first_or_second_az = "second"
             had_az = True
         else:
@@ -144,6 +156,26 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             get_clots_covid_given_infected,
             die_from_clots_covid_given_infected,
         ) = compute_probs(az_vec, age_vec, sex_vec, variant_vec, ct_vec)
+        (
+            symptomatic_infection_other1,
+            get_tts_other1,
+            die_from_covid_given_infected_other1,
+            die_from_tts_other1,
+            die_from_clots_other1,
+            die_from_covid_other1,
+            get_clots_covid_given_infected_other1,
+            die_from_clots_covid_given_infected_other1,
+        ) = compute_probs(az_vec1, age_vec, sex_vec, variant_vec, ct_vec)
+        (
+            symptomatic_infection_other2,
+            get_tts_other2,
+            die_from_covid_given_infected_other2,
+            die_from_tts_other2,
+            die_from_clots_other2,
+            die_from_covid_other2,
+            get_clots_covid_given_infected_other2,
+            die_from_clots_covid_given_infected_other2,
+        ) = compute_probs(az_vec2, age_vec, sex_vec, variant_vec, ct_vec)
         logger.info(f"{symptomatic_infection=}, {1-symptomatic_infection=}")
 
         def generate_bar_graph_risks(input_risks):
@@ -173,7 +205,17 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                             corical_pb2.BarGraphRisk(
                                 label="Chance of getting COVID-19 over 6 months",
                                 risk=symptomatic_infection,
-                            )
+                            ),
+                            corical_pb2.BarGraphRisk(
+                                label=f"Chance of getting COVID-19 over 6 months ({az_text1})",
+                                risk=symptomatic_infection_other1,
+                                is_other_shot=True,
+                            ),
+                            corical_pb2.BarGraphRisk(
+                                label=f"Chance of getting COVID-19 over 6 months ({az_text2})",
+                                risk=symptomatic_infection_other2,
+                                is_other_shot=True,
+                            ),
                         ]
                     ),
                 ),
@@ -185,7 +227,17 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                             corical_pb2.BarGraphRisk(
                                 label="Chance of dying from COVID-19",
                                 risk=die_from_covid_given_infected,
-                            )
+                            ),
+                            corical_pb2.BarGraphRisk(
+                                label=f"Chance of dying from COVID-19 ({az_text1})",
+                                risk=die_from_covid_given_infected_other1,
+                                is_other_shot=True,
+                            ),
+                            corical_pb2.BarGraphRisk(
+                                label=f"Chance of dying from COVID-19 ({az_text2})",
+                                risk=die_from_covid_given_infected_other2,
+                                is_other_shot=True,
+                            ),
                         ]
                     ),
                 ),

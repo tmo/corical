@@ -51,6 +51,7 @@ message BarGraphRisk {
   double risk = 2;
   // so we can fade them out
   bool is_relatable = 3;
+  bool is_other_shot = 4;
 }
 
 message BarGraph {

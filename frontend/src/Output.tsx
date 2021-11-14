@@ -107,13 +107,13 @@ export function RiskDisplay({
   const classes = useStyles();
 
   const riskPerMillion = risk * 1e6;
-  const roundedRiskPerMillion = displayRisk(risk, oneInX);
+  const roundedRisk = displayRisk(risk, oneInX);
   const roundedRiskPerMillionLotsOfDigits =
     Math.round(riskPerMillion * 1e6) / 1e6;
 
-  let textRepresentation = `${roundedRiskPerMillion} ${RISK_PER_MILLION}`;
+  let textRepresentation = `${roundedRisk} ${RISK_PER_MILLION}`;
   if (oneInX) {
-    textRepresentation = `${roundedRiskPerMillion}`;
+    textRepresentation = `${roundedRisk}`;
   }
   if (riskPerMillion === 0.0) {
     textRepresentation = ZERO_RISK;
@@ -169,11 +169,14 @@ export default function Form({ output }: OutputProps) {
 
           {output.bar_graphs?.map(({ title, subtitle, risks }: any) => {
             let multiplier = 1e6;
-            const data = risks.map(({ label, risk, is_relatable }: any) => {
+            const data = risks.map(({ label, risk, is_relatable, is_other_shot }: any) => {
+              let color = "#413ea0"
+              if (is_relatable) { color = "#ccc" }
+              if (is_other_shot) { color = "#b2b1ce"}
               return {
                 label,
                 risk: multiplier * risk,
-                fill: is_relatable ? "#ccc" : "#413ea0",
+                fill: color,
                 display_risk: displayRisk(risk, oneInX),
               };
             });
@@ -217,7 +220,7 @@ export default function Form({ output }: OutputProps) {
                           <div className={classes.tooltip}>
                             {label}
                             <br />
-                            {RISK_TEXT}: {displayRisk(value, oneInX)}
+                            {RISK_TEXT}: {displayRisk(value / 1e6, false)}
                           </div>
                         );
                       } else {
