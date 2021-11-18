@@ -15,6 +15,7 @@ import { Alert, AlertTitle } from "@material-ui/lab/";
 import {
   DESCRIPTION_LABEL,
   LESS_THAN_TENTH_MILLION,
+  LESS_THAN_TENTH_MILLION_IN_X,
   RISK_LABEL,
   RISK_PER_MILLION,
   RISK_TEXT,
@@ -22,6 +23,7 @@ import {
   STEP2_SUBMIT_FORM_FIRST,
   STEP2_TITLE,
   ZERO_RISK,
+  ZERO_RISK_IN_X,
 } from "./constants";
 import {
   Bar,
@@ -116,9 +118,11 @@ export function RiskDisplay({
     textRepresentation = `${roundedRisk}`;
   }
   if (riskPerMillion === 0.0) {
-    textRepresentation = ZERO_RISK;
+    textRepresentation = oneInX ? ZERO_RISK_IN_X : ZERO_RISK;
   } else if (roundedRiskPerMillionLotsOfDigits < 0.1) {
-    textRepresentation = LESS_THAN_TENTH_MILLION;
+    textRepresentation = oneInX
+      ? LESS_THAN_TENTH_MILLION_IN_X
+      : LESS_THAN_TENTH_MILLION;
   }
 
   return (
@@ -169,17 +173,23 @@ export default function Form({ output }: OutputProps) {
 
           {output.bar_graphs?.map(({ title, subtitle, risks }: any) => {
             let multiplier = 1e6;
-            const data = risks.map(({ label, risk, is_relatable, is_other_shot }: any) => {
-              let color = "#413ea0"
-              if (is_relatable) { color = "#ccc" }
-              if (is_other_shot) { color = "#b2b1ce"}
-              return {
-                label,
-                risk: multiplier * risk,
-                fill: color,
-                display_risk: displayRisk(risk, oneInX),
-              };
-            });
+            const data = risks.map(
+              ({ label, risk, is_relatable, is_other_shot }: any) => {
+                let color = "#413ea0";
+                if (is_relatable) {
+                  color = "#ccc";
+                }
+                if (is_other_shot) {
+                  color = "#b2b1ce";
+                }
+                return {
+                  label,
+                  risk: multiplier * risk,
+                  fill: color,
+                  display_risk: displayRisk(risk, oneInX),
+                };
+              }
+            );
             return (
               <div key={title}>
                 <Typography variant="h6" component="h3">
@@ -274,6 +284,7 @@ export default function Form({ output }: OutputProps) {
                         </TableCell>
                         <TableCell>
                           <RiskDisplay risk={risk} oneInX={oneInX} />
+                          <br />(<RiskDisplay risk={risk} oneInX={!oneInX} />)
                         </TableCell>
                       </TableRow>
                     ))}

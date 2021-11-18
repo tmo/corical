@@ -112,6 +112,8 @@ export const COMMENT_LABEL = "Comment";
 export const RISK_PER_MILLION = "in a million";
 export const LESS_THAN_TENTH_MILLION = "Less than 0.1 in a million";
 export const ZERO_RISK = LESS_THAN_TENTH_MILLION;
+export const LESS_THAN_TENTH_MILLION_IN_X = "Less than 1 in 10,000,000";
+export const ZERO_RISK_IN_X = LESS_THAN_TENTH_MILLION_IN_X;
 
 export const RISK_TEXT = "Number of cases per million people";
 
