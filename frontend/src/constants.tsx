@@ -193,7 +193,7 @@ export function TOS_TEXT() {
         take into account individual level factors such as medical conditions
         (e.g. diabetes, obesity) or behaviour (e.g. occupation, social
         activities). The risks were calculated using a{" "}
-        <a href="/docs/corical_preprint.pdf">model</a> based on the best known
+        <a href="https://doi.org/10.1016/j.vaccine.2021.10.079">model</a> based on the best known
         evidence, but model estimates inevitably come with some level of
         uncertainty.
       </p>

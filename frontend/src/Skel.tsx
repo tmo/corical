@@ -156,7 +156,7 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
                 variant="outlined"
                 color="primary"
                 disableElevation
-                href="/docs/corical_preprint.pdf"
+                href="https://doi.org/10.1016/j.vaccine.2021.10.079"
               >
                 Data sources
               </Button>{" "}
