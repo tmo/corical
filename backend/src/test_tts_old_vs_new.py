@@ -23,7 +23,7 @@ def test(cases):
         ct_vec = random_vec(10)
 
         old = old_compute_probs(az_vec, age_vec, sex_vec, variant_vec, ct_vec)
-        new = old_compute_probs(az_vec, age_vec, sex_vec, variant_vec, ct_vec)
+        new = new_compute_probs(az_vec, age_vec, sex_vec, variant_vec, ct_vec)
         for a, b in zip(old, new):
             assert np.max(np.abs(a - b)) < 1e-6
             comparisons += 1
