@@ -3,13 +3,17 @@ import xdsl
 tts = xdsl.Model("V2 TTS 6 months 10Sep.xdsl")
 
 
+def scenario_to_vec(scenario_name):
+    return tts.unit_vec_for_state("Community_transmission", scenario_name)
+
+
 def compute_probs(az_vec, age_vec, sex_vec, variant_vec, ct_vec):
     values = {
         "AZ": az_vec,
         "Age": age_vec,
         "Sex": sex_vec,
         "Variant": variant_vec,
-        "Community_transmission": ct_ve,
+        "Community_transmission": ct_vec,
     }
 
     get_tts = tts.infer(values, "TTS_AZ")[0]

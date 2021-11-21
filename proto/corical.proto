@@ -6,17 +6,24 @@ import "google/api/annotations.proto";
 import "google/protobuf/timestamp.proto";
 
 service Corical {
-  rpc Compute(ComputeReq) returns (ComputeRes) {
+  rpc ComputeTTS(ComputeTTSReq) returns (ComputeRes) {
     option (google.api.http) = {
-      post : "/v0/compute"
+      post : "/v1/compute_tts"
+      body : "*"
+    };
+  }
+
+  rpc ComputePfizer(ComputePfizerReq) returns (ComputeRes) {
+    option (google.api.http) = {
+      post : "/v1/compute_pfizer"
       body : "*"
     };
   }
 }
 
-// input
+/// TTS
 
-message ComputeReq {
+message ComputeTTSReq {
   string variant = 1;
   uint32 age = 2;
   string sex = 3;
@@ -26,7 +33,16 @@ message ComputeReq {
   uint32 compute_count = 7;
 }
 
-// output
+/// Pfizer
+
+message ComputePfizerReq {
+  string dose = 1;
+  uint32 age = 2;
+  string ct = 3;
+  string sex = 4;
+}
+
+/// output
 
 message Message {
   string heading = 1;
@@ -75,9 +91,11 @@ message ComputeRes {
   string msg = 99;
 }
 
+/// Binlog
+
 message BinLog {
   google.protobuf.Timestamp time = 1;
-  ComputeReq req = 2;
+  ComputeTTSReq req = 2;
   ComputeRes res = 3;
   double duration_ms = 4;
 }

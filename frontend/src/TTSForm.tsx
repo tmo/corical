@@ -20,7 +20,7 @@ import { Controller, useForm } from "react-hook-form";
 import classNames from "classnames";
 import { makeStyles } from "@material-ui/core";
 
-import { FormData } from "./api";
+import { TTSFormData } from "./api";
 import {
   AGE_LABEL,
   STEP1_HELPER,
@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 type FormInputs = {
-  callback: (form: FormData) => void;
+  callback: (form: TTSFormData) => void;
 };
 
 export default function Form({ callback }: FormInputs) {
@@ -72,7 +72,7 @@ export default function Form({ callback }: FormInputs) {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>({
+  } = useForm<TTSFormData>({
     mode: "onBlur",
     defaultValues: {
       transmission: SCENARIOS_DEFAULT,

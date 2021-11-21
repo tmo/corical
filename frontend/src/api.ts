@@ -1,8 +1,8 @@
 import axios from "axios";
 
-const API_URL = process.env.REACT_APP_API_BASE_URL + "/v0/compute";
+const API_URL = process.env.REACT_APP_API_BASE_URL + "/v1";
 
-export type FormData = {
+export type TTSFormData = {
   tos: boolean;
   age?: number;
   sex: string;
@@ -10,7 +10,7 @@ export type FormData = {
   transmission: string;
 };
 
-export async function compute(form: FormData) {
-  const res = await axios.post(API_URL, form);
+export async function computeTts(form: TTSFormData) {
+  const res = await axios.post(API_URL + "/compute_tts", form);
   return res.data;
 }

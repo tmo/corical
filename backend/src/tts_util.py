@@ -50,10 +50,3 @@ def get_age_bracket(age):
             return text, age_vec, ix
     else:
         raise Exception("Invalid age")
-
-
-def scenario_to_vec(scenario_name):
-    scenarios = nodes["Community_transmission"]["states"]
-    ct_vec = np.zeros(len(scenarios))
-    ct_vec[scenarios.index(scenario_name)] = 1.0
-    return ct_vec

@@ -41,7 +41,7 @@ def generate_prob_mx(nodes):
     return output
 
 
-def unit_vec_for_state(states, state):
+def _unit_vec_for_state(states, state):
     out = np.zeros(len(states))
     out[states.index(state)] = 1.0
     return out
@@ -54,14 +54,17 @@ class Model:
         self.nodes = load_model_facts(self.tree)
         self.probability_matrix = generate_prob_mx(self.nodes)
 
+    def unit_vec_for_state(self, node, state):
+        return _unit_vec_for_state(self.nodes[node]["states"], state)
+
     def set_fact(self, values, node, state):
-        values[node] = unit_vec_for_state(self.nodes[node]["states"], state)
+        values[node] = self.unit_vec_for_state(node, state)
 
     def set_fact_dist(self, values, node, state_to_prob):
         states = self.nodes[node]["states"]
         state_dist = np.zeros(len(states))
         for state, prob in state_to_prob.items():
-            state_dist += prob * unit_vec_for_state(states, state)
+            state_dist += prob * _unit_vec_for_state(states, state)
         assert np.sum(state_dist) == 1.0
         values[node] = state_dist
 

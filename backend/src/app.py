@@ -12,8 +12,8 @@ from google.protobuf.timestamp_pb2 import Timestamp
 
 from proto import corical_pb2, corical_pb2_grpc
 from risks import generate_relatable_risks
-from tts import compute_probs
-from tts_util import get_age_bracket, get_link, scenario_to_vec
+from tts import compute_probs, scenario_to_vec
+from tts_util import get_age_bracket, get_link
 
 utc = pytz.UTC
 
@@ -35,7 +35,7 @@ def Timestamp_from_datetime(dt: datetime):
 
 
 class Corical(corical_pb2_grpc.CoricalServicer):
-    def Compute(self, request, context):
+    def ComputeTTS(self, request, context):
         start = perf_counter_ns()
         time = Timestamp_from_datetime(now())
 
