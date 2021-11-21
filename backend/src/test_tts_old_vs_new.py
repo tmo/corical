@@ -11,9 +11,8 @@ def random_vec(len_):
     return v / np.sum(v)
 
 
-def test():
+def test(cases):
     np.random.seed(1)
-    cases = 100_000
     comparisons = 0
     start = perf_counter_ns()
     for _ in range(cases):

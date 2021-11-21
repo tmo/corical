@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import numpy as np
 from lxml import etree
 
@@ -47,7 +49,7 @@ def unit_vec_for_state(states, state):
 
 class Model:
     def __init__(self, filename):
-        with open(filename) as f:
+        with (Path(__file__).parent / filename).open() as f:
             self.tree = etree.parse(f)
         self.nodes = load_model_facts(self.tree)
         self.probability_matrix = generate_prob_mx(self.nodes)
