@@ -1,6 +1,7 @@
 import numpy as np
 from lxml import etree
 
+
 def load_model_facts(tree):
     output = {}
     for cpt in tree.xpath("/smile/nodes/cpt"):
@@ -19,6 +20,7 @@ def load_model_facts(tree):
         }
     return output
 
+
 def generate_prob_mx_for_node(nodes, node_name):
     node = nodes[node_name]
 
@@ -28,6 +30,7 @@ def generate_prob_mx_for_node(nodes, node_name):
 
     return np.array(node["probabilities"]).reshape(*dims)
 
+
 def generate_prob_mx(nodes):
     # go through nodes, and create correctly shaped numpy tensors for the CPT
     output = {}
@@ -35,10 +38,12 @@ def generate_prob_mx(nodes):
         output[node_name] = generate_prob_mx_for_node(nodes, node_name)
     return output
 
+
 def unit_vec_for_state(states, state):
     out = np.zeros(len(states))
     out[states.index(state)] = 1.0
     return out
+
 
 class Model:
     def __init__(self, filename):
