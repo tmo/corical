@@ -10,9 +10,10 @@ import numpy as np
 import pytz
 from google.protobuf.timestamp_pb2 import Timestamp
 
-from model import compute_probs, get_age_bracket, get_link, scenario_to_vec
 from proto import corical_pb2, corical_pb2_grpc
 from risks import generate_relatable_risks
+from tts import compute_probs
+from tts_util import get_age_bracket, get_link, scenario_to_vec
 
 utc = pytz.UTC
 
