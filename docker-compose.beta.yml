@@ -3,7 +3,6 @@ services:
   backend:
     build: backend
     restart: always
-    env_file: backend.prod.env
     expose:
       - 21000
     networks:
