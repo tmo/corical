@@ -34,13 +34,13 @@ def get_link(sex, age_ix):
 
 def get_age_bracket(age):
     age_brackets = [
-        [0, 9, "0-9 year-old"],
-        [10, 19, "10-19 year-old"],
-        [20, 29, "20-29 year-old"],
-        [30, 39, "30-39 year-old"],
-        [40, 49, "40-49 year-old"],
-        [50, 59, "50-59 year-old"],
-        [60, 69, "60-69 year-old"],
+        [0, 9, "0–9 year-old"],
+        [10, 19, "10–19 year-old"],
+        [20, 29, "20–29 year-old"],
+        [30, 39, "30–39 year-old"],
+        [40, 49, "40–49 year-old"],
+        [50, 59, "50–59 year-old"],
+        [60, 69, "60–69 year-old"],
         [70, 120, "70+ year-old"],
     ]
     for ix, (lower, upper, text) in enumerate(age_brackets):
@@ -48,5 +48,23 @@ def get_age_bracket(age):
             age_vec = np.zeros(len(age_brackets))
             age_vec[ix] = 1.0
             return text, age_vec, ix
+    else:
+        raise Exception("Invalid age")
+
+
+def get_age_bracket_pz(age):
+    age_brackets = [
+        [0, 11, "Age_0_11", "0–11 year-old"],
+        [12, 19, "Age_12_19", "12–19 year-old"],
+        [20, 29, "Age_20_29", "20–29 year-old"],
+        [30, 39, "Age_30_39", "30–39 year-old"],
+        [40, 49, "Age_40_49", "40–49 year-old"],
+        [50, 59, "Age_50_59", "50–59 year-old"],
+        [60, 69, "Age_60_69", "60–69 year-old"],
+        [70, 120, "Age_70plus", "70+ year-old"],
+    ]
+    for ix, (lower, upper, label, text) in enumerate(age_brackets):
+        if lower <= age <= upper:
+            return text, label, ix
     else:
         raise Exception("Invalid age")

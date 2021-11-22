@@ -34,7 +34,7 @@ import {
   PZ_VACCINE_OPTIONS,
   PZ_SCENARIOS_LABEL,
   PZ_SCENARIOS_DEFAULT,
-  SCENARIOS,
+  PZ_SCENARIOS,
   SUBMIT_LABEL,
   TOS_HEADING,
   TOS_1,
@@ -191,7 +191,7 @@ export default function Form({ callback }: FormInputs) {
                 onChange={(e, value) => onChange(value)}
                 value={value}
               >
-                {SCENARIOS.map(({ value, label, description }) => (
+                {PZ_SCENARIOS.map(({ value, label, description }) => (
                   <FormControlLabel
                     className={classes.ctOption}
                     key={label}

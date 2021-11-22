@@ -95,7 +95,8 @@ message ComputeRes {
 
 message BinLog {
   google.protobuf.Timestamp time = 1;
-  ComputeTTSReq req = 2;
+  ComputeTTSReq tts_req = 2;
+  ComputePfizerReq pfizer_req = 5;
   ComputeRes res = 3;
   double duration_ms = 4;
 }

@@ -10,10 +10,11 @@ import numpy as np
 import pytz
 from google.protobuf.timestamp_pb2 import Timestamp
 
+from pfizer import compute_probs as compute_pfizer_probs
 from proto import corical_pb2, corical_pb2_grpc
 from risks import generate_relatable_risks
 from tts import compute_probs, scenario_to_vec
-from tts_util import get_age_bracket, get_link
+from tts_util import get_age_bracket, get_age_bracket_pz, get_link
 
 utc = pytz.UTC
 
@@ -32,6 +33,21 @@ def Timestamp_from_datetime(dt: datetime):
     pb_ts = Timestamp()
     pb_ts.FromDatetime(dt)
     return pb_ts
+
+
+def generate_bar_graph_risks(input_risks):
+    return sorted(
+        input_risks
+        + [
+            corical_pb2.BarGraphRisk(
+                label=r["event"],
+                risk=r["risk"],
+                is_relatable=True,
+            )
+            for r in generate_relatable_risks([risk.risk for risk in input_risks])
+        ],
+        key=lambda br: br.risk,
+    )
 
 
 class Corical(corical_pb2_grpc.CoricalServicer):
@@ -178,20 +194,6 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             die_from_clots_covid_given_infected_other2,
         ) = compute_probs(az_vec2, age_vec, sex_vec, variant_vec, ct_vec)
         logger.info(f"{symptomatic_infection=}, {1-symptomatic_infection=}")
-
-        def generate_bar_graph_risks(input_risks):
-            return sorted(
-                input_risks
-                + [
-                    corical_pb2.BarGraphRisk(
-                        label=r["event"],
-                        risk=r["risk"],
-                        is_relatable=True,
-                    )
-                    for r in generate_relatable_risks([risk.risk for risk in input_risks])
-                ],
-                key=lambda br: br.risk,
-            )
 
         out = corical_pb2.ComputeRes(
             messages=messages,
@@ -358,7 +360,157 @@ class Corical(corical_pb2_grpc.CoricalServicer):
 
         binlog = corical_pb2.BinLog(
             time=time,
-            req=request,
+            tts_req=request,
+            res=out,
+            duration_ms=duration,
+        )
+
+        binlog_out = b64encode(binlog.SerializeToString()).decode("utf8")
+
+        logger.info(f"binlog: {binlog_out}")
+
+        return out
+
+    def ComputePfizer(self, request, context):
+        start = perf_counter_ns()
+        time = Timestamp_from_datetime(now())
+
+        logger.info(request)
+
+        messages = []
+
+        # sex
+        if request.sex == "female":
+            sex_label = "female"
+            sex_vec = np.array([0.0, 1.0])
+        elif request.sex == "male":
+            sex_label = "male"
+            sex_vec = np.array([1.0, 0.0])
+        elif request.sex == "other":
+            sex_label = "person of unspecified sex"
+            sex_vec = np.array([0.5, 0.5])
+            messages.append(
+                corical_pb2.Message(
+                    heading="Sex disclaimer",
+                    text="We do not have data on the chosen sex, so the results reflect a population with 50% females and 50% males",
+                    severity="info",
+                )
+            )
+        else:
+            context.abort(grpc.StatusCode.FAILED_PRECONDITION, "Invalid sex")
+
+        age_text, age_label, age_ix = get_age_bracket_pz(request.age)
+        if request.ct == "None_0":
+            transmission_label = "no"
+        elif request.ct == "ATAGI_High_5_76_percent":
+            transmission_label = "high"
+        elif request.ct == "ATAGI_Med_0_45_percent":
+            transmission_label = "medium"
+        elif request.ct == "ATAGI_Low_0_05_percent":
+            transmission_label = "low"
+        else:
+            transmission_label = request.ct
+
+        if request.ct == "None_0":
+            messages.append(
+                corical_pb2.Message(
+                    heading="Note",
+                    text="You have selected a scenario with no community transmission. This is only a temporary situation and will change when state or national borders open.",
+                    severity="warning",
+                )
+            )
+
+        # for graphs
+        subtitle = f"Results shown for a {age_label} {sex_label} who has TODO pfizers, under {transmission_label} transmission scenario."
+        # for output groups
+        explanation = subtitle
+
+        n18, n19, n20, n21 = compute_pfizer_probs(request.dose, age_label, request.ct, sex_vec)
+
+        out = corical_pb2.ComputeRes(
+            messages=messages,
+            bar_graphs=[
+                corical_pb2.BarGraph(
+                    title=f"n18",
+                    subtitle=subtitle,
+                    risks=generate_bar_graph_risks(
+                        [
+                            corical_pb2.BarGraphRisk(
+                                label="n18",
+                                risk=n18,
+                            ),
+                        ]
+                    ),
+                ),
+                corical_pb2.BarGraph(
+                    title=f"n19",
+                    subtitle=subtitle,
+                    risks=generate_bar_graph_risks(
+                        [
+                            corical_pb2.BarGraphRisk(
+                                label="n19",
+                                risk=n19,
+                            ),
+                        ]
+                    ),
+                ),
+                corical_pb2.BarGraph(
+                    title=f"n20",
+                    subtitle=subtitle,
+                    risks=generate_bar_graph_risks(
+                        [
+                            corical_pb2.BarGraphRisk(
+                                label="n20",
+                                risk=n20,
+                            ),
+                        ]
+                    ),
+                ),
+                corical_pb2.BarGraph(
+                    title=f"n21",
+                    subtitle=subtitle,
+                    risks=generate_bar_graph_risks(
+                        [
+                            corical_pb2.BarGraphRisk(
+                                label="n21",
+                                risk=n21,
+                            ),
+                        ]
+                    ),
+                ),
+            ],
+            output_groups=[
+                corical_pb2.OutputGroup(
+                    heading="Raw outputs",
+                    explanation=explanation,
+                    risks=[
+                        corical_pb2.Risk(
+                            name="n18",
+                            risk=n18,
+                        ),
+                        corical_pb2.Risk(
+                            name="n19",
+                            risk=n19,
+                        ),
+                        corical_pb2.Risk(
+                            name="n20",
+                            risk=n20,
+                        ),
+                        corical_pb2.Risk(
+                            name="n21",
+                            risk=n21,
+                        ),
+                    ],
+                ),
+            ],
+            success=True,
+            msg=str(request),
+        )
+        duration = (perf_counter_ns() - start) / 1e6  # ms
+
+        binlog = corical_pb2.BinLog(
+            time=time,
+            pfizer_req=request,
             res=out,
             duration_ms=duration,
         )
