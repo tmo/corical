@@ -161,7 +161,7 @@ export default function Form({ output }: OutputProps) {
             </Alert>
           ))}
 
-          <Button
+          {/* <Button
             onClick={() => setOneInX(!oneInX)}
             color="primary"
             variant="outlined"
@@ -169,7 +169,7 @@ export default function Form({ output }: OutputProps) {
             {oneInX
               ? "Show risk as per million risk"
               : "Show risk as reciprocal"}
-          </Button>
+          </Button> */}
 
           {output.bar_graphs?.map(({ title, subtitle, risks }: any) => {
             let multiplier = 1e6;
@@ -230,7 +230,10 @@ export default function Form({ output }: OutputProps) {
                           <div className={classes.tooltip}>
                             {label}
                             <br />
-                            {RISK_TEXT}: {displayRisk(value / 1e6, false)}
+                            {RISK_TEXT}: {displayRisk(value / 1e6, false)}.
+                            <br />
+                            This is the same as a{" "}
+                            {displayRisk(value / 1e6, true)} chance.
                           </div>
                         );
                       } else {

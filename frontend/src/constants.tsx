@@ -45,6 +45,34 @@ export const VACCINE_OPTIONS = [
   },
 ];
 
+export const PZ_VACCINE_LABEL = "Vaccine";
+export const PZ_VACCINE_OPTIONS = [
+  {
+    value: "None",
+    label: "None",
+  },
+  {
+    value: "One",
+    label: "One dose of Pfizer",
+  },
+  {
+    value: "Two_last_dose_less_than_4_months_ago",
+    label: "Two doses of Pfizer (last dose less than 4 months ago)",
+  },
+  {
+    value: "Two_last_dose_4_to_6_months_ago",
+    label: "Two doses of Pfizer (last dose between 4 and 6 months ago)",
+  },
+  {
+    value: "Two_last_dose_more_than_6_months_ago",
+    label: "Two doses of Pfizer (last more than 6 months ago)",
+  },
+  {
+    value: "Three_2_plus_booster",
+    label: "Three doses / two doses and a booster",
+  },
+];
+
 export const SCENARIOS_LABEL = "Community transmission scenario";
 export const SCENARIOS_DEFAULT = "ATAGI_Med_0_275_percent";
 export const SCENARIOS = [
@@ -96,6 +124,34 @@ export const SCENARIOS = [
   //   label: "QLD 1000 cases",
   //   description: "Description for QLD 1000 cases",
   // },
+];
+
+export const PZ_SCENARIOS_LABEL = "Community transmission scenario";
+export const PZ_SCENARIOS_DEFAULT = "ATAGI_Med_0_275_percent";
+export const PZ_SCENARIOS = [
+  {
+    value: "ATAGI_High_5_76_percent",
+    label: "High transmission",
+    description:
+      "Similar to Europe in January 2021 (equivalent to 5.76% of population infected over 6 months, or 2500 cases/day in NSW)",
+  },
+  {
+    value: "ATAGI_Med_0_45_percent",
+    label: "Medium transmission",
+    description:
+      "Similar to the  2nd wave in VIC in 2020 (equivalent to 0.45% of population infected over 6 months, or 200 cases/day in NSW)",
+  },
+  {
+    value: "ATAGI_Low_0_05_percent",
+    label: "Low transmission",
+    description:
+      "Similar to the 1st wave in Australia in 2020 (equivalent to 0.05% of population infected over 6 months, or 21 cases/day in NSW)",
+  },
+  {
+    value: "None_0",
+    label: "No community transmission",
+    description: "No COVID-19 circulating in the community",
+  },
 ];
 
 export const SUBMIT_LABEL = "Calculate risk";

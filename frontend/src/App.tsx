@@ -1,20 +1,35 @@
 import { useState } from "react";
 import TTSForm from "./TTSForm";
-import { TTSFormData, computeTts } from "./api";
+import PfizerForm from "./PfizerForm";
+import { TTSFormData, PfizerFormData, computeTts, computePfizer } from "./api";
 import Output from "./Output";
 import { Alert, AlertTitle } from "@material-ui/lab/";
 import { BY_LINE, TITLE } from "./constants";
 import Skel from "./Skel";
+import { Button } from "@material-ui/core";
 
 export default function App() {
-  const [output, setOutput] = useState<any | null>(null);
+  const [formS, setFormS] = useState<"tts" | "pfizer" | null>(null);
+  const [ttsOutput, setTTSOutput] = useState<any | null>(null);
+  const [pfizerOutput, setPfizerOutput] = useState<any | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const callback = async (form: TTSFormData) => {
+  const ttsCallback = async (form: TTSFormData) => {
     setError(null);
     try {
       form.age = Math.round(form.age!);
       const res = await computeTts(form);
-      setOutput(res);
+      setTTSOutput(res);
+    } catch (e) {
+      console.error(e);
+      setError(e.message);
+    }
+  };
+  const pfizerCallback = async (form: PfizerFormData) => {
+    setError(null);
+    try {
+      form.age = Math.round(form.age!);
+      const res = await computePfizer(form);
+      setPfizerOutput(res);
     } catch (e) {
       console.error(e);
       setError(e.message);
@@ -23,14 +38,50 @@ export default function App() {
   return (
     <Skel title={TITLE} subtitle={BY_LINE}>
       <>
-        <TTSForm callback={callback} />
-        {error ? (
-          <Alert severity="error">
-            <AlertTitle>An error occured</AlertTitle>
-            {error}
-          </Alert>
-        ) : (
-          <Output output={output} />
+        {!formS && (
+          <>
+            <p>Choose model:</p>
+            <Button
+              onClick={() => setFormS("tts")}
+              color="primary"
+              variant="outlined"
+            >
+              AZ / TTS
+            </Button>
+            <Button
+              onClick={() => setFormS("pfizer")}
+              color="primary"
+              variant="outlined"
+            >
+              Myocarditis / Pfizer
+            </Button>
+          </>
+        )}
+        {formS === "tts" && (
+          <>
+            <TTSForm callback={ttsCallback} />
+            {error ? (
+              <Alert severity="error">
+                <AlertTitle>An error occured</AlertTitle>
+                {error}
+              </Alert>
+            ) : (
+              <Output output={ttsOutput} />
+            )}
+          </>
+        )}
+        {formS === "pfizer" && (
+          <>
+            <PfizerForm callback={pfizerCallback} />
+            {error ? (
+              <Alert severity="error">
+                <AlertTitle>An error occured</AlertTitle>
+                {error}
+              </Alert>
+            ) : (
+              <Output output={pfizerOutput} />
+            )}
+          </>
         )}
       </>
     </Skel>
