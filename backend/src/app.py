@@ -425,55 +425,60 @@ class Corical(corical_pb2_grpc.CoricalServicer):
         # for output groups
         explanation = subtitle
 
-        n18, n19, n20, n21 = compute_pfizer_probs(request.dose, age_label, request.ct, sex_vec)
+        (
+            n18_Die_from_Pfizer_myocarditis,
+            n19_Die_from_background_myocarditis,
+            n20_Die_from_COVID19,
+            n21_Die_from_COVID19_myocarditis,
+        ) = compute_pfizer_probs(request.dose, age_label, request.ct, sex_vec)
 
         out = corical_pb2.ComputeRes(
             messages=messages,
             bar_graphs=[
                 corical_pb2.BarGraph(
-                    title=f"n18",
+                    title=f"n18_Die_from_Pfizer_myocarditis",
                     subtitle=subtitle,
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
-                                label="n18",
-                                risk=n18,
+                                label="n18_Die_from_Pfizer_myocarditis",
+                                risk=n18_Die_from_Pfizer_myocarditis,
                             ),
                         ]
                     ),
                 ),
                 corical_pb2.BarGraph(
-                    title=f"n19",
+                    title=f"n19_Die_from_background_myocarditis",
                     subtitle=subtitle,
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
-                                label="n19",
-                                risk=n19,
+                                label="n19_Die_from_background_myocarditis",
+                                risk=n19_Die_from_background_myocarditis,
                             ),
                         ]
                     ),
                 ),
                 corical_pb2.BarGraph(
-                    title=f"n20",
+                    title=f"n20_Die_from_COVID19",
                     subtitle=subtitle,
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
-                                label="n20",
-                                risk=n20,
+                                label="n20_Die_from_COVID19",
+                                risk=n20_Die_from_COVID19,
                             ),
                         ]
                     ),
                 ),
                 corical_pb2.BarGraph(
-                    title=f"n21",
+                    title=f"n21_Die_from_COVID19_myocarditis",
                     subtitle=subtitle,
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
-                                label="n21",
-                                risk=n21,
+                                label="n21_Die_from_COVID19_myocarditis",
+                                risk=n21_Die_from_COVID19_myocarditis,
                             ),
                         ]
                     ),
@@ -485,20 +490,20 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                     explanation=explanation,
                     risks=[
                         corical_pb2.Risk(
-                            name="n18",
-                            risk=n18,
+                            name="n18_Die_from_Pfizer_myocarditis",
+                            risk=n18_Die_from_Pfizer_myocarditis,
                         ),
                         corical_pb2.Risk(
-                            name="n19",
-                            risk=n19,
+                            name="n19_Die_from_background_myocarditis",
+                            risk=n19_Die_from_background_myocarditis,
                         ),
                         corical_pb2.Risk(
-                            name="n20",
-                            risk=n20,
+                            name="n20_Die_from_COVID19",
+                            risk=n20_Die_from_COVID19,
                         ),
                         corical_pb2.Risk(
-                            name="n21",
-                            risk=n21,
+                            name="n21_Die_from_COVID19_myocarditis",
+                            risk=n21_Die_from_COVID19_myocarditis,
                         ),
                     ],
                 ),
