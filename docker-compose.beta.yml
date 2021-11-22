@@ -1,0 +1,51 @@
+version: "3.8"
+services:
+  backend:
+    build: backend
+    restart: always
+    env_file: backend.prod.env
+    expose:
+      - 21000
+    networks:
+      - backend_envoy
+  envoy:
+    build: envoy
+    restart: always
+    expose:
+      - 8888
+      - 9901
+    depends_on:
+      - backend
+    networks:
+      - backend_envoy
+      - envoy_nginx
+  frontend:
+    build: frontend
+    restart: always
+    expose:
+      - 80
+    networks:
+      - frontend_nginx
+  nginx:
+    build: nginx_beta
+    restart: always
+    env_file: nginx.prod.env
+    volumes:
+      - "./data/certs/:/certs/"
+      - "./data/nginx/logs/:/var/log/nginx/"
+    ports:
+      - 443:443
+    depends_on:
+      - envoy
+      - frontend
+    networks:
+      - envoy_nginx
+      - frontend_nginx
+
+networks:
+  backend_envoy:
+    driver: bridge
+  envoy_nginx:
+    driver: bridge
+  frontend_nginx:
+    driver: bridge
