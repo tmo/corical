@@ -448,7 +448,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
         elif request.dose == "Two_last_dose_more_than_6_months_ago":
             comparison_doses = ["One", "Three_2_plus_booster"]
         elif request.dose == "Three_2_plus_booster":
-            comparison_doses = ["One", "Three_2_plus_booster"]
+            comparison_doses = ["One", "None"]
 
         # (
         #     get_covid,
