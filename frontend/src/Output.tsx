@@ -9,6 +9,8 @@ import {
   Box,
   TableHead,
   TableRow,
+  Tabs,
+  Tab,
   Paper,
 } from "@material-ui/core";
 import { Alert, AlertTitle } from "@material-ui/lab/";
@@ -54,6 +56,10 @@ const useStyles = makeStyles((theme) => ({
     padding: "10px",
     backgroundColor: "white",
     border: "1px solid black",
+  },
+  centeredTabRoot: {
+    flexGrow: 1,
+    marginBottom: "2em",
   },
 }));
 
@@ -143,6 +149,12 @@ export default function Form({ output }: OutputProps) {
   const classes = useStyles();
 
   const [oneInX, setOneInX] = useState(false);
+  const [tab, setTab] = useState(0);
+
+  const handleChange = (event: any, newTab: any) => {
+    setTab(newTab);
+    setOneInX(newTab === 1);
+  };
 
   return (
     <>
@@ -161,6 +173,18 @@ export default function Form({ output }: OutputProps) {
             </Alert>
           ))}
 
+          <Paper className={classes.centeredTabRoot}>
+            <Tabs
+              value={tab}
+              onChange={handleChange}
+              indicatorColor="primary"
+              textColor="primary"
+              centered
+            >
+              <Tab label="Show risk as per million risk" />
+              <Tab label="Show risk as reciprocal" />
+            </Tabs>
+          </Paper>
           {/* <Button
             onClick={() => setOneInX(!oneInX)}
             color="primary"
