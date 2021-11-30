@@ -46,6 +46,7 @@ export const VACCINE_OPTIONS = [
 ];
 
 export const PZ_VACCINE_LABEL = "Vaccine";
+export const PZ_VACCINE_SECOND_VAL = "Two";
 export const PZ_VACCINE_OPTIONS = [
   {
     value: "None",
@@ -56,21 +57,9 @@ export const PZ_VACCINE_OPTIONS = [
     label: "One dose of Pfizer",
   },
   {
-    value: "Two",
+    value: PZ_VACCINE_SECOND_VAL,
     label: "Two doses of Pfizer",
   },
-  // {
-  //   value: "Two_last_dose_less_than_4_months_ago",
-  //   label: "Two doses of Pfizer (last dose less than 4 months ago)",
-  // },
-  // {
-  //   value: "Two_last_dose_4_to_6_months_ago",
-  //   label: "Two doses of Pfizer (last dose between 4 and 6 months ago)",
-  // },
-  // {
-  //   value: "Two_last_dose_more_than_6_months_ago",
-  //   label: "Two doses of Pfizer (last more than 6 months ago)",
-  // },
   {
     value: "Three_2_plus_booster",
     label: "Three doses / two doses and a booster",

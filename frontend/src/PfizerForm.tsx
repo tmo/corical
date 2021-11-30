@@ -37,6 +37,7 @@ import {
   PZ_SCENARIOS_LABEL,
   PZ_SCENARIOS_DEFAULT,
   PZ_SCENARIOS,
+  PZ_VACCINE_SECOND_VAL,
   SUBMIT_LABEL,
   TOS_HEADING,
   TOS_1,
@@ -93,7 +94,10 @@ export default function Form({ callback }: FormInputs) {
   const submit = handleSubmit((form: PfizerFullFormData) => {
     callback({
       tos: form.tos,
-      dose: form.form_dose !== "Two" ? form.form_dose : form.form_second_dose,
+      dose:
+        form.form_dose === PZ_VACCINE_SECOND_VAL
+          ? form.form_second_dose
+          : form.form_dose,
       age: form.age,
       sex: form.sex,
       ct: form.ct,
@@ -103,7 +107,7 @@ export default function Form({ callback }: FormInputs) {
 
   const [tosBoxOpen, setTosBoxOpen] = useState(false);
 
-  const enableDose2extras = watch("form_dose") === "Two";
+  const enableDose2extras = watch("form_dose") === PZ_VACCINE_SECOND_VAL;
 
   return (
     <form onSubmit={submit}>
