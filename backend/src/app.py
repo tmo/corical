@@ -82,33 +82,22 @@ class Corical(corical_pb2_grpc.CoricalServicer):
         # az shots
         if request.vaccine == "az0":
             vaccine_label = f"no doses of the AstraZeneca vaccine"
-            az_vec = np.array([1.0, 0.0, 0.0])
-            az_vec1 = np.array([0.0, 1.0, 0.0])
-            az_text1 = "with one shot"
-            az_vec2 = np.array([0.0, 0.0, 1.0])
-            az_text2 = "with two shots"
-            first_or_second_az = "error"
-            had_az = False
+            doses = 0
         elif request.vaccine == "az1":
             vaccine_label = f"one dose of the AstraZeneca vaccine"
-            az_vec = np.array([0.0, 1.0, 0.0])
-            az_vec1 = np.array([1.0, 0.0, 0.0])
-            az_text1 = "without a shot"
-            az_vec2 = np.array([0.0, 0.0, 1.0])
-            az_text2 = "with two shots"
-            first_or_second_az = "first"
-            had_az = True
+            doses = 1
         elif request.vaccine == "az2":
             vaccine_label = f"two doses of the AstraZeneca vaccine"
-            az_vec = np.array([0.0, 0.0, 1.0])
-            az_vec1 = np.array([1.0, 0.0, 0.0])
-            az_text1 = "without a shot"
-            az_vec2 = np.array([0.0, 1.0, 0.0])
-            az_text2 = "with one shot"
-            first_or_second_az = "second"
-            had_az = True
+            doses = 2
         else:
             context.abort(grpc.StatusCode.FAILED_PRECONDITION, "Invalid vaccine")
+
+        az_vec0 = np.array([1.0, 0.0, 0.0])
+        az_text0 = "not vaccinated"
+        az_vec1 = np.array([0.0, 1.0, 0.0])
+        az_text1 = "received 1 dose"
+        az_vec2 = np.array([0.0, 0.0, 1.0])
+        az_text2 = "received 2 doses"
 
         # age
         age_label, age_vec, age_ix = get_age_bracket(request.age)
@@ -148,51 +137,79 @@ class Corical(corical_pb2_grpc.CoricalServicer):
         # hardcoded as 100% Delta
         variant_vec = np.array([0.0, 1.0])
 
-        # explanation = f"For a {age_label} {sex_label} who has had {vaccine_label}, and under {transmission_label} community transmission, the risks of the following events are shown."
+        # for tables
+        explanation = f"Results shown for a {age_label} {sex_label} who has had {vaccine_label}, and under {transmission_label} community transmission, the risks of the following events are shown."
 
         blood_clot_brief = (
             "An atypical blood clot refers to a blood clot like thrombosis with thrombocytopenia syndrome (TTS)."
         )
         # for graphs
-        subtitle = f"Results shown for a {age_label} {sex_label} who has {vaccine_label}, under {transmission_label} transmission scenario."
+        subtitle = f"Results shown for a {age_label} {sex_label} under a {transmission_label} transmission scenario, based on number of doses of AstraZeneca vaccine received."
         # for output groups
-        explanation = subtitle
 
-        logger.info(f"{az_vec=}")
+        logger.info(f"{doses=}")
         logger.info(f"{age_vec=}")
         logger.info(f"{sex_vec=}")
         logger.info(f"{variant_vec=}")
         logger.info(f"{ct_vec=}")
         (
-            symptomatic_infection,
-            get_tts,
-            die_from_covid_given_infected,
-            die_from_tts,
-            die_from_clots,
-            die_from_covid,
-            get_clots_covid_given_infected,
-            die_from_clots_covid_given_infected,
-        ) = compute_probs(az_vec, age_vec, sex_vec, variant_vec, ct_vec)
+            symptomatic_infection0,
+            get_tts0,
+            die_from_covid_given_infected0,
+            die_from_tts0,
+            die_from_clots0,
+            die_from_covid0,
+            get_clots_covid_given_infected0,
+            die_from_clots_covid_given_infected0,
+        ) = compute_probs(az_vec0, age_vec, sex_vec, variant_vec, ct_vec)
         (
-            symptomatic_infection_other1,
-            get_tts_other1,
-            die_from_covid_given_infected_other1,
-            die_from_tts_other1,
-            die_from_clots_other1,
-            die_from_covid_other1,
-            get_clots_covid_given_infected_other1,
-            die_from_clots_covid_given_infected_other1,
+            symptomatic_infection1,
+            get_tts1,
+            die_from_covid_given_infected1,
+            die_from_tts1,
+            die_from_clots1,
+            die_from_covid1,
+            get_clots_covid_given_infected1,
+            die_from_clots_covid_given_infected1,
         ) = compute_probs(az_vec1, age_vec, sex_vec, variant_vec, ct_vec)
         (
-            symptomatic_infection_other2,
-            get_tts_other2,
-            die_from_covid_given_infected_other2,
-            die_from_tts_other2,
-            die_from_clots_other2,
-            die_from_covid_other2,
-            get_clots_covid_given_infected_other2,
-            die_from_clots_covid_given_infected_other2,
+            symptomatic_infection2,
+            get_tts2,
+            die_from_covid_given_infected2,
+            die_from_tts2,
+            die_from_clots2,
+            die_from_covid2,
+            get_clots_covid_given_infected2,
+            die_from_clots_covid_given_infected2,
         ) = compute_probs(az_vec2, age_vec, sex_vec, variant_vec, ct_vec)
+
+        if doses == 0:
+            symptomatic_infection = symptomatic_infection0
+            get_tts = get_tts0
+            die_from_covid_given_infected = die_from_covid_given_infected0
+            die_from_tts = die_from_tts0
+            die_from_clots = die_from_clots0
+            die_from_covid = die_from_covid0
+            get_clots_covid_given_infected = get_clots_covid_given_infected0
+            die_from_clots_covid_given_infected = die_from_clots_covid_given_infected0
+        elif doses == 1:
+            symptomatic_infection = symptomatic_infection1
+            get_tts = get_tts1
+            die_from_covid_given_infected = die_from_covid_given_infected1
+            die_from_tts = die_from_tts1
+            die_from_clots = die_from_clots1
+            die_from_covid = die_from_covid1
+            get_clots_covid_given_infected = get_clots_covid_given_infected1
+            die_from_clots_covid_given_infected = die_from_clots_covid_given_infected1
+        elif doses == 2:
+            symptomatic_infection = symptomatic_infection2
+            get_tts = get_tts2
+            die_from_covid_given_infected = die_from_covid_given_infected2
+            die_from_tts = die_from_tts2
+            die_from_clots = die_from_clots2
+            die_from_covid = die_from_covid2
+            get_clots_covid_given_infected = get_clots_covid_given_infected2
+            die_from_clots_covid_given_infected = die_from_clots_covid_given_infected2
         logger.info(f"{symptomatic_infection=}, {1-symptomatic_infection=}")
 
         out = corical_pb2.ComputeRes(
@@ -202,22 +219,23 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             bar_graphs=[
                 corical_pb2.BarGraph(
                     title=f"What is my chance of getting COVID-19 if there are {transmission_label} transmissions in the community?",
-                    subtitle=subtitle,
+                    subtitle=subtitle + " Chance of getting COVID-19 is over a period of 6 months.",
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
-                                label="Chance of getting COVID-19 over 6 months",
-                                risk=symptomatic_infection,
+                                label=f"Chance of getting COVID-19 if {az_text0}",
+                                risk=symptomatic_infection0,
+                                is_other_shot=doses != 0,
                             ),
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of getting COVID-19 over 6 months ({az_text1})",
-                                risk=symptomatic_infection_other1,
-                                is_other_shot=True,
+                                label=f"Chance of getting COVID-19 if {az_text1}",
+                                risk=symptomatic_infection1,
+                                is_other_shot=doses != 1,
                             ),
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of getting COVID-19 over 6 months ({az_text2})",
-                                risk=symptomatic_infection_other2,
-                                is_other_shot=True,
+                                label=f"Chance of getting COVID-19 if {az_text2}",
+                                risk=symptomatic_infection2,
+                                is_other_shot=doses != 2,
                             ),
                         ]
                     ),
@@ -228,78 +246,65 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
-                                label="Chance of dying from COVID-19",
-                                risk=die_from_covid_given_infected,
+                                label=f"Chance of dying from COVID-19 if {az_text0}",
+                                risk=die_from_covid_given_infected0,
+                                is_other_shot=doses != 0,
                             ),
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of dying from COVID-19 ({az_text1})",
-                                risk=die_from_covid_given_infected_other1,
-                                is_other_shot=True,
+                                label=f"Chance of dying from COVID-19 if {az_text1}",
+                                risk=die_from_covid_given_infected1,
+                                is_other_shot=doses != 1,
                             ),
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of dying from COVID-19 ({az_text2})",
-                                risk=die_from_covid_given_infected_other2,
-                                is_other_shot=True,
+                                label=f"Chance of dying from COVID-19 if {az_text2}",
+                                risk=die_from_covid_given_infected2,
+                                is_other_shot=doses != 2,
                             ),
                         ]
                     ),
                 ),
                 corical_pb2.BarGraph(
                     title="What is my chance of getting an atypical blood clot?",
-                    subtitle=blood_clot_brief
-                    + " "
-                    + subtitle
-                    + (
-                        f" Results below show the chances of an atypical blood clot after the {first_or_second_az} dose of the AstraZeneca vaccine."
-                        if had_az
-                        else ""
-                    ),
+                    subtitle=subtitle + " " + blood_clot_brief,
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
                                 label="Chance of developing atypical blood clot if I get COVID-19",
                                 risk=get_clots_covid_given_infected,
-                            )
+                            ),
+                            corical_pb2.BarGraphRisk(
+                                label=f"Due to the first dose of the AstraZeneca vaccine",
+                                is_other_shot=doses != 1,
+                                risk=get_tts1,
+                            ),
+                            corical_pb2.BarGraphRisk(
+                                label=f"Due to the second dose of the AstraZeneca vaccine",
+                                is_other_shot=doses != 2,
+                                risk=get_tts2,
+                            ),
                         ]
-                        + (
-                            [
-                                corical_pb2.BarGraphRisk(
-                                    label=f"Due to the {first_or_second_az} dose of the AstraZeneca vaccine",
-                                    risk=get_tts,
-                                )
-                            ]
-                            if get_tts > 0.0
-                            else []
-                        )
                     ),
                 ),
                 corical_pb2.BarGraph(
                     title="What is my chance of dying from an atypical blood clot?",
-                    subtitle=blood_clot_brief
-                    + " "
-                    + subtitle
-                    + (
-                        f" Results below show the chances of death from an atypical blood clot after the {first_or_second_az} dose of the AstraZeneca vaccine."
-                        if had_az
-                        else ""
-                    ),
+                    subtitle=subtitle + " " + blood_clot_brief,
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
                                 label="Chance of dying from atypical blood clot if I get COVID-19",
                                 risk=die_from_clots_covid_given_infected,
-                            )
+                            ),
+                            corical_pb2.BarGraphRisk(
+                                label=f"Due to the first dose of the AstraZeneca vaccine",
+                                is_other_shot=doses != 1,
+                                risk=die_from_tts1,
+                            ),
+                            corical_pb2.BarGraphRisk(
+                                label=f"Due to the second dose of the AstraZeneca vaccine",
+                                is_other_shot=doses != 2,
+                                risk=die_from_tts2,
+                            ),
                         ]
-                        + (
-                            [
-                                corical_pb2.BarGraphRisk(
-                                    label=f"Due to the {first_or_second_az} dose of the AstraZeneca vaccine",
-                                    risk=die_from_tts,
-                                )
-                            ]
-                            if die_from_tts > 0.0
-                            else []
-                        )
                     ),
                 ),
             ],
