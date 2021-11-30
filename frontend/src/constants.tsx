@@ -127,7 +127,7 @@ export const SCENARIOS = [
 ];
 
 export const PZ_SCENARIOS_LABEL = "Community transmission scenario";
-export const PZ_SCENARIOS_DEFAULT = "ATAGI_Med_0_275_percent";
+export const PZ_SCENARIOS_DEFAULT = "ATAGI_Med_0_45_percent";
 export const PZ_SCENARIOS = [
   {
     value: "ATAGI_High_5_76_percent",
