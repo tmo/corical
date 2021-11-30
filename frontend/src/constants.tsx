@@ -86,7 +86,7 @@ export const SCENARIOS = [
     value: "ATAGI_Med_0_275_percent",
     label: "Medium transmission",
     description:
-      "Similar to the  2nd wave in VIC in 2020 (equivalent to 0.45% of population infected over 6 months, or 200 cases/day in NSW)",
+      "Similar to the 2nd wave in VIC in 2020 (equivalent to 0.45% of population infected over 6 months, or 200 cases/day in NSW)",
   },
   {
     value: "ATAGI_Low_0_029_percent",
@@ -139,7 +139,7 @@ export const PZ_SCENARIOS = [
     value: "ATAGI_Med_0_45_percent",
     label: "Medium transmission",
     description:
-      "Similar to the  2nd wave in VIC in 2020 (equivalent to 0.45% of population infected over 6 months, or 200 cases/day in NSW)",
+      "Similar to the 2nd wave in VIC in 2020 (equivalent to 0.45% of population infected over 6 months, or 200 cases/day in NSW)",
   },
   {
     value: "ATAGI_Low_0_05_percent",
