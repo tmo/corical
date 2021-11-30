@@ -104,9 +104,7 @@ def generate_relatable_risks(risk_vals):
     if len(orig_risks) <= 1:
         return orig_risks
 
-    max_risk = max(risk_vals)
-
-    if orig_risks[-1]["risk"] >= 2 * max_risk and orig_risks[0]["risk"] > 0.4 * max_risk:
+    if orig_risks[-1]["risk"] >= 2 * max(risk_vals) and orig_risks[0]["risk"] > 0.9 * min(risk_vals):
         return [orig_risks[0]]
     else:
         return [orig_risks[-1]]
