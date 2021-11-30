@@ -36,18 +36,14 @@ def Timestamp_from_datetime(dt: datetime):
 
 
 def generate_bar_graph_risks(input_risks):
-    return sorted(
-        input_risks
-        + [
-            corical_pb2.BarGraphRisk(
-                label=r["event"],
-                risk=r["risk"],
-                is_relatable=True,
-            )
-            for r in generate_relatable_risks([risk.risk for risk in input_risks])
-        ],
-        key=lambda br: br.risk,
-    )
+    return sorted(input_risks, key=lambda br: br.risk) + [
+        corical_pb2.BarGraphRisk(
+            label=r["event"],
+            risk=r["risk"],
+            is_relatable=True,
+        )
+        for r in generate_relatable_risks([risk.risk for risk in input_risks])
+    ]
 
 
 class Corical(corical_pb2_grpc.CoricalServicer):

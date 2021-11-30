@@ -62,7 +62,7 @@ risks = [
 ]
 
 
-def generate_relatable_risks(risk_vals):
+def generate_relatable_risks_orig(risk_vals):
     """
     Generate risks given a list of risks
     """
@@ -95,6 +95,16 @@ def generate_relatable_risks(risk_vals):
         if ix_third >= len(risks):
             ix_third = ix_less - 1
 
-    return [risks[ix_more]]
+    return [risks[i] for i in sorted([ix_less, ix_more, ix_third]) if i not in [0, len(risks) - 1]]
 
-    # return [risks[i] for i in sorted([ix_less, ix_more, ix_third]) if i not in [0, len(risks) - 1]]
+
+def generate_relatable_risks(risk_vals):
+    orig_risks = generate_relatable_risks_orig(risk_vals)
+
+    if len(orig_risks) <= 1:
+        return orig_risks
+
+    if orig_risks[-1]["risk"] >= 2 * max(risk_vals) and orig_risks[0]["risk"] > 0.9 * min(risk_vals):
+        return [orig_risks[0]]
+    else:
+        return [orig_risks[-1]]
