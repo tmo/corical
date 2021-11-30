@@ -426,92 +426,165 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             )
 
         # for graphs
-        subtitle = f"Results shown for a {age_label} {sex_label} who has TODO pfizers, under {transmission_label} transmission scenario."
-        # for output groups
-        explanation = subtitle
+        graph_description = f"Results shown for a {age_text} {sex_label} under a {transmission_label} transmission scenario, based on number of doses of Pfizer vaccine received."
 
-        (
-            n18_Die_from_Pfizer_myocarditis,
-            n19_Die_from_background_myocarditis,
-            n20_Die_from_COVID19,
-            n21_Die_from_COVID19_myocarditis,
-        ) = compute_pfizer_probs(request.dose, age_label, request.ct, sex_vec)
+        dose_labels = {
+            "None": "not vaccinated",
+            "One": "received one dose",
+            "Two_last_dose_less_than_4_months_ago": "received two doses (<4)",
+            "Two_last_dose_4_to_6_months_ago": "received two doses (4-6)",
+            "Two_last_dose_more_than_6_months_ago": "received two doses (>6)",
+            "Three_2_plus_booster": "received two doses and a booster",
+        }
+
+        if request.dose == "None":
+            comparison_doses = ["One", "Two_last_dose_less_than_4_months_ago"]
+        elif request.dose == "One":
+            comparison_doses = ["None", "Two_last_dose_less_than_4_months_ago"]
+        elif request.dose == "Two_last_dose_less_than_4_months_ago":
+            comparison_doses = ["One", "Three_2_plus_booster"]
+        elif request.dose == "Two_last_dose_4_to_6_months_ago":
+            comparison_doses = ["One", "Three_2_plus_booster"]
+        elif request.dose == "Two_last_dose_more_than_6_months_ago":
+            comparison_doses = ["One", "Three_2_plus_booster"]
+        elif request.dose == "Three_2_plus_booster":
+            comparison_doses = ["One", "Three_2_plus_booster"]
+
+        # (
+        #     get_covid,
+        #     get_myocarditis_vax,
+        #     die_myocarditis_vax,
+        #     get_myocarditis_covid,
+        #     die_myocarditis_covid,
+        #     get_myocarditis_bg,
+        #     die_myocarditis_bg,
+        #     die_covid_if_got_it,
+        # ) = compute_pfizer_probs(request.dose, age_label, request.ct, sex_vec)
+
+        cmp = []
+
+        for i, cdose in enumerate([request.dose] + comparison_doses):
+            cur = {
+                "label": dose_labels[cdose],
+                "is_other_shot": i != 0,
+            }
+            (
+                cur["get_covid"],
+                cur["get_myocarditis_vax"],
+                cur["die_myocarditis_vax"],
+                cur["get_myocarditis_covid"],
+                cur["die_myocarditis_covid"],
+                cur["get_myocarditis_bg"],
+                cur["die_myocarditis_bg"],
+                cur["die_covid_if_got_it"],
+            ) = compute_pfizer_probs(cdose, age_label, request.ct, sex_vec)
+            cmp.append(cur)
 
         out = corical_pb2.ComputeRes(
             messages=messages,
             bar_graphs=[
                 corical_pb2.BarGraph(
-                    title=f"n18_Die_from_Pfizer_myocarditis",
-                    subtitle=subtitle,
+                    title=f"What is my chance of getting COVID-19 if there are {transmission_label} transmissions in the community?",
+                    subtitle=graph_description + " Chance of getting COVID-19 is over a period of 6 months.",
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
-                                label="n18_Die_from_Pfizer_myocarditis",
-                                risk=n18_Die_from_Pfizer_myocarditis,
-                            ),
+                                label=f"Chance of getting COVID-19 if {d['label']}",
+                                risk=d["get_covid"],
+                                is_other_shot=d["is_other_shot"],
+                            )
+                            for d in cmp
                         ]
                     ),
                 ),
                 corical_pb2.BarGraph(
-                    title=f"n19_Die_from_background_myocarditis",
-                    subtitle=subtitle,
+                    title="What is my chance of dying if I get COVID-19?",
+                    subtitle=graph_description,
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
-                                label="n19_Die_from_background_myocarditis",
-                                risk=n19_Die_from_background_myocarditis,
-                            ),
+                                label=f"Chance of dying from COVID-19 if {d['label']}",
+                                risk=d["die_covid_if_got_it"],
+                                is_other_shot=d["is_other_shot"],
+                            )
+                            for d in cmp
                         ]
                     ),
                 ),
                 corical_pb2.BarGraph(
-                    title=f"n20_Die_from_COVID19",
-                    subtitle=subtitle,
+                    title="What is my chance of getting myocarditis?",
+                    subtitle=graph_description,
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
-                                label="n20_Die_from_COVID19",
-                                risk=n20_Die_from_COVID19,
+                                label=f"Chance of getting myocarditis from COVID-19",
+                                risk=cmp[0]["get_myocarditis_covid"],
                             ),
+                            corical_pb2.BarGraphRisk(
+                                label=f"Background rate of myocarditis per week",
+                                risk=cmp[0]["get_myocarditis_bg"],
+                            ),
+                        ]
+                        + [
+                            corical_pb2.BarGraphRisk(
+                                label=f"Chance of getting vaccine-associated myocarditis if {d['label']}",
+                                risk=d["get_myocarditis_vax"],
+                                is_other_shot=d["is_other_shot"],
+                            )
+                            for d in cmp
+                            if d["get_myocarditis_vax"] > 0.0
                         ]
                     ),
                 ),
                 corical_pb2.BarGraph(
-                    title=f"n21_Die_from_COVID19_myocarditis",
-                    subtitle=subtitle,
+                    title="What is my chance of dying from myocarditis?",
+                    subtitle=graph_description,
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
-                                label="n21_Die_from_COVID19_myocarditis",
-                                risk=n21_Die_from_COVID19_myocarditis,
+                                label=f"Chance of dying from myocarditis from COVID-19",
+                                risk=cmp[0]["die_myocarditis_covid"],
                             ),
+                            corical_pb2.BarGraphRisk(
+                                label=f"Background rate of myocarditis death per week",
+                                risk=cmp[0]["die_myocarditis_bg"],
+                            ),
+                        ]
+                        + [
+                            corical_pb2.BarGraphRisk(
+                                label=f"Chance of dying from vaccine-associated myocarditis if {d['label']}",
+                                risk=d["die_myocarditis_vax"],
+                                is_other_shot=d["is_other_shot"],
+                            )
+                            for d in cmp
+                            if d["die_myocarditis_vax"] > 0.0
                         ]
                     ),
                 ),
             ],
             output_groups=[
-                corical_pb2.OutputGroup(
-                    heading="Raw outputs",
-                    explanation=explanation,
-                    risks=[
-                        corical_pb2.Risk(
-                            name="n18_Die_from_Pfizer_myocarditis",
-                            risk=n18_Die_from_Pfizer_myocarditis,
-                        ),
-                        corical_pb2.Risk(
-                            name="n19_Die_from_background_myocarditis",
-                            risk=n19_Die_from_background_myocarditis,
-                        ),
-                        corical_pb2.Risk(
-                            name="n20_Die_from_COVID19",
-                            risk=n20_Die_from_COVID19,
-                        ),
-                        corical_pb2.Risk(
-                            name="n21_Die_from_COVID19_myocarditis",
-                            risk=n21_Die_from_COVID19_myocarditis,
-                        ),
-                    ],
-                ),
+                # corical_pb2.OutputGroup(
+                #     heading="Raw outputs",
+                #     explanation=explanation,
+                #     risks=[
+                #         corical_pb2.Risk(
+                #             name="n18_Die_from_Pfizer_myocarditis",
+                #             risk=n18_Die_from_Pfizer_myocarditis,
+                #         ),
+                #         corical_pb2.Risk(
+                #             name="n19_Die_from_background_myocarditis",
+                #             risk=n19_Die_from_background_myocarditis,
+                #         ),
+                #         corical_pb2.Risk(
+                #             name="n20_Die_from_COVID19",
+                #             risk=n20_Die_from_COVID19,
+                #         ),
+                #         corical_pb2.Risk(
+                #             name="n21_Die_from_COVID19_myocarditis",
+                #             risk=n21_Die_from_COVID19_myocarditis,
+                #         ),
+                #     ],
+                # ),
             ],
             success=True,
             msg=str(request),
