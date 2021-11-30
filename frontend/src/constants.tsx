@@ -56,20 +56,41 @@ export const PZ_VACCINE_OPTIONS = [
     label: "One dose of Pfizer",
   },
   {
-    value: "Two_last_dose_less_than_4_months_ago",
-    label: "Two doses of Pfizer (last dose less than 4 months ago)",
+    value: "Two",
+    label: "Two doses of Pfizer",
   },
-  {
-    value: "Two_last_dose_4_to_6_months_ago",
-    label: "Two doses of Pfizer (last dose between 4 and 6 months ago)",
-  },
-  {
-    value: "Two_last_dose_more_than_6_months_ago",
-    label: "Two doses of Pfizer (last more than 6 months ago)",
-  },
+  // {
+  //   value: "Two_last_dose_less_than_4_months_ago",
+  //   label: "Two doses of Pfizer (last dose less than 4 months ago)",
+  // },
+  // {
+  //   value: "Two_last_dose_4_to_6_months_ago",
+  //   label: "Two doses of Pfizer (last dose between 4 and 6 months ago)",
+  // },
+  // {
+  //   value: "Two_last_dose_more_than_6_months_ago",
+  //   label: "Two doses of Pfizer (last more than 6 months ago)",
+  // },
   {
     value: "Three_2_plus_booster",
     label: "Three doses / two doses and a booster",
+  },
+];
+
+export const PZ_VACCINE2_LABEL =
+  "Time since second dose (only if you selected two doses)";
+export const PZ_VACCINE2_OPTIONS = [
+  {
+    value: "Two_last_dose_less_than_4_months_ago",
+    label: "Less than 4 months",
+  },
+  {
+    value: "Two_last_dose_4_to_6_months_ago",
+    label: "Between 4 and 6 months",
+  },
+  {
+    value: "Two_last_dose_more_than_6_months_ago",
+    label: "More than 6 months",
   },
 ];
 

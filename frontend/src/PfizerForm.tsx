@@ -32,6 +32,8 @@ import {
   FIELD_REQUIRED,
   PZ_VACCINE_LABEL,
   PZ_VACCINE_OPTIONS,
+  PZ_VACCINE2_LABEL,
+  PZ_VACCINE2_OPTIONS,
   PZ_SCENARIOS_LABEL,
   PZ_SCENARIOS_DEFAULT,
   PZ_SCENARIOS,
@@ -67,21 +69,41 @@ type FormInputs = {
   callback: (form: PfizerFormData) => void;
 };
 
+export type PfizerFullFormData = {
+  tos: boolean;
+  form_dose: string;
+  form_second_dose: string;
+  age?: number;
+  sex: string;
+  ct: string;
+};
+
 export default function Form({ callback }: FormInputs) {
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<PfizerFormData>({
+    watch,
+  } = useForm<PfizerFullFormData>({
     mode: "onBlur",
     defaultValues: {
       ct: PZ_SCENARIOS_DEFAULT,
     },
   });
-  const submit = handleSubmit(callback);
+  const submit = handleSubmit((form: PfizerFullFormData) => {
+    callback({
+      tos: form.tos,
+      dose: form.form_dose !== "Two" ? form.form_dose : form.form_second_dose,
+      age: form.age,
+      sex: form.sex,
+      ct: form.ct,
+    });
+  });
   const classes = useStyles();
 
   const [tosBoxOpen, setTosBoxOpen] = useState(false);
+
+  const enableDose2extras = watch("form_dose") === "Two";
 
   return (
     <form onSubmit={submit}>
@@ -146,7 +168,7 @@ export default function Form({ callback }: FormInputs) {
       </div>
       <div className={classNames(classes.formComp)}>
         <Controller
-          name="dose"
+          name="form_dose"
           control={control}
           rules={{
             validate: (value) => !!value || FIELD_REQUIRED,
@@ -156,7 +178,7 @@ export default function Form({ callback }: FormInputs) {
               <FormLabel component="legend">{PZ_VACCINE_LABEL}</FormLabel>
               <RadioGroup
                 // row
-                name="dose-radio"
+                name="form_dose-radio"
                 onChange={(e, value) => onChange(value)}
                 value={value}
               >
@@ -169,8 +191,45 @@ export default function Form({ callback }: FormInputs) {
                   />
                 ))}
               </RadioGroup>
-              {errors?.dose?.message && (
-                <FormHelperText error>{errors.dose.message}</FormHelperText>
+              {errors?.form_dose?.message && (
+                <FormHelperText error>
+                  {errors.form_dose.message}
+                </FormHelperText>
+              )}
+            </FormControl>
+          )}
+        />
+      </div>
+      <div className={classNames(classes.formComp, classes.indent)}>
+        <Controller
+          name="form_second_dose"
+          control={control}
+          rules={{
+            validate: (value) =>
+              !enableDose2extras || !!value || FIELD_REQUIRED,
+          }}
+          render={({ field: { onChange, value } }) => (
+            <FormControl component="fieldset">
+              <FormLabel component="legend">{PZ_VACCINE2_LABEL}</FormLabel>
+              <RadioGroup
+                name="form_second_dose-radio"
+                onChange={(e, value) => onChange(value)}
+                value={value}
+              >
+                {PZ_VACCINE2_OPTIONS.map(({ value, label }) => (
+                  <FormControlLabel
+                    disabled={!enableDose2extras}
+                    key={label}
+                    value={value}
+                    control={<Radio />}
+                    label={label}
+                  />
+                ))}
+              </RadioGroup>
+              {errors?.form_second_dose?.message && (
+                <FormHelperText error>
+                  {errors.form_second_dose.message}
+                </FormHelperText>
               )}
             </FormControl>
           )}
