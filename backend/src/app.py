@@ -214,7 +214,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             printable=printable,
             bar_graphs=[
                 corical_pb2.BarGraph(
-                    title=f"What is my chance of getting COVID-19 if there are {transmission_label} transmissions in the community?",
+                    title=f"What is my chance of getting COVID-19 if there is {transmission_label} transmission in the community?",
                     subtitle=subtitle + " Chance of getting COVID-19 is over a period of 6 months.",
                     risks=generate_bar_graph_risks(
                         [
@@ -483,7 +483,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             messages=messages,
             bar_graphs=[
                 corical_pb2.BarGraph(
-                    title=f"What is my chance of getting COVID-19 if there are {transmission_label} transmissions in the community?",
+                    title=f"What is my chance of getting COVID-19 if there is {transmission_label} transmission in the community?",
                     subtitle=graph_description + " Chance of getting COVID-19 is over a period of 6 months.",
                     risks=generate_bar_graph_risks(
                         [

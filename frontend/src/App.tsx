@@ -40,20 +40,22 @@ export default function App() {
       <>
         {!formS && (
           <>
-            <p>Choose model:</p>
-            <Button
-              onClick={() => setFormS("tts")}
-              color="primary"
-              variant="outlined"
-            >
-              AZ / TTS
-            </Button>
+            <h1>Choose a risk calculator</h1>
+            <h2>Pfizer vaccine: risk of myocarditis</h2>
             <Button
               onClick={() => setFormS("pfizer")}
               color="primary"
-              variant="outlined"
+              variant="contained"
             >
-              Myocarditis / Pfizer
+              Pfizer calculator
+            </Button>
+            <h2>AstraZeneca vaccine: risk of blood clots</h2>
+            <Button
+              onClick={() => setFormS("tts")}
+              color="primary"
+              variant="contained"
+            >
+              AstraZeneca calculator
             </Button>
           </>
         )}

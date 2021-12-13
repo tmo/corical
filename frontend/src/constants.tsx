@@ -94,19 +94,19 @@ export const SCENARIOS = [
     value: "ATAGI_High_3_544_percent",
     label: "High transmission",
     description:
-      "Similar to Europe in January 2021 (equivalent to 5.76% of population infected over 6 months, or 2500 cases/day in NSW)",
+      "Equivalent to 2500 cases per day in NSW",
   },
   {
     value: "ATAGI_Med_0_275_percent",
     label: "Medium transmission",
     description:
-      "Similar to the 2nd wave in VIC in 2020 (equivalent to 0.45% of population infected over 6 months, or 200 cases/day in NSW)",
+      "Equivalent to 200 cases per day in NSW",
   },
   {
     value: "ATAGI_Low_0_029_percent",
     label: "Low transmission",
     description:
-      "Similar to the 1st wave in Australia in 2020 (equivalent to 0.05% of population infected over 6 months, or 21 cases/day in NSW)",
+      "Equivalent to 20 cases per day in NSW",
   },
   {
     value: "None_0",
@@ -186,6 +186,7 @@ export const LESS_THAN_TENTH_MILLION_IN_X = "Less than 1 in 10,000,000";
 export const ZERO_RISK_IN_X = LESS_THAN_TENTH_MILLION_IN_X;
 
 export const RISK_TEXT = "Number of cases per million people";
+export const INFOBOX_RISK_TEXT = "cases per million people";
 
 export const TOS_HEADING = "Important information";
 export const TOS_1 = "I have read and agree to the";

@@ -20,7 +20,7 @@ import {
   LESS_THAN_TENTH_MILLION_IN_X,
   RISK_LABEL,
   RISK_PER_MILLION,
-  RISK_TEXT,
+  RISK_TEXT,INFOBOX_RISK_TEXT,
   STEP2_HELPER,
   STEP2_SUBMIT_FORM_FIRST,
   STEP2_TITLE,
@@ -181,8 +181,8 @@ export default function Form({ output }: OutputProps) {
               textColor="primary"
               centered
             >
-              <Tab label="Show risk as per million risk" />
-              <Tab label="Show risk as reciprocal" />
+              <Tab label="Show risk per million people" />
+              <Tab label="Show risk as a chance" />
             </Tabs>
           </Paper>
           {/* <Button
@@ -236,7 +236,7 @@ export default function Form({ output }: OutputProps) {
                   }}
                 >
                   <CartesianGrid stroke="#f5f5f5" />
-                  <XAxis type="number" label={RISK_TEXT} height={100} />
+                  <XAxis type="number" label={RISK_TEXT} height={100} hide={oneInX} />
                   <YAxis
                     dataKey="label"
                     type="category"
@@ -252,9 +252,9 @@ export default function Form({ output }: OutputProps) {
                         const { value } = payload![0] as any;
                         return (
                           <div className={classes.tooltip}>
-                            {label}
-                            <br />
-                            {RISK_TEXT}: {displayRisk(value / 1e6, false)}.
+                            {/* {label}
+                            <br /> */}
+                            {displayRisk(value / 1e6, false)} {INFOBOX_RISK_TEXT}.
                             <br />
                             This is the same as a{" "}
                             {displayRisk(value / 1e6, true)} chance.
