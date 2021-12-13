@@ -427,17 +427,20 @@ class Corical(corical_pb2_grpc.CoricalServicer):
         dose_labels = {
             "None": "not vaccinated",
             "One": "received one dose",
-            "Two_last_dose_less_than_4_months_ago": "received two doses (<4)",
+            "Two_last_dose_less_than_2_months_ago": "received two doses (<2)",
+            "Two_last_dose_2_to_4_months_ago": "received two doses (2-4)",
             "Two_last_dose_4_to_6_months_ago": "received two doses (4-6)",
             "Two_last_dose_more_than_6_months_ago": "received two doses (>6)",
             "Three_2_plus_booster": "received two doses and a booster",
         }
 
         if request.dose == "None":
-            comparison_doses = ["One", "Two_last_dose_less_than_4_months_ago"]
+            comparison_doses = ["One", "Two_last_dose_less_than_2_months_ago"]
         elif request.dose == "One":
-            comparison_doses = ["None", "Two_last_dose_less_than_4_months_ago"]
-        elif request.dose == "Two_last_dose_less_than_4_months_ago":
+            comparison_doses = ["None", "Two_last_dose_less_than_2_months_ago"]
+        elif request.dose == "Two_last_dose_less_than_2_months_ago":
+            comparison_doses = ["One", "Three_2_plus_booster"]
+        elif request.dose == "Two_last_dose_2_to_4_months_ago":
             comparison_doses = ["One", "Three_2_plus_booster"]
         elif request.dose == "Two_last_dose_4_to_6_months_ago":
             comparison_doses = ["One", "Three_2_plus_booster"]

@@ -70,8 +70,12 @@ export const PZ_VACCINE2_LABEL =
   "Time since second dose (only if you selected two doses)";
 export const PZ_VACCINE2_OPTIONS = [
   {
-    value: "Two_last_dose_less_than_4_months_ago",
-    label: "Less than 4 months",
+    value: "Two_last_dose_less_than_2_months_ago",
+    label: "Less than 2 months",
+  },
+  {
+    value: "Two_last_dose_2_to_4_months_ago",
+    label: "Between 2 and 4 months",
   },
   {
     value: "Two_last_dose_4_to_6_months_ago",

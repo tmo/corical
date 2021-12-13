@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This network was created in GeNIe Academic, which can be used for academic teaching and research purposes only -->
+<smile version="1.0" id="Network1" numsamples="10000" discsamples="10000">
+	<nodes>
+		<cpt id="n4_Community_transmission">
+			<state id="None_0" />
+			<state id="ATAGI_Low_0_05_percent" />
+			<state id="ATAGI_Med_0_45_percent" />
+			<state id="ATAGI_High_5_76_percent" />
+			<state id="One_percent" />
+			<state id="Two_percent" />
+			<state id="NSW_1000_daily" />
+			<state id="VIC_1000_daily" />
+			<state id="QLD_1000_daily" />
+			<probabilities>0.11111111 0.11111111 0.11111111 0.11111111 0.11111111 0.11111111 0.11111111 0.11111111 0.11111111</probabilities>
+		</cpt>
+		<cpt id="n3_Sex">
+			<state id="Male" />
+			<state id="Female" />
+			<probabilities>0.5 0.5</probabilities>
+		</cpt>
+		<cpt id="n2_Age_group">
+			<state id="Age_0_11" />
+			<state id="Age_12_19" />
+			<state id="Age_20_29" />
+			<state id="Age_30_39" />
+			<state id="Age_40_49" />
+			<state id="Age_50_59" />
+			<state id="Age_60_69" />
+			<state id="Age_70plus" />
+			<probabilities>0.148997627 0.09490485899999999 0.140802586 0.146261783 0.128302461 0.121467266 0.104958358 0.11430506</probabilities>
+		</cpt>
+		<cpt id="n1_Pfizer_dose">
+			<state id="None" />
+			<state id="One" />
+			<state id="Two_last_dose_less_than_2_months_ago" />
+			<state id="Two_last_dose_2_to_4_months_ago" />
+			<state id="Two_last_dose_4_to_6_months_ago" />
+			<state id="Three_2_plus_booster" />
+			<parents>n2_Age_group</parents>
+			<probabilities>1 0 0 0 0 0 0.05 0.05 0.26666667 0.26666667 0.26666667 0.1 0.05 0.05 0.26666667 0.26666667 0.26666667 0.1 0.05 0.05 0.26666667 0.26666667 0.26666667 0.1 0.05 0.05 0.26666667 0.26666667 0.26666667 0.1 0.05 0.05 0.26666667 0.26666667 0.26666667 0.1 0.05 0.05 0.26666667 0.26666667 0.26666667 0.1 0.05 0.05 0.26666667 0.26666667 0.26666667 0.1</probabilities>
+		</cpt>
+		<cpt id="n7_Vaccine_effectiveness_against_infection">
+			<state id="Effective" />
+			<state id="Ineffective" />
+			<parents>n1_Pfizer_dose n2_Age_group</parents>
+			<probabilities>0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0.531 0.469 0.531 0.469 0.531 0.469 0.531 0.469 0.531 0.469 0.531 0.469 0.468 0.532 0.468 0.532 0.915 0.08500000000000001 0.89 0.11 0.865 0.135 0.865 0.135 0.8625 0.1375 0.86 0.14 0.8275 0.1725 0.795 0.205 0.86 0.14 0.795 0.205 0.73 0.27 0.73 0.27 0.7275 0.2725 0.725 0.275 0.6899999999999999 0.31 0.655 0.345 1 0 0.74 0.26 0.48 0.52 0.48 0.52 0.5175 0.4825 0.555 0.445 0.5075 0.4925 0.46 0.54 0.965 0.035 0.965 0.035 0.965 0.035 0.965 0.035 0.965 0.035 0.9514 0.0486 0.931 0.06900000000000001 0.931 0.06900000000000001</probabilities>
+		</cpt>
+		<cpt id="n9_Risk_of_infection_by_aget_and_sex">
+			<state id="Yes" />
+			<state id="No" />
+			<parents>n3_Sex n2_Age_group</parents>
+			<probabilities>0.191396719 0.808603281 0.197192335 0.802807665 0.196413321 0.803586679 0.165064622 0.834935378 0.137343362 0.862656638 0.105428922 0.894571078 0.071801266 0.928198734 0.054381418 0.945618582 0.181993642 0.818006358 0.187165187 0.812834813 0.179850224 0.8201497760000001 0.156981871 0.8430181289999999 0.130884315 0.869115685 0.09982601100000001 0.900173989 0.069034304 0.930965696 0.058012834 0.941987166</probabilities>
+		</cpt>
+		<cpt id="n8_Vaccine_effectiveness_against_death">
+			<state id="Effective" />
+			<state id="Ineffective" />
+			<parents>n1_Pfizer_dose n2_Age_group</parents>
+			<probabilities>0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0.89 0.11 0.89 0.11 0.89 0.11 0.89 0.11 0.89 0.11 0.89 0.11 0.74 0.26 0.74 0.26 0.982 0.018 0.982 0.018 0.982 0.018 0.982 0.018 0.982 0.018 0.982 0.018 0.976 0.024 0.97 0.03 0.9525 0.0475 0.9525 0.0475 0.9525 0.0475 0.9525 0.0475 0.9525 0.0475 0.9525 0.0475 0.95225 0.04775 0.952 0.048 0.962325 0.037675 0.962325 0.037675 0.962325 0.037675 0.962325 0.037675 0.962325 0.037675 0.962325 0.037675 0.9651 0.0349 0.967875 0.032125 0.982 0.018 0.982 0.018 0.982 0.018 0.982 0.018 0.982 0.018 0.982 0.018 0.976 0.024 0.97 0.03</probabilities>
+		</cpt>
+		<cpt id="n10_Risk_of_infection_under_current_transmission_and_vaccination_status">
+			<state id="Yes" />
+			<state id="No" />
+			<parents>n9_Risk_of_infection_by_aget_and_sex n7_Vaccine_effectiveness_against_infection n4_Community_transmission</parents>
+			<probabilities>0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0.00047 0.99953 0.00447 0.99553 0.05759 0.94241 0.01 0.99 0.02 0.98 0.02228 0.97772 0.02729 0.97271 0.03507 0.96493 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1</probabilities>
+		</cpt>
+		<cpt id="n14_Die_from_COVID19">
+			<state id="Yes" />
+			<state id="No" />
+			<parents>n10_Risk_of_infection_under_current_transmission_and_vaccination_status n8_Vaccine_effectiveness_against_death n3_Sex n2_Age_group</parents>
+			<probabilities>0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 6.70331e-05 0.999932967 0.000299013 0.999700987 0.000692681 0.999307319 0.002280687 0.9977193130000001 0.007565932 0.992434068 0.025723473 0.974276527 0.155959676 0.844040324 0 1 7.08818e-05 0.999929118 0.000159957 0.999840043 0.000434675 0.9995653249999999 0.001047852 0.998952148 0.004413262 0.995586738 0.010790698 0.989209302 0.12996889 0.87003111 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1</probabilities>
+		</cpt>
+		<cpt id="n6_Myocarditis_background">
+			<state id="Yes" />
+			<state id="No" />
+			<parents>n3_Sex n2_Age_group</parents>
+			<probabilities>4.88e-06 0.999995125 9.480000000000001e-06 0.999990521 2.004e-05 0.9999799579999999 2.004e-05 0.9999799579999999 2.004e-05 0.9999799579999999 2.221e-05 0.999977792 2.546e-05 0.999974542 2.696e-05 0.999973038 3.52e-06 0.999996479 5.01e-06 0.99999499 8.67e-06 0.999991333 1.029e-05 0.999989708 1.192e-05 0.999988083 1.435e-05 0.999985646 1.788e-05 0.9999821250000001 1.982e-05 0.9999801780000001</probabilities>
+		</cpt>
+		<cpt id="n5_Vaccine_associated_myocarditis">
+			<state id="Yes" />
+			<state id="No" />
+			<parents>n1_Pfizer_dose n3_Sex n2_Age_group</parents>
+			<probabilities>0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 3.3852e-06 0.99999661 5.8229e-06 0.99999418 1.09767e-05 0.99998902 3.2775e-06 0.99999672 3.2775e-06 0.99999672 3.2775e-06 0.99999672 3.2775e-06 0.99999672 3.2775e-06 0.99999672 0 1 0 1 1.2715e-06 0.9999987299999999 9.166e-07 0.99999908 9.166e-07 0.99999908 9.166e-07 0.99999908 9.166e-07 0.99999908 9.166e-07 0.99999908 4.30233e-05 0.999956977 7.99123e-05 0.999920088 6.08972e-05 0.999939103 1.09643e-05 0.999989036 1.09643e-05 0.999989036 1.09643e-05 0.999989036 1.09643e-05 0.999989036 1.09643e-05 0.999989036 4.005e-06 0.999995995 5.0733e-06 0.999994927 9.642200000000001e-06 0.999990358 2.2424e-06 0.999997758 2.2424e-06 0.999997758 2.2424e-06 0.999997758 2.2424e-06 0.999997758 2.2424e-06 0.999997758 4.30233e-05 0.999956977 7.99123e-05 0.999920088 6.08972e-05 0.999939103 1.09643e-05 0.999989036 1.09643e-05 0.999989036 1.09643e-05 0.999989036 1.09643e-05 0.999989036 1.09643e-05 0.999989036 4.005e-06 0.999995995 5.0733e-06 0.999994927 9.642200000000001e-06 0.999990358 2.2424e-06 0.999997758 2.2424e-06 0.999997758 2.2424e-06 0.999997758 2.2424e-06 0.999997758 2.2424e-06 0.999997758 4.30233e-05 0.999956977 7.99123e-05 0.999920088 6.08972e-05 0.999939103 1.09643e-05 0.999989036 1.09643e-05 0.999989036 1.09643e-05 0.999989036 1.09643e-05 0.999989036 1.09643e-05 0.999989036 4.005e-06 0.999995995 5.0733e-06 0.999994927 9.642200000000001e-06 0.999990358 2.2424e-06 0.999997758 2.2424e-06 0.999997758 2.2424e-06 0.999997758 2.2424e-06 0.999997758 2.2424e-06 0.999997758 0 1 3.36683e-05 0.999966332 1.43033e-05 0.999985697 2.692e-06 0.999997308 2.692e-06 0.999997308 2.692e-06 0.999997308 2.692e-06 0.999997308 2.692e-06 0.999997308 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1</probabilities>
+		</cpt>
+		<cpt id="n12_Die_from_Pfizer_myocarditis">
+			<state id="Yes" />
+			<state id="No" />
+			<parents>n5_Vaccine_associated_myocarditis</parents>
+			<probabilities>0.00342075 0.99657925 0 1</probabilities>
+		</cpt>
+		<cpt id="n13_Die_from_background_myocarditis">
+			<state id="Yes" />
+			<state id="No" />
+			<parents>n6_Myocarditis_background n3_Sex n2_Age_group</parents>
+			<probabilities>0.045573 0.95442701 0.0134066 0.98659341 0.0120582 0.98794179 0.022869 0.97713098 0.0330561 0.96694387 0.0257036 0.97429644 0.0247136 0.97528642 0.0299836 0.97001639 0.07276539999999999 0.92723456 0.0245322 0.97546778 0.0173077 0.98269231 0.0214575 0.97854251 0.0304196 0.96958042 0.030479 0.9695210399999999 0.0291375 0.97086247 0.0427022 0.95729776 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1</probabilities>
+		</cpt>
+		<cpt id="n11_Myocarditis_from_COVID19">
+			<state id="Yes" />
+			<state id="No" />
+			<parents>n10_Risk_of_infection_under_current_transmission_and_vaccination_status</parents>
+			<probabilities>0.14 0.86 0 1</probabilities>
+		</cpt>
+		<cpt id="n15_Die_from_COVID19_myocarditis">
+			<state id="Yes" />
+			<state id="No" />
+			<parents>n11_Myocarditis_from_COVID19</parents>
+			<probabilities>0.039 0.961 0 1</probabilities>
+		</cpt>
+	</nodes>
+	<extensions>
+		<genie version="1.0" app="GeNIe 3.0.6518.0 ACADEMIC" name="Network1" arccolor="000000">
+			<node id="n9_Risk_of_infection_by_aget_and_sex">
+				<name>Risk of symptomatic infection by age and sex (n9)</name>
+				<interior color="ffff99" />
+				<outline color="000000" />
+				<font color="000000" name="Arial" size="8" />
+				<position>826 34 964 106</position>
+				<barchart width="203" height="74" />
+			</node>
+			<node id="n14_Die_from_COVID19">
+				<name>Die from COVID-19 (n14)</name>
+				<interior color="e4caff" />
+				<outline color="000000" />
+				<font color="000000" name="Arial" size="8" />
+				<position>846 515 902 550</position>
+				<barchart active="true" width="146" height="54" />
+			</node>
+			<node id="n3_Sex">
+				<name>Sex (n3)</name>
+				<interior color="ffcc99" />
+				<outline color="000000" />
+				<font color="000000" name="Arial" size="8" />
+				<position>479 29 531 61</position>
+				<barchart active="true" width="71" height="54" />
+			</node>
+			<node id="n7_Vaccine_effectiveness_against_infection">
+				<name>Vaccine effectiveness against symptomatic infection (n7)</name>
+				<interior color="ffff99" />
+				<outline color="000000" />
+				<font color="000000" name="Arial" size="8" />
+				<position>607 229 663 264</position>
+				<barchart active="true" width="173" height="68" />
+			</node>
+			<node id="n8_Vaccine_effectiveness_against_death">
+				<name>Vaccine effectiveness against death if infected (n8)</name>
+				<interior color="ffff99" />
+				<outline color="000000" />
+				<font color="000000" name="Arial" size="8" />
+				<position>807 142 863 177</position>
+				<barchart active="true" width="172" height="68" />
+			</node>
+			<node id="n4_Community_transmission">
+				<name>Community transmission at x% over 6 months (n4)</name>
+				<interior color="ffcc99" />
+				<outline color="000000" />
+				<font color="000000" name="Arial" size="8" />
+				<position>1278 94 1326 124</position>
+				<barchart active="true" width="198" height="195" />
+			</node>
+			<node id="n10_Risk_of_infection_under_current_transmission_and_vaccination_status">
+				<name>Risk of symptomatic infection under current transmission and vaccination status (n10)</name>
+				<interior color="ffff99" />
+				<outline color="000000" />
+				<font color="000000" name="Arial" size="8" />
+				<position>973 215 1126 298</position>
+				<barchart active="true" width="231" height="68" />
+			</node>
+			<node id="n2_Age_group">
+				<name>Age group (n2)</name>
+				<interior color="ffcc99" />
+				<outline color="000000" />
+				<font color="000000" name="Arial" size="8" />
+				<position>247 68 299 100</position>
+				<barchart active="true" width="120" height="165" />
+			</node>
+			<node id="n1_Pfizer_dose">
+				<name>Pfizer dose (n1)</name>
+				<interior color="ffcc99" />
+				<outline color="000000" />
+				<font color="000000" name="Arial" size="8" />
+				<position>69 167 125 202</position>
+				<barchart active="true" width="167" height="126" />
+			</node>
+			<node id="n6_Myocarditis_background">
+				<name>Myocarditis (background) over 30 days (n6)</name>
+				<interior color="ffff99" />
+				<outline color="000000" />
+				<font color="000000" name="Arial" size="8" />
+				<position>314 327 370 362</position>
+				<barchart active="true" width="146" height="68" />
+			</node>
+			<node id="n12_Die_from_Pfizer_myocarditis">
+				<name>Die from vaccine-associated myocarditis (n12)</name>
+				<interior color="e4caff" />
+				<outline color="000000" />
+				<font color="000000" name="Arial" size="8" />
+				<position>93 504 149 539</position>
+				<barchart active="true" width="198" height="68" />
+			</node>
+			<textbox>
+				<caption>V1: Dying from myocarditis vs Covid in 6 months</caption>
+				<font color="ff0000" name="Arial" size="16" />
+				<position>9 23 204 95</position>
+			</textbox>
+			<node id="n5_Vaccine_associated_myocarditis">
+				<name>Vaccine-associated myocarditis (n5)</name>
+				<interior color="ffff99" />
+				<outline color="000000" />
+				<font color="000000" name="Arial" size="8" />
+				<position>102 370 158 405</position>
+				<barchart active="true" width="198" height="68" />
+			</node>
+			<node id="n13_Die_from_background_myocarditis">
+				<name>Die from myocarditis (background) (n13)</name>
+				<interior color="e4caff" />
+				<outline color="000000" />
+				<font color="000000" name="Arial" size="8" />
+				<position>545 482 601 517</position>
+				<barchart active="true" width="183" height="69" />
+			</node>
+			<node id="n11_Myocarditis_from_COVID19">
+				<name>Myocarditis from COVID-19 (n11)</name>
+				<interior color="ffff99" />
+				<outline color="000000" />
+				<font color="000000" name="Arial" size="8" />
+				<position>1241 347 1297 382</position>
+				<barchart active="true" width="103" height="68" />
+			</node>
+			<node id="n15_Die_from_COVID19_myocarditis">
+				<name>Die from COVID-19-related myocarditis (n15)</name>
+				<interior color="e4caff" />
+				<outline color="000000" />
+				<font color="000000" name="Arial" size="8" />
+				<position>1251 486 1307 521</position>
+				<barchart active="true" width="238" height="54" />
+			</node>
+			<textbox>
+				<caption>Risk of infection within 6 months</caption>
+				<font color="000000" name="Arial" size="8" bold="true" />
+				<position>850 4 939 32</position>
+			</textbox>
+			<arcformat parent="n2_Age_group" child="n1_Pfizer_dose" width="1" color="a0a0a0" />
+			<arcformat parent="n1_Pfizer_dose" child="n7_Vaccine_effectiveness_against_infection" width="1" color="000000" />
+			<arcformat parent="n2_Age_group" child="n9_Risk_of_infection_by_aget_and_sex" width="1" color="000000" />
+			<arcformat parent="n1_Pfizer_dose" child="n8_Vaccine_effectiveness_against_death" width="1" color="000000" />
+			<arcformat parent="n9_Risk_of_infection_by_aget_and_sex" child="n10_Risk_of_infection_under_current_transmission_and_vaccination_status" width="1" color="000000" />
+			<arcformat parent="n7_Vaccine_effectiveness_against_infection" child="n10_Risk_of_infection_under_current_transmission_and_vaccination_status" width="1" color="000000" />
+			<arcformat parent="n4_Community_transmission" child="n10_Risk_of_infection_under_current_transmission_and_vaccination_status" width="1" color="000000" />
+			<arcformat parent="n10_Risk_of_infection_under_current_transmission_and_vaccination_status" child="n14_Die_from_COVID19" width="1" color="000000" />
+			<arcformat parent="n8_Vaccine_effectiveness_against_death" child="n14_Die_from_COVID19" width="1" color="000000" />
+			<arcformat parent="n3_Sex" child="n14_Die_from_COVID19" width="1" color="000000" />
+			<arcformat parent="n2_Age_group" child="n14_Die_from_COVID19" width="1" color="000000" />
+			<arcformat parent="n3_Sex" child="n6_Myocarditis_background" width="1" color="a0a0a0" />
+			<arcformat parent="n2_Age_group" child="n6_Myocarditis_background" width="1" color="000000" />
+			<arcformat parent="n1_Pfizer_dose" child="n5_Vaccine_associated_myocarditis" width="1" color="000000" />
+			<arcformat parent="n3_Sex" child="n5_Vaccine_associated_myocarditis" width="1" color="a0a0a0" />
+			<arcformat parent="n2_Age_group" child="n5_Vaccine_associated_myocarditis" width="1" color="000000" />
+			<arcformat parent="n5_Vaccine_associated_myocarditis" child="n12_Die_from_Pfizer_myocarditis" width="1" color="000000" />
+			<arcformat parent="n10_Risk_of_infection_under_current_transmission_and_vaccination_status" child="n11_Myocarditis_from_COVID19" width="1" color="000000" />
+			<arcformat parent="n11_Myocarditis_from_COVID19" child="n15_Die_from_COVID19_myocarditis" width="1" color="000000" />
+		</genie>
+	</extensions>
+</smile>
