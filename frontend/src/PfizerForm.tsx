@@ -186,12 +186,21 @@ export default function Form({ callback }: FormInputs) {
                 onChange={(e, value) => onChange(value)}
                 value={value}
               >
-                {PZ_VACCINE_OPTIONS.map(({ value, label }) => (
+                {PZ_VACCINE_OPTIONS.map(({ value, label, description }) => (
                   <FormControlLabel
                     key={label}
                     value={value}
                     control={<Radio />}
-                    label={label}
+                    label={!description ? label : (
+                      <div>
+                        <Typography variant="body1">{label}</Typography>
+                        <Typography
+                          variant="caption"
+                        >
+                          {description}
+                        </Typography>
+                      </div>
+                    )}
                   />
                 ))}
               </RadioGroup>
@@ -220,13 +229,22 @@ export default function Form({ callback }: FormInputs) {
                 onChange={(e, value) => onChange(value)}
                 value={value}
               >
-                {PZ_VACCINE2_OPTIONS.map(({ value, label }) => (
+                {PZ_VACCINE2_OPTIONS.map(({ value, label, description }) => (
                   <FormControlLabel
                     disabled={!enableDose2extras}
                     key={label}
                     value={value}
                     control={<Radio />}
-                    label={label}
+                    label={!description ? label : (
+                      <div>
+                        <Typography variant="body1">{label}</Typography>
+                        <Typography
+                          variant="caption"
+                        >
+                          {description}
+                        </Typography>
+                      </div>
+                    )}
                   />
                 ))}
               </RadioGroup>

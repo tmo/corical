@@ -55,6 +55,7 @@ export const PZ_VACCINE_OPTIONS = [
   {
     value: "One_under_3wks",
     label: "One dose of Pfizer (less than 3 weeks ago)",
+    description: "Data not available for those overdue for their second dose",
   },
   {
     value: PZ_VACCINE_SECOND_VAL,
@@ -80,6 +81,7 @@ export const PZ_VACCINE2_OPTIONS = [
   {
     value: "Two_4_6mths",
     label: "Between 4 and 6 months",
+    description: "Data not available for those overdue for their third dose",
   },
   // {
   //   value: "Two_last_dose_more_than_6_months_ago",
