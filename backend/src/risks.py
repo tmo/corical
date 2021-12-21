@@ -111,12 +111,13 @@ def generate_relatable_risks_orig(risk_vals):
 
 
 def generate_relatable_risks(risk_vals):
-    orig_risks = generate_relatable_risks_orig(risk_vals)
+    risks_max = max(risk_vals)
 
-    if len(orig_risks) <= 1:
-        return orig_risks
+    ix_more = len(risks) - 1
 
-    if orig_risks[-1]["risk"] >= 2 * max(risk_vals) and orig_risks[0]["risk"] > 0.9 * min(risk_vals):
-        return [orig_risks[0]]
-    else:
-        return [orig_risks[-1]]
+    for i, rel_risk in enumerate(risks):
+        if rel_risk["risk"] > risks_max:
+            ix_more = i
+            break
+
+    return [risks[ix_more]]
