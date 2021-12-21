@@ -53,16 +53,16 @@ export const PZ_VACCINE_OPTIONS = [
     label: "None",
   },
   {
-    value: "One",
-    label: "One dose of Pfizer",
+    value: "One_under_3wks",
+    label: "One dose of Pfizer (less than 3 weeks ago)",
   },
   {
     value: PZ_VACCINE_SECOND_VAL,
     label: "Two doses of Pfizer",
   },
   {
-    value: "Three_2_plus_booster",
-    label: "Three doses / two doses and a booster",
+    value: "Three",
+    label: "Three doses of Pfizer",
   },
 ];
 
@@ -70,22 +70,49 @@ export const PZ_VACCINE2_LABEL =
   "Time since second dose (only if you selected two doses)";
 export const PZ_VACCINE2_OPTIONS = [
   {
-    value: "Two_last_dose_less_than_2_months_ago",
+    value: "Two_under_2mths",
     label: "Less than 2 months",
   },
   {
-    value: "Two_last_dose_2_to_4_months_ago",
+    value: "Two_2_4mths",
     label: "Between 2 and 4 months",
   },
   {
-    value: "Two_last_dose_4_to_6_months_ago",
+    value: "Two_4_6mths",
     label: "Between 4 and 6 months",
   },
+  // {
+  //   value: "Two_last_dose_more_than_6_months_ago",
+  //   label: "More than 6 months",
+  // },
+];
+
+export const PZ_SCENARIOS_LABEL = "Community transmission scenario";
+export const PZ_SCENARIOS_DEFAULT = "ATAGI_Med";
+export const PZ_SCENARIOS = [
   {
-    value: "Two_last_dose_more_than_6_months_ago",
-    label: "More than 6 months",
+    value: "ATAGI_High",
+    label: "High transmission",
+    description: "Equivalent to 2500 cases per day in NSW",
+  },
+  {
+    value: "ATAGI_Med",
+    label: "Medium transmission",
+    description: "Equivalent to 200 cases per day in NSW",
+  },
+  {
+    value: "ATAGI_Low",
+    label: "Low transmission",
+    description: "Equivalent to 20 cases per day in NSW",
+  },
+  {
+    value: "None_0",
+    label: "No community transmission",
+    description: "No COVID-19 circulating in the community",
   },
 ];
+
+export const SUBMIT_LABEL = "Calculate risk";
 
 export const SCENARIOS_LABEL = "Community transmission scenario";
 export const SCENARIOS_DEFAULT = "ATAGI_Med_0_275_percent";
@@ -136,33 +163,6 @@ export const SCENARIOS = [
   //   description: "Description for QLD 1000 cases",
   // },
 ];
-
-export const PZ_SCENARIOS_LABEL = "Community transmission scenario";
-export const PZ_SCENARIOS_DEFAULT = "ATAGI_Med_0_45_percent";
-export const PZ_SCENARIOS = [
-  {
-    value: "ATAGI_High_5_76_percent",
-    label: "High transmission",
-    description: "Equivalent to 2500 cases per day in NSW",
-  },
-  {
-    value: "ATAGI_Med_0_45_percent",
-    label: "Medium transmission",
-    description: "Equivalent to 200 cases per day in NSW",
-  },
-  {
-    value: "ATAGI_Low_0_05_percent",
-    label: "Low transmission",
-    description: "Equivalent to 20 cases per day in NSW",
-  },
-  {
-    value: "None_0",
-    label: "No community transmission",
-    description: "No COVID-19 circulating in the community",
-  },
-];
-
-export const SUBMIT_LABEL = "Calculate risk";
 
 // output
 export const STEP2_TITLE = "Risk output";

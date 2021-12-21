@@ -403,11 +403,11 @@ class Corical(corical_pb2_grpc.CoricalServicer):
         age_text, age_label, age_ix = get_age_bracket_pz(request.age)
         if request.ct == "None_0":
             transmission_label = "no"
-        elif request.ct == "ATAGI_High_5_76_percent":
+        elif request.ct == "ATAGI_High":
             transmission_label = "high"
-        elif request.ct == "ATAGI_Med_0_45_percent":
+        elif request.ct == "ATAGI_Med":
             transmission_label = "medium"
-        elif request.ct == "ATAGI_Low_0_05_percent":
+        elif request.ct == "ATAGI_Low":
             transmission_label = "low"
         else:
             transmission_label = request.ct
@@ -426,28 +426,25 @@ class Corical(corical_pb2_grpc.CoricalServicer):
 
         dose_labels = {
             "None": "not vaccinated",
-            "One": "received one dose",
-            "Two_last_dose_less_than_2_months_ago": "received two doses (<2)",
-            "Two_last_dose_2_to_4_months_ago": "received two doses (2-4)",
-            "Two_last_dose_4_to_6_months_ago": "received two doses (4-6)",
-            "Two_last_dose_more_than_6_months_ago": "received two doses (>6)",
-            "Three_2_plus_booster": "received two doses and a booster",
+            "One_under_3wks": "received one dose (less than 3 weeks ago)",
+            "Two_under_2mths": "received two doses (less than 2 months ago)",
+            "Two_2_4mths": "received two doses (2-4 months post-vaccination)",
+            "Two_4_6mths": "received two doses (4-6 months post-vaccination)",
+            "Three": "received three doses",
         }
 
         if request.dose == "None":
-            comparison_doses = ["One", "Two_last_dose_less_than_2_months_ago"]
-        elif request.dose == "One":
-            comparison_doses = ["None", "Two_last_dose_less_than_2_months_ago"]
-        elif request.dose == "Two_last_dose_less_than_2_months_ago":
-            comparison_doses = ["One", "Three_2_plus_booster"]
-        elif request.dose == "Two_last_dose_2_to_4_months_ago":
-            comparison_doses = ["One", "Three_2_plus_booster"]
-        elif request.dose == "Two_last_dose_4_to_6_months_ago":
-            comparison_doses = ["One", "Three_2_plus_booster"]
-        elif request.dose == "Two_last_dose_more_than_6_months_ago":
-            comparison_doses = ["One", "Three_2_plus_booster"]
-        elif request.dose == "Three_2_plus_booster":
-            comparison_doses = ["One", "None"]
+            comparison_doses = ["One_under_3wks", "Two_under_2mths"]
+        elif request.dose == "One_under_3wks":
+            comparison_doses = ["None", "Two_under_2mths"]
+        elif request.dose == "Two_under_2mths":
+            comparison_doses = ["One_under_3wks", "Three"]
+        elif request.dose == "Two_2_4mths":
+            comparison_doses = ["One_under_3wks", "Three"]
+        elif request.dose == "Two_4_6mths":
+            comparison_doses = ["One_under_3wks", "Three"]
+        elif request.dose == "Three":
+            comparison_doses = ["One_under_3wks", "None"]
 
         # (
         #     get_covid,

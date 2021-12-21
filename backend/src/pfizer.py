@@ -1,6 +1,6 @@
 import xdsl
 
-pfizer = xdsl.Model("CoRiCAL_2.0_V1_09122021_JS.xdsl")
+pfizer = xdsl.Model("CoRiCAL_2.0_V1_211221.xdsl")
 
 # n1_Pfizer_dose
 # n2_Age_group
