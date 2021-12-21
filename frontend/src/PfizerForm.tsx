@@ -215,7 +215,10 @@ export default function Form({ callback }: FormInputs) {
           )}
         />
       </div>
-      <div className={classNames(classes.formComp, classes.indent)}>
+      <div
+        className={classNames(classes.formComp, classes.indent)}
+        hidden={!enableDose2extras}
+      >
         <Controller
           name="form_second_dose"
           control={control}
