@@ -481,7 +481,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             bar_graphs=[
                 corical_pb2.BarGraph(
                     title=f"What is my chance of getting COVID-19 if there is {transmission_label} transmission in the community?",
-                    subtitle=graph_description + " Chance of getting COVID-19 is over a period of 6 months.",
+                    subtitle=graph_description + " Chance of getting COVID-19 is over a period of 2 months.",
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
@@ -517,7 +517,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                                 risk=cmp[0]["get_myocarditis_covid"],
                             ),
                             corical_pb2.BarGraphRisk(
-                                label=f"Background rate of myocarditis per week",
+                                label=f"Background rate of myocarditis over a period of 2 months",
                                 risk=cmp[0]["get_myocarditis_bg"],
                             ),
                         ]
@@ -542,7 +542,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                                 risk=cmp[0]["die_myocarditis_covid"],
                             ),
                             corical_pb2.BarGraphRisk(
-                                label=f"Background rate of myocarditis death per week",
+                                label=f"Background rate of myocarditis death over a period of 2 months",
                                 risk=cmp[0]["die_myocarditis_bg"],
                             ),
                         ]
