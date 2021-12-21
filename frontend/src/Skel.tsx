@@ -199,7 +199,7 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
               </a>
               <br />
               <b>Subject expertise</b>: Andrew Baird, Anoop Enjeti, Colleen Lau,
-              John Litt, Kirsty Short, Hassan Vally
+              John Litt, Raj Puranik, Kirsty Short, Hassan Vally, Sudhir Wahi
               <br />
               <b>Model design</b>: Colleen Lau, Helen Mayfield, Kerrie Mengersen
               <br />
