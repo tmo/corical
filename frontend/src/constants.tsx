@@ -93,20 +93,17 @@ export const SCENARIOS = [
   {
     value: "ATAGI_High_3_544_percent",
     label: "High transmission",
-    description:
-      "Equivalent to 2500 cases per day in NSW",
+    description: "Equivalent to 2500 cases per day in NSW",
   },
   {
     value: "ATAGI_Med_0_275_percent",
     label: "Medium transmission",
-    description:
-      "Equivalent to 200 cases per day in NSW",
+    description: "Equivalent to 200 cases per day in NSW",
   },
   {
     value: "ATAGI_Low_0_029_percent",
     label: "Low transmission",
-    description:
-      "Equivalent to 20 cases per day in NSW",
+    description: "Equivalent to 20 cases per day in NSW",
   },
   {
     value: "None_0",
