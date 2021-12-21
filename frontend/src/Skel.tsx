@@ -220,7 +220,7 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
                 variant="outlined"
                 color="primary"
                 disableElevation
-                href="https://forms.gle/ynwFeiX5bRgp71tTA"
+                href="https://forms.gle/8DW7NRF5z3JE8JCGA"
               >
                 Feedback or comments?
               </Button>
