@@ -40,7 +40,7 @@ function PfizerRoute() {
       form.age = Math.round(form.age!);
       const res = await computePfizer(form);
       setPfizerOutput(res);
-    } catch (e) {
+    } catch (e: any) {
       console.error(e);
       setError(e.message);
     }
@@ -79,7 +79,7 @@ function AZRoute() {
       form.age = Math.round(form.age!);
       const res = await computeTts(form);
       setTTSOutput(res);
-    } catch (e) {
+    } catch (e: any) {
       console.error(e);
       setError(e.message);
     }
