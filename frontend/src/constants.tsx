@@ -143,20 +143,17 @@ export const PZ_SCENARIOS = [
   {
     value: "ATAGI_High_5_76_percent",
     label: "High transmission",
-    description:
-      "Similar to Europe in January 2021 (equivalent to 5.76% of population infected over 6 months, or 2500 cases/day in NSW)",
+    description: "Equivalent to 2500 cases per day in NSW",
   },
   {
     value: "ATAGI_Med_0_45_percent",
     label: "Medium transmission",
-    description:
-      "Similar to the 2nd wave in VIC in 2020 (equivalent to 0.45% of population infected over 6 months, or 200 cases/day in NSW)",
+    description: "Equivalent to 200 cases per day in NSW",
   },
   {
     value: "ATAGI_Low_0_05_percent",
     label: "Low transmission",
-    description:
-      "Similar to the 1st wave in Australia in 2020 (equivalent to 0.05% of population infected over 6 months, or 21 cases/day in NSW)",
+    description: "Equivalent to 20 cases per day in NSW",
   },
   {
     value: "None_0",
