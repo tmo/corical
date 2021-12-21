@@ -156,9 +156,17 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
                 variant="outlined"
                 color="primary"
                 disableElevation
+                href="/docs/pfizer_assumptions.pdf"
+              >
+                Pfizer data sources
+              </Button>{" "}
+              <Button
+                variant="outlined"
+                color="primary"
+                disableElevation
                 href="https://doi.org/10.1016/j.vaccine.2021.10.079"
               >
-                Data sources
+                AstraZeneca data sources
               </Button>{" "}
               <Button
                 variant="outlined"
