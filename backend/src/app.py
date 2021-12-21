@@ -237,7 +237,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                     ),
                 ),
                 corical_pb2.BarGraph(
-                    title="What is my chance of dying if I get COVID-19?",
+                    title="If I am diagnosed with COVID-19, what are my chances of dying?",
                     subtitle=subtitle,
                     risks=generate_bar_graph_risks(
                         [
@@ -494,7 +494,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                     ),
                 ),
                 corical_pb2.BarGraph(
-                    title="What is my chance of dying if I get COVID-19?",
+                    title="If I am diagnosed with COVID-19, what are my chances of dying?",
                     subtitle=graph_description,
                     risks=generate_bar_graph_risks(
                         [
@@ -512,12 +512,12 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                     subtitle=graph_description,
                     risks=generate_bar_graph_risks(
                         [
+                            # corical_pb2.BarGraphRisk(
+                            #     label=f"Chance of getting COVID-19 and the associated myocarditis",
+                            #     risk=cmp[0]["get_myocarditis_covid"],
+                            # ),
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of getting myocarditis from COVID-19",
-                                risk=cmp[0]["get_myocarditis_covid"],
-                            ),
-                            corical_pb2.BarGraphRisk(
-                                label=f"Background rate of myocarditis over a period of 2 months",
+                                label=f"Background chance of myocarditis over a period of 2 months",
                                 risk=cmp[0]["get_myocarditis_bg"],
                             ),
                         ]
@@ -537,12 +537,12 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                     subtitle=graph_description,
                     risks=generate_bar_graph_risks(
                         [
+                            # corical_pb2.BarGraphRisk(
+                            #     label=f"Chance of getting COVID-19 and dying from the associated myocarditis",
+                            #     risk=cmp[0]["die_myocarditis_covid"],
+                            # ),
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of dying from myocarditis from COVID-19",
-                                risk=cmp[0]["die_myocarditis_covid"],
-                            ),
-                            corical_pb2.BarGraphRisk(
-                                label=f"Background rate of myocarditis death over a period of 2 months",
+                                label=f"Background chance of dying from myocarditis over a period of 2 months",
                                 risk=cmp[0]["die_myocarditis_bg"],
                             ),
                         ]
