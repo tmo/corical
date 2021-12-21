@@ -102,7 +102,12 @@ function displayRisk(value: number, one_in_x: boolean) {
   if (!one_in_x) {
     return formatNumber(value * 1e6);
   } else {
-    return "1 in " + formatNumber(1 / value);
+    const onval = 1 / value;
+    if (onval > 1e6) {
+      return "1 in " + formatNumber(onval / 1e6) + " million";
+    } else {
+      return "1 in " + formatNumber(onval);
+    }
   }
 }
 
