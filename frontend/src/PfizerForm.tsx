@@ -191,16 +191,18 @@ export default function Form({ callback }: FormInputs) {
                     key={label}
                     value={value}
                     control={<Radio />}
-                    label={!description ? label : (
-                      <div>
-                        <Typography variant="body1">{label}</Typography>
-                        <Typography
-                          variant="caption"
-                        >
-                          {description}
-                        </Typography>
-                      </div>
-                    )}
+                    label={
+                      !description ? (
+                        label
+                      ) : (
+                        <div>
+                          <Typography variant="body1">{label}</Typography>
+                          <Typography variant="caption">
+                            {description}
+                          </Typography>
+                        </div>
+                      )
+                    }
                   />
                 ))}
               </RadioGroup>
@@ -235,16 +237,18 @@ export default function Form({ callback }: FormInputs) {
                     key={label}
                     value={value}
                     control={<Radio />}
-                    label={!description ? label : (
-                      <div>
-                        <Typography variant="body1">{label}</Typography>
-                        <Typography
-                          variant="caption"
-                        >
-                          {description}
-                        </Typography>
-                      </div>
-                    )}
+                    label={
+                      !description ? (
+                        label
+                      ) : (
+                        <div>
+                          <Typography variant="body1">{label}</Typography>
+                          <Typography variant="caption">
+                            {description}
+                          </Typography>
+                        </div>
+                      )
+                    }
                   />
                 ))}
               </RadioGroup>

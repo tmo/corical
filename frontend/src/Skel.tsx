@@ -216,11 +216,16 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
               <br />
             </Typography>
             <Box py={5}>
-              &copy; 2021 Immunisation Coalition.{" "}
-              <a href="https://forms.gle/ynwFeiX5bRgp71tTA">
+              <Button
+                variant="outlined"
+                color="primary"
+                disableElevation
+                href="https://forms.gle/ynwFeiX5bRgp71tTA"
+              >
                 Feedback or comments?
-              </a>
+              </Button>
             </Box>
+            <Box>&copy; 2021 Immunisation Coalition. </Box>
           </Container>
         </Box>
       </Box>
