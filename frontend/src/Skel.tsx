@@ -135,15 +135,6 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
                   transmission in your state now, this is most likely to
                   increase over time as lockdowns end and borders reopen.
                 </li>
-                <li>
-                  An upcoming version will include side effects of the Pfizer
-                  vaccine (myocarditis and pericarditis).
-                </li>
-                <li>
-                  Future versions will include other conditions such as long
-                  COVID and ICU admission, and individual factors such as
-                  medical conditions.
-                </li>
               </ul>
             </Typography>
           </Container>
