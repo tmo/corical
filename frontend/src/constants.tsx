@@ -94,28 +94,28 @@ export const PZ_SCENARIOS_DEFAULT = "Five_percent";
 export const PZ_SCENARIOS = [
   {
     value: "Ten_percent",
-    label: "Extreme transmission",
-    description: "Equivalent to 13600 cases per day in NSW",
+    label: "Extremely high transmission",
+    description: "Equivalent to 13600 cases per day in NSW (10% of population infected over 2 months)",
   },
   {
     value: "Five_percent",
     label: "Very high transmission",
-    description: "Equivalent to 6800 cases per day in NSW",
+    description: "Equivalent to 6800 cases per day in NSW (5% of population infected over 2 months)",
   },
   {
     value: "ATAGI_High",
     label: "High transmission",
-    description: "Equivalent to 2500 cases per day in NSW",
+    description: "Equivalent to 2500 cases per day in NSW (2% of population infected over 2 months)",
   },
   {
     value: "ATAGI_Med",
     label: "Medium transmission",
-    description: "Equivalent to 200 cases per day in NSW",
+    description: "Equivalent to 200 cases per day in NSW (0.15% of population infected over 2 months)",
   },
   {
     value: "ATAGI_Low",
     label: "Low transmission",
-    description: "Equivalent to 20 cases per day in NSW",
+    description: "Equivalent to 20 cases per day in NSW (0.02% of population infected over 2 months)",
   },
   // {
   //   value: "None_0",

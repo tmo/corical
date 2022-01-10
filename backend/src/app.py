@@ -404,7 +404,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
         if request.ct == "None_0":
             transmission_label = "no"
         elif request.ct == "Ten_percent":
-            transmission_label = "extreme"
+            transmission_label = "extremely high"
         elif request.ct == "Five_percent":
             transmission_label = "very high"
         elif request.ct == "ATAGI_High":
