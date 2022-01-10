@@ -403,6 +403,10 @@ class Corical(corical_pb2_grpc.CoricalServicer):
         age_text, age_label, age_ix = get_age_bracket_pz(request.age)
         if request.ct == "None_0":
             transmission_label = "no"
+        elif request.ct == "Ten_percent":
+            transmission_label = "extreme"
+        elif request.ct == "Five_percent":
+            transmission_label = "very high"
         elif request.ct == "ATAGI_High":
             transmission_label = "high"
         elif request.ct == "ATAGI_Med":

@@ -90,8 +90,18 @@ export const PZ_VACCINE2_OPTIONS = [
 ];
 
 export const PZ_SCENARIOS_LABEL = "Community transmission scenario";
-export const PZ_SCENARIOS_DEFAULT = "ATAGI_Med";
+export const PZ_SCENARIOS_DEFAULT = "Five_percent";
 export const PZ_SCENARIOS = [
+  {
+    value: "Ten_percent",
+    label: "Extreme transmission",
+    description: "Equivalent to 13600 cases per day in NSW",
+  },
+  {
+    value: "Five_percent",
+    label: "Very high transmission",
+    description: "Equivalent to 6800 cases per day in NSW",
+  },
   {
     value: "ATAGI_High",
     label: "High transmission",
@@ -107,11 +117,11 @@ export const PZ_SCENARIOS = [
     label: "Low transmission",
     description: "Equivalent to 20 cases per day in NSW",
   },
-  {
-    value: "None_0",
-    label: "No community transmission",
-    description: "No COVID-19 circulating in the community",
-  },
+  // {
+  //   value: "None_0",
+  //   label: "No community transmission",
+  //   description: "No COVID-19 circulating in the community",
+  // },
 ];
 
 export const SUBMIT_LABEL = "Calculate risk";
