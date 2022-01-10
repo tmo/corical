@@ -33,21 +33,21 @@ def compute_probs(n1_pfizer_dose, n2_age, n4_ct, sex_vec):
     get_covid = pfizer.infer(values, "n10_Risk_of_infection_under_current_transmission_and_vaccination_status")[0]
     get_myocarditis_vax = pfizer.infer(values, "n5_Vaccine_associated_myocarditis")[0]
     die_myocarditis_vax = pfizer.infer(values, "n12_Die_from_Pfizer_myocarditis")[0]
-    get_myocarditis_covid = pfizer.infer(values, "n11_Myocarditis_from_COVID19")[0]
-    die_myocarditis_covid = pfizer.infer(values, "n15_Die_from_COVID19_myocarditis")[0]
     get_myocarditis_bg = pfizer.infer(values, "n6_Myocarditis_background")[0]
     die_myocarditis_bg = pfizer.infer(values, "n13_Die_from_background_myocarditis")[0]
 
     # if infected
     pfizer.set_fact(values_infected, "n10_Risk_of_infection_under_current_transmission_and_vaccination_status", "Yes")
     die_covid_if_got_it = pfizer.infer(values_infected, "n14_Die_from_COVID19")[0]
+    get_myocarditis_given_covid = pfizer.infer(values_infected, "n11_Myocarditis_from_COVID19")[0]
+    die_myocarditis_given_covid = pfizer.infer(values_infected, "n15_Die_from_COVID19_myocarditis")[0]
 
     return (
         get_covid,
         get_myocarditis_vax,
         die_myocarditis_vax,
-        get_myocarditis_covid,
-        die_myocarditis_covid,
+        get_myocarditis_given_covid,
+        die_myocarditis_given_covid,
         get_myocarditis_bg,
         die_myocarditis_bg,
         die_covid_if_got_it,

@@ -429,12 +429,12 @@ class Corical(corical_pb2_grpc.CoricalServicer):
         graph_description = f"Results shown for a {age_text} {sex_label} under a {transmission_label} transmission scenario, based on number of doses of Pfizer vaccine received."
 
         dose_labels = {
-            "None": "not vaccinated",
-            "One_under_3wks": "received one dose (less than 3 weeks ago)",
-            "Two_under_2mths": "received two doses (less than 2 months ago)",
-            "Two_2_4mths": "received two doses (2-4 months post-vaccination)",
-            "Two_4_6mths": "received two doses (4-6 months post-vaccination)",
-            "Three": "received three doses",
+            "None": ("not vaccinated", "no"),
+            "One_under_3wks": ("received one dose (less than 3 weeks ago)", "first"),
+            "Two_under_2mths": ("received two doses (less than 2 months ago)", "second"),
+            "Two_2_4mths": ("received two doses (2-4 months post-vaccination)", "second"),
+            "Two_4_6mths": ("received two doses (4-6 months post-vaccination)", "second"),
+            "Three": ("received three doses", "third"),
         }
 
         if request.dose == "None":
@@ -454,8 +454,8 @@ class Corical(corical_pb2_grpc.CoricalServicer):
         #     get_covid,
         #     get_myocarditis_vax,
         #     die_myocarditis_vax,
-        #     get_myocarditis_covid,
-        #     die_myocarditis_covid,
+        #     get_myocarditis_given_covid,
+        #     die_myocarditis_given_covid,
         #     get_myocarditis_bg,
         #     die_myocarditis_bg,
         #     die_covid_if_got_it,
@@ -464,16 +464,18 @@ class Corical(corical_pb2_grpc.CoricalServicer):
         cmp = []
 
         for i, cdose in enumerate([request.dose] + comparison_doses):
+            label, shot_ordinal = dose_labels[cdose]
             cur = {
-                "label": dose_labels[cdose],
+                "label": label,
                 "is_other_shot": i != 0,
+                "shot_ordinal": shot_ordinal,
             }
             (
                 cur["get_covid"],
                 cur["get_myocarditis_vax"],
                 cur["die_myocarditis_vax"],
-                cur["get_myocarditis_covid"],
-                cur["die_myocarditis_covid"],
+                cur["get_myocarditis_given_covid"],
+                cur["die_myocarditis_given_covid"],
                 cur["get_myocarditis_bg"],
                 cur["die_myocarditis_bg"],
                 cur["die_covid_if_got_it"],
@@ -517,8 +519,8 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                     risks=generate_bar_graph_risks(
                         [
                             # corical_pb2.BarGraphRisk(
-                            #     label=f"Chance of getting COVID-19 and the associated myocarditis",
-                            #     risk=cmp[0]["get_myocarditis_covid"],
+                            #     label=f"Chance of getting myocarditis if I am diagnosed with COVID-19",
+                            #     risk=cmp[0]["get_myocarditis_given_covid"],
                             # ),
                             corical_pb2.BarGraphRisk(
                                 label=f"Background chance of myocarditis over a period of 2 months",
@@ -527,7 +529,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of getting vaccine-associated myocarditis if {d['label']}",
+                                label=f"Chance of getting vaccine-myocarditis from the {d['shot_ordinal']} dose",
                                 risk=d["get_myocarditis_vax"],
                                 is_other_shot=d["is_other_shot"],
                             )
@@ -542,8 +544,8 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                     risks=generate_bar_graph_risks(
                         [
                             # corical_pb2.BarGraphRisk(
-                            #     label=f"Chance of getting COVID-19 and dying from the associated myocarditis",
-                            #     risk=cmp[0]["die_myocarditis_covid"],
+                            #     label=f"Chance of dying from myocarditis if I am diagnosed with COVID-19",
+                            #     risk=cmp[0]["die_myocarditis_given_covid"],
                             # ),
                             corical_pb2.BarGraphRisk(
                                 label=f"Background chance of dying from myocarditis over a period of 2 months",
@@ -552,7 +554,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of dying from vaccine-associated myocarditis if {d['label']}",
+                                label=f"Chance of dying from vaccine-myocarditis from the {d['shot_ordinal']} dose",
                                 risk=d["die_myocarditis_vax"],
                                 is_other_shot=d["is_other_shot"],
                             )
