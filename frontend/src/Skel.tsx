@@ -195,7 +195,7 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
                 style={{ textDecoration: "inherit", color: "inherit" }}
               >
                 Aapeli Vuorinen
-              </a>
+              </a>, Tina Moghaddam
               <br />
               <b>Subject expertise</b>: Andrew Baird, Anoop Enjeti, Colleen Lau,
               John Litt, Raj Puranik, Kirsty Short, Hassan Vally, Sudhir Wahi
