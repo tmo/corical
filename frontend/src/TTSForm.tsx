@@ -32,6 +32,9 @@ import {
   FIELD_REQUIRED,
   VACCINE_LABEL,
   VACCINE_OPTIONS,
+  VACCINE_LABEL_TIME,
+  VACCINE_OPTIONS_TIME,
+  VACCINE_SECOND_VAL,
   SCENARIOS_LABEL,
   SCENARIOS_DEFAULT,
   SCENARIOS,
@@ -67,21 +70,44 @@ type FormInputs = {
   callback: (form: TTSFormData) => void;
 };
 
+export type TTSFullFormData = {
+  tos: boolean;
+  age?: number;
+  sex: string;
+  dose: string;
+  second_dose: string;
+  transmission: string;
+};
+
 export default function Form({ callback }: FormInputs) {
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<TTSFormData>({
+    watch,
+  } = useForm<TTSFullFormData>({
     mode: "onBlur",
     defaultValues: {
       transmission: SCENARIOS_DEFAULT,
     },
   });
-  const submit = handleSubmit(callback);
+  const submit = handleSubmit((form: TTSFullFormData) => {
+    callback({
+      tos: form.tos,
+      sex: form.sex,
+      vaccine:
+        form.dose === VACCINE_SECOND_VAL
+          ? form.second_dose
+          : form.dose,
+      age: form.age,
+      transmission: form.transmission,
+    });
+  });
   const classes = useStyles();
 
   const [tosBoxOpen, setTosBoxOpen] = useState(false);
+
+  const enableDose2extras = watch("dose") === VACCINE_SECOND_VAL;
 
   return (
     <form onSubmit={submit}>
@@ -146,7 +172,7 @@ export default function Form({ callback }: FormInputs) {
       </div>
       <div className={classNames(classes.formComp)}>
         <Controller
-          name="vaccine"
+          name="dose"
           control={control}
           rules={{
             validate: (value) => !!value || FIELD_REQUIRED,
@@ -155,8 +181,8 @@ export default function Form({ callback }: FormInputs) {
             <FormControl component="fieldset">
               <FormLabel component="legend">{VACCINE_LABEL}</FormLabel>
               <RadioGroup
-                row
-                name="vaccine-radio"
+                // row
+                name="dose-radio"
                 onChange={(e, value) => onChange(value)}
                 value={value}
               >
@@ -169,8 +195,46 @@ export default function Form({ callback }: FormInputs) {
                   />
                 ))}
               </RadioGroup>
-              {errors?.vaccine?.message && (
-                <FormHelperText error>{errors.vaccine.message}</FormHelperText>
+              {errors?.dose?.message && (
+                <FormHelperText error>{errors.dose.message}</FormHelperText>
+              )}
+            </FormControl>
+          )}
+        />
+      </div>
+      <div
+        className={classNames(classes.formComp, classes.indent)}
+        hidden={!enableDose2extras}
+      >
+        <Controller
+          name="second_dose"
+          control={control}
+          rules={{
+            validate: (value) =>
+              !enableDose2extras || !!value || FIELD_REQUIRED,
+          }}
+          render={({ field: { onChange, value } }) => (
+            <FormControl component="fieldset">
+              <FormLabel component="legend">{VACCINE_LABEL_TIME}</FormLabel>
+              <RadioGroup
+                name="second_dose-radio"
+                onChange={(e, value) => onChange(value)}
+                value={value}
+              >
+                {VACCINE_OPTIONS_TIME.map(({ value, label}) => (
+                  <FormControlLabel
+                    disabled={!enableDose2extras}
+                    key={label}
+                    value={value}
+                    control={<Radio />}
+                    label={label}
+                  />
+                ))}
+              </RadioGroup>
+              {errors?.second_dose?.message && (
+                <FormHelperText error>
+                  {errors.second_dose.message}
+                </FormHelperText>
               )}
             </FormControl>
           )}

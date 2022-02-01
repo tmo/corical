@@ -30,20 +30,43 @@ export const SEX_OPTIONS = [
 ];
 
 export const VACCINE_LABEL = "Vaccine";
+export const VACCINE_SECOND_VAL = "Two";
 export const VACCINE_OPTIONS = [
   {
-    value: "az0",
+    value: "None",
     label: "None",
   },
   {
-    value: "az1",
-    label: "One dose of AstraZeneca",
+    value: "OneAZ_under_3_weeks",
+    label: "One dose of AstraZeneca (less than 3 weeks ago)",
   },
   {
-    value: "az2",
+    value: VACCINE_SECOND_VAL,
     label: "Two doses of AstraZeneca",
   },
+  {
+    value: "TwoAZ_OnePfz_under_2_months",
+    label: "Two doses of AstraZeneca and one dose of Pfizer (less than 2 months ago)",
+  },
 ];
+
+export const VACCINE_LABEL_TIME = 
+  "Time since second dose (Only if you selected 2 doses of AstraZeneca without a dose of Pfizer)"
+export const VACCINE_OPTIONS_TIME = [
+  {
+    value: "TwoAZ_under_2_months",
+    label: "Less than 2 months",
+  },
+  {
+    value: "TwoAZ_2to4_months",
+    label: "Between 2 and 4 months",
+  },
+  {
+    value: "TwoAZ_4to6_months",
+    label: "Between 4 and 6 months",
+  },
+]
+
 
 export const PZ_VACCINE_LABEL = "Vaccine";
 export const PZ_VACCINE_SECOND_VAL = "Two";
@@ -127,25 +150,35 @@ export const PZ_SCENARIOS = [
 export const SUBMIT_LABEL = "Calculate risk";
 
 export const SCENARIOS_LABEL = "Community transmission scenario";
-export const SCENARIOS_DEFAULT = "ATAGI_Med_0_275_percent";
+export const SCENARIOS_DEFAULT = "ATAGI_Med";
 export const SCENARIOS = [
   {
-    value: "ATAGI_High_3_544_percent",
+    value: "Ten_percent",
+    label: "Extremely high transmission",
+    description: "Equivalent to 13600 cases per day in NSW (10% of population infected over 2 months)",
+  },
+  {
+    value: "Five_percent",
+    label: "Very high transmission",
+    description: "Equivalent to 6800 cases per day in NSW (5% of population infected over 2 months)",
+  },
+  {
+    value: "ATAGI_High",
     label: "High transmission",
-    description: "Equivalent to 2500 cases per day in NSW",
+    description: "Equivalent to 2500 cases per day in NSW (2% of population infected over 2 months)",
   },
   {
-    value: "ATAGI_Med_0_275_percent",
+    value: "ATAGI_Med",
     label: "Medium transmission",
-    description: "Equivalent to 200 cases per day in NSW",
+    description: "Equivalent to 200 cases per day in NSW (0.15% of population infected over 2 months)",
   },
   {
-    value: "ATAGI_Low_0_029_percent",
+    value: "ATAGI_Low",
     label: "Low transmission",
-    description: "Equivalent to 20 cases per day in NSW",
+    description: "Equivalent to 20 cases per day in NSW (0.02% of population infected over 2 months)",
   },
   {
-    value: "None_0",
+    value: "None",
     label: "No community transmission",
     description: "No COVID-19 circulating in the community",
   },

@@ -31,23 +31,21 @@ def get_link(sex, age_ix):
     if sex == "male" and age_ix == 7:
         return "https://www.immunisationcoalition.org.au/resources/corical/corical-male-70-and-over/"
 
-
+# Note that captalisation matters, should check model spelling each time
 def get_age_bracket(age):
     age_brackets = [
-        [0, 9, "0–9 year-old"],
-        [10, 19, "10–19 year-old"],
-        [20, 29, "20–29 year-old"],
-        [30, 39, "30–39 year-old"],
-        [40, 49, "40–49 year-old"],
-        [50, 59, "50–59 year-old"],
-        [60, 69, "60–69 year-old"],
-        [70, 120, "70+ year-old"],
+        [0, 11, "age_0_11", "0–11 year-old"],
+        [12, 19, "age_12_19", "12–19 year-old"],
+        [20, 29, "age_20_29", "20–29 year-old"],
+        [30, 39, "Age_30_39", "30–39 year-old"],
+        [40, 49, "age_40_49", "40–49 year-old"],
+        [50, 59, "age_50_59", "50–59 year-old"],
+        [60, 69, "age_60_69", "60–69 year-old"],
+        [70, 120, "age_70plus", "70+ year-old"],
     ]
-    for ix, (lower, upper, text) in enumerate(age_brackets):
+    for ix, (lower, upper, label, text) in enumerate(age_brackets):
         if lower <= age <= upper:
-            age_vec = np.zeros(len(age_brackets))
-            age_vec[ix] = 1.0
-            return text, age_vec, ix
+            return text, label, ix
     else:
         raise Exception("Invalid age")
 
