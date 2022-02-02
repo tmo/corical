@@ -97,7 +97,12 @@ function formatNumber(value: number) {
 
 function displayRisk(value: number, one_in_x: boolean) {
   if (value <= 0.0) {
-    return "0";
+    // return "0";
+    if (!one_in_x) {
+      return "less than  0.0001 (extremely rare)";
+    } else {
+      return "less than 0.0001 in a million (extremely rare)";
+    }
   }
   if (!one_in_x) {
     return formatNumber(value * 1e6);

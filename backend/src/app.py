@@ -55,6 +55,14 @@ class Corical(corical_pb2_grpc.CoricalServicer):
 
         messages = []
 
+        messages.append(
+            corical_pb2.Message(
+                heading="Model Version",
+                text="Last updated on 31/01/2022. Estimates based on an assumed distribution of 10% Delta and 90% Omicron.",
+                severity="info",
+            )
+        )
+
         # sex
         if request.sex == "female":
             sex_label = "female"
@@ -240,7 +248,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                             is_other_shot=d["is_other_shot"],
                         )
                         for d in cmp
-                        if d["get_tts"] > 0.0
+                        if d["get_tts"] > 0.0 or d['label'] == cmp[0]['label']
                     ]
                 ),
             ),
@@ -262,7 +270,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                                 is_other_shot=d["is_other_shot"],
                             )
                             for d in cmp
-                            if d["die_from_tts"] > 0.
+                            if d["die_from_tts"] > 0.0 or d['label'] == cmp[0]['label']
                         ]
                     ),
                 ),
@@ -291,7 +299,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                                 is_other_shot=d["is_other_shot"],
                             )
                             for d in cmp
-                            if d["get_myocarditis_vax"] > 0.0
+                            if d["get_myocarditis_vax"] > 0.0 or d['label'] == cmp[0]['label']
                         ]
                     ),
                 ),
@@ -317,7 +325,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                                 is_other_shot=d["is_other_shot"],
                             )
                             for d in cmp
-                            if d["die_myocarditis_vax"] > 0.0
+                            if d["die_myocarditis_vax"] > 0.0 or d['label'] == cmp[0]['label']
                         ]
                     ),
                 ),
@@ -558,7 +566,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                                 is_other_shot=d["is_other_shot"],
                             )
                             for d in cmp
-                            if d["get_myocarditis_vax"] > 0.0
+                            if d["get_myocarditis_vax"] > 0.0 or d['label'] == cmp[0]['label']
                         ]
                     ),
                 ),
@@ -583,7 +591,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                                 is_other_shot=d["is_other_shot"],
                             )
                             for d in cmp
-                            if d["die_myocarditis_vax"] > 0.0
+                            if d["die_myocarditis_vax"] > 0.0 or d['label'] == cmp[0]['label']
                         ]
                     ),
                 ),
