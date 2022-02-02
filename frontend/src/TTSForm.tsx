@@ -16,6 +16,7 @@ import {
   DialogActions,
   Link,
 } from "@material-ui/core";
+import { Alert, AlertTitle } from "@material-ui/lab/";
 import { Controller, useForm } from "react-hook-form";
 import classNames from "classnames";
 import { makeStyles } from "@material-ui/core";
@@ -25,6 +26,7 @@ import {
   AGE_LABEL,
   STEP1_HELPER,
   STEP1_TITLE,
+  AZ_VERSION_ALERT,
   AGE_TOO_SMALL,
   AGE_TOO_BIG,
   SEX_LABEL,
@@ -63,6 +65,9 @@ const useStyles = makeStyles((theme) => ({
   transmissionDescription: {
     color: "#777",
     fontSize: "0.9rem",
+  },
+  message: {
+    margin: "2rem 1rem",
   },
 }));
 
@@ -111,6 +116,10 @@ export default function Form({ callback }: FormInputs) {
 
   return (
     <form onSubmit={submit}>
+      <Alert key={AZ_VERSION_ALERT} severity={"info"} className={classes.message}>
+        <AlertTitle>{"Model Version"}</AlertTitle>
+        {AZ_VERSION_ALERT}
+      </Alert>
       <Typography variant="h5" component="h2">
         {STEP1_TITLE}
       </Typography>

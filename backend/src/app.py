@@ -55,13 +55,13 @@ class Corical(corical_pb2_grpc.CoricalServicer):
 
         messages = []
 
-        messages.append(
-            corical_pb2.Message(
-                heading="Model Version",
-                text="Last updated on 31/01/2022. Estimates based on an assumed distribution of 10% Delta and 90% Omicron.",
-                severity="info",
-            )
-        )
+        # messages.append(
+        #     corical_pb2.Message(
+        #         heading="Model Version",
+        #         text="Last updated on 31/01/2022. Estimates based on an assumed distribution of 10% Delta and 90% Omicron.",
+        #         severity="info",
+        #     )
+        # )
 
         # sex
         if request.sex == "female":
