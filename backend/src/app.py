@@ -557,6 +557,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                             corical_pb2.BarGraphRisk(
                                 label=f"Background chance of myocarditis over a period of 2 months",
                                 risk=cmp[0]["get_myocarditis_bg"],
+                                is_other_shot=True,
                             ),
                         ]
                         + [
@@ -582,6 +583,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                             corical_pb2.BarGraphRisk(
                                 label=f"Background chance of dying from myocarditis over a period of 2 months",
                                 risk=cmp[0]["die_myocarditis_bg"],
+                                is_other_shot=True,
                             ),
                         ]
                         + [
