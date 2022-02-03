@@ -1,7 +1,7 @@
 import xdsl
 
 # tts = xdsl.Model("V2 TTS 6 months 10Sep.xdsl")
-tts = xdsl.Model("AZ Pfizer model 23-01.xdsl")
+tts = xdsl.Model("AZPfizer_VaxmyoCFR_update_31-01-22.xdsl")
 
 def scenario_to_vec(scenario_name):
     return tts.unit_vec_for_state("n4_Transmission", scenario_name)
