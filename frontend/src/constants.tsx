@@ -118,27 +118,27 @@ export const PZ_SCENARIOS = [
   {
     value: "Ten_percent",
     label: "Extremely high transmission",
-    description: "Equivalent to 13600 cases per day in NSW (10% of population infected over 2 months)",
+    description: "Equivalent to 13600 cases per day in NSW (equivalent to 10% chance of infection over 2 months)",
   },
   {
     value: "Five_percent",
     label: "Very high transmission",
-    description: "Equivalent to 6800 cases per day in NSW (5% of population infected over 2 months)",
+    description: "Equivalent to 6800 cases per day in NSW (equivalent to 5% chance of infection over 2 months)",
   },
   {
     value: "ATAGI_High",
     label: "High transmission",
-    description: "Equivalent to 2500 cases per day in NSW (2% of population infected over 2 months)",
+    description: "Equivalent to 2500 cases per day in NSW (equivalent to 2% chance of infection over 2 months)",
   },
   {
     value: "ATAGI_Med",
     label: "Medium transmission",
-    description: "Equivalent to 200 cases per day in NSW (0.15% of population infected over 2 months)",
+    description: "Equivalent to 200 cases per day in NSW (equivalent to 0.15% chance of infection over 2 months)",
   },
   {
     value: "ATAGI_Low",
     label: "Low transmission",
-    description: "Equivalent to 20 cases per day in NSW (0.02% of population infected over 2 months)",
+    description: "Equivalent to 20 cases per day in NSW (equivalent to 0.02% chance of infection over 2 months)",
   },
   // {
   //   value: "None_0",
@@ -155,33 +155,33 @@ export const SCENARIOS = [
   {
     value: "Ten_percent",
     label: "Extremely high transmission",
-    description: "Equivalent to 13600 cases per day in NSW (10% of population infected over 2 months)",
+    description: "Equivalent to 13600 cases per day in NSW (equivalent to 10% chance of infection over 2 months)",
   },
   {
     value: "Five_percent",
     label: "Very high transmission",
-    description: "Equivalent to 6800 cases per day in NSW (5% of population infected over 2 months)",
+    description: "Equivalent to 6800 cases per day in NSW (equivalent to 5% chance of infection over 2 months)",
   },
   {
     value: "ATAGI_High",
     label: "High transmission",
-    description: "Equivalent to 2500 cases per day in NSW (2% of population infected over 2 months)",
+    description: "Equivalent to 2500 cases per day in NSW (equivalent to 2% chance of infection over 2 months)",
   },
   {
     value: "ATAGI_Med",
     label: "Medium transmission",
-    description: "Equivalent to 200 cases per day in NSW (0.15% of population infected over 2 months)",
+    description: "Equivalent to 200 cases per day in NSW (equivalent to 0.15% chance of infection over 2 months)",
   },
   {
     value: "ATAGI_Low",
     label: "Low transmission",
-    description: "Equivalent to 20 cases per day in NSW (0.02% of population infected over 2 months)",
+    description: "Equivalent to 20 cases per day in NSW (equivalent to 0.02% chance of infection over 2 months)",
   },
-  {
-    value: "None",
-    label: "No community transmission",
-    description: "No COVID-19 circulating in the community",
-  },
+  // {
+  //   value: "None",
+  //   label: "No community transmission",
+  //   description: "No COVID-19 circulating in the community",
+  // },
   // {
   //   value: "One_percent",
   //   label: "1%",
