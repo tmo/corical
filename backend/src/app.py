@@ -86,11 +86,11 @@ class Corical(corical_pb2_grpc.CoricalServicer):
         # az shots
         vaccine_labels = {
             "None": ("not vaccinated", "no"),
-            "OneAZ_under_3_weeks": ("received one dose (less than 3 weeks ago)", "first of the AstraZeneca vaccine"),
+            "OneAZ_under_3_weeks": ("received one dose (less than 12 weeks ago)", "first of the AstraZeneca vaccine"),
             "TwoAZ_under_2_months": ("received two doses (less than 2 months ago)", "second dose of the AstraZeneca vaccine."),
             "TwoAZ_2to4_months": ("received two doses (2-4 months post-vaccination)", "second dose of the AstraZeneca vaccine."),
             "TwoAZ_4to6_months": ("received two doses (4-6 months post-vaccination)", "second dose of the AstraZeneca vaccine."),
-            "TwoAZ_OnePfz_under_2_months": ("recieved two doses of AstraZeneca and one dose of Pfizer (less than 2 months ago)", "third"),
+            "TwoAZ_OnePfz_under_2_months": ("recieved two doses of AstraZeneca and one dose of Pfizer (less than 2 months ago)", "Pfizer booster vaccine."),
         }
 
         if request.vaccine == "None":

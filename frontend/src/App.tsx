@@ -14,11 +14,11 @@ function IndexRoute() {
   return (
     <>
       <h1>Choose a risk calculator</h1>
-      <h2>Pfizer vaccine</h2>
+      <h2>First dose Pfizer</h2>
       <Button component={Link} to="/pfizer" color="primary" variant="contained">
         Pfizer calculator
       </Button>
-      <h2>AstraZeneca vaccine</h2>
+      <h2>First dose AstraZeneca</h2>
       <Button
         component={Link}
         to="/astrazeneca"

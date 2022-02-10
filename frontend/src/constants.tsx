@@ -38,7 +38,7 @@ export const VACCINE_OPTIONS = [
   },
   {
     value: "OneAZ_under_3_weeks",
-    label: "One dose of AstraZeneca (less than 3 weeks ago)",
+    label: "One dose of AstraZeneca (less than 12 weeks ago)",
   },
   {
     value: VACCINE_SECOND_VAL,
