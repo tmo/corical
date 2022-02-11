@@ -185,7 +185,7 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
               </Button>
             </Box>
             <Typography variant="caption" paragraph>
-              <b>CoRiCal co-chairs</b>: Andrew Baird, John Litt, Kirsty Short
+              <b>CoRiCal co-chairs</b>: Andrew Baird, Colleen Lau, John Litt, Kirsty Short
               <br />
               <b>Project conception</b>: Andrew Baird, John Litt, Kirsty Short
               <br />
