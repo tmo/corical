@@ -148,7 +148,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
 
         # variant
         # hardcoded as 100% omicron
-        variant_vec = np.array([0.1, 0.9, 0.0])
+        variant_vec = np.array([0.0, 1.0, 0.0])
 
         # for tables
         explanation = f"Results shown for a {age_label} {sex_label} who has had {vaccine_labels[request.vaccine]}, and under {transmission_label} community transmission, the risks of the following events are shown."
