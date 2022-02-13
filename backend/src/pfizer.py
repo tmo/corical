@@ -1,6 +1,7 @@
 import xdsl
 
-pfizer = xdsl.Model("CoRiCAL_2.0_V1_060122.xdsl")
+# pfizer = xdsl.Model("CoRiCAL_2.0_V1_060122.xdsl")
+pfizer = xdsl.Model("CoRiCAL_PfOmi_VaxmyoCFRupdate_31-01-2022.xdsl")
 
 # n1_Pfizer_dose
 # n2_Age_group
@@ -18,9 +19,10 @@ pfizer = xdsl.Model("CoRiCAL_2.0_V1_060122.xdsl")
 # n14_Die_from_COVID19
 # n15_Die_from_COVID19_myocarditis
 
-def compute_probs(n1_pfizer_dose, n2_age, n4_ct, sex_vec):
+def compute_probs(n1_pfizer_dose, n2_age, n4_ct, sex_vec, variant_vec):
     values = {
         "n3_Sex": sex_vec,
+        "Variant": variant_vec,
     }
 
     # always hardcode delta

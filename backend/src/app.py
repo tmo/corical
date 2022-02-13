@@ -311,9 +311,6 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                     ),
                 ),
             )
-            for d in cmp:
-                logger.info("label {} risk {}".format(d['label'], d["get_myocarditis_vax"]))
-                logger.info("l {} bg {}".format(d['label'], d["get_myocarditis_given_covid"]))
             bar_graphs_list.append(
                 corical_pb2.BarGraph(
                     title="What is my chance of dying from myocarditis after receiving Pfizer booster?",
@@ -477,7 +474,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
 
         dose_labels = {
             "None": ("not vaccinated", "no"),
-            "One_under_3wks": ("received one dose (less than 3 weeks ago)", "first"),
+            "One_at_3wks": ("received one dose (less than 3 weeks ago)", "first"),
             "Two_under_2mths": ("received two doses (less than 2 months ago)", "second"),
             "Two_2_4mths": ("received two doses (2-4 months post-vaccination)", "second"),
             "Two_4_6mths": ("received two doses (4-6 months post-vaccination)", "second"),
@@ -485,18 +482,21 @@ class Corical(corical_pb2_grpc.CoricalServicer):
         }
 
         if request.dose == "None":
-            comparison_doses = ["One_under_3wks", "Two_under_2mths"]
-        elif request.dose == "One_under_3wks":
+            comparison_doses = ["One_at_3wks", "Two_under_2mths"]
+        elif request.dose == "One_at_3wks":
             comparison_doses = ["None", "Two_under_2mths"]
         elif request.dose == "Two_under_2mths":
-            comparison_doses = ["One_under_3wks", "Three"]
+            comparison_doses = ["One_at_3wks", "Three"]
         elif request.dose == "Two_2_4mths":
-            comparison_doses = ["One_under_3wks", "Three"]
+            comparison_doses = ["One_at_3wks", "Three"]
         elif request.dose == "Two_4_6mths":
-            comparison_doses = ["One_under_3wks", "Three"]
+            comparison_doses = ["One_at_3wks", "Three"]
         elif request.dose == "Three":
-            comparison_doses = ["One_under_3wks", "None"]
+            comparison_doses = ["One_at_3wks", "None"]
 
+        # variant
+        # hardcoded as 100% omicron
+        variant_vec = np.array([0.0, 1.0, 0.0])
         # (
         #     get_covid,
         #     get_myocarditis_vax,
@@ -526,7 +526,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                 cur["get_myocarditis_bg"],
                 cur["die_myocarditis_bg"],
                 cur["die_covid_if_got_it"],
-            ) = compute_pfizer_probs(cdose, age_label, request.ct, sex_vec)
+            ) = compute_pfizer_probs(cdose, age_label, request.ct, sex_vec, variant_vec)
             cmp.append(cur)
 
         out = corical_pb2.ComputeRes(

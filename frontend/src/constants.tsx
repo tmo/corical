@@ -76,7 +76,7 @@ export const PZ_VACCINE_OPTIONS = [
     label: "None",
   },
   {
-    value: "One_under_3wks",
+    value: "One_at_3wks",
     label: "One dose of Pfizer (less than 3 weeks ago)",
     description: "Data not available for those overdue for their second dose",
   },
@@ -215,6 +215,7 @@ export const STEP2_HELPER = "Computed risk outputs below.";
 export const STEP2_SUBMIT_FORM_FIRST = "Please submit the form for output.";
 
 export const AZ_VERSION_ALERT = "Last updated on 31/01/2022. Estimates based on an assumed distribution of 100% Omicron variant.";
+export const PZ_VERSION_ALERT = "Last updated on 31/01/2022. Estimates based on an assumed distribution of 100% Omicron variant.";
 
 
 export const DESCRIPTION_LABEL = "Description";
