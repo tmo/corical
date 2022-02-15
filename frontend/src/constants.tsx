@@ -214,8 +214,8 @@ export const STEP2_TITLE = "Risk output";
 export const STEP2_HELPER = "Computed risk outputs below.";
 export const STEP2_SUBMIT_FORM_FIRST = "Please submit the form for output.";
 
-export const AZ_VERSION_ALERT = "Last updated on 31/01/2022. Estimates based on an assumed distribution of 100% Omicron variant.";
-export const PZ_VERSION_ALERT = "Last updated on 31/01/2022. Estimates based on an assumed distribution of 100% Omicron variant.";
+export const AZ_VERSION_ALERT = "This calculator is for people who had the AstraZeneca vaccine for their first two doses.  Last updated on 31/01/2022. Estimates based on an assumed distribution of 100% Omicron variant.";
+export const PZ_VERSION_ALERT = "This calculator is for people who had the Pfizer vaccine for their first two doses.  Last updated on 31/01/2022. Estimates based on an assumed distribution of 100% Omicron variant.";
 
 
 export const DESCRIPTION_LABEL = "Description";

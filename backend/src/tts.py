@@ -49,8 +49,8 @@ def compute_probs(az_dose, age_label, sex_vec, variant_vec, ct_vec):
 
     get_myocarditis_vax = tts.infer(values, "n7_VacMyo")[0]
     die_myocarditis_vax = tts.infer(values, "n19_Die_from_vaccine_associatedmyocarditis")[0]
-    get_myocarditis_given_covid = tts.infer(values, "n17_COV_Myo")[0]
-    die_myocarditis_given_covid = tts.infer(values, "n26_Die_from_COV_Myo")[0]
+    get_myocarditis_given_covid = tts.infer(values_infected, "n17_COV_Myo")[0]
+    die_myocarditis_given_covid = tts.infer(values_infected, "n26_Die_from_COV_Myo")[0]
     get_myocarditis_bg = tts.infer(values, "n10_BackMyo")[0]
     die_myocarditis_bg = tts.infer(values, "n22_Die_from_myocarditis__background")[0]
 

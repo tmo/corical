@@ -117,7 +117,7 @@ export default function Form({ callback }: FormInputs) {
   return (
     <form onSubmit={submit}>
       <Alert key={PZ_VERSION_ALERT} severity={"info"} className={classes.message}>
-        <AlertTitle>{"Model Version"}</AlertTitle>
+        <AlertTitle>{"Calculator Version"}</AlertTitle>
         {PZ_VERSION_ALERT}
       </Alert>
       <Typography variant="h5" component="h2">
