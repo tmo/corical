@@ -86,7 +86,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
         # az shots
         vaccine_labels = {
             "None": ("not vaccinated", "no"),
-            "OneAZ_under_3_weeks": ("received one dose (12 weeks ago)", "first of the AstraZeneca vaccine"),
+            "OneAZ_under_3_weeks": ("received one dose (1-3 months ago)", "first dose of the AstraZeneca vaccine"),
             "TwoAZ_under_2_months": ("received two doses (2 months ago)", "second dose of the AstraZeneca vaccine."),
             "TwoAZ_2to4_months": ("received two doses (2-4 months post-vaccination)", "second dose of the AstraZeneca vaccine."),
             "TwoAZ_4to6_months": ("received two doses (4-6 months post-vaccination)", "second dose of the AstraZeneca vaccine."),
@@ -112,12 +112,13 @@ class Corical(corical_pb2_grpc.CoricalServicer):
 
         link = get_link(request.sex, age_ix)
 
-        if link:
-            printable = corical_pb2.PrintableButton(
-                url=link, text=f"Get printable graphs for a {age_label} {sex_label}"
-            )
-        else:
-            printable = None
+        # if link:
+        #     printable = corical_pb2.PrintableButton(
+        #         url=link, text=f"Get printable graphs for a {age_label} {sex_label}"
+        #     )
+        # else:
+        #     printable = None
+        printable = None
 
         # community transmission
         ct_vec = scenario_to_vec(request.transmission)
@@ -248,7 +249,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                             is_other_shot=d["is_other_shot"],
                         )
                         for d in cmp
-                        if (d["get_tts"] > 0.0 or d['label'] == cmp[0]['label']) and {d['shot_ordinal']} != "third"
+                        if (d["get_tts"] > 0.0 or d['label'] == cmp[0]['label']) and d['shot_ordinal'] != "no"
                     ]
                 ),
             ),
@@ -270,7 +271,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                                 is_other_shot=d["is_other_shot"],
                             )
                             for d in cmp
-                            if (d["die_from_tts"] > 0.0 or d['label'] == cmp[0]['label']) and  {d['shot_ordinal']} != "third"
+                            if (d["die_from_tts"] > 0.0 or d['label'] == cmp[0]['label']) and d['shot_ordinal'] != "no"
                         ]
                     ),
                 ),
@@ -585,7 +586,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                                 is_other_shot=d["is_other_shot"],
                             )
                             for d in cmp
-                            if d["get_myocarditis_vax"] > 0.0 or d['label'] == cmp[0]['label']
+                            if d["get_myocarditis_vax"] > 0.0 or d['label'] == cmp[0]['label'] and d['shot_ordinal'] != "no"
                         ]
                     ),
                 ),
@@ -614,7 +615,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                                 is_other_shot=d["is_other_shot"],
                             )
                             for d in cmp
-                            if d["die_myocarditis_vax"] > 0.0 or d['label'] == cmp[0]['label']
+                            if d["die_myocarditis_vax"] > 0.0 or d['label'] == cmp[0]['label'] and d['shot_ordinal'] != "no"
                         ]
                     ),
                 ),

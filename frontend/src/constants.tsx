@@ -150,7 +150,7 @@ export const PZ_SCENARIOS = [
 export const SUBMIT_LABEL = "Calculate risk";
 
 export const SCENARIOS_LABEL = "Community transmission scenario";
-export const SCENARIOS_DEFAULT = "ATAGI_Med";
+export const SCENARIOS_DEFAULT = "Five_percent";
 export const SCENARIOS = [
   {
     value: "Ten_percent",
