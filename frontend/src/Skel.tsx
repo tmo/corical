@@ -130,6 +130,10 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
                   occupation).
                 </li>
                 <li>
+                  The Moderna vaccine has similar effectiveness as the Pfizer 
+                  vaccine when used for the third (booster) dose.”
+                </li>
+                <li>
                   Calculations are based on the best data currently available,  
                   and will be updated as new evidence emerges.
                 </li>
