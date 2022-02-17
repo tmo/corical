@@ -222,7 +222,8 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
               <b>Data visualisation and communication</b>: Kirsty Short, Jane
               Sinclair, Hassan Vally, Aapeli Vuorinen
               <br />
-              <b>Risk Communication</b>: Carys Batcup, Carissa Bonner
+              <b>Risk Communication</b>: Carys Batcup, Carissa Bonner, 
+              Colleen Lau, John Litt , Kirsty Short , Jane Sinclair
               <br />
               <b>Administration and management</b>: Andrew Baird, Jayne Geddes,
               John Litt, Kim Sampson, Kirsty Short
