@@ -152,7 +152,10 @@ class Corical(corical_pb2_grpc.CoricalServicer):
         variant_vec = np.array([0.0, 1.0, 0.0])
 
         # for tables
-        explanation = f"Results shown for a {age_label} {sex_label} who has had {vaccine_labels[request.vaccine]}, and under {transmission_label} community transmission, the risks of the following events are shown."
+        if request.vaccine == "None":
+            explanation = f"Results shown for a {age_label} {sex_label} who has not been vaccinated, and under {transmission_label} community transmission, the risks of the following events are shown."
+        else:
+            explanation = f"Results shown for a {age_label} {sex_label} who has  {vaccine_labels[request.vaccine][0]}, and under {transmission_label} community transmission, the risks of the following events are shown."
 
         blood_clot_brief = (
             "An atypical blood clot refers to a blood clot like thrombosis with thrombocytopenia syndrome (TTS)."
