@@ -131,7 +131,7 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
                 </li>
                 <li>
                   The Moderna vaccine has similar effectiveness as the Pfizer 
-                  vaccine when used for the third (booster) dose.”
+                  vaccine when used for the third (booster) dose.
                 </li>
                 <li>
                   Calculations are based on the best data currently available,  
