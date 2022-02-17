@@ -90,7 +90,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             "TwoAZ_under_2_months": ("received two doses (2 months ago)", "second dose of the AstraZeneca vaccine."),
             "TwoAZ_2to4_months": ("received two doses (2-4 months post-vaccination)", "second dose of the AstraZeneca vaccine."),
             "TwoAZ_4to6_months": ("received two doses (4-6 months post-vaccination)", "second dose of the AstraZeneca vaccine."),
-            "TwoAZ_OnePfz_under_2_months": ("recieved two doses of AstraZeneca and one dose of Pfizer (2 months ago)", "Pfizer booster vaccine."),
+            "TwoAZ_OnePfz_under_2_months": ("received two doses of AstraZeneca and one dose of Pfizer (2 months ago)", "Pfizer booster vaccine."),
         }
 
         if request.vaccine == "None":
@@ -157,9 +157,9 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             "An atypical blood clot refers to a blood clot like thrombosis with thrombocytopenia syndrome (TTS)."
         )
         # for graphs
-        subtitle = f"Results shown for a {age_label} {sex_label} under a {transmission_label} transmission scenario, based on number of doses of AstraZeneca vaccine received."
+        subtitle = f"Results shown for a {age_label} {sex_label} under a {transmission_label} transmission scenario."
         # Pfizer booster subtitle
-        pz_booster_subtitle = f"Results shown for a {age_label} {sex_label} under a {transmission_label} transmission scenario, having recieved two doses of AstraZeneca and one dose of Pfizer."
+        pz_booster_subtitle = f"Results shown for a {age_label} {sex_label} under a {transmission_label} transmission scenario, having received two doses of AstraZeneca and one dose of Pfizer."
 
         # for output groups
 
@@ -492,7 +492,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
         elif request.dose == "Two_4_6mths":
             comparison_doses = ["One_at_3wks", "Three"]
         elif request.dose == "Three":
-            comparison_doses = ["One_at_3wks", "None"]
+            comparison_doses = ["One_at_3wks", "Two_under_2mths", "None"]
 
         # variant
         # hardcoded as 100% omicron

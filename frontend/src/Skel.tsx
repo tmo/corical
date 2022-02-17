@@ -43,6 +43,9 @@ const theme = createTheme({
     h6: {
       fontWeight: 700,
     },
+    caption: {
+      fontSize: 14,
+    },
     subtitle1: {
       fontWeight: 700,
     },
@@ -120,10 +123,6 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
                   community transmission.
                 </li>
                 <li>
-                  CoRiCal calculates estimates of the chance of different
-                  outcomes for your age and sex group per million people.
-                </li>
-                <li>
                   It is important to note that these are estimates of the
                   average chance for people of your sex and age group, and does
                   not take into account individual factors such as medical
@@ -131,9 +130,13 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
                   occupation).
                 </li>
                 <li>
-                  Please remember that even if there might be low community
-                  transmission in your state now, this is most likely to
-                  increase over time as lockdowns end and borders reopen.
+                  Calculations are based on the best data currently available,  
+                  and will be updated as new evidence emerges.
+                </li>
+                <li>
+                  Last updated on 18/02/2022. 
+                  Estimates based on an assumed distribution of 100% Omicron 
+                  variant.
                 </li>
               </ul>
             </Typography>
@@ -147,7 +150,9 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
                 variant="outlined"
                 color="primary"
                 disableElevation
-                href="/docs/pfizer_assumptions.pdf"
+                rel="noreferrer" 
+                target="_blank"
+                href="/docs/pfizer_assumptions_18_02_22.pdf"
               >
                 Pfizer data sources
               </Button>{" "}
@@ -155,7 +160,9 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
                 variant="outlined"
                 color="primary"
                 disableElevation
-                href="https://doi.org/10.1016/j.vaccine.2021.10.079"
+                rel="noreferrer" 
+                target="_blank"
+                href="/docs/astrazeneca_assumptions_18_02_22.pdf"
               >
                 AstraZeneca data sources
               </Button>{" "}
@@ -163,6 +170,16 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
                 variant="outlined"
                 color="primary"
                 disableElevation
+                href="/publications"
+              >
+                Publications
+              </Button>{" "}
+              <Button
+                variant="outlined"
+                color="primary"
+                disableElevation
+                rel="noreferrer" 
+                target="_blank"
                 href="/docs/relatable_risks.pdf"
               >
                 Relatable risks
@@ -171,18 +188,12 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
                 variant="outlined"
                 color="primary"
                 disableElevation
+                rel="noreferrer" 
+                target="_blank"
                 href="/docs/tts_information.pdf"
               >
                 Information on TTS
               </Button>{" "}
-              <Button
-                variant="outlined"
-                color="primary"
-                disableElevation
-                href="https://www.immunisationcoalition.org.au/resources/corical/"
-              >
-                Printable summary graphs
-              </Button>
             </Box>
             <Typography variant="caption" paragraph>
               <b>CoRiCal co-chairs</b>: Andrew Baird, Colleen Lau, John Litt, Kirsty Short
@@ -210,6 +221,8 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
               <br />
               <b>Data visualisation and communication</b>: Kirsty Short, Jane
               Sinclair, Hassan Vally, Aapeli Vuorinen
+              <br />
+              <b>Risk Communication</b>: Carys Batcup, Carissa Bonner
               <br />
               <b>Administration and management</b>: Andrew Baird, Jayne Geddes,
               John Litt, Kim Sampson, Kirsty Short

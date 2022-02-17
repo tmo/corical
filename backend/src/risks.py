@@ -44,7 +44,7 @@ risks = [
         "risk": 1 / 2500,
     },
     {
-        "event": "Chance of being born with polydactyly (extra digits on the upper or lower limbs) in Australia",
+        "event": "Chance of someone in Australia being born with extra fingers or toes",
         "risk": 1 / 1000,
     },
     {
