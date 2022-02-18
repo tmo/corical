@@ -95,15 +95,18 @@ function formatNumber(value: number) {
   return out.reverse().join("");
 }
 
-function displayRisk(value: number, one_in_x: boolean) {
+function displayRisk(value: number, one_in_x: boolean, label?: string) {
   if (value <= 0.0) {
-    // return "0";
-    if (!one_in_x) {
+    if ((typeof label !== 'undefined') && label.includes("dying from COVID-19")) {
+      return "No deaths reported in Australia in this group from 18/11/21 to 17/01/22";
+    }
+    else if (!one_in_x) {
       return "less than  0.0001 (extremely rare)";
     } else {
       return "less than 0.0001 in a million (extremely rare)";
     }
   }
+  
   if (!one_in_x) {
     return formatNumber(value * 1e6);
   } else {
@@ -221,7 +224,7 @@ export default function Form({ output }: OutputProps) {
                   label,
                   risk: multiplier * risk,
                   fill: color,
-                  display_risk: displayRisk(risk, oneInX),
+                  display_risk: displayRisk(risk, oneInX, label),
                 };
               }
             );
@@ -270,11 +273,11 @@ export default function Form({ output }: OutputProps) {
                           <div className={classes.tooltip}>
                             {/* {label}
                             <br /> */}
-                            {displayRisk(value / 1e6, false)}{" "}
+                            {displayRisk(value / 1e6, false, label)}{" "}
                             {INFOBOX_RISK_TEXT}.
                             <br />
                             This is the same as a{" "}
-                            {displayRisk(value / 1e6, true)} chance.
+                            {displayRisk(value / 1e6, true, label)} chance.
                           </div>
                         );
                       } else {
