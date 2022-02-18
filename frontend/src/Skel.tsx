@@ -142,6 +142,15 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
                   Estimates based on an assumed distribution of 100% Omicron 
                   variant.
                 </li>
+                <li>
+                  In Australia, there have been no COVID-19 related deaths in 
+                  females aged 10-39 years or males aged 10-19 years from 
+                  18/11/2021 to 17/01/2022.  Therefore, the calculator shows 
+                  an extremely low risk of dying for both vaccinated and 
+                  unvaccinated people in these groups.  However, vaccines are 
+                  still very beneficial for reducing the risk of symptomatic 
+                  infection and severe illness.
+                </li>
               </ul>
             </Typography>
           </Container>
