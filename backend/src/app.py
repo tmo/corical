@@ -473,9 +473,6 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                 )
             )
 
-        # for graphs
-        graph_description = f"Results shown for a {age_text} {sex_label} under a {transmission_label} transmission scenario, based on number of doses of Pfizer vaccine received."
-
         dose_labels = {
             "None": ("not vaccinated", "no"),
             "One_at_3wks": ("received one dose (3 weeks ago)", "first"),
@@ -484,6 +481,16 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             "Two_4_6mths": ("received two doses (4-6 months post-vaccination)", "second"),
             "Three": ("received three doses", "third"),
         }
+
+                # for graphs
+        graph_description = f"Results shown for a {age_text} {sex_label} under a {transmission_label} transmission scenario, based on number of doses of Pfizer vaccine received."
+
+        # for tables
+        if request.dose == "None":
+            explanation = f"Results shown for a {age_text} {sex_label} who has not been vaccinated, and under {transmission_label} community transmission, the risks of the following events are shown."
+        else:
+            explanation = f"Results shown for a {age_text} {sex_label} who has {dose_labels[request.dose][0]}, and under {transmission_label} community transmission, the risks of the following events are shown."
+
 
         if request.dose == "None":
             comparison_doses = ["One_at_3wks", "Two_under_2mths"]
@@ -530,6 +537,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                 cur["get_myocarditis_bg"],
                 cur["die_myocarditis_bg"],
                 cur["die_covid_if_got_it"],
+                cur["die_from_covid"],
             ) = compute_pfizer_probs(cdose, age_label, request.ct, sex_vec, variant_vec)
             cmp.append(cur)
 
@@ -588,7 +596,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                                 risk=d["get_myocarditis_vax"],
                                 is_other_shot=d["is_other_shot"],
                             )
-                            for d in cmp[:-1] # reduce number of comparison doses in myo case
+                            for d in cmp[:-(len(cmp)-2)]  # reduce number of comparison doses in myo case
                             if d["get_myocarditis_vax"] > 0.0 or d['label'] == cmp[0]['label'] and d['shot_ordinal'] != "no"
                         ]
                     ),
@@ -617,35 +625,49 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                                 risk=d["die_myocarditis_vax"],
                                 is_other_shot=d["is_other_shot"],
                             )
-                            for d in cmp[:-1] 
+                            for d in cmp[:-(len(cmp)-2)] 
                             if d["die_myocarditis_vax"] > 0.0 or d['label'] == cmp[0]['label'] and d['shot_ordinal'] != "no"
                         ]
                     ),
                 ),
             ],
             output_groups=[
-                # corical_pb2.OutputGroup(
-                #     heading="Raw outputs",
-                #     explanation=explanation,
-                #     risks=[
-                #         corical_pb2.Risk(
-                #             name="n18_Die_from_Pfizer_myocarditis",
-                #             risk=n18_Die_from_Pfizer_myocarditis,
-                #         ),
-                #         corical_pb2.Risk(
-                #             name="n19_Die_from_background_myocarditis",
-                #             risk=n19_Die_from_background_myocarditis,
-                #         ),
-                #         corical_pb2.Risk(
-                #             name="n20_Die_from_COVID19",
-                #             risk=n20_Die_from_COVID19,
-                #         ),
-                #         corical_pb2.Risk(
-                #             name="n21_Die_from_COVID19_myocarditis",
-                #             risk=n21_Die_from_COVID19_myocarditis,
-                #         ),
-                #     ],
-                # ),
+                corical_pb2.OutputGroup(
+                    heading="COVID-19 and outcomes of COVID-19",
+                    explanation=explanation,
+                    risks=[
+                        corical_pb2.Risk(
+                            name="Risk of getting symptomatic COVID-19 under current transmission and vaccination status",
+                            risk=cmp[0]["get_covid"],
+                        ),
+                        corical_pb2.Risk(
+                            name="Risk of dying from COVID-19",
+                            risk=cmp[0]["die_from_covid"],
+                        ),
+                        corical_pb2.Risk(
+                            name="Risk of dying from COVID-19 if you get infected",
+                            risk=cmp[0]["die_covid_if_got_it"],
+                        ),
+                    ],
+                ),
+                corical_pb2.OutputGroup(
+                    heading="Death from myocarditis",
+                    explanation=explanation,
+                    risks=[
+                        corical_pb2.Risk(
+                            name="Risk of dying from myocarditis due to the current vaccine dose",
+                            risk=cmp[0]["die_myocarditis_vax"],
+                        ),
+                        corical_pb2.Risk(
+                            name="Background risk of dying from myocarditis over 2 months",
+                            risk=cmp[0]["die_myocarditis_bg"],
+                        ),
+                        corical_pb2.Risk(
+                            name="Risk of dying from myocarditis if you are infected with COVID-19",
+                            risk=cmp[0]["die_myocarditis_given_covid"],
+                        ),
+                    ],
+                ),
             ],
             success=True,
             msg=str(request),

@@ -33,6 +33,7 @@ def compute_probs(n1_pfizer_dose, n2_age, n4_ct, sex_vec, variant_vec):
     values_infected = dict(values)
 
     get_covid = pfizer.infer(values, "n10_Risk_of_infection_under_current_transmission_and_vaccination_status")[0]
+    die_covid = pfizer.infer(values, "n14_Die_from_COVID19")[0]
     get_myocarditis_vax = pfizer.infer(values, "n5_Vaccine_associated_myocarditis")[0]
     die_myocarditis_vax = pfizer.infer(values, "n12_Die_from_Pfizer_myocarditis")[0]
     get_myocarditis_bg = pfizer.infer(values, "n6_Myocarditis_background")[0]
@@ -53,4 +54,5 @@ def compute_probs(n1_pfizer_dose, n2_age, n4_ct, sex_vec, variant_vec):
         get_myocarditis_bg,
         die_myocarditis_bg,
         die_covid_if_got_it,
+        die_covid,
     )
