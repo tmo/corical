@@ -164,6 +164,7 @@ export default function Form({ output }: OutputProps) {
 
   const [oneInX, setOneInX] = useState(false);
   const [tab, setTab] = useState(0);
+  const [relatable, setRelatable] = useState(true);
 
   const handleChange = (event: any, newTab: any) => {
     setTab(newTab);
@@ -199,19 +200,20 @@ export default function Form({ output }: OutputProps) {
               <Tab label="Show risk as a chance" />
             </Tabs>
           </Paper>
-          {/* <Button
-            onClick={() => setOneInX(!oneInX)}
+          
+          <Button
+            onClick={() => setRelatable(!relatable)}
             color="primary"
             variant="outlined"
           >
-            {oneInX
-              ? "Show risk as per million risk"
-              : "Show risk as reciprocal"}
-          </Button> */}
+            {relatable
+              ? "Don't show relatable risks"
+              : "Show relatable risks"}
+          </Button>
 
           {output.bar_graphs?.map(({ title, subtitle, risks }: any) => {
             let multiplier = 1e6;
-            const data = risks.map(
+            const data_full = risks.map(
               ({ label, risk, is_relatable, is_other_shot }: any) => {
                 let color = "#413ea0";
                 if (is_relatable) {
@@ -219,6 +221,9 @@ export default function Form({ output }: OutputProps) {
                 }
                 if (is_other_shot) {
                   color = "#b2b1ce";
+                }
+                if (!relatable && is_relatable) {
+                  return null;
                 }
                 return {
                   label,
@@ -228,6 +233,8 @@ export default function Form({ output }: OutputProps) {
                 };
               }
             );
+            const data = data_full.filter((x : any) => x !== null);
+
             return (
               <div key={title}>
                 <Typography variant="h6" component="h3">
