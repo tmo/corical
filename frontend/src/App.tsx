@@ -177,6 +177,37 @@ function PubRoute() {
   );
 }
 
+function FaqRoute() {
+  return (
+    <>
+      <Box my={4}>
+        <h1>FAQ</h1>
+        <Container maxWidth="lg">
+          <h2>Title 1</h2>
+          <Container maxWidth="lg">
+            <Typography>
+              <b>QUESTION</b> 
+              <br />
+              answer
+              <br />
+            </Typography>
+          </Container>
+        </Container>
+      </Box>
+      <Button
+        component={Link}
+        to="/"
+        color="primary"
+        variant="outlined"
+        size="small"
+        style={{ margin: "1em" }}
+      >
+        Back to calculator
+      </Button>
+    </>
+  );
+}
+
 export default function App() {
   return (
     <Skel title={TITLE} subtitle={BY_LINE}>
@@ -186,6 +217,7 @@ export default function App() {
           <Route path="/pfizer" element={<PfizerRoute />} />
           <Route path="/astrazeneca" element={<AZRoute />} />
           <Route path="/publications" element={<PubRoute />} />
+          <Route path="/faq" element={<FaqRoute />} />
         </Routes>
       </BrowserRouter>
     </Skel>

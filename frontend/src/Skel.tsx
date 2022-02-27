@@ -159,6 +159,14 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
           <Container maxWidth="lg">
             {children}
             <Box py={5}>
+            <Button
+                variant="outlined"
+                color="primary"
+                disableElevation
+                href="/faq"
+              >
+                FAQ
+              </Button>{" "}
               <Button
                 variant="outlined"
                 color="primary"
