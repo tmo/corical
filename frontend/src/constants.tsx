@@ -51,7 +51,7 @@ export const VACCINE_OPTIONS = [
 ];
 
 export const VACCINE_LABEL_TIME = 
-  "Time since second dose (Only if you selected 2 doses of AstraZeneca without a dose of Pfizer)"
+  "Time since second dose"
 export const VACCINE_OPTIONS_TIME = [
   {
     value: "TwoAZ_under_2_months",
@@ -91,7 +91,7 @@ export const PZ_VACCINE_OPTIONS = [
 ];
 
 export const PZ_VACCINE2_LABEL =
-  "Time since second dose (only if you selected two doses)";
+  "Time since second dose";
 export const PZ_VACCINE2_OPTIONS = [
   {
     value: "Two_under_2mths",

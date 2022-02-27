@@ -252,7 +252,7 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
                 Feedback or comments?
               </Button>
             </Box>
-            <Box>&copy; 2021 Immunisation Coalition. </Box>
+            <Box>&copy; 2022 Immunisation Coalition. </Box>
           </Container>
         </Box>
       </Box>
