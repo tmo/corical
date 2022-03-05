@@ -352,56 +352,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             scenario_description="This is the scenario description",
             printable=printable,
             bar_graphs= bar_graphs_list,
-            output_groups=[
-                corical_pb2.OutputGroup(
-                    heading="COVID-19 and outcomes of COVID-19",
-                    explanation=explanation,
-                    risks=[
-                        corical_pb2.Risk(
-                            name="Risk of getting symptomatic COVID-19 under current transmission and vaccination status",
-                            risk=current_case["symptomatic_infection"],
-                            comment="",
-                        ),
-                        corical_pb2.Risk(
-                            name="Risk of dying from COVID-19",
-                            risk=current_case["die_from_covid"],
-                            comment="",
-                        ),
-                        corical_pb2.Risk(
-                            name="Risk of dying from COVID-19 if you get infected",
-                            risk=current_case["die_from_covid_given_infected"],
-                            comment="",
-                        ),
-                    ],
-                ),
-                corical_pb2.OutputGroup(
-                    heading="Death from atypical blood clots",
-                    explanation=blood_clot_brief + " " + explanation,
-                    risks=(
-                        [
-                            corical_pb2.Risk(
-                                name="Risk of dying from thrombosis with thrombocytopenia syndrome (TTS) from the AstraZeneca vaccine",
-                                risk=current_case["die_from_tts"],
-                                comment="",
-                            )
-                        ]
-                        if current_case["die_from_tts"] > 0.0
-                        else []
-                    )
-                    + [
-                        corical_pb2.Risk(
-                            name="Risk of dying from COVID-19 related blood clot if you are infected",
-                            risk=current_case["die_from_clots_covid_given_infected"],
-                            comment="",
-                        ),
-                        corical_pb2.Risk(
-                            name="Background risk of dying from an atypical blood clot",
-                            risk=current_case["die_from_clots"],
-                            comment="",
-                        ),
-                    ],
-                ),
-            ],
+            output_groups=[],
             success=True,
             msg=str(request),
         )
@@ -631,44 +582,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                     ),
                 ),
             ],
-            output_groups=[
-                corical_pb2.OutputGroup(
-                    heading="COVID-19 and outcomes of COVID-19",
-                    explanation=explanation,
-                    risks=[
-                        corical_pb2.Risk(
-                            name="Risk of getting symptomatic COVID-19 under current transmission and vaccination status",
-                            risk=cmp[0]["get_covid"],
-                        ),
-                        corical_pb2.Risk(
-                            name="Risk of dying from COVID-19",
-                            risk=cmp[0]["die_from_covid"],
-                        ),
-                        corical_pb2.Risk(
-                            name="Risk of dying from COVID-19 if you get infected",
-                            risk=cmp[0]["die_covid_if_got_it"],
-                        ),
-                    ],
-                ),
-                corical_pb2.OutputGroup(
-                    heading="Death from myocarditis",
-                    explanation=explanation,
-                    risks=[
-                        corical_pb2.Risk(
-                            name="Risk of dying from myocarditis due to the current vaccine dose",
-                            risk=cmp[0]["die_myocarditis_vax"],
-                        ),
-                        corical_pb2.Risk(
-                            name="Background risk of dying from myocarditis over 2 months",
-                            risk=cmp[0]["die_myocarditis_bg"],
-                        ),
-                        corical_pb2.Risk(
-                            name="Risk of dying from myocarditis if you are infected with COVID-19",
-                            risk=cmp[0]["die_myocarditis_given_covid"],
-                        ),
-                    ],
-                ),
-            ],
+            output_groups=[],
             success=True,
             msg=str(request),
         )

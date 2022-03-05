@@ -164,7 +164,7 @@ export default function Form({ output }: OutputProps) {
 
   const [oneInX, setOneInX] = useState(false);
   const [tab, setTab] = useState(0);
-  const [relatable, setRelatable] = useState(true);
+  const [relatable, setRelatable] = useState(false);
 
   const handleChange = (event: any, newTab: any) => {
     setTab(newTab);
