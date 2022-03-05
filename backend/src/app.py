@@ -436,7 +436,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
         }
 
         # for graphs
-        subtitle = f"These results are for a {age_label} {sex_label}."
+        subtitle = f"These results are for a {age_text} {sex_label}."
         myo_subtitle = f"You may have heard that the Pfizer vaccine can give you inflammation of your heart muscle. This is also called myocarditis. There are many other causes of myocarditis, so people can develop this problem even if they haven’t had the vaccine. Myocarditis is also very common in people who have had COVID-19 (infection).  "
         
         # for tables
@@ -495,14 +495,14 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             ) = compute_pfizer_probs(cdose, age_label, request.ct, sex_vec, variant_vec)
             cmp.append(cur)
 
-        scenario_description = f"Here are your results. These are for a {age_label} {sex_label} when there are {transmission_label} in your community. They are based on the number and timing of shots of Pfizer vaccines you have had."
+        scenario_description = f"Here are your results. These are for a {age_text} {sex_label} when there are {transmission_label} in your community. They are based on the number and timing of shots of Pfizer vaccines you have had."
         out = corical_pb2.ComputeRes(
             messages=messages,
             scenario_description=scenario_description,
             bar_graphs=[
                 corical_pb2.BarGraph(
                     title=f"What is my chance of getting COVID-19?",
-                    subtitle=f"This is your chance of getting COVID-19 over a 2-month period. These results are for a {age_label} {sex_label} when there are {transmission_label} in your community.",
+                    subtitle=f"This is your chance of getting COVID-19 over a 2-month period. These results are for a {age_text} {sex_label} when there are {transmission_label} in your community.",
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
