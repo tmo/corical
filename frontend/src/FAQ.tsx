@@ -1,4 +1,4 @@
-export const faqItems =  [
+export const FAQ_ITEMS =  [
   {
     question: "How is the risk of various scenarios calculated?",
     answer: <> We have used trusted data sources 

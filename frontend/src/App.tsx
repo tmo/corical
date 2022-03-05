@@ -14,17 +14,18 @@ import {
 } from "@material-ui/core";
 import { Link, Routes, Route } from "react-router-dom";
 import { BrowserRouter } from "react-router-dom";
-import { faqItems }  from "./FAQ";
+import { FAQ_ITEMS }  from "./FAQ";
+import { RELEASE_NOTES } from "./ReleaseNotes" ;
 
 function IndexRoute() {
   return (
     <>
       <h1>Choose a risk calculator</h1>
-      <h2>First dose Pfizer - Omicron Variant, updated 18/02/2022</h2>
+      <h2>First dose Pfizer - Omicron Variant, updated 11/03/2022</h2>
       <Button component={Link} to="/pfizer" color="primary" variant="contained">
         Pfizer calculator
       </Button>
-      <h2>First dose AstraZeneca - Omicron Variant, updated 18/02/2022</h2>
+      <h2>First dose AstraZeneca - Omicron Variant, updated 11/03/2022</h2>
       <Button
         component={Link}
         to="/astrazeneca"
@@ -185,15 +186,39 @@ function FaqRoute() {
         <h1>FAQs</h1>
         <Container maxWidth="lg">
           <Typography>
-          {faqItems.map(({ question, answer }) => (
+          {FAQ_ITEMS.map(({ question, answer }) => (
             <>
               <b>{question}</b>
               <br />
               {answer}
               <br />
+              <br />
             </>
           ))}
           </Typography>
+        </Container>
+      </Box>
+      <Button
+        component={Link}
+        to="/"
+        color="primary"
+        variant="outlined"
+        size="small"
+        style={{ margin: "1em" }}
+      >
+        Back to calculator
+      </Button>
+    </>
+  );
+}
+
+function NewRoute() {
+  return (
+    <>
+      <Box my={4}>
+        <h1>What's New</h1>
+        <Container maxWidth="lg">
+          {RELEASE_NOTES}
         </Container>
       </Box>
       <Button
@@ -220,6 +245,7 @@ export default function App() {
           <Route path="/astrazeneca" element={<AZRoute />} />
           <Route path="/publications" element={<PubRoute />} />
           <Route path="/faq" element={<FaqRoute />} />
+          <Route path="/whatsnew" element={<NewRoute />} />
         </Routes>
       </BrowserRouter>
     </Skel>

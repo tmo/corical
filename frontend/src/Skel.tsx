@@ -138,7 +138,7 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
                   and will be updated as new evidence emerges.
                 </li>
                 <li>
-                  Last updated on 18/02/2022. 
+                  Last updated on 11/03/2022. 
                   Estimates based on an assumed distribution of 100% Omicron 
                   variant.
                 </li>
@@ -152,6 +152,15 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
                   infection and severe illness.
                 </li>
               </ul>
+
+              <Button
+                variant="outlined"
+                color="primary"
+                disableElevation
+                href="/whatsnew"
+              >
+                What's New!
+              </Button>{" "}
             </Typography>
           </Container>
         </Box>
