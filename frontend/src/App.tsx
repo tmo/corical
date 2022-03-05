@@ -14,6 +14,7 @@ import {
 } from "@material-ui/core";
 import { Link, Routes, Route } from "react-router-dom";
 import { BrowserRouter } from "react-router-dom";
+import { faqItems }  from "./FAQ";
 
 function IndexRoute() {
   return (
@@ -181,17 +182,18 @@ function FaqRoute() {
   return (
     <>
       <Box my={4}>
-        <h1>FAQ</h1>
+        <h1>FAQs</h1>
         <Container maxWidth="lg">
-          <h2>Title 1</h2>
-          <Container maxWidth="lg">
-            <Typography>
-              <b>QUESTION</b> 
+          <Typography>
+          {faqItems.map(({ question, answer }) => (
+            <>
+              <b>{question}</b>
               <br />
-              answer
+              {answer}
               <br />
-            </Typography>
-          </Container>
+            </>
+          ))}
+          </Typography>
         </Container>
       </Box>
       <Button
