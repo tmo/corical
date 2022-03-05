@@ -114,28 +114,43 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
             <Typography variant="caption" paragraph>
               <ul>
                 <li>
-                  CoRiCal aims to help people make informed decisions about the
-                  risks versus benefits of COVID-19 vaccines.
+                  CoRiCal is a tool to help people who are not sure about getting 
+                  the COVID-19 vaccines. It tells you how the vaccine can reduce 
+                  your chances of getting or dying from COVID-19. It also shows 
+                  the chances of developing certain rare conditions from the vaccines.
                 </li>
                 <li>
-                  These risks and benefits vary depending on age, sex, the
-                  number of doses of vaccine received, and the level of
-                  community transmission.
+                  The effects of the vaccines vary because of many reasons. Some 
+                  of these are: your age, your sex, how many vaccines you have 
+                  had, which vaccine(s) you have had, and the number of COVID-19 
+                  cases in your community.
                 </li>
                 <li>
-                  It is important to note that these are estimates of the
-                  average chance for people of your sex and age group, and does
-                  not take into account individual factors such as medical
-                  conditions (e.g. diabetes, obesity) or exposure risks (e.g.
-                  occupation).
+                  The tool shows you what your chances are of getting sick based 
+                  on your age and sex. It shows you the risk out of a million 
+                  people, or a one in x chance. You can choose which way the 
+                  results are displayed for each calculator by clicking on the 
+                  tabs for ‘Show risk per million people’ or ‘Show risk as a chance’.
+                </li>
+                <li>
+                  Note that the chances shown are only a rough guide. 
+                  The tool shows the average chance for people who are the same 
+                  sex and age as you. It does not use other factors, like any 
+                  health problems you have, such as heart problems or diabetes. 
+                  It also does not know if you work in a place with more COVID-19 
+                  cases, or if you have a job that puts you in contact with a lot 
+                  of people. These things may change your chances of getting 
+                  COVID-19 or dying from it.
+                </li>
+                <li>
+                  Even if there are not many cases in your community right now, 
+                  this can change. The number of cases can go up quickly at any 
+                  time. So when you make your decision about getting the COVID-19 
+                  vaccine, you should also think about possible cases in the future. 
                 </li>
                 <li>
                   The Moderna vaccine has similar effectiveness as the Pfizer 
                   vaccine when used for the third (booster) dose.
-                </li>
-                <li>
-                  Calculations are based on the best data currently available,  
-                  and will be updated as new evidence emerges.
                 </li>
                 <li>
                   Last updated on 11/03/2022. 

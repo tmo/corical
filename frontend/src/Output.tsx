@@ -22,7 +22,6 @@ import {
   RISK_PER_MILLION,
   RISK_TEXT,
   INFOBOX_RISK_TEXT,
-  STEP2_HELPER,
   STEP2_SUBMIT_FORM_FIRST,
   STEP2_TITLE,
   ZERO_RISK,
@@ -179,7 +178,7 @@ export default function Form({ output }: OutputProps) {
       {output ? (
         <>
           <Typography variant="body1" paragraph>
-            {STEP2_HELPER}
+            {output.scenario_description}
           </Typography>
           {output.messages?.map(({ heading, text, severity }: any) => (
             <Alert key={text} severity={severity} className={classes.message}>

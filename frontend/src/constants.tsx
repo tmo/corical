@@ -3,9 +3,9 @@ export const TITLE = "CoRiCal: Covid Risk Calculator";
 export const BY_LINE = "By, credits, etc";
 
 // form elements
-export const STEP1_TITLE = "Personal information";
+export const STEP1_TITLE = "About you";
 export const STEP1_HELPER =
-  "Enter a person's age, sex, and vaccination status to check their risks.";
+  "Enter your age, sex, and if you've had a vaccine to check your risks.";
 
 export const FIELD_REQUIRED = "This field is required.";
 
@@ -38,15 +38,15 @@ export const VACCINE_OPTIONS = [
   },
   {
     value: "OneAZ_under_3_weeks",
-    label: "One dose of AstraZeneca (less than 12 weeks ago)",
+    label: "One shot of AstraZeneca (12 weeks ago)",
   },
   {
     value: VACCINE_SECOND_VAL,
-    label: "Two doses of AstraZeneca",
+    label: "Two shots of AstraZeneca",
   },
   {
     value: "TwoAZ_OnePfz_under_2_months",
-    label: "Two doses of AstraZeneca and one dose of Pfizer (less than 2 months ago)",
+    label: "Two shots of AstraZeneca, then one shot of Pfizer (2 months ago)",
   },
 ];
 
@@ -70,6 +70,7 @@ export const VACCINE_OPTIONS_TIME = [
 
 export const PZ_VACCINE_LABEL = "Vaccine";
 export const PZ_VACCINE_SECOND_VAL = "Two";
+export const DOSE_OVERDUE_DISCLAIMER = "We don't currently have estimates for people whose second or third shot is overdue";
 export const PZ_VACCINE_OPTIONS = [
   {
     value: "None",
@@ -77,16 +78,15 @@ export const PZ_VACCINE_OPTIONS = [
   },
   {
     value: "One_at_3wks",
-    label: "One dose of Pfizer (less than 3 weeks ago)",
-    description: "Data not available for those overdue for their second dose",
+    label: "One shot of Pfizer (3 weeks ago)",
   },
   {
     value: PZ_VACCINE_SECOND_VAL,
-    label: "Two doses of Pfizer",
+    label: "Two shots of Pfizer",
   },
   {
     value: "Three",
-    label: "Three doses of Pfizer",
+    label: "Three shots of Pfizer",
   },
 ];
 
@@ -104,7 +104,6 @@ export const PZ_VACCINE2_OPTIONS = [
   {
     value: "Two_4_6mths",
     label: "Between 4 and 6 months",
-    description: "Data not available for those overdue for their third dose",
   },
   // {
   //   value: "Two_last_dose_more_than_6_months_ago",
@@ -112,33 +111,33 @@ export const PZ_VACCINE2_OPTIONS = [
   // },
 ];
 
-export const PZ_SCENARIOS_LABEL = "Community transmission scenario";
+export const PZ_SCENARIOS_LABEL = "How many cases are there in your community?";
 export const PZ_SCENARIOS_DEFAULT = "Five_percent";
 export const PZ_SCENARIOS = [
   {
     value: "Ten_percent",
-    label: "Extremely high transmission",
-    description: "Equivalent to 13600 cases per day in NSW (equivalent to 10% chance of infection over 2 months)",
+    label: "A huge number of cases",
+    description: "10% chance of getting COVID-19 over 2 months – about the same as 13,600 cases per day in NSW",
   },
   {
     value: "Five_percent",
-    label: "Very high transmission",
-    description: "Equivalent to 6800 cases per day in NSW (equivalent to 5% chance of infection over 2 months)",
+    label: "A large number of cases",
+    description: "5% chance of getting COVID-19 over 2 months – about the same as 6,800 cases per day in NSW",
   },
   {
     value: "ATAGI_High",
-    label: "High transmission",
-    description: "Equivalent to 2500 cases per day in NSW (equivalent to 2% chance of infection over 2 months)",
+    label: "A lot of cases ",
+    description: "2% chance of getting COVID-19 over 2 months – about the same as 2,500 cases per day in NSW",
   },
   {
     value: "ATAGI_Med",
-    label: "Medium transmission",
-    description: "Equivalent to 200 cases per day in NSW (equivalent to 0.15% chance of infection over 2 months)",
+    label: "A few cases ",
+    description: "0.15% chance of getting COVID-19 over 2 months – about the same as 200 cases per day in NSW",
   },
   {
     value: "ATAGI_Low",
-    label: "Low transmission",
-    description: "Equivalent to 20 cases per day in NSW (equivalent to 0.02% chance of infection over 2 months)",
+    label: "Not many cases ",
+    description: "0.02% chance of getting COVID-19 over 2 months – about the same as 20 cases per day in NSW",
   },
   // {
   //   value: "None_0",
@@ -149,33 +148,33 @@ export const PZ_SCENARIOS = [
 
 export const SUBMIT_LABEL = "Calculate risk";
 
-export const SCENARIOS_LABEL = "Community transmission scenario";
+export const SCENARIOS_LABEL = "How many cases are there in your community?";
 export const SCENARIOS_DEFAULT = "Five_percent";
 export const SCENARIOS = [
   {
     value: "Ten_percent",
-    label: "Extremely high transmission",
-    description: "Equivalent to 13600 cases per day in NSW (equivalent to 10% chance of infection over 2 months)",
+    label: "A huge number of cases",
+    description: "10% chance of getting COVID-19 over 2 months – about the same as 13,600 cases per day in NSW",
   },
   {
     value: "Five_percent",
-    label: "Very high transmission",
-    description: "Equivalent to 6800 cases per day in NSW (equivalent to 5% chance of infection over 2 months)",
+    label: "A large number of cases",
+    description: "5% chance of getting COVID-19 over 2 months – about the same as 6,800 cases per day in NSW",
   },
   {
     value: "ATAGI_High",
-    label: "High transmission",
-    description: "Equivalent to 2500 cases per day in NSW (equivalent to 2% chance of infection over 2 months)",
+    label: "A lot of cases ",
+    description: "2% chance of getting COVID-19 over 2 months – about the same as 2,500 cases per day in NSW",
   },
   {
     value: "ATAGI_Med",
-    label: "Medium transmission",
-    description: "Equivalent to 200 cases per day in NSW (equivalent to 0.15% chance of infection over 2 months)",
+    label: "A few cases ",
+    description: "0.15% chance of getting COVID-19 over 2 months – about the same as 200 cases per day in NSW",
   },
   {
     value: "ATAGI_Low",
-    label: "Low transmission",
-    description: "Equivalent to 20 cases per day in NSW (equivalent to 0.02% chance of infection over 2 months)",
+    label: "Not many cases ",
+    description: "0.02% chance of getting COVID-19 over 2 months – about the same as 20 cases per day in NSW",
   },
   // {
   //   value: "None",
@@ -211,16 +210,15 @@ export const SCENARIOS = [
 
 // output
 export const STEP2_TITLE = "Risk output";
-export const STEP2_HELPER = "Computed risk outputs below.";
 export const STEP2_SUBMIT_FORM_FIRST = "Please submit the form for output.";
 
-export const AZ_VERSION_ALERT = `This calculator is for people who had the  
-            AstraZeneca vaccine for their first two doses. Last updated on  
-            11/03/2022. Estimates based on an assumed distribution of 100%  
+export const AZ_VERSION_ALERT = `This calculator is for people who had the 
+            AstraZeneca vaccine for their first two shots. Last updated on 
+            11/03/2022. The tool assumes that all the cases are caused by the 
             Omicron variant.`;
-export const PZ_VERSION_ALERT = `This calculator is for people who had the  
-            Pfizer vaccine for their first two doses. Last updated on  
-            11/03/2022. Estimates based on an assumed distribution of 100%  
+export const PZ_VERSION_ALERT = `This calculator is for people who had the 
+            Pfizer vaccine for their first two shots. Last updated on 
+            11/02/2022. The tool assumes that all the cases are caused by the 
             Omicron variant.`;
 
 

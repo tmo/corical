@@ -125,15 +125,15 @@ class Corical(corical_pb2_grpc.CoricalServicer):
         if request.transmission == "None":
             transmission_label = "no"
         elif request.transmission == "Ten_percent":
-            transmission_label = "extremely high"
+            transmission_label = "a huge number of cases"
         elif request.transmission == "Five_percent":
-            transmission_label = "very high"
-        elif request.transmission == "ATAGI_High":
-            transmission_label = "high"
+            transmission_label = "a large number of cases"
+        elif request.transmission == "ATAGI_a lot of cases ":
+            transmission_label = "a lot of cases "
         elif request.transmission == "ATAGI_Med":
-            transmission_label = "medium"
-        elif request.transmission == "ATAGI_Low":
-            transmission_label = "low"
+            transmission_label = "few cases"
+        elif request.transmission == "ATAGI_not many cases":
+            transmission_label = "not many cases"
         else:
             transmission_label = request.transmission
 
@@ -153,17 +153,17 @@ class Corical(corical_pb2_grpc.CoricalServicer):
 
         # for tables
         if request.vaccine == "None":
-            explanation = f"Results shown for a {age_label} {sex_label} who has not been vaccinated, and under {transmission_label} community transmission, the risks of the following events are shown."
+            explanation = f"Results shown for a {age_label} {sex_label} who has not been vaccinated, when there are {transmission_label} community transmission, the risks of the folnot many casesing events are shown."
         else:
-            explanation = f"Results shown for a {age_label} {sex_label} who has  {vaccine_labels[request.vaccine][0]}, and under {transmission_label} community transmission, the risks of the following events are shown."
+            explanation = f"Results shown for a {age_label} {sex_label} who has  {vaccine_labels[request.vaccine][0]}, and under {transmission_label} community transmission, the risks of the folnot many casesing events are shown."
 
         blood_clot_brief = (
-            "An atypical blood clot refers to a blood clot like thrombosis with thrombocytopenia syndrome (TTS)."
+            "You may have heard that the AstraZeneca vaccine can give you a type of rare blood clotting. This is also called thrombosis with thrombocytopenia syndrome (TTS). "
         )
         # for graphs
-        subtitle = f"Results shown for a {age_label} {sex_label} under a {transmission_label} transmission scenario."
+        subtitle = f"These results are for a {age_label} {sex_label}."
         # Pfizer booster subtitle
-        pz_booster_subtitle = f"Results shown for a {age_label} {sex_label} under a {transmission_label} transmission scenario, having received two doses of AstraZeneca and one dose of Pfizer."
+        pz_booster_subtitle = f"You may have heard that the Pfizer vaccine can cause inflammation of your heart muscle. This is also called myocarditis."
 
         # for output groups
 
@@ -207,8 +207,8 @@ class Corical(corical_pb2_grpc.CoricalServicer):
 
         bar_graphs_list = [
             corical_pb2.BarGraph(
-                title=f"What is my chance of getting COVID-19 if there is {transmission_label} transmission in the community?",
-                subtitle=subtitle + " Chance of getting COVID-19 is over a period of 2 months.",
+                title=f"What is my chance of getting COVID-19?",
+                subtitle=f"This is your chance of getting COVID-19 over a 2-month period. These results are for a {age_label} {sex_label} when there are {transmission_label} in your community.",
                 risks=generate_bar_graph_risks(
                     [
                         corical_pb2.BarGraphRisk(
@@ -221,7 +221,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                 ),
             ),
             corical_pb2.BarGraph(
-                title="If I am diagnosed with COVID-19, what are my chances of dying?",
+                title="If I get COVID-19, what are my chances of dying?",
                 subtitle=subtitle,
                 risks=generate_bar_graph_risks(
                     [
@@ -235,8 +235,8 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                 ),
             ),
             corical_pb2.BarGraph(
-                title="What is my chance of getting an atypical blood clot from the AstraZeneca doses?",
-                subtitle=subtitle + " " + blood_clot_brief,
+                title="What is my chance of getting rare blood clots (TTS) from the AstraZeneca shots?",
+                subtitle=blood_clot_brief + " " + subtitle ,
                 risks=generate_bar_graph_risks(
                     [
                         corical_pb2.BarGraphRisk(
@@ -257,8 +257,8 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                 ),
             ),
             corical_pb2.BarGraph(
-                    title="What is my chance of dying from an atypical blood clot from the AstraZeneca doses?",
-                    subtitle=subtitle + " " + blood_clot_brief,
+                    title="What is my chance of dying from rare blood clots (TTS) from the AstraZeneca shots?",
+                    subtitle=blood_clot_brief + " " + subtitle ,
                     risks=generate_bar_graph_risks(
                         [
                         corical_pb2.BarGraphRisk(
@@ -282,8 +282,8 @@ class Corical(corical_pb2_grpc.CoricalServicer):
         if request.vaccine == "TwoAZ_OnePfz_under_2_months":
             bar_graphs_list.append(
                 corical_pb2.BarGraph(
-                    title="What is my chance of getting myocarditis after receiving Pfizer booster?",
-                    subtitle=pz_booster_subtitle,
+                    title="What is my chance of having inflammation of my heart muscle (myocarditis) after receiving the Pfizer vaccine for my third dose?",
+                    subtitle=pz_booster_subtitle + " " + subtitle,
                     risks=generate_bar_graph_risks(
                         [
                             # corical_pb2.BarGraphRisk(
@@ -317,8 +317,8 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             )
             bar_graphs_list.append(
                 corical_pb2.BarGraph(
-                    title="What is my chance of dying from myocarditis after receiving Pfizer booster?",
-                    subtitle=pz_booster_subtitle,
+                    title="What is my chance of dying from problems with my heart (myocarditis) after receiving Pfizer vaccine for my third dose?",
+                    subtitle=subtitle,
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
@@ -347,14 +347,16 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                 ),
             )
         
+        scenario_description = f"Here are your results. These are for a {age_label} {sex_label} when there are {transmission_label} in your community. They are based on the number and timing of shots of AstraZeneca/Pfizer vaccines you have had."
         out = corical_pb2.ComputeRes(
             messages=messages,
-            scenario_description="This is the scenario description",
+            scenario_description=scenario_description,
             printable=printable,
             bar_graphs= bar_graphs_list,
             output_groups=[],
             success=True,
             msg=str(request),
+            vaccine_type = "AZ",
         )
         duration = (perf_counter_ns() - start) / 1e6  # ms
 
@@ -403,15 +405,15 @@ class Corical(corical_pb2_grpc.CoricalServicer):
         if request.ct == "None_0":
             transmission_label = "no"
         elif request.ct == "Ten_percent":
-            transmission_label = "extremely high"
+            transmission_label = "a huge number of cases "
         elif request.ct == "Five_percent":
-            transmission_label = "very high"
-        elif request.ct == "ATAGI_High":
-            transmission_label = "high"
+            transmission_label = "a large number of cases "
+        elif request.ct == "ATAGI_a lot of cases ":
+            transmission_label = "a lot of cases "
         elif request.ct == "ATAGI_Med":
-            transmission_label = "medium"
-        elif request.ct == "ATAGI_Low":
-            transmission_label = "low"
+            transmission_label = "few cases"
+        elif request.ct == "ATAGI_not many cases":
+            transmission_label = "not many cases"
         else:
             transmission_label = request.ct
 
@@ -433,14 +435,15 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             "Three": ("received three doses", "third"),
         }
 
-                # for graphs
-        graph_description = f"Results shown for a {age_text} {sex_label} under a {transmission_label} transmission scenario, based on number of doses of Pfizer vaccine received."
-
+        # for graphs
+        subtitle = f"These results are for a {age_label} {sex_label}."
+        myo_subtitle = f"You may have heard that the Pfizer vaccine can give you inflammation of your heart muscle. This is also called myocarditis. There are many other causes of myocarditis, so people can develop this problem even if they haven’t had the vaccine. Myocarditis is also very common in people who have had COVID-19 (infection).  "
+        
         # for tables
         if request.dose == "None":
-            explanation = f"Results shown for a {age_text} {sex_label} who has not been vaccinated, and under {transmission_label} community transmission, the risks of the following events are shown."
+            explanation = f"Results shown for a {age_text} {sex_label} who has not been vaccinated, and under {transmission_label} community transmission, the risks of the folnot many casesing events are shown."
         else:
-            explanation = f"Results shown for a {age_text} {sex_label} who has {dose_labels[request.dose][0]}, and under {transmission_label} community transmission, the risks of the following events are shown."
+            explanation = f"Results shown for a {age_text} {sex_label} who has {dose_labels[request.dose][0]}, and under {transmission_label} community transmission, the risks of the folnot many casesing events are shown."
 
 
         if request.dose == "None":
@@ -492,12 +495,14 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             ) = compute_pfizer_probs(cdose, age_label, request.ct, sex_vec, variant_vec)
             cmp.append(cur)
 
+        scenario_description = f"Here are your results. These are for a {age_label} {sex_label} when there are {transmission_label} in your community. They are based on the number and timing of shots of Pfizer vaccines you have had."
         out = corical_pb2.ComputeRes(
             messages=messages,
+            scenario_description=scenario_description,
             bar_graphs=[
                 corical_pb2.BarGraph(
-                    title=f"What is my chance of getting COVID-19 if there is {transmission_label} transmission in the community?",
-                    subtitle=graph_description + " Chance of getting COVID-19 is over a period of 2 months.",
+                    title=f"What is my chance of getting COVID-19?",
+                    subtitle=f"This is your chance of getting COVID-19 over a 2-month period. These results are for a {age_label} {sex_label} when there are {transmission_label} in your community.",
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
@@ -510,8 +515,8 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                     ),
                 ),
                 corical_pb2.BarGraph(
-                    title="If I am diagnosed with COVID-19, what are my chances of dying?",
-                    subtitle=graph_description,
+                    title="If I get COVID-19, what are my chances of dying?",
+                    subtitle=subtitle,
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
@@ -524,8 +529,8 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                     ),
                 ),
                 corical_pb2.BarGraph(
-                    title="What is my chance of getting myocarditis?",
-                    subtitle=graph_description,
+                    title="What is my chance of having inflammation of my heart muscle (myocarditis)?",
+                    subtitle=myo_subtitle + " " + subtitle,
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
@@ -553,8 +558,8 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                     ),
                 ),
                 corical_pb2.BarGraph(
-                    title="What is my chance of dying from myocarditis?",
-                    subtitle=graph_description,
+                    title="What is my chance of dying from inflammation of my heart muscle (myocarditis)?",
+                    subtitle=myo_subtitle + " " + subtitle,
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
@@ -585,6 +590,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             output_groups=[],
             success=True,
             msg=str(request),
+            vaccine_type = "PZ",
         )
         duration = (perf_counter_ns() - start) / 1e6  # ms
         binlog = corical_pb2.BinLog(

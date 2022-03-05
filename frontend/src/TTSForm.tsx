@@ -37,6 +37,7 @@ import {
   VACCINE_LABEL_TIME,
   VACCINE_OPTIONS_TIME,
   VACCINE_SECOND_VAL,
+  DOSE_OVERDUE_DISCLAIMER,
   SCENARIOS_LABEL,
   SCENARIOS_DEFAULT,
   SCENARIOS,
@@ -189,6 +190,9 @@ export default function Form({ callback }: FormInputs) {
           render={({ field: { onChange, value } }) => (
             <FormControl component="fieldset">
               <FormLabel component="legend">{VACCINE_LABEL}</FormLabel>
+              <Typography variant="caption">
+                {DOSE_OVERDUE_DISCLAIMER}
+              </Typography>
               <RadioGroup
                 // row
                 name="dose-radio"

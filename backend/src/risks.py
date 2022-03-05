@@ -4,59 +4,59 @@ risks = [
         "risk": 0,
     },
     {
-        "event": "Chance of winning 1st Division Powerball lotto in Australia in any given draw",
+        "event": "Chance of winning the best prize in the lotto in Australia",
         "risk": 1 / 134_000_000,
     },
     {
-        "event": "Chance of any given pregnancy resulting in identical quadruplets",
+        "event": "Chance of giving birth to four identical babies if you are pregnant",
         "risk": 1 / 15_000_000,
     },
     {
-        "event": "Chance of being in a fatal shark attack in a year in Australia",
+        "event": "Chance of dying in a shark attack in a year in Australia",
         "risk": 1 / 8_000_000,
     },
     {
-        "event": "Chance of dying from being struck by lightning in a year in Australia",
+        "event": "Chance of dying from a lightning strike in a year in Australia",
         "risk": 1 / 4_000_000,
     },
     {
-        "event": "Lifetime chance of dying by drowning in the bath",
+        "event": "Chance of dying by drowning in the bath some time in your life",
         "risk": 1 / 685_000,
     },
     {
-        "event": "Chance of dying by assault in a year in Australia",
+        "event": "Chance of dying after being assaulted in a year in Australia",
         "risk": 1 / 105_000,
     },
     {
-        "event": "Chance of any given skydive jump resulting in death",
+        "event": "Chance of dying from a skydive",
         "risk": 1 / 100_000,
     },
     {
-        "event": "Chance of being killed in a car accident in a year in Australia",
+        "event": "Chance of dying in a car crash in a year in Australia",
         "risk": 1 / 18_000,
     },
     {
-        "event": "Lifetime chance of dying by choking on food in Australia",
+        "event": "Chance of dying by choking on food in Australia some time in your life",
         "risk": 1 / 5000,
     },
     {
-        "event": "Chance of any given base jump resulting in death",
+        "event": "Chance of dying from a base jump",
         "risk": 1 / 2500,
     },
     {
-        "event": "Chance of someone in Australia being born with extra fingers or toes",
+        "event": "Chance of being born with extra fingers and toes in Australia",
         "risk": 1 / 1000,
     },
     {
-        "event": "Chance of being diagnosed with cancer in the next year in Australia",
+        "event": "Chance of getting cancer in the next year in Australia",
         "risk": 1 / 200,
     },
     {
-        "event": "Chance of being hospitalised from a fall in a year in Australia",
+        "event": "Chance of going to hospital after a fall in a year in Australia",
         "risk": 1 / 100,
     },
     {
-        "event": "Chance of receiving a speeding ticket in a year in Australia",
+        "event": "Chance of getting a speeding ticket in a year in Australia",
         "risk": 1 / 12,
     },
     {
@@ -64,7 +64,7 @@ risks = [
         "risk": 1 / 6,
     },
     {
-        "event": "Lifetime chance of developing shingles",
+        "event": "Chance of getting shingles some time in your life",
         "risk": 1 / 3,
     },
     {
