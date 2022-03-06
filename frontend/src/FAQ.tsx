@@ -2,8 +2,8 @@ export const FAQ_ITEMS =  [
   {
     question: "How is the risk of various scenarios calculated?",
     answer: <> We have used trusted data sources 
-      (see <a href="/docs/pfizer_assumptions_18_02_22.pdf">Pfizer data sources </a> 
-      and <a href="/docs/astrazeneca_assumptions_18_02_22.pdf"> AstraZeneca data
+      (see <a href="/docs/pfizer_assumptions_11_03_22.pdf">Pfizer data sources </a> 
+      and <a href="/docs/astrazeneca_assumptions_11_03_22.pdf"> AstraZeneca data
       sources </a> and assumptions) to create a Bayesian Network model. A Bayesian network is a graphical model that uses 
       conditional probabilities to determine the likely probability of certain events.</>,
   },
@@ -40,8 +40,8 @@ export const FAQ_ITEMS =  [
     answer: <> Where possible we have tried to draw on Australian data sources 
       but where this is not available we have used international data sources. 
       All data sources are shown here (see 
-      <a href="/docs/pfizer_assumptions_18_02_22.pdf">Pfizer data sources </a> 
-      and <a href="/docs/astrazeneca_assumptions_18_02_22.pdf"> AstraZeneca data
+      <a href="/docs/pfizer_assumptions_11_03_22.pdf">Pfizer data sources </a> 
+      and <a href="/docs/astrazeneca_assumptions_11_03_22.pdf"> AstraZeneca data
       sources </a> and assumptions). </>,
   },
   {

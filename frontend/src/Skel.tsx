@@ -197,7 +197,7 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
                 disableElevation
                 rel="noreferrer" 
                 target="_blank"
-                href="/docs/pfizer_assumptions_18_02_22.pdf"
+                href="/docs/pfizer_assumptions_11_03_22.pdf"
               >
                 Pfizer data sources
               </Button>{" "}
@@ -207,7 +207,7 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
                 disableElevation
                 rel="noreferrer" 
                 target="_blank"
-                href="/docs/astrazeneca_assumptions_18_02_22.pdf"
+                href="/docs/astrazeneca_assumptions_11_03_22.pdf"
               >
                 AstraZeneca data sources
               </Button>{" "}
