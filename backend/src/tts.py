@@ -1,16 +1,14 @@
 import xdsl
 
-# tts = xdsl.Model("V2 TTS 6 months 10Sep.xdsl")
-tts = xdsl.Model("AZPfizer_VaxmyoCFR_update_31-01-22.xdsl")
+tts = xdsl.Model("AZ_March_GeNie_01-03-22.xdsl")
 
 def scenario_to_vec(scenario_name):
     return tts.unit_vec_for_state("n4_Transmission", scenario_name)
 
 
-def compute_probs(az_dose, age_label, sex_vec, variant_vec, ct_vec):
+def compute_probs(az_dose, age_label, sex_vec, ct_vec, variant_vec=None):
     values = {
         "n5_Sex": sex_vec,
-        "n3_Variant": variant_vec,
         "n4_Transmission": ct_vec,
     }
 

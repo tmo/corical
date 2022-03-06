@@ -55,14 +55,6 @@ class Corical(corical_pb2_grpc.CoricalServicer):
 
         messages = []
 
-        # messages.append(
-        #     corical_pb2.Message(
-        #         heading="Model Version",
-        #         text="Last updated on 31/01/2022. Estimates based on an assumed distribution of 10% Delta and 90% Omicron.",
-        #         severity="info",
-        #     )
-        # )
-
         # sex
         if request.sex == "female":
             sex_label = "female"
@@ -148,8 +140,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             )
 
         # variant
-        # hardcoded as 100% omicron
-        variant_vec = np.array([0.0, 1.0, 0.0])
+        variant_vec = None
 
         # for tables
         if request.vaccine == "None":
@@ -197,7 +188,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                 cur["die_myocarditis_given_covid"],
                 cur["get_myocarditis_bg"],
                 cur["die_myocarditis_bg"],
-            ) = compute_probs(cdose, age_value, sex_vec, variant_vec, ct_vec)
+            ) = compute_probs(cdose, age_value, sex_vec, ct_vec, variant_vec)
             cmp.append(cur)
             if cdose == request.vaccine:
                 logging.info("Saving current case")
@@ -461,17 +452,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
 
         # variant
         # hardcoded as 100% omicron
-        variant_vec = np.array([0.0, 1.0, 0.0])
-        # (
-        #     get_covid,
-        #     get_myocarditis_vax,
-        #     die_myocarditis_vax,
-        #     get_myocarditis_given_covid,
-        #     die_myocarditis_given_covid,
-        #     get_myocarditis_bg,
-        #     die_myocarditis_bg,
-        #     die_covid_if_got_it,
-        # ) = compute_pfizer_probs(request.dose, age_label, request.ct, sex_vec)
+        variant_vec = None
 
         cmp = []
 

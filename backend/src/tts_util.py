@@ -41,7 +41,8 @@ def get_age_bracket(age):
         [40, 49, "age_40_49", "40–49 year-old"],
         [50, 59, "age_50_59", "50–59 year-old"],
         [60, 69, "age_60_69", "60–69 year-old"],
-        [70, 120, "age_70plus", "70+ year-old"],
+        [70, 79, "age_70_79", "70–79 year-old"],
+        [80, 120, "age_80plus", "80+ year-old"],
     ]
     for ix, (lower, upper, label, text) in enumerate(age_brackets):
         if lower <= age <= upper:
@@ -59,7 +60,8 @@ def get_age_bracket_pz(age):
         [40, 49, "Age_40_49", "40–49 year-old"],
         [50, 59, "Age_50_59", "50–59 year-old"],
         [60, 69, "Age_60_69", "60–69 year-old"],
-        [70, 120, "Age_70plus", "70+ year-old"],
+        [70, 79, "Age_70_79", "70–79 year-old"],
+        [80, 120, "Age_80plus", "80+ year-old"],
     ]
     for ix, (lower, upper, label, text) in enumerate(age_brackets):
         if lower <= age <= upper:
