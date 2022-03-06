@@ -89,6 +89,7 @@ message ComputeRes {
   PrintableButton printable = 5;
   bool success = 98;
   string msg = 99;
+  string vaccine_type = 6;
 }
 
 /// Binlog
