@@ -8,6 +8,7 @@ import {
   AppBar,
   Toolbar,
   Button,
+  Grid,
 } from "@material-ui/core";
 
 const theme = createTheme({
@@ -106,11 +107,17 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
         </Container>
       </AppBar>
       <Box>
-        <Box py={22} style={{ backgroundColor: "#efecf2" }}>
-          <Container maxWidth="lg">
+        <Box py={17} style={{ backgroundColor: "#efecf2"  }}>
+          <Container maxWidth="lg" style={{ backgroundImage: "url('/logos/CoRiCal_logo.png')",
+                                            backgroundSize: "30%",
+                                            backgroundRepeat: "no-repeat",
+                                            backgroundPosition: "right center",
+                                            }}>
             <Typography variant="h4" component="h1" paragraph>
               {title}
             </Typography>
+            <Grid container spacing={1}>
+            <Grid item xs={8} >
             <Typography variant="caption" paragraph>
               <ul>
                 <li>
@@ -177,6 +184,17 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
                 What's New!
               </Button>{" "}
             </Typography>
+            </Grid>
+            {/* <Grid item xs={3} >
+            <Container maxWidth="lg">
+              <img
+                style={{ padding: "15px 0", height: "100px" }}
+                src="/logos/CoRiCal_logo.png"
+                alt="CoRiCal: Covid Risk Calculator"
+              />
+            </Container>
+            </Grid> */}
+            </Grid>
           </Container>
         </Box>
         <Box my={4}>
@@ -287,7 +305,33 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
             <Box>&copy; 2022 Immunisation Coalition. </Box>
           </Container>
         </Box>
+        <Container maxWidth="lg">
+          <Grid container spacing={1}>
+            {/* <Grid item xs={2} >
+              <img
+                style={{ padding: "5px 0", height: "60px" }}
+                src="/logos/QUT_logo_Blue_c.png"
+                alt="Queensland University of Technology"
+              />
+            </Grid> */}
+            <Grid item xs={2} >
+              <img
+                style={{ padding: "5px 0", height: "60px" }}
+                src="/logos/FU_logo.jpg"
+                alt="Flinders University"
+              />
+            </Grid>
+            <Grid item xs={2} >
+              <img
+                style={{ padding: "5px 0", height: "60px" }}
+                src="/logos/QUT_logo_White_c.png"
+                alt="Queensland University of Technology"
+              />
+            </Grid>
+          </Grid>
+        </Container>
       </Box>
     </ThemeProvider>
   );
 }
+
