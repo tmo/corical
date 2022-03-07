@@ -79,10 +79,10 @@ class Corical(corical_pb2_grpc.CoricalServicer):
         vaccine_labels = {
             "None": ("not had any vaccines", "no"),
             "OneAZ_under_3_weeks": ("had one shot of AstraZeneca vaccine (1-3 months ago)", "first shot of the AstraZeneca vaccine"),
-            "TwoAZ_under_2_months": ("had two shots of AstraZeneca vaccine (2 months ago)", "second shot of the AstraZeneca vaccine."),
-            "TwoAZ_2to4_months": ("had two shots of AstraZeneca vaccine (2-4 months after the vaccine)", "second shot of the AstraZeneca vaccine."),
-            "TwoAZ_4to6_months": ("had two shots of AstraZeneca vaccine (4-6 months after the vaccine)", "second shot of the AstraZeneca vaccine."),
-            "TwoAZ_OnePfz_under_2_months": ("had two shots of AstraZeneca vaccine followed by a Pfizer vaccine (2 months ago)", "Pfizer booster vaccine."),
+            "TwoAZ_under_2_months": ("had two shots of AstraZeneca vaccine (2 months ago)", "second shot of the AstraZeneca vaccine"),
+            "TwoAZ_2to4_months": ("had two shots of AstraZeneca vaccine (2-4 months after the vaccine)", "second shot of the AstraZeneca vaccine"),
+            "TwoAZ_4to6_months": ("had two shots of AstraZeneca vaccine (4-6 months after the vaccine)", "second shot of the AstraZeneca vaccine"),
+            "TwoAZ_OnePfz_under_2_months": ("had two shots of AstraZeneca vaccine followed by a Pfizer vaccine (2 months ago)", "Pfizer booster vaccine"),
         }
 
         if request.vaccine == "None":
@@ -238,7 +238,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                     ]
                     + [
                         corical_pb2.BarGraphRisk(
-                            label=f"-	Chance of getting rare blood clots after the {d['shot_ordinal']}",
+                            label=f"Your chance of rare blood clots after the {d['shot_ordinal']} will increase by: ",
                             risk=d["get_tts"],
                             is_other_shot=d["is_other_shot"],
                         )
@@ -260,7 +260,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of dying from rare blood clots after the {d['shot_ordinal']}",
+                                label=f"Your chance of dying from rare blood clots after the {d['shot_ordinal']} will increase by:",
                                 risk=d["die_from_tts"],
                                 is_other_shot=d["is_other_shot"],
                             )
@@ -296,7 +296,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having myocarditis after the Pfizer vaccine for my third dose",
+                                label=f"Your chance of myocarditis after the {d['shot_ordinal']} will increase by:",
                                 risk=d["get_myocarditis_vax"],
                                 is_other_shot=d["is_other_shot"],
                             )
@@ -327,7 +327,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of dying from myocarditis after the Pfizer vaccine for my third dose",
+                                label=f"Your chance of dying from myocarditis after the {d['shot_ordinal']} will increase by:",
                                 risk=d["die_myocarditis_vax"],
                                 is_other_shot=d["is_other_shot"],
                             )
@@ -529,7 +529,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having myocarditis after the {d['shot_ordinal']} shot",
+                                label=f"Your chance of myocarditis after the {d['shot_ordinal']} shot of Pfizer vaccine will increase by:",
                                 risk=d["get_myocarditis_vax"],
                                 is_other_shot=d["is_other_shot"],
                             )
@@ -558,7 +558,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of dying from myocarditis after the {d['shot_ordinal']} shot",
+                                label=f"Your chance of dying from myocarditis after the {d['shot_ordinal']} shot of Pfizer vaccine will increase by:",
                                 risk=d["die_myocarditis_vax"],
                                 is_other_shot=d["is_other_shot"],
                             )
