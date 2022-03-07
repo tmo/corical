@@ -21,10 +21,13 @@ function IndexRoute() {
   return (
     <>
       <h1>Choose a risk calculator</h1>
+      <Box mb={4}>
       <h2>First dose Pfizer - Omicron Variant, updated 11/03/2022</h2>
       <Button component={Link} to="/pfizer" color="primary" variant="contained">
         Pfizer calculator
       </Button>
+      </Box>
+      <Box mb={3}>
       <h2>First dose AstraZeneca - Omicron Variant, updated 11/03/2022</h2>
       <Button
         component={Link}
@@ -34,6 +37,19 @@ function IndexRoute() {
       >
         AstraZeneca calculator
       </Button>
+      </Box>
+      <h1>View risk chart </h1>
+      <h2>Risk of dying from COVID-19 based on age, sex, and vaccination status - 90% Omicron/10% Delta Variants, updated January 2022</h2>
+      <Button
+        href="https://www.immunisationcoalition.org.au/wp-content/uploads/2022/01/2022_01_25_Covid-risk-chart_logos_included.pdf"
+        color="primary"
+        variant="contained"
+        rel="noreferrer" 
+        target="_blank"
+      >
+        Risk chart
+      </Button>
+      
     </>
   );
 }
