@@ -301,7 +301,7 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
             <Grid item xs={2} >
               <img
                 style={{ padding: "5px 0", height: "60px" }}
-                src="/logos/UQ_logo.png"
+                src="/logos/UQ_logo_s.png"
                 alt="University of Queensland"
               />
             </Grid>
