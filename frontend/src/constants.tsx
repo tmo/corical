@@ -218,7 +218,7 @@ export const AZ_VERSION_ALERT = `This calculator is for people who had the
             Omicron variant.`;
 export const PZ_VERSION_ALERT = `This calculator is for people who had the 
             Pfizer vaccine for their first two shots. Last updated on 
-            11/02/2022. The tool assumes that all the cases are caused by the 
+            11/03/2022. The tool assumes that all the cases are caused by the 
             Omicron variant.`;
 
 

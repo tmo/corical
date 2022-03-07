@@ -107,8 +107,8 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
         </Container>
       </AppBar>
       <Box>
-        <Box py={17} style={{ backgroundColor: "#efecf2"  }}>
-          <Container maxWidth="lg" style={{ backgroundImage: "url('/logos/CoRiCal_logo.png')",
+        <Box pt={17} pb={2} style={{ backgroundColor: "#efecf2"  }}>
+          <Container maxWidth="lg" style={{ backgroundImage: "url('/logos/CoricalBoat_logo_t.png')",
                                             backgroundSize: "30%",
                                             backgroundRepeat: "no-repeat",
                                             backgroundPosition: "right center",
@@ -117,7 +117,7 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
               {title}
             </Typography>
             <Grid container spacing={1}>
-            <Grid item xs={8} >
+            <Grid item xs={12} >
             <Typography variant="caption" paragraph>
               <ul>
                 <li>
@@ -127,10 +127,10 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
                   the chances of developing certain rare conditions from the vaccines.
                 </li>
                 <li>
-                  The effects of the vaccines vary because of many reasons. Some 
-                  of these are: your age, your sex, how many vaccines you have 
-                  had, which vaccine(s) you have had, and the number of COVID-19 
-                  cases in your community.
+                  The benefits and risks of the vaccines vary because of many 
+                  reasons. Some of these are: your age, your sex, how many 
+                  vaccines you have had, which vaccine(s) you have had, and the 
+                  number of COVID-19 cases in your community.
                 </li>
                 <li>
                   The tool shows you what your chances are of getting sick based 
@@ -164,15 +164,6 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
                   Estimates based on an assumed distribution of 100% Omicron 
                   variant.
                 </li>
-                <li>
-                  In Australia, there have been no COVID-19 related deaths in 
-                  females aged 10-39 years or males aged 10-19 years from 
-                  18/11/2021 to 17/01/2022.  Therefore, the calculator shows 
-                  an extremely low risk of dying for both vaccinated and 
-                  unvaccinated people in these groups.  However, vaccines are 
-                  still very beneficial for reducing the risk of symptomatic 
-                  infection and severe illness.
-                </li>
               </ul>
 
               <Button
@@ -197,7 +188,7 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
             </Grid>
           </Container>
         </Box>
-        <Box my={4}>
+        <Box mt={4} mb={2}>
           <Container maxWidth="lg">
             {children}
             <Box py={5}>
@@ -292,7 +283,7 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
               John Litt, Kim Sampson, Kirsty Short
               <br />
             </Typography>
-            <Box py={5}>
+            <Box pt={5} pb={1}>
               <Button
                 variant="outlined"
                 color="primary"
@@ -302,18 +293,18 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
                 Feedback or comments?
               </Button>
             </Box>
-            <Box>&copy; 2022 Immunisation Coalition. </Box>
           </Container>
         </Box>
         <Container maxWidth="lg">
+          <Box mb={4}> <b> Collaborating institutions </b> </Box>
           <Grid container spacing={1}>
-            {/* <Grid item xs={2} >
+            <Grid item xs={2} >
               <img
                 style={{ padding: "5px 0", height: "60px" }}
-                src="/logos/QUT_logo_Blue_c.png"
-                alt="Queensland University of Technology"
+                src="/logos/UQ_logo.png"
+                alt="University of Queensland"
               />
-            </Grid> */}
+            </Grid>
             <Grid item xs={2} >
               <img
                 style={{ padding: "5px 0", height: "60px" }}
@@ -329,6 +320,7 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
               />
             </Grid>
           </Grid>
+          <Box mt={3} mb={2}>&copy; 2022 Immunisation Coalition. </Box>
         </Container>
       </Box>
     </ThemeProvider>
