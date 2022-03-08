@@ -2,8 +2,8 @@ export const FAQ_ITEMS =  [
   {
     question: "How is the risk of various scenarios calculated?",
     answer: <> We have used trusted data sources 
-      (see <a href="/docs/pfizer_assumptions_11_03_22.pdf">Pfizer data sources </a> 
-      and <a href="/docs/astrazeneca_assumptions_11_03_22.pdf"> AstraZeneca data
+      (see <a rel="noreferrer" target="_blank" href="/docs/pfizer_assumptions_11_03_22.pdf">Pfizer data sources </a> 
+      and <a rel="noreferrer" target="_blank" href="/docs/astrazeneca_assumptions_11_03_22.pdf"> AstraZeneca data
       sources </a> and assumptions) to create a Bayesian Network model. A Bayesian network is a graphical model that uses 
       conditional probabilities to determine the likely probability of certain events.</>,
   },
@@ -39,14 +39,14 @@ export const FAQ_ITEMS =  [
     question: "Is the calculator based on Australian data? If overseas data are used then from which countries?",
     answer: <> Where possible we have tried to draw on Australian data sources 
       but where this is not available we have used international data sources. 
-      All data sources are shown here (see 
-      <a href="/docs/pfizer_assumptions_11_03_22.pdf">Pfizer data sources </a> 
-      and <a href="/docs/astrazeneca_assumptions_11_03_22.pdf"> AstraZeneca data
+      All data sources are shown here (see  
+      <a rel="noreferrer" target="_blank" href="/docs/pfizer_assumptions_11_03_22.pdf"> Pfizer data sources </a> 
+      and <a rel="noreferrer" target="_blank" href="/docs/astrazeneca_assumptions_11_03_22.pdf"> AstraZeneca data
       sources </a> and assumptions). </>,
   },
   {
     question: "What are the common non-serious adverse effects of the vaccines, and how frequently do they occur?",
-    answer: <> According to <a href="https://www.sciencedirect.com/science/article/pii/S1473309921002243"> 
+    answer: <> According to <a rel="noreferrer" target="_blank" href="https://www.sciencedirect.com/science/article/pii/S1473309921002243"> 
     a study of more than 600,000 individuals in the UK </a> local side-effects 
     were reported by 71·9% of individuals after the first dose of the Pfizer 
     COVID-19 vaccine, by 68·5% after the second dose of Pfizer COVID-19 vaccine, 
@@ -73,7 +73,7 @@ export const FAQ_ITEMS =  [
   {
     question: "Where can I get information about treatments for COVID-19?",
     answer: <> This information can be found at the Australian Department of 
-      Health Website (<a href="https://www.health.gov.au/health-alerts/covid-19/treatments"> 
+      Health Website (<a rel="noreferrer" target="_blank" href="https://www.health.gov.au/health-alerts/covid-19/treatments"> 
       https://www.health.gov.au/health-alerts/covid-19/treatments </a>). </>,
   },
 ];
