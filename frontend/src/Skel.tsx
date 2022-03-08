@@ -108,8 +108,8 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
       </AppBar>
       <Box>
         <Box pt={17} pb={2} style={{ backgroundColor: "#efecf2"  }}>
-          <Container maxWidth="lg" style={{ backgroundImage: "url('/logos/CoricalBoat_logo_t.png')",
-                                            backgroundSize: "30%",
+          <Container maxWidth="lg" style={{ backgroundImage: "url('/logos/CoricalBoat_logo.png')",
+                                            backgroundSize: "17%",
                                             backgroundRepeat: "no-repeat",
                                             backgroundPosition: "right center",
                                             }}>
@@ -117,7 +117,7 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
               {title}
             </Typography>
             <Grid container spacing={1}>
-            <Grid item xs={12} >
+            <Grid item xs={10} >
             <Typography variant="caption" paragraph>
               <ul>
                 <li>
@@ -254,7 +254,7 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
               <br />
               <b>Project conception</b>: Andrew Baird, John Litt, Kirsty Short
               <br />
-              <b>Development of interactive tool</b>:{" "}
+              <b>Web Development</b>:{" "}
               <a
                 href="https://www.aapelivuorinen.com"
                 style={{ textDecoration: "inherit", color: "inherit" }}
@@ -263,7 +263,7 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
               </a>, Tina Moghaddam
               <br />
               <b>Subject expertise</b>: Andrew Baird, Anoop Enjeti, Colleen Lau,
-              John Litt, Raj Puranik, Kirsty Short, Hassan Vally, Sudhir Wahi
+              John Litt, Raj Puranik, Kirsty Short, Sudhir Wahi
               <br />
               <b>Model design</b>: Colleen Lau, Helen Mayfield, Kerrie Mengersen
               <br />
@@ -279,8 +279,8 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
               <b>Risk Communication</b>: Carys Batcup, Carissa Bonner, 
               Colleen Lau, John Litt, Kirsty Short, Jane Sinclair, Hassan Vally
               <br />
-              <b>Administration and management</b>: Andrew Baird, Jayne Geddes,
-              John Litt, Kim Sampson, Kirsty Short
+              <b>Administration and project management</b>: Andrew Baird, Jayne Geddes,
+              John Litt, Helen Mayfield, Kim Sampson, Kirsty Short
               <br />
             </Typography>
             <Box pt={5} pb={1}>
@@ -317,6 +317,13 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
                 style={{ padding: "5px 0", height: "60px" }}
                 src="/logos/QUT_logo_White_c.png"
                 alt="Queensland University of Technology"
+              />
+            </Grid>
+            <Grid item xs={2} >
+              <img
+                style={{ padding: "5px 0", height: "60px" }}
+                src="/logos/USYD_logo.png"
+                alt="University of Sydney"
               />
             </Grid>
           </Grid>
