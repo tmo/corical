@@ -27,7 +27,7 @@ function IndexRoute() {
         Pfizer calculator
       </Button>
       </Box>
-      <Box mb={3}>
+      <Box mb={5}>
       <h2>First dose AstraZeneca - Omicron Variant, updated 11/03/2022</h2>
       <Button
         component={Link}

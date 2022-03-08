@@ -20,5 +20,5 @@ export const RELEASE_NOTES = <>
           An extra age group has been added for 70 – 79 year-olds
           </li>
       </ul>
-      If you like to send us feedback on the CoRiCal tool, click <a href="https://forms.gle/8DW7NRF5z3JE8JCGA">HERE</a> to access the feedback form, or email us at <a href="mailto:corical.feedback@immunisationcoalition.org.au">corical.feedback@immunisationcoalition.org.au</a>.
+      If you would like to send us feedback on the CoRiCal tool, click <a href="https://forms.gle/8DW7NRF5z3JE8JCGA">HERE</a> to access the feedback form, or email us at <a href="mailto:corical.feedback@immunisationcoalition.org.au">corical.feedback@immunisationcoalition.org.au</a>.
   </>;
