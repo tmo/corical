@@ -120,8 +120,8 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             transmission_label = "a huge number of cases"
         elif request.transmission == "Five_percent":
             transmission_label = "a large number of cases"
-        elif request.transmission == "ATAGI_High":
-            transmission_label = "a lot of cases "
+        elif request.transmission == "Two_percent":
+            transmission_label = "a lot of cases"
         elif request.transmission == "ATAGI_Med":
             transmission_label = "few cases"
         elif request.transmission == "ATAGI_Low":
@@ -399,7 +399,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             transmission_label = "a huge number of cases "
         elif request.ct == "Five_percent":
             transmission_label = "a large number of cases "
-        elif request.ct == "ATAGI_High":
+        elif request.ct == "Two_percent":
             transmission_label = "a lot of cases "
         elif request.ct == "ATAGI_Med":
             transmission_label = "few cases"

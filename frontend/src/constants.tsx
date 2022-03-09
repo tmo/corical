@@ -124,9 +124,14 @@ export const PZ_SCENARIOS = [
     label: "A large number of cases",
     description: "5% chance of getting COVID-19 over 2 months – about the same as 6,800 cases per day in NSW",
   },
+  // {
+  //   value: "ATAGI_High",
+  //   label: "A lot of cases ",
+  //   description: "2% chance of getting COVID-19 over 2 months – about the same as 2,500 cases per day in NSW",
+  // },
   {
-    value: "ATAGI_High",
-    label: "A lot of cases ",
+    value: "Two_percent",
+    label: "A lot of cases",
     description: "2% chance of getting COVID-19 over 2 months – about the same as 2,500 cases per day in NSW",
   },
   {
@@ -161,9 +166,14 @@ export const SCENARIOS = [
     label: "A large number of cases",
     description: "5% chance of getting COVID-19 over 2 months – about the same as 6,800 cases per day in NSW",
   },
+  // {
+  //   value: "ATAGI_High",
+  //   label: "A lot of cases ",
+  //   description: "2% chance of getting COVID-19 over 2 months – about the same as 2,500 cases per day in NSW",
+  // },
   {
-    value: "ATAGI_High",
-    label: "A lot of cases ",
+    value: "Two_percent",
+    label: "A lot of cases",
     description: "2% chance of getting COVID-19 over 2 months – about the same as 2,500 cases per day in NSW",
   },
   {
@@ -185,11 +195,6 @@ export const SCENARIOS = [
   //   value: "One_percent",
   //   label: "1%",
   //   description: "Description for 1%",
-  // },
-  // {
-  //   value: "Two_percent",
-  //   label: "2%",
-  //   description: "Description for 2%",
   // },
   // {
   //   value: "NSW_1000_cases",
