@@ -144,7 +144,7 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
                   The tool shows the average chance for people who are the same 
                   sex and age as you. It does not use other factors, like any 
                   health problems you have, such as heart problems or diabetes. 
-                  It also does not know if you work in a place with more COVID-19 
+                  It also does not know if you live or work in a place with more COVID-19 
                   cases, or if you have a job that puts you in contact with a lot 
                   of people. These things may change your chances of getting 
                   COVID-19 or dying from it.
