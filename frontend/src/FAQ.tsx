@@ -1,11 +1,15 @@
 export const FAQ_ITEMS =  [
   {
     question: "How is the risk of various scenarios calculated?",
-    answer: <> We have used trusted data sources 
-      (see <a rel="noreferrer" target="_blank" href="/docs/pfizer_assumptions_11_03_22.pdf">Pfizer data sources </a> 
-      and <a rel="noreferrer" target="_blank" href="/docs/astrazeneca_assumptions_11_03_22.pdf"> AstraZeneca data
-      sources </a> and assumptions) to create a Bayesian Network model. A Bayesian network is a graphical model that uses 
-      conditional probabilities to determine the likely probability of certain events.</>,
+    answer: <> We have used trusted data sources to create a Bayesian Network 
+      model. A Bayesian network is a graphical model that uses conditional 
+      probabilities to determine the likely probability of certain events.
+      For examples of how these risks are calculated based on the assumptions, 
+      see <a rel="noreferrer" target="_blank" href="/docs/AstraZeneca_and_Pfizer_Model_Manual_Calculations.pdf">here for Astrazeneca vaccine</a> 
+      and <a rel="noreferrer" target="_blank" href="/docs/Pfizer_Model_Manual_Calculations.pdf">here for the Pfizer vaccine</a>.  
+      Assumptions are listed <a rel="noreferrer" target="_blank" href="/docs/astrazeneca_assumptions_11_03_22.pdf">here for Astrazeneca vaccine</a> 
+      and <a rel="noreferrer" target="_blank" href="/docs/pfizer_assumptions_11_03_22.pdf">here for the Pfizer vaccine</a>.
+      </>,
   },
   {
     question: "Why are comorbidities (e.g. obesity, diabetes, cardiovascular disease, immunosuppression etc) not included in this calculator?",
