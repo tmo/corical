@@ -327,7 +327,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             bar_graphs_list.append(
                 corical_pb2.BarGraph(
                     title="What is my chance of dying from inflammation of my heart muscle (myocarditis) after receiving the Pfizer vaccine for my third dose?",
-                    subtitle=subtitle,
+                    subtitle=pz_booster_subtitle + " " + subtitle,
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
