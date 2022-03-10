@@ -194,8 +194,6 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                 logging.info("Saving current case")
                 current_case = cur
 
-
-
         bar_graphs_list = [
             corical_pb2.BarGraph(
                 title=f"What is my chance of getting COVID-19?",
@@ -243,7 +241,17 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                             is_other_shot=d["is_other_shot"],
                         )
                         for d in cmp
-                        if (d["get_tts"] > 0.0 or d['label'] == cmp[0]['label']) and d['shot_ordinal'] != "no"
+                        if (d["get_tts"] > 0.0 or d['label'] == cmp[0]['label']) and d['shot_ordinal'] != "no" and d['shot_ordinal'] != "Pfizer booster vaccine"
+                    ]
+                    + [
+                        corical_pb2.BarGraphRisk(
+                            label=f"Your chance of rare blood clots after the {d['shot_ordinal']} will increase by: ",
+                            risk=0,
+                            is_other_shot=d["is_other_shot"],
+                            bar_text="0  No evidence of increased chance of TTS after Pfizer vaccine",
+                        )
+                        for d in cmp
+                        if (d['label'] == cmp[0]['label']) and (d['shot_ordinal'] == "Pfizer booster vaccine")
                     ]
                 ),
             ),
@@ -265,7 +273,17 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                                 is_other_shot=d["is_other_shot"],
                             )
                             for d in cmp
-                            if (d["die_from_tts"] > 0.0 or d['label'] == cmp[0]['label']) and d['shot_ordinal'] != "no"
+                            if (d["die_from_tts"] > 0.0 or d['label'] == cmp[0]['label']) and d['shot_ordinal'] != "no" and d['shot_ordinal'] != "Pfizer booster vaccine"
+                        ]
+                        + [
+                            corical_pb2.BarGraphRisk(
+                                label=f"Your chance of dying from rare blood clots after the {d['shot_ordinal']} will increase by:",
+                                risk=0,
+                                is_other_shot=d["is_other_shot"],
+                                bar_text = "0  No evidence of increased chance of TTS after Pfizer vaccine",
+                            )
+                            for d in cmp
+                            if (d['label'] == cmp[0]['label'])  and (d['shot_ordinal'] == "Pfizer booster vaccine")
                         ]
                     ),
                 ),

@@ -213,7 +213,7 @@ export default function Form({ output }: OutputProps) {
           {output.bar_graphs?.map(({ title, subtitle, risks }: any) => {
             let multiplier = 1e6;
             const data_full = risks.map(
-              ({ label, risk, is_relatable, is_other_shot }: any) => {
+              ({ label, risk, is_relatable, is_other_shot , bar_text}: any) => {
                 let color = "#413ea0";
                 if (is_relatable) {
                   color = "#ccc";
@@ -221,6 +221,11 @@ export default function Form({ output }: OutputProps) {
                 if (is_other_shot) {
                   color = "#b2b1ce";
                 }
+                // if no bar_text is specified use the default 
+                let display_risk = displayRisk(risk, oneInX, label);
+                if (bar_text) {
+                  display_risk = bar_text;
+                } 
                 if (!relatable && is_relatable) {
                   return null;
                 }
@@ -228,7 +233,7 @@ export default function Form({ output }: OutputProps) {
                   label,
                   risk: multiplier * risk,
                   fill: color,
-                  display_risk: displayRisk(risk, oneInX, label),
+                  display_risk: display_risk,
                 };
               }
             );

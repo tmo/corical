@@ -300,28 +300,28 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
           <Grid container spacing={1}>
             <Grid item xs={2} >
               <img
-                style={{ padding: "5px 0", height: "60px" }}
+                style={{ padding: "0px 0", height: "80px", verticalAlign: "middle" }}
                 src="/logos/UQ_logo_s.png"
                 alt="University of Queensland"
               />
             </Grid>
             <Grid item xs={2} >
               <img
-                style={{ padding: "5px 0", height: "60px" }}
+                style={{ padding: "5px 0", height: "60px", verticalAlign: "middle" }}
                 src="/logos/FU_logo.jpg"
                 alt="Flinders University"
               />
             </Grid>
             <Grid item xs={2} >
               <img
-                style={{ padding: "5px 0", height: "60px" }}
+                style={{ padding: "5px 0", height: "50px", verticalAlign: "middle" }}
                 src="/logos/QUT_logo_White_c.png"
                 alt="Queensland University of Technology"
               />
             </Grid>
             <Grid item xs={2} >
               <img
-                style={{ padding: "5px 0", height: "60px" }}
+                style={{ padding: "5px 0", height: "60px", verticalAlign: "middle" }}
                 src="/logos/USYD_logo.png"
                 alt="University of Sydney"
               />

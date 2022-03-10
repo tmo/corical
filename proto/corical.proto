@@ -68,6 +68,8 @@ message BarGraphRisk {
   // so we can fade them out
   bool is_relatable = 3;
   bool is_other_shot = 4;
+  // what appears on the right of the bar
+  string bar_text = 5; 
 }
 
 message BarGraph {
