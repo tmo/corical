@@ -41,7 +41,7 @@ function IndexRoute() {
       <h1>View risk chart </h1>
       <h2>Risk of dying from COVID-19 based on age, sex, and vaccination status - 90% Omicron/10% Delta Variants, updated January 2022</h2>
       <Button
-        href="https://www.immunisationcoalition.org.au/wp-content/uploads/2022/01/2022_01_25_Covid-risk-chart_logos_included.pdf"
+        href="https://www.immunisationcoalition.org.au/wp-content/uploads/2021/05/2022_03_24_Covid-risk-chart-MJA.pdf"
         color="primary"
         variant="contained"
         rel="noreferrer" 
