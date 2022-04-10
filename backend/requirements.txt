@@ -3,3 +3,4 @@ lxml
 numpy
 protobuf
 pytz
+--index-url https://support.bayesfusion.com/pysmile-A/ pysmile
