@@ -3,6 +3,8 @@ Calculate network probabilites using the SMILE API.
 
 This requires a smile license to be placed in the smile directory.
 """
+from pathlib import Path
+import numpy as np
 
 import pysmile
 import smile.pysmile_license
@@ -12,16 +14,15 @@ class SmileModel:
     """
     Provides interaction for the Bayesian network
     """
-    def __init__(self, model_file, evidence):
+    def __init__(self, model_file):
         """        
         params:
             model_file - network xdsl file
-            evidence - dictionary of model nodes and the values to be set 
         """
         self.net = pysmile.Network()
-        self.net.read_file(model_file)
+        file_path = str(Path(__file__).parent / model_file)
+        self.net.read_file(file_path)
 
-        self.set_evidence(evidence)
         
     def get_network(self):
         """
@@ -35,7 +36,10 @@ class SmileModel:
             evidence - dictionary of model nodes and the values to be set 
         """
         for node in evidence:
-            self.net.set_evidence(node, evidence[node])
+            if isinstance(evidence[node], (list, np.ndarray)):
+                self.net.set_virtual_evidence(node, list(evidence[node]))
+            else:
+                self.net.set_evidence(node, evidence[node])
         self.net.update_beliefs()
 
     def get_binary_outcomes(self, nodes):
@@ -47,33 +51,14 @@ class SmileModel:
         Params:
             nodes - list of node names 
         """
-        outcomes = {}
+        # outcomes = {}
         positive_outcomes = {}
-        for node in nodes:
-            beliefs = self.net.get_node_value(node)
-            outcomes[node] = beliefs
+        for node_title in nodes:
+            beliefs = self.net.get_node_value(nodes[node_title])
+            # outcomes[node_title] = beliefs
             # Same as before, assuming yes is 1st option. Should probably check
-            positive_outcomes[node] = beliefs[0]
+            positive_outcomes[node_title] = beliefs[0]
         # self.outcomes = outcomes
         return positive_outcomes
 
-
-# baseline_evidence = {}
-evidence = {
-    "n3_Sex": "Female",
-    "n1_Pfizer_dose": "Two_2_4mths",
-    "n2_Age_group": "Age_40_49",
-    "n4_Community_transmission": "Five_percent"
-}
-network = SmileModel("Pf_March_GeNie_01-03-22.xdsl", evidence)
-
-wanted_outcomes = [
-    "n10_Risk_of_infection_under_current_transmission_and_vaccination_status",
-    "n14_Die_from_COVID19",
-    "n5_Vaccine_associated_myocarditis",
-    "n12_Die_from_Pfizer_myocarditis",
-    "n6_Myocarditis_background",
-    "n13_Die_from_background_myocarditis"
-]
-print(network.get_outcomes(wanted_outcomes))
 

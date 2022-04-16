@@ -15,6 +15,7 @@ from proto import corical_pb2, corical_pb2_grpc
 from risks import generate_relatable_risks
 from tts import compute_probs, scenario_to_vec
 from tts_util import get_age_bracket, get_age_bracket_pz, get_link
+from model import SmileModel
 
 utc = pytz.UTC
 
@@ -24,6 +25,9 @@ logger = logging.getLogger(__name__)
 server = grpc.server(futures.ThreadPoolExecutor(32))
 server.add_insecure_port(f"[::]:21000")
 
+# TODO: move
+AZ_model_file = "AZ_March_GeNie_01-03-22.xdsl"
+PZ_model_file = "Pf_March_GeNie_01-03-22.xdsl"
 
 def now():
     return datetime.now(utc)
@@ -45,6 +49,24 @@ def generate_bar_graph_risks(input_risks):
         for r in generate_relatable_risks([risk.risk for risk in input_risks])
     ]
 
+def calculate_clots(outcomes):
+    die_from_clots = (outcomes["die_from_csvt"] + outcomes["die_from_pvt"] 
+                    - outcomes["die_from_csvt"] * outcomes["die_from_pvt"])
+    die_from_clots_covid_given_infected = (
+        outcomes["die_from_csvt_covid_given_infected"]
+        + outcomes["die_from_pvt_covid_given_infected"]
+        - outcomes["die_from_csvt_covid_given_infected"] * outcomes["die_from_pvt_covid_given_infected"]
+    )
+    get_clots_covid_given_infected = (
+        outcomes["get_csvt_covid_given_infected"]
+        + outcomes["get_pvt_covid_given_infected"]
+        - outcomes["get_csvt_covid_given_infected"] * outcomes["get_pvt_covid_given_infected"]
+    )
+    return {
+        "die_from_clots": die_from_clots, 
+        "get_clots_covid_given_infected": get_clots_covid_given_infected, 
+        "die_from_clots_covid_given_infected": die_from_clots_covid_given_infected,
+    }
 
 class Corical(corical_pb2_grpc.CoricalServicer):
     def ComputeTTS(self, request, context):
@@ -55,6 +77,8 @@ class Corical(corical_pb2_grpc.CoricalServicer):
 
         messages = []
 
+        ### Process Input
+        # TODO: This may not be neccessary with smile api
         # sex
         if request.sex == "female":
             sex_label = "female"
@@ -164,6 +188,32 @@ class Corical(corical_pb2_grpc.CoricalServicer):
         logger.info(f"{variant_vec=}")
         logger.info(f"{ct_vec=}")
 
+
+
+        network = SmileModel(AZ_model_file)
+        baseline_outcomes = {
+            "symptomatic_infection": "n14_Infection_at_current_transmission",
+            "die_from_covid": "n23_Die_from_Covid",
+            "get_tts": "n6_TTS",
+            "die_from_tts": "n18_Die_from_TTS_AZ",
+            "get_myocarditis_bg": "n10_BackMyo",
+            "die_myocarditis_bg": "n22_Die_from_myocarditis__background", 
+            "get_myocarditis_vax": "n7_VacMyo",
+            "die_myocarditis_vax": "n19_Die_from_vaccine_associatedmyocarditis",
+            "die_from_csvt": "n20_Die_from_CSVT",
+            "die_from_pvt": "n21_Die_from_PVT",
+        }
+        infected_outcomes = {
+            "die_from_covid_given_infected": "n23_Die_from_Covid",
+            "get_myocarditis_given_covid": "n17_COV_Myo",
+            "die_myocarditis_given_covid": "n26_Die_from_COV_Myo",
+            "die_from_csvt_covid_given_infected": "n24_Die_from_CSVT_Covid", 
+            "die_from_pvt_covid_given_infected": "n25_Die_from_PVT_Covid", 
+            "get_csvt_covid_given_infected": "n15_CSVT_Covid", 
+            "get_pvt_covid_given_infected": "n16_PVT_Covid", 
+        }
+
+
         cmp = []
         current_case = None
         for i, cdose in enumerate([request.vaccine] + comparison_doses):
@@ -173,22 +223,20 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                 "is_other_shot": i != 0,
                 "shot_ordinal": shot_ordinal,
             }
-            (
-                cur["symptomatic_infection"],
-                cur["get_tts"],
-                cur["die_from_covid_given_infected"],
-                cur["die_from_tts"],
-                cur["die_from_clots"],
-                cur["die_from_covid"],
-                cur["get_clots_covid_given_infected"],
-                cur["die_from_clots_covid_given_infected"],
-                cur["get_myocarditis_vax"],
-                cur["die_myocarditis_vax"],
-                cur["get_myocarditis_given_covid"],
-                cur["die_myocarditis_given_covid"],
-                cur["get_myocarditis_bg"],
-                cur["die_myocarditis_bg"],
-            ) = compute_probs(cdose, age_value, sex_vec, ct_vec, variant_vec)
+            evidence = {
+                "n5_Sex": sex_vec,
+                "n1_Dose": cdose,
+                "n2_Age": age_value,
+                "n4_Transmission": ct_vec
+            }
+
+            network.set_evidence(evidence)
+            cur.update(network.get_binary_outcomes(baseline_outcomes))
+            network.set_evidence({"n14_Infection_at_current_transmission":"Yes"})
+            cur.update(network.get_binary_outcomes(infected_outcomes))
+            network.get_network().clear_evidence("n14_Infection_at_current_transmission")
+            cur.update(calculate_clots(cur))
+
             cmp.append(cur)
             if cdose == request.vaccine:
                 logging.info("Saving current case")
@@ -472,6 +520,22 @@ class Corical(corical_pb2_grpc.CoricalServicer):
         # hardcoded as 100% omicron
         variant_vec = None
 
+        network = SmileModel(PZ_model_file)
+        baseline_outcomes = {
+            "get_covid": "n10_Risk_of_infection_under_current_transmission_and_vaccination_status",
+            "die_from_covid": "n14_Die_from_COVID19",
+            "get_myocarditis_bg": "n6_Myocarditis_background",
+            "die_myocarditis_bg": "n13_Die_from_background_myocarditis",
+            "get_myocarditis_vax": "n5_Vaccine_associated_myocarditis",
+            "die_myocarditis_vax": "n12_Die_from_Pfizer_myocarditis",
+        }
+
+        infected_outcomes = {
+            "die_from_covid_given_infected": "n14_Die_from_COVID19",
+            "get_myocarditis_given_covid": "n11_Myocarditis_from_COVID19",
+            "die_myocarditis_given_covid": "n15_Die_from_COVID19_myocarditis" ,
+        }
+
         cmp = []
 
         for i, cdose in enumerate([request.dose] + comparison_doses):
@@ -481,17 +545,19 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                 "is_other_shot": i != 0,
                 "shot_ordinal": shot_ordinal,
             }
-            (
-                cur["get_covid"],
-                cur["get_myocarditis_vax"],
-                cur["die_myocarditis_vax"],
-                cur["get_myocarditis_given_covid"],
-                cur["die_myocarditis_given_covid"],
-                cur["get_myocarditis_bg"],
-                cur["die_myocarditis_bg"],
-                cur["die_covid_if_got_it"],
-                cur["die_from_covid"],
-            ) = compute_pfizer_probs(cdose, age_label, request.ct, sex_vec, variant_vec)
+            evidence = {
+                "n3_Sex": sex_vec,
+                "n1_Pfizer_dose": cdose,
+                "n2_Age_group": age_label,
+                "n4_Community_transmission": request.ct
+            }
+
+            network.set_evidence(evidence)
+            cur.update(network.get_binary_outcomes(baseline_outcomes))
+            network.set_evidence({"n10_Risk_of_infection_under_current_transmission_and_vaccination_status":"Yes"})
+            cur.update(network.get_binary_outcomes(infected_outcomes))
+            network.get_network().clear_evidence("n10_Risk_of_infection_under_current_transmission_and_vaccination_status")
+            
             cmp.append(cur)
 
         scenario_description = f"Here are your results. These are for a {age_text} {sex_label} when there are {transmission_label} in your community. They are based on the number and timing of shots of Pfizer vaccines you have had."
@@ -520,7 +586,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                         [
                             corical_pb2.BarGraphRisk(
                                 label=f"Chance of dying from COVID-19 if you have {d['label']}",
-                                risk=d["die_covid_if_got_it"],
+                                risk=d["die_from_covid_given_infected"],
                                 is_other_shot=d["is_other_shot"],
                             )
                             for d in cmp
