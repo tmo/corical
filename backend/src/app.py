@@ -102,7 +102,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
         # az shots
         vaccine_labels = {
             "None": ("not had any vaccines", "no"),
-            "OneAZ_under_3_weeks": ("had one shot of AstraZeneca vaccine (1-3 months ago)", "first shot of the AstraZeneca vaccine"),
+            "OneAZ_under_3_weeks": ("had one shot of AstraZeneca vaccine (1-3 weeks ago)", "first shot of the AstraZeneca vaccine"),
             "TwoAZ_under_2_months": ("had two shots of AstraZeneca vaccine (2 months ago)", "second shot of the AstraZeneca vaccine"),
             "TwoAZ_2to4_months": ("had two shots of AstraZeneca vaccine (2-4 months after the vaccine)", "second shot of the AstraZeneca vaccine"),
             "TwoAZ_4to6_months": ("had two shots of AstraZeneca vaccine (4-6 months after the vaccine)", "second shot of the AstraZeneca vaccine"),
