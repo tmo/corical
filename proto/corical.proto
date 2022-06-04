@@ -19,6 +19,13 @@ service Corical {
       body : "*"
     };
   }
+
+  rpc ComputePfizerChildren(ComputePfizerReq) returns (ComputeRes) {
+    option (google.api.http) = {
+      post : "/v1/compute_pfizer_children"
+      body : "*"
+    };
+  }
 }
 
 /// TTS

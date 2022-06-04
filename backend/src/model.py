@@ -5,9 +5,13 @@ This requires a smile license to be placed in the smile directory.
 """
 from pathlib import Path
 import numpy as np
+import logging
 
 import pysmile
 import smile.pysmile_license
+
+logging.basicConfig(format="%(asctime)s: %(name)s: %(message)s", level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 # make class
 class SmileModel:
@@ -36,10 +40,16 @@ class SmileModel:
             evidence - dictionary of model nodes and the values to be set 
         """
         for node in evidence:
-            if isinstance(evidence[node], (list, np.ndarray)):
-                self.net.set_virtual_evidence(node, list(evidence[node]))
-            else:
-                self.net.set_evidence(node, evidence[node])
+            try:
+                if isinstance(evidence[node], (list, np.ndarray)):
+                    self.net.set_virtual_evidence(node, list(evidence[node]))
+                else:
+                    self.net.set_evidence(node, evidence[node])
+            except pysmile.SMILEException as e:
+                logger.error("Error in setting evidence {} to node {}".format(
+                            evidence[node], node
+                ))
+                logger.error(e)
         self.net.update_beliefs()
 
     def get_binary_outcomes(self, nodes):

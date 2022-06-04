@@ -12,6 +12,8 @@ export const FIELD_REQUIRED = "This field is required.";
 export const AGE_LABEL = "Age";
 export const AGE_TOO_SMALL = "Must be at least 18 years old.";
 export const AGE_TOO_BIG = "Please enter an age under 100.";
+export const CHILDREN_AGE_TOO_SMALL = "Must be at least 5 years old.";
+export const CHILDREN_AGE_TOO_BIG = "Please enter an age under 18, or use the adult calculator.";
 
 export const SEX_LABEL = "Sex";
 export const SEX_OPTIONS = [
@@ -111,44 +113,44 @@ export const PZ_VACCINE2_OPTIONS = [
   // },
 ];
 
-export const PZ_SCENARIOS_LABEL = "How many cases are there in your community?";
-export const PZ_SCENARIOS_DEFAULT = "Five_percent";
-export const PZ_SCENARIOS = [
+export const CHILDREN_VACCINE_OPTIONS = [
   {
-    value: "Ten_percent",
+    value: "None",
+    label: "None",
+  },
+  {
+    value: "One",
+    label: "One shot of Pfizer for children",
+  },
+  {
+    value: VACCINE_SECOND_VAL,
+    label: "Two shots of Pfizer for children",
+  },
+];
+
+export const CHILDREN_SCENARIOS_LABEL = "How many cases are there in your community?";
+export const CHILDREN_SCENARIOS_DEFAULT = "Five_percent";
+export const CHILDREN_SCENARIOS = [
+  {
+    value: "Ten_Percent",
     label: "A huge number of cases",
     description: "10% chance of getting COVID-19 over 2 months – about the same as 13,600 cases per day in NSW",
   },
   {
-    value: "Five_percent",
+    value: "Five_Percent",
     label: "A large number of cases",
     description: "5% chance of getting COVID-19 over 2 months – about the same as 6,800 cases per day in NSW",
   },
-  // {
-  //   value: "ATAGI_High",
-  //   label: "A lot of cases ",
-  //   description: "2% chance of getting COVID-19 over 2 months – about the same as 2,500 cases per day in NSW",
-  // },
   {
-    value: "Two_percent",
+    value: "Two_Percent",
     label: "A lot of cases",
     description: "2% chance of getting COVID-19 over 2 months – about the same as 2,500 cases per day in NSW",
   },
   {
-    value: "ATAGI_Med",
-    label: "A few cases ",
-    description: "0.15% chance of getting COVID-19 over 2 months – about the same as 200 cases per day in NSW",
+  value: "One_Percent",
+  label: "A few cases",
+  description: "1% chance of getting COVID-19 over 2 months – about the same as 1,200 cases per day in NSW",
   },
-  {
-    value: "ATAGI_Low",
-    label: "Not many cases ",
-    description: "0.02% chance of getting COVID-19 over 2 months – about the same as 20 cases per day in NSW",
-  },
-  // {
-  //   value: "None_0",
-  //   label: "No community transmission",
-  //   description: "No COVID-19 circulating in the community",
-  // },
 ];
 
 export const SUBMIT_LABEL = "Calculate risk";
@@ -211,6 +213,41 @@ export const SCENARIOS = [
   //   label: "QLD 1000 cases",
   //   description: "Description for QLD 1000 cases",
   // },
+];
+
+export const PZ_SCENARIOS_LABEL = "How many cases are there in your community?";
+export const PZ_SCENARIOS_DEFAULT = "Five_percent";
+export const PZ_SCENARIOS = [
+  {
+    value: "Ten_percent",
+    label: "A huge number of cases",
+    description: "10% chance of getting COVID-19 over 2 months – about the same as 13,600 cases per day in NSW",
+  },
+  {
+    value: "Five_percent",
+    label: "A large number of cases",
+    description: "5% chance of getting COVID-19 over 2 months – about the same as 6,800 cases per day in NSW",
+  },
+  // {
+  //   value: "ATAGI_High",
+  //   label: "A lot of cases ",
+  //   description: "2% chance of getting COVID-19 over 2 months – about the same as 2,500 cases per day in NSW",
+  // },
+  {
+    value: "Two_percent",
+    label: "A lot of cases",
+    description: "2% chance of getting COVID-19 over 2 months – about the same as 2,500 cases per day in NSW",
+  },
+  {
+    value: "ATAGI_Med",
+    label: "A few cases ",
+    description: "0.15% chance of getting COVID-19 over 2 months – about the same as 200 cases per day in NSW",
+  },
+  {
+    value: "ATAGI_Low",
+    label: "Not many cases ",
+    description: "0.02% chance of getting COVID-19 over 2 months – about the same as 20 cases per day in NSW",
+  },
 ];
 
 // output

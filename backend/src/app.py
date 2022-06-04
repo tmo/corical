@@ -14,7 +14,7 @@ from pfizer import compute_probs as compute_pfizer_probs
 from proto import corical_pb2, corical_pb2_grpc
 from risks import generate_relatable_risks
 from tts import compute_probs, scenario_to_vec
-from tts_util import get_age_bracket, get_age_bracket_pz, get_link
+from tts_util import get_age_bracket, get_age_bracket_pz, get_age_bracket_children, get_link
 from model import SmileModel
 
 utc = pytz.UTC
@@ -28,6 +28,7 @@ server.add_insecure_port(f"[::]:21000")
 # TODO: move
 AZ_model_file = "AZ_March_GeNie_01-03-22.xdsl"
 PZ_model_file = "Pf_March_GeNie_01-03-22.xdsl"
+PZ_children_model_file = "Pf_May_children_testing_22-05-22.xdsl"
 
 def now():
     return datetime.now(utc)
@@ -648,6 +649,188 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                             )
                             for d in cmp[:-(len(cmp)-2)] 
                             if d["die_myocarditis_vax"] > 0.0 or d['label'] == cmp[0]['label'] and d['shot_ordinal'] != "no"
+                        ]
+                    ),
+                ),
+            ],
+            output_groups=[],
+            success=True,
+            msg=str(request),
+            vaccine_type = "PZ",
+        )
+        duration = (perf_counter_ns() - start) / 1e6  # ms
+        binlog = corical_pb2.BinLog(
+            time=time,
+            pfizer_req=request,
+            res=out,
+            duration_ms=duration,
+        )
+
+        binlog_out = b64encode(binlog.SerializeToString()).decode("utf8")
+
+        logger.info(f"binlog: {binlog_out}")
+
+        return out
+
+    def ComputePfizerChildren(self, request, context):
+        start = perf_counter_ns()
+        time = Timestamp_from_datetime(now())
+
+        logger.info(request)
+
+        messages = []
+
+        # sex
+        if request.sex == "female":
+            sex_label = "female"
+            sex_vec = np.array([0.0, 1.0])
+        elif request.sex == "male":
+            sex_label = "male"
+            sex_vec = np.array([1.0, 0.0])
+        elif request.sex == "other":
+            sex_label = "person of unspecified sex"
+            sex_vec = np.array([0.5, 0.5])
+            messages.append(
+                corical_pb2.Message(
+                    heading="Sex disclaimer",
+                    text="We do not have data on the chosen sex, so the results reflect a population with 50% females and 50% males",
+                    severity="info",
+                )
+            )
+        else:
+            context.abort(grpc.StatusCode.FAILED_PRECONDITION, "Invalid sex")
+
+        age_text, age_label, age_ix = get_age_bracket_children(request.age)
+        if request.ct == "None_0":
+            transmission_label = "no"
+        elif request.ct == "Ten_Percent":
+            transmission_label = "a huge number of cases "
+        elif request.ct == "Five_Percent":
+            transmission_label = "a large number of cases "
+        elif request.ct == "Two_Percent":
+            transmission_label = "a lot of cases "
+        elif request.ct == "One_Percent":
+            transmission_label = "a few cases"
+        else:
+            transmission_label = request.ct
+
+        if request.ct == "None_0":
+            messages.append(
+                corical_pb2.Message(
+                    heading="Note",
+                    text="You have selected a scenario with no community transmission. This is only a temporary situation and will change when state or national borders open.",
+                    severity="warning",
+                )
+            )
+
+        dose_labels = {
+            "None": ("not had any vaccines", "no"),
+            "One": ("had one shot", "first"),
+            "Two": ("had two shots", "second"),
+        }
+
+
+        if request.dose == "None":
+            comparison_doses = ["One", "Two"]
+        elif request.dose == "One":
+            comparison_doses = ["None", "Two"]
+        elif request.dose == "Two":
+            comparison_doses = ["None", "One"]
+
+        network = SmileModel(PZ_children_model_file)
+        baseline_outcomes = {
+            "get_myocarditis_vax": "n6_Vaccine_Myocarditis",
+            "get_myocarditis_bg": "n7_Background_Myocarditis",
+        }
+
+        infected_outcomes = {
+            "get_myocarditis_given_infected": "n12_Myocarditis_Covid",
+            # unclear if these should be given infected or not
+            "hospitalisation_given_infected": "n10_Hospitalisation",
+            "MSIC_given_infected": "n13_MSI_Covid",
+            "severse_MSIC_given_infected": "n14_MSI_severe",
+        }
+
+        cmp = []
+
+        for i, cdose in enumerate([request.dose] + comparison_doses):
+            label, shot_ordinal = dose_labels[cdose]
+            cur = {
+                "label": label,
+                "is_other_shot": i != 0,
+                "shot_ordinal": shot_ordinal,
+            }
+            evidence = {
+                "n4_Variant": "Omicron", # hardcoded omicron
+                "n3_Sex": sex_vec,
+                "n1_Pfizer_Dose": cdose,
+                "n2_Age": age_label,
+                "n5_Transmission": request.ct
+            }
+
+            network.set_evidence(evidence)
+            cur.update(network.get_binary_outcomes(baseline_outcomes))
+            network.set_evidence({"n9_Risk_of_Infection":"Yes"})
+            cur.update(network.get_binary_outcomes(infected_outcomes))
+            network.get_network().clear_evidence("n9_Risk_of_Infection")
+            
+            cmp.append(cur)
+
+        scenario_description = f"Here are your results. These are for a {age_text} {sex_label} when there are {transmission_label} in your community. They are based on the number and timing of shots of Pfizer vaccines you have had."
+        out = corical_pb2.ComputeRes(
+            messages=messages,
+            scenario_description=scenario_description,
+            bar_graphs=[
+                corical_pb2.BarGraph(
+                    title=f"What is my child's chance of having inflammation of their heart muscle (myocarditis)?",
+                    subtitle=f"You may have heard that the Pfizer Vaccine can give your child inflammation of their heart muscle. This is also called myocarditis. There are many other causes of myocarditis. Children can develop this problem even if they haven't had the vaccine. Myocarditis is also caused by a Covid-19 infection. These results are for a {age_text} {sex_label}. ",
+                    risks=generate_bar_graph_risks(
+                        [
+                            corical_pb2.BarGraphRisk(
+                                label=f"Chance of myocarditis after the {d['shot_ordinal']} shot of Pfizer vaccine will increase by:",
+                                risk=d["get_myocarditis_vax"],
+                                is_other_shot=d["is_other_shot"],
+                            )
+                            for d in cmp 
+                            if d["get_myocarditis_vax"] > 0.0 or d['label'] == cmp[0]['label'] and  d['shot_ordinal'] != "no"
+                        ]
+                        + [
+                            corical_pb2.BarGraphRisk(
+                                label=f"Chance of having myocarditis in 2 weeks even if you haven’t had any vaccine and haven’t had COVID-19 (infection)",
+                                risk=cmp[0]["get_myocarditis_bg"],
+                                is_other_shot=True,
+                            ),
+                        ]
+                        + [
+                            corical_pb2.BarGraphRisk(
+                                label=f"Chance of having myocarditis after COVID-19 (infection) ",
+                                risk=cmp[0]["get_myocarditis_given_infected"],
+                                is_other_shot=True,
+                            ),
+                        ]
+
+                    ),
+                ),
+                corical_pb2.BarGraph(
+                    title="What is the chance of my child having a serious problem after a Covid-19 infection?",
+                    subtitle="A Covid infection does have the chance of causing serious problems in Children. This can include being admitted to hospital. Furthermore, some children develop severe inflammation of some of their key organs, you may have already heard about this. This can affect the heart, brain, kidneys,blood vessels, skin, digestive track or eyes. The condition is known as Multi-System Inflammatory Syndrome in Children (MIS-C). MIS-C can lead to children needing to go to intensive care, which is known as a severe outcome. ",
+                    risks=generate_bar_graph_risks(
+                        [
+                            corical_pb2.BarGraphRisk(
+                                label=f"Chance of hospitalisation from Covid if infected",
+                                risk=cmp[0]["hospitalisation_given_infected"],
+                                is_other_shot=False,
+                            ),
+                            corical_pb2.BarGraphRisk( 
+                                label=f"Chance of MSI-C from Covid if infected",
+                                risk=cmp[0]["MSIC_given_infected"],
+                                is_other_shot=False,
+                            ),
+                            corical_pb2.BarGraphRisk(
+                                label=f"Chance of severe sutcome from MSI-C from Covid if infected",
+                                risk=cmp[0]["severse_MSIC_given_infected"],
+                                is_other_shot=False,
+                            )
                         ]
                     ),
                 ),

@@ -27,3 +27,8 @@ export async function computePfizer(form: PfizerFormData) {
   const res = await axios.post(API_URL + "/compute_pfizer", form);
   return res.data;
 }
+
+export async function computePfizerChildren(form: PfizerFormData) {
+  const res = await axios.post(API_URL + "/compute_pfizer_children", form);
+  return res.data;
+}

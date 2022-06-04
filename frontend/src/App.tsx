@@ -1,7 +1,8 @@
 import { useState } from "react";
 import TTSForm from "./TTSForm";
 import PfizerForm from "./PfizerForm";
-import { TTSFormData, PfizerFormData, computeTts, computePfizer } from "./api";
+import PfizerChildrenForm from "./PfizerChildrenForm";
+import { TTSFormData, PfizerFormData, computeTts, computePfizer, computePfizerChildren } from "./api";
 import Output from "./Output";
 import { Alert, AlertTitle } from "@material-ui/lab/";
 import { BY_LINE, TITLE } from "./constants";
@@ -36,6 +37,17 @@ function IndexRoute() {
         variant="contained"
       >
         AstraZeneca calculator
+      </Button>
+      </Box>
+      <Box mb={5}>
+      <h2>Pfizer for Children - Omicron Variant, updated 27/05/2022</h2>
+      <Button
+        component={Link}
+        to="/pfizer_children"
+        color="primary"
+        variant="contained"
+      >
+        Children's calculator
       </Button>
       </Box>
       <h1>View risk chart </h1>
@@ -93,6 +105,44 @@ function PfizerRoute() {
   );
 }
 
+function PfizerChildrenRoute() {
+  const [error, setError] = useState<string | null>(null);
+  const [pfizerChildrenOutput, setPfizerChildrenOutput] = useState<any | null>(null);
+  const pfizerChildrenCallback = async (form: PfizerFormData) => {
+    setError(null);
+    try {
+      form.age = Math.round(form.age!);
+      const res = await computePfizerChildren(form);
+      setPfizerChildrenOutput(res);
+    } catch (e: any) {
+      console.error(e);
+      setError(e.message);
+    }
+  };
+  return (
+    <>
+      <Button
+        component={Link}
+        to="/"
+        color="primary"
+        variant="outlined"
+        size="small"
+        style={{ margin: "1em" }}
+      >
+        Back to calculator selection
+      </Button>
+      <PfizerChildrenForm callback={pfizerChildrenCallback} />
+      {error ? (
+        <Alert severity="error">
+          <AlertTitle>An error occured</AlertTitle>
+          {error}
+        </Alert>
+      ) : (
+        <Output output={pfizerChildrenOutput} />
+      )}
+    </>
+  );
+}
 function AZRoute() {
   const [error, setError] = useState<string | null>(null);
   const [ttsOutput, setTTSOutput] = useState<any | null>(null);
@@ -258,6 +308,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<IndexRoute />} />
           <Route path="/pfizer" element={<PfizerRoute />} />
+          <Route path="/pfizer_children" element={<PfizerChildrenRoute />} />
           <Route path="/astrazeneca" element={<AZRoute />} />
           <Route path="/publications" element={<PubRoute />} />
           <Route path="/faq" element={<FaqRoute />} />

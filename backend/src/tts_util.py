@@ -68,3 +68,15 @@ def get_age_bracket_pz(age):
             return text, label, ix
     else:
         raise Exception("Invalid age")
+
+def get_age_bracket_children(age):
+    age_brackets = [
+        [5, 11, "Age_5_11", "5–11 year-old"],
+        [12, 17, "Age_12_17", "12–17 year-old"],
+    ]
+    for ix, (lower, upper, label, text) in enumerate(age_brackets):
+        if lower <= age <= upper:
+            return text, label, ix
+    else:
+        raise Exception("Invalid age")
+
