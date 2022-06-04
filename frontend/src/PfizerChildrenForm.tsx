@@ -26,7 +26,7 @@ import {
   AGE_LABEL,
   STEP1_HELPER,
   STEP1_TITLE,
-  PZ_VERSION_ALERT,
+  PZ_CHILDREN_VERSION_ALERT,
   CHILDREN_AGE_TOO_SMALL,
   CHILDREN_AGE_TOO_BIG,
   SEX_LABEL,
@@ -111,9 +111,9 @@ export default function Form({ callback }: FormInputs) {
 
   return (
     <form onSubmit={submit}>
-      <Alert key={PZ_VERSION_ALERT} severity={"info"} className={classes.message}>
+      <Alert key={PZ_CHILDREN_VERSION_ALERT} severity={"info"} className={classes.message}>
         <AlertTitle>{"Calculator Version"}</AlertTitle>
-        {PZ_VERSION_ALERT}
+        {PZ_CHILDREN_VERSION_ALERT}
       </Alert>
       <Typography variant="h5" component="h2">
         {STEP1_TITLE}

@@ -262,6 +262,9 @@ export const PZ_VERSION_ALERT = `This calculator is for people who had the
             Pfizer vaccine for their first two shots. Last updated on 
             11/03/2022. The tool assumes that all the cases are caused by the 
             Omicron variant.`;
+export const PZ_CHILDREN_VERSION_ALERT = `This calculator is for  people  under 
+            18 who had the Pfizer vaccine. Last updated on 03/06/2022. The tool 
+            assumes that all the cases are caused by the Omicron variant.`;
 
 
 export const DESCRIPTION_LABEL = "Description";
