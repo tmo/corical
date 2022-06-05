@@ -200,6 +200,7 @@ export default function Form({ output }: OutputProps) {
             </Tabs>
           </Paper>
           
+          {output.vaccine_type !== "Children" && (
           <Button
             onClick={() => setRelatable(!relatable)}
             color="primary"
@@ -209,6 +210,7 @@ export default function Form({ output }: OutputProps) {
               ? "Don't show relatable risks"
               : "Show relatable risks"}
           </Button>
+          )}
 
           {output.bar_graphs?.map(({ title, subtitle, risks }: any) => {
             let multiplier = 1e6;

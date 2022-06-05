@@ -838,7 +838,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             output_groups=[],
             success=True,
             msg=str(request),
-            vaccine_type = "PZ",
+            vaccine_type = "Children",
         )
         duration = (perf_counter_ns() - start) / 1e6  # ms
         binlog = corical_pb2.BinLog(
