@@ -775,6 +775,16 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             network.get_network().clear_evidence("n9_Risk_of_Infection")
             
             cmp.append(cur)
+        
+        # since there was not enough evidence for severe outcomes given one
+        #   dose of the vaccine, 0.5 was used as a filter
+        #   before display this needs to be filtered out and a message
+        #   written instead
+        remove_severe_nodes = False
+        if (cmp[0]["hospitalisation_given_infected"] == 0.5 or 
+            cmp[0]["MSIC_given_infected"] == 0.5):
+            remove_severe_nodes = True
+
 
         scenario_description = f"Here are your results. These are for a {age_text} {sex_label} when there are {transmission_label} in your community. They are based on the number and timing of shots of Pfizer vaccines you have had."
         out = corical_pb2.ComputeRes(
@@ -830,6 +840,28 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                                 label=f"Chance of severe sutcome from MSI-C from Covid if infected",
                                 risk=cmp[0]["severse_MSIC_given_infected"],
                                 is_other_shot=False,
+                            )
+                        ]
+                    ) if not remove_severe_nodes else 
+                        generate_bar_graph_risks(
+                        [
+                            corical_pb2.BarGraphRisk(
+                                label=f"Chance of hospitalisation from Covid if infected",
+                                risk=0.0,
+                                is_other_shot=True,
+                                bar_text="Not enough evidence available."
+                            ),
+                            corical_pb2.BarGraphRisk( 
+                                label=f"Chance of MSI-C from Covid if infected",
+                                risk=0.0,
+                                is_other_shot=True,
+                                bar_text="Not enough evidence available."
+                            ),
+                            corical_pb2.BarGraphRisk(
+                                label=f"Chance of severe sutcome from MSI-C from Covid if infected",
+                                risk=0.0,
+                                is_other_shot=True,
+                                bar_text="Not enough evidence available."
                             )
                         ]
                     ),
