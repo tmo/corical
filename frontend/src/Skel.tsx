@@ -174,6 +174,15 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
               >
                 What's New!
               </Button>{" "}
+
+              <Button
+                variant="outlined"
+                color="primary"
+                disableElevation
+                href="/videos"
+              >
+                Video Overview
+              </Button>{" "}
             </Typography>
             </Grid>
             {/* <Grid item xs={3} >
@@ -297,36 +306,36 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
         </Box>
         <Container maxWidth="lg">
           <Box mb={7}> <b> Collaborating institutions </b> </Box>
-          <Grid container spacing={2}>
-            <Grid item xs={2} >
+          <Grid container spacing={7}>
+            <Grid item >
               <img
                 style={{ padding: "0px 0", height: "80px", verticalAlign: "middle" }}
                 src="/logos/UQ_logo_s.png"
                 alt="University of Queensland"
               />
             </Grid>
-            <Grid item xs={2} >
+            <Grid item >
               <img
                 style={{ padding: "5px 0", height: "60px", verticalAlign: "middle" }}
                 src="/logos/FU_logo.jpg"
                 alt="Flinders University"
               />
             </Grid>
-            <Grid item xs={2} >
+            <Grid item >
               <img
                 style={{ padding: "5px 0", height: "50px", verticalAlign: "middle" }}
                 src="/logos/QUT_logo_White_c.png"
                 alt="Queensland University of Technology"
               />
             </Grid>
-            <Grid item xs={2} >
+            <Grid item >
               <img
                 style={{ padding: "5px 0", height: "60px", verticalAlign: "middle" }}
                 src="/logos/USYD_logo.png"
                 alt="University of Sydney"
               />
             </Grid>
-            <Grid item xs={2} >
+            <Grid item >
               <img
                 style={{ padding: "5px 0px", width: "120px", verticalAlign: "middle" }}
                 src="/logos/Bayesfusion_logo.jpg"
