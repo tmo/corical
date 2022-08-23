@@ -296,8 +296,8 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
           </Container>
         </Box>
         <Container maxWidth="lg">
-          <Box mb={4}> <b> Collaborating institutions </b> </Box>
-          <Grid container spacing={1}>
+          <Box mb={7}> <b> Collaborating institutions </b> </Box>
+          <Grid container spacing={2}>
             <Grid item xs={2} >
               <img
                 style={{ padding: "0px 0", height: "80px", verticalAlign: "middle" }}
@@ -324,6 +324,13 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
                 style={{ padding: "5px 0", height: "60px", verticalAlign: "middle" }}
                 src="/logos/USYD_logo.png"
                 alt="University of Sydney"
+              />
+            </Grid>
+            <Grid item xs={2} >
+              <img
+                style={{ padding: "5px 0px", width: "120px", verticalAlign: "middle" }}
+                src="/logos/Bayesfusion_logo.jpg"
+                alt="BayesFusion"
               />
             </Grid>
           </Grid>
