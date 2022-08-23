@@ -28,7 +28,7 @@ server.add_insecure_port(f"[::]:21000")
 # TODO: move
 AZ_model_file = "AZ_March_GeNie_01-03-22.xdsl"
 PZ_model_file = "Pf_March_GeNie_01-03-22.xdsl"
-PZ_children_model_file = "Pf_May_children_testing_22-05-22.xdsl"
+PZ_children_model_file = "pfizer_children_27-06-02.xdsl"
 
 def now():
     return datetime.now(utc)
@@ -837,7 +837,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                                 is_other_shot=False,
                             ),
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of severe sutcome from MSI-C from Covid if infected",
+                                label=f"Chance of severe outcome from MSI-C from Covid if infected",
                                 risk=cmp[0]["severse_MSIC_given_infected"],
                                 is_other_shot=False,
                             )
@@ -849,19 +849,22 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                                 label=f"Chance of hospitalisation from Covid if infected",
                                 risk=0.0,
                                 is_other_shot=True,
-                                bar_text="Not enough evidence available."
+                                bar_text="Not enough evidence available.",
+                                hover_text="There is not enough evidence to provide information on this."
                             ),
                             corical_pb2.BarGraphRisk( 
                                 label=f"Chance of MSI-C from Covid if infected",
                                 risk=0.0,
                                 is_other_shot=True,
-                                bar_text="Not enough evidence available."
+                                bar_text="Not enough evidence available.",
+                                hover_text="There is not enough evidence to provide information on this."
                             ),
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of severe sutcome from MSI-C from Covid if infected",
+                                label=f"Chance of severe outcome from MSI-C from Covid if infected",
                                 risk=0.0,
                                 is_other_shot=True,
-                                bar_text="Not enough evidence available."
+                                bar_text="Not enough evidence available.",
+                                hover_text="There is not enough evidence to provide information on this."
                             )
                         ]
                     ),
