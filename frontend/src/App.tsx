@@ -301,6 +301,97 @@ function NewRoute() {
   );
 }
 
+function VideoRoute() {
+  return (
+    <>
+      <Box my={4}>
+        <h1>Video Overview</h1>
+        <p>The CoRiCal team have produced a few short film clips to outline:
+        <ul> 
+          <li> what is CoRiCal, our COVID Risk calculator, and who has 
+            contributed to its construction</li>
+          <li> why it was developed,</li>
+          <li> why it is both useful and unique,  summarising the strengths of 
+            using such a decision-making tool.</li>
+          <li> the risk chart for COVID deaths to estimate the likely risk of 
+            dying from COVID based upon age, sex and number of COVID vaccine doses.</li>
+        </ul>
+        There are 4 very brief clips, each about 1 ½ minutes in length. There is 
+        one longer film clip (~7 ½ minutes) that puts all these sections together.
+        GPs and health care professionals offering COVID vaccines are welcome to 
+        download the film clips to their desktop or even consider installing 
+        them on the TV in the patient waiting room.
+        </p>
+
+        <Container maxWidth="lg">
+          <Typography>
+          <h2>Full CoRiCal Video</h2>
+          <iframe title="main_video" 
+            src="https://player.vimeo.com/video/731968709?h=04dfd4374d" 
+            width="640" height="360" frameBorder="0" allow="autoplay; 
+            fullscreen; picture-in-picture" allowFullScreen></iframe>
+          <br />
+
+          <h2>What is CoRiCal? </h2>
+          <iframe title="what_video" 
+            src="https://player.vimeo.com/video/731969006?h=01779c0ebd" 
+            width="640" height="360" frameBorder="0" allow="autoplay; 
+            fullscreen; picture-in-picture" allowFullScreen></iframe>
+          <br />
+
+          <h2>Why did the academic team develop CoRiCal?</h2>
+          <p>A significant number of people ( ~30%) have not had a COVID vaccine 
+            booster. This puts them at considerable risk from the more recent 
+            Omicron COVID variants as they have little protection.
+          Given that nearly 75% of the deaths from COVID have occurred this 
+          year and can be attributed to Omicron. 
+          </p>
+          <iframe title="rationale_video" 
+            src="https://player.vimeo.com/video/731969146?h=a6ef24648b" 
+            width="640" height="360" frameBorder="0" allow="autoplay; 
+            fullscreen; picture-in-picture" allowFullScreen></iframe>
+          <br />
+
+          <h2>Strengths of CoRiCal </h2>
+          <iframe title="strengths_video" 
+            src="https://player.vimeo.com/video/731969339?h=f8fad2c6ee" 
+            width="640" height="360" frameBorder="0" allow="autoplay; 
+            fullscreen; picture-in-picture" allowFullScreen></iframe>
+          <br />
+
+          <h2>Risk of dying from COVID</h2>
+          <iframe title="risks_video" 
+            src="https://player.vimeo.com/video/731968526?h=27f7b80c9f" 
+            width="640" height="360" frameBorder="0" allow="autoplay; 
+            fullscreen; picture-in-picture" allowFullScreen></iframe>
+          <br />
+
+          <h2>Acknowledgements</h2>
+          <p>The CoRiCal team are very grateful to Dr Ramesh Manocha and his 
+            team HealthEd for graciously providing their film crew to film the 
+            CoRiCal clips at no cost. The CoRiCal team are also grateful to 
+            Kim Sampson, Jayne Geddes and the team at the Immunisation 
+            Coalition in providing ongoing administrative support to the 
+            development of CoRiCal.</p>
+
+          </Typography>
+        </Container>
+
+      </Box>
+      <Button
+        component={Link}
+        to="/"
+        color="primary"
+        variant="outlined"
+        size="small"
+        style={{ margin: "1em" }}
+      >
+        Back to calculator
+      </Button>
+    </>
+  );
+}
+
 export default function App() {
   return (
     <Skel title={TITLE} subtitle={BY_LINE}>
@@ -313,6 +404,7 @@ export default function App() {
           <Route path="/publications" element={<PubRoute />} />
           <Route path="/faq" element={<FaqRoute />} />
           <Route path="/whatsnew" element={<NewRoute />} />
+          <Route path="/videos" element={<VideoRoute />} />
         </Routes>
       </BrowserRouter>
     </Skel>
