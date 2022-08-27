@@ -9,7 +9,12 @@ import {
   Toolbar,
   Button,
   Grid,
+  IconButton,
+  MenuItem,
+  Menu,
 } from "@material-ui/core";
+import MoreIcon from "@material-ui/icons/MoreVert";
+import { useState } from "react";
 
 const theme = createTheme({
   palette: {
@@ -69,6 +74,9 @@ interface SkelProps {
 }
 
 export default function Skel({ title, subtitle, children }: SkelProps) {
+  const isNarrow = window.innerWidth <= 500;
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -85,24 +93,59 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
                 alt="Immunisation Coalition Advocating for Immunisation Across the Lifespan"
               />
             </a>
-            <Button
-              color="primary"
-              href="https://www.immunisationcoalition.org.au/"
-            >
-              Home
-            </Button>
-            <Button
-              color="primary"
-              href="https://www.immunisationcoalition.org.au/disclaimer/"
-            >
-              Disclaimer
-            </Button>
-            <Button
-              color="primary"
-              href="https://www.immunisationcoalition.org.au/privacy-policy/"
-            >
-              Privacy policy
-            </Button>
+            { isNarrow? (
+              <>
+                <IconButton
+                  color="inherit"
+                  onClick={(event: React.MouseEvent<HTMLElement>) => 
+                    setAnchorEl(event.currentTarget)}
+                >
+                  <MoreIcon/>
+                </IconButton>
+                <Menu
+                    anchorEl={anchorEl}
+                    open={Boolean(anchorEl)}
+                    onClose={() => setAnchorEl(null)}
+                  >
+                    <MenuItem onClick={() => setAnchorEl(null)} component="a" 
+                      href="https://www.immunisationcoalition.org.au/"
+                    >
+                        Home
+                    </MenuItem>
+                    <MenuItem onClick={() => setAnchorEl(null)} component="a" 
+                      href="https://www.immunisationcoalition.org.au/disclaimer/"
+                    >
+                        Disclaimer
+                    </MenuItem>
+                    <MenuItem onClick={() => setAnchorEl(null)} component="a" 
+                      href="https://www.immunisationcoalition.org.au/privacy-policy/"
+                    >
+                        Privacy policy
+                    </MenuItem>
+                </Menu>
+              </>
+            ) : (
+              <>
+                <Button
+                  color="primary"
+                  href="https://www.immunisationcoalition.org.au/"
+                >
+                  Home
+                </Button>
+                <Button
+                  color="primary"
+                  href="https://www.immunisationcoalition.org.au/disclaimer/"
+                >
+                  Disclaimer
+                </Button>
+                <Button
+                  color="primary"
+                  href="https://www.immunisationcoalition.org.au/privacy-policy/"
+                >
+                  Privacy policy
+                </Button>
+              </>
+            )}
           </Toolbar>
         </Container>
       </AppBar>
