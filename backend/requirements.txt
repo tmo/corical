@@ -3,5 +3,5 @@ lxml
 numpy
 protobuf==3.20.*
 pytz
-pysmile
+pysmile==1.6.*
 --extra-index-url https://support.bayesfusion.com/pysmile-A/ 
