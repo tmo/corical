@@ -128,7 +128,7 @@ export const CHILDREN_VACCINE_OPTIONS = [
   },
 ];
 
-export const CHILDREN_SCENARIOS_LABEL = "How many cases are there in your community?";
+export const CHILDREN_SCENARIOS_LABEL = "How many reported cases are there in your community?";
 export const CHILDREN_SCENARIOS_DEFAULT = "Five_percent";
 export const CHILDREN_SCENARIOS = [
   {
@@ -155,7 +155,7 @@ export const CHILDREN_SCENARIOS = [
 
 export const SUBMIT_LABEL = "Calculate risk";
 
-export const SCENARIOS_LABEL = "How many cases are there in your community?";
+export const SCENARIOS_LABEL = "How many reported cases are there in your community?";
 export const SCENARIOS_DEFAULT = "Five_percent";
 export const SCENARIOS = [
   {
@@ -215,7 +215,7 @@ export const SCENARIOS = [
   // },
 ];
 
-export const PZ_SCENARIOS_LABEL = "How many cases are there in your community?";
+export const PZ_SCENARIOS_LABEL = "How many reported cases are there in your community?";
 export const PZ_SCENARIOS_DEFAULT = "Five_percent";
 export const PZ_SCENARIOS = [
   {
@@ -283,7 +283,7 @@ export const INFOBOX_RISK_TEXT = "cases per million people";
 export const TOS_HEADING = "Important information";
 export const TOS_1 = "I have read and agree to the";
 export const TOS_2 = "Terms and Conditions";
-export const TOS_3 = "of use for the Covid-19 Risk Calculator (CoRiCal).";
+export const TOS_3 = "for using the Covid-19 Risk Calculator (CoRiCal).";
 
 export const TOS_TITLE = "Terms and Conditions";
 

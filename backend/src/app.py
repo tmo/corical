@@ -349,7 +349,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                             #     risk=cmp[0]["get_myocarditis_given_covid"],
                             # ),
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having myocarditis in 2 months even if you haven’t had any vaccine and haven’t had COVID-19 (infection)",
+                                label=f"Chance of having myocarditis over 2 months even if you haven't had a vaccine or COVID-19 infection (background rate)",
                                 risk=cmp[0]["get_myocarditis_bg"],
                                 is_other_shot=True,
                             ),
@@ -600,14 +600,14 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having myocarditis in 2 months even if you haven’t had any vaccine and haven’t had COVID-19 (infection)",
+                                label=f"Chance of having myocarditis over 2 months even if you haven't had a vaccine or COVID-19 infection (background rate)",
                                 risk=cmp[0]["get_myocarditis_bg"],
                                 is_other_shot=True,
                             ),
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having myocarditis after COVID-19 (infection) ",
+                                label=f"Chance of having myocarditis from a COVID-19 infection",
                                 risk=cmp[0]["get_myocarditis_given_covid"],
                                 is_other_shot=True,
                             ),
@@ -793,7 +793,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             bar_graphs=[
                 corical_pb2.BarGraph(
                     title=f"What is my child's chance of having inflammation of their heart muscle (myocarditis)?",
-                    subtitle=f"You may have heard that the Pfizer Vaccine can give your child inflammation of their heart muscle. This is also called myocarditis. There are many other causes of myocarditis. Children can develop this problem even if they haven't had the vaccine. Myocarditis is also caused by a Covid-19 infection. These results are for a {age_text} {sex_label}. ",
+                    subtitle=f"You may have heard that the Pfizer Vaccine can cause inflammation of the heart muscle. This is also called myocarditis. There are many other causes of myocarditis. Children can develop this problem even if they haven't had the vaccine (background rate). Covid-19 infection can also cause myocarditis in some people. These results are for a {age_text} {sex_label}. ",
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
@@ -806,14 +806,14 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having myocarditis in 2 weeks even if you haven’t had any vaccine and haven’t had COVID-19 (infection)",
+                                label=f"Chance of having myocarditis over 2 weeks even if you haven't had a vaccine or COVID-19 infection (background rate)",
                                 risk=cmp[0]["get_myocarditis_bg"],
                                 is_other_shot=True,
                             ),
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having myocarditis after COVID-19 (infection) ",
+                                label=f"Chance of having myocarditis from a COVID-19 infection",
                                 risk=cmp[0]["get_myocarditis_given_infected"],
                                 is_other_shot=True,
                             ),
@@ -823,21 +823,21 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                 ),
                 corical_pb2.BarGraph(
                     title="What is the chance of my child having a serious problem after a Covid-19 infection?",
-                    subtitle="A Covid infection does have the chance of causing serious problems in Children. This can include being admitted to hospital. Furthermore, some children develop severe inflammation of some of their key organs, you may have already heard about this. This can affect the heart, brain, kidneys,blood vessels, skin, digestive track or eyes. The condition is known as Multi-System Inflammatory Syndrome in Children (MIS-C). MIS-C can lead to children needing to go to intensive care, which is known as a severe outcome. ",
+                    subtitle="Covid-19 can cause serious health problems in children. Some children need to go to hospital. Children have died from Covid-19, but this is rare in healthy children. Some children get severe inflammation of their organs. This can affect the heart, brain, kidneys, blood vessels, skin, digestive track or eyes. The condition is known as Multisystem Inflammatory Syndrome in Children (MIS-C).  MIS-C can lead severe outcomes in some children. ",
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of hospitalisation from Covid if infected",
+                                label=f"Chance of going to the hospital from Covid if infected",
                                 risk=cmp[0]["hospitalisation_given_infected"],
                                 is_other_shot=False,
                             ),
                             corical_pb2.BarGraphRisk( 
-                                label=f"Chance of MSI-C from Covid if infected",
+                                label=f"Chance of Multisystem Inflammatory Syndrome in Children from Covid if infected",
                                 risk=cmp[0]["MSIC_given_infected"],
                                 is_other_shot=False,
                             ),
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of severe outcome from MSI-C from Covid if infected",
+                                label=f"Chance of severe outcome from Multisystem Inflammatory Syndrome in Children from Covid if infected",
                                 risk=cmp[0]["severse_MSIC_given_infected"],
                                 is_other_shot=False,
                             )
@@ -846,21 +846,21 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                         generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of hospitalisation from Covid if infected",
+                                label=f"Chance of going to the hospital from Covid if infected",
                                 risk=0.0,
                                 is_other_shot=True,
                                 bar_text="Not enough evidence available.",
                                 hover_text="There is not enough evidence to provide information on this."
                             ),
                             corical_pb2.BarGraphRisk( 
-                                label=f"Chance of MSI-C from Covid if infected",
+                                label=f"Chance of Multisystem Inflammatory Syndrome in Children from Covid if infected",
                                 risk=0.0,
                                 is_other_shot=True,
                                 bar_text="Not enough evidence available.",
                                 hover_text="There is not enough evidence to provide information on this."
                             ),
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of severe outcome from MSI-C from Covid if infected",
+                                label=f"Chance of severe outcome from Multisystem Inflammatory Syndrome in Children from Covid if infected",
                                 risk=0.0,
                                 is_other_shot=True,
                                 bar_text="Not enough evidence available.",
