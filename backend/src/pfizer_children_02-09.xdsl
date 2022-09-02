@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This network was created in GeNIe Academic, which can be used for academic teaching and research purposes only -->
+<smile version="1.0" id="Network1" numsamples="10000" discsamples="10000">
+	<nodes>
+		<cpt id="n2_Age">
+			<state id="Age_5_11" />
+			<state id="Age_12_17" />
+			<probabilities>0.551415 0.448585</probabilities>
+		</cpt>
+		<cpt id="n1_Vax">
+			<state id="None" />
+			<state id="Two_Pfizer" />
+			<state id="Two_Moderna" />
+			<probabilities>0.3333333333333333 0.3333333333333333 0.3333333333333334</probabilities>
+		</cpt>
+		<cpt id="n3_Sex">
+			<state id="Male" />
+			<state id="Female" />
+			<probabilities>0.5 0.5</probabilities>
+		</cpt>
+		<cpt id="n10_Myo_Vax">
+			<state id="yes" />
+			<state id="no" />
+			<parents>n1_Vax n2_Age n3_Sex</parents>
+			<probabilities>0 1 0 1 0 1 0 1 2e-06 0.9999980000000001 0 1 0.000131 0.999869 2.8e-05 0.999972 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5</probabilities>
+		</cpt>
+		<cpt id="n11_Myo_Background">
+			<state id="Yes" />
+			<state id="No" />
+			<parents>n2_Age</parents>
+			<probabilities>1.7875e-07 0.999999821 1.1375e-07 0.999999886</probabilities>
+		</cpt>
+		<cpt id="n4_Transmission">
+			<state id="None_0" />
+			<state id="One_Percent" />
+			<state id="Two_Percent" />
+			<state id="Five_Percent" />
+			<state id="Ten_Percent" />
+			<probabilities>0.2 0.2 0.2 0.2 0.2</probabilities>
+		</cpt>
+		<cpt id="n8_Vax_Eff_Infect">
+			<state id="Effective" />
+			<state id="Not_Effective" />
+			<parents>n2_Age n1_Vax</parents>
+			<probabilities>0 1 0.289 0.711 0.5 0.5 0 1 0.166 0.834 0.5 0.5</probabilities>
+		</cpt>
+		<cpt id="n17_TransRisk">
+			<state id="yes" />
+			<state id="no" />
+			<parents>n4_Transmission n3_Sex n2_Age</parents>
+			<probabilities>0 1 0 1 0 1 0 1 0.009920012000000001 0.990079988 0.011069995 0.9889300049999999 0.011576907 0.988423093 0.012994391 0.987005609 0.019840024 0.980159976 0.02213999 0.97786001 0.02213999 0.97786001 0.025988781 0.974011219 0.049600059 0.950399941 0.055349974 0.944650026 0.057884536 0.942115464 0.064971954 0.935028046 0.099200118 0.9007998820000001 0.110699948 0.889300052 0.115769071 0.884230929 0.129943907 0.870056093</probabilities>
+		</cpt>
+		<cpt id="n9_Risk_Infection">
+			<state id="Yes" />
+			<state id="No" />
+			<parents>n8_Vax_Eff_Infect n17_TransRisk</parents>
+			<probabilities>0 1 0 1 1 0 0 1</probabilities>
+		</cpt>
+		<cpt id="n5_Vax_Eff_Hos">
+			<state id="Effective" />
+			<state id="Not_Effective" />
+			<parents>n2_Age n1_Vax</parents>
+			<probabilities>0 1 0.68 0.32 0.5 0.5 0 1 0.43 0.57 0.5 0.5</probabilities>
+		</cpt>
+		<cpt id="n13_Hospital">
+			<state id="Yes" />
+			<state id="No" />
+			<parents>n9_Risk_Infection n5_Vax_Eff_Hos n2_Age</parents>
+			<probabilities>0 1 0 1 0.0086 0.9913999999999999 0.0073 0.9927 0 1 0 1 0 1 0 1</probabilities>
+		</cpt>
+		<cpt id="n7_Vax_Eff_MSIC">
+			<state id="Effective" />
+			<state id="Not_Effective" />
+			<parents>n1_Vax</parents>
+			<probabilities>0 1 0.91 0.09 0.5 0.5</probabilities>
+		</cpt>
+		<cpt id="n15_MSI_Covid">
+			<state id="Yes" />
+			<state id="No" />
+			<parents>n9_Risk_Infection n7_Vax_Eff_MSIC n2_Age</parents>
+			<probabilities>0 1 0 1 0.000613 0.999387 0.000224 0.999776 0 1 0 1 0 1 0 1</probabilities>
+		</cpt>
+		<cpt id="n12_Myo_Covid">
+			<state id="Yes" />
+			<state id="No" />
+			<parents>n9_Risk_Infection n3_Sex</parents>
+			<probabilities>0.000876 0.999124 0.000408 0.999592 0 1 0 1</probabilities>
+		</cpt>
+		<cpt id="n6_Vax_Eff_SO">
+			<state id="Effective" />
+			<state id="Not_Effective" />
+			<parents>n1_Vax</parents>
+			<probabilities>0 1 0.79 0.21 0.5 0.5</probabilities>
+		</cpt>
+		<cpt id="n14_Severe_Outcome">
+			<state id="Yes" />
+			<state id="No" />
+			<parents>n9_Risk_Infection n6_Vax_Eff_SO n2_Age</parents>
+			<probabilities>0 1 0 1 0.000359757 0.999640243 0.00054 0.99946 0 1 0 1 0 1 0 1</probabilities>
+		</cpt>
+		<cpt id="n16_MSI_severe">
+			<state id="Yes" />
+			<state id="No" />
+			<parents>n15_MSI_Covid</parents>
+			<probabilities>0.8 0.2 0 1</probabilities>
+		</cpt>
+	</nodes>
+	<extensions>
+		<genie version="1.0" app="GeNIe 3.0.6518.0 ACADEMIC" name="Network1">
+			<node id="n1_Vax">
+				<name>Vaccine (n1)</name>
+				<interior color="ffcc99" />
+				<outline color="000000" />
+				<font color="000000" name="Arial" size="8" />
+				<position>188 105 294 196</position>
+				<barchart active="true" width="188" height="90" />
+			</node>
+			<node id="n10_Myo_Vax">
+				<name>Vaccine induced Myocarditis (n10)</name>
+				<interior color="ead5ff" />
+				<outline color="000000" />
+				<font color="000000" name="Arial" size="8" />
+				<position>78 418 234 529</position>
+				<barchart active="true" width="145" height="72" />
+			</node>
+			<node id="n11_Myo_Background">
+				<name>Background myocarditis over three months (n11)</name>
+				<interior color="ead5ff" />
+				<outline color="000000" />
+				<font color="000000" name="Arial" size="8" />
+				<position>206 448 422 524</position>
+				<barchart active="true" width="127" height="99" />
+			</node>
+			<node id="n2_Age">
+				<name>Age (n2)</name>
+				<interior color="ffcc99" />
+				<outline color="000000" />
+				<font color="000000" name="Arial" size="8" />
+				<position>424 113 512 168</position>
+				<barchart active="true" width="126" height="66" />
+			</node>
+			<node id="n9_Risk_Infection">
+				<name>Risk of symptomatic infection under current transmission and vaccination status (n9)</name>
+				<interior color="ffff99" />
+				<outline color="000000" />
+				<font color="000000" name="Arial" size="8" />
+				<position>1111 350 1201 406</position>
+				<barchart active="true" width="143" height="103" />
+			</node>
+			<node id="n13_Hospital">
+				<name>Hospitalisation From Covid (n13)</name>
+				<interior color="ead5ff" />
+				<outline color="000000" />
+				<font color="000000" name="Arial" size="8" />
+				<position>406 588 529 664</position>
+				<barchart active="true" width="125" height="74" />
+			</node>
+			<node id="n15_MSI_Covid">
+				<name>Multisystem Inflammatory Sydrome From Covid (n15)</name>
+				<interior color="ead5ff" />
+				<outline color="000000" />
+				<font color="000000" name="Arial" size="8" />
+				<position>1073 592 1216 681</position>
+				<barchart active="true" width="142" height="95" />
+			</node>
+			<node id="n4_Transmission">
+				<name>Community Transmission over 2 months (n4)</name>
+				<interior color="ffcc99" />
+				<outline color="000000" />
+				<font color="000000" name="Arial" size="8" />
+				<position>1115 140 1167 172</position>
+				<barchart active="true" width="172" height="133" />
+			</node>
+			<node id="n3_Sex">
+				<name>Sex (n3)</name>
+				<interior color="ffcc99" />
+				<outline color="000000" />
+				<font color="000000" name="Arial" size="8" />
+				<position>723 125 763 150</position>
+				<barchart active="true" width="128" height="64" />
+			</node>
+			<node id="n8_Vax_Eff_Infect">
+				<name>Vaccine Effectiveness from symptomatic infection (n8)</name>
+				<interior color="ffff99" />
+				<outline color="000000" />
+				<font color="000000" name="Arial" size="8" />
+				<position>868 326 1001 409</position>
+				<barchart active="true" width="139" height="89" />
+			</node>
+			<node id="n14_Severe_Outcome">
+				<name>Severe Outcome from Covid - ICU_death (n14)</name>
+				<interior color="ead5ff" />
+				<outline color="000000" />
+				<font color="000000" name="Arial" size="8" />
+				<position>665 605 747 656</position>
+				<barchart active="true" width="136" height="82" />
+			</node>
+			<node id="n12_Myo_Covid">
+				<name>Myocarditis from Covid over 3 months (n12)</name>
+				<interior color="ead5ff" />
+				<outline color="000000" />
+				<font color="000000" name="Arial" size="8" />
+				<position>905 612 985 662</position>
+				<barchart active="true" width="134" height="95" />
+			</node>
+			<textbox>
+				<caption>Bayesian Network for Omicron 02.09.2022 </caption>
+				<font color="000000" name="Arial" size="14" align="center" />
+				<position>473 23 728 67</position>
+			</textbox>
+			<node id="n16_MSI_severe">
+				<name>Severe Outcome Multisystem Inflammatory Sydrome from covid ICU_death (n16)</name>
+				<interior color="ead5ff" />
+				<outline color="000000" />
+				<font color="000000" name="Arial" size="8" />
+				<position>1123 749 1171 779</position>
+				<barchart active="true" width="190" height="85" />
+			</node>
+			<node id="n5_Vax_Eff_Hos">
+				<name>Vaccine Effectiveness from hospitalisation (n5)</name>
+				<interior color="ffff99" />
+				<outline color="000000" />
+				<font color="000000" name="Arial" size="8" />
+				<position>398 451 531 534</position>
+				<barchart active="true" width="125" height="111" />
+			</node>
+			<node id="n6_Vax_Eff_SO">
+				<name>Vaccine Effectiveness from severe outcomes (n6)</name>
+				<interior color="ffff99" />
+				<outline color="000000" />
+				<font color="000000" name="Arial" size="8" />
+				<position>584 395 717 478</position>
+				<barchart active="true" width="125" height="111" />
+			</node>
+			<node id="n7_Vax_Eff_MSIC">
+				<name>Vaccine Effectiveness from MSIC (n7)</name>
+				<interior color="ffff99" />
+				<outline color="000000" />
+				<font color="000000" name="Arial" size="8" />
+				<position>711 352 844 435</position>
+				<barchart active="true" width="125" height="111" />
+			</node>
+			<textbox>
+				<caption>Chart 1: compare myocardiitis n10, n11, n12\nChart 2: n13, n14,15</caption>
+				<font color="000000" name="Arial" size="8" />
+				<position>71 863 282 891</position>
+			</textbox>
+			<textbox>
+				<caption>No need to show vaccination in inputs, as we show all the outputs anyway</caption>
+				<font color="000000" name="Arial" size="8" />
+				<position>323 869 510 897</position>
+			</textbox>
+			<node id="n17_TransRisk">
+				<name>risk of symptomatic infection under current transmission status (n17)</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>901 177 1028 266</position>
+				<barchart active="true" width="128" height="96" />
+			</node>
+		</genie>
+	</extensions>
+</smile>

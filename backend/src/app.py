@@ -28,7 +28,7 @@ server.add_insecure_port(f"[::]:21000")
 # TODO: move
 AZ_model_file = "AZ_March_GeNie_01-03-22.xdsl"
 PZ_model_file = "Pf_March_GeNie_01-03-22.xdsl"
-PZ_children_model_file = "pfizer_children_27-06-02.xdsl"
+PZ_children_model_file = "pfizer_children_02-09.xdsl"
 
 def now():
     return datetime.now(utc)
@@ -725,30 +725,30 @@ class Corical(corical_pb2_grpc.CoricalServicer):
 
         dose_labels = {
             "None": ("not had any vaccines", "no"),
-            "One": ("had one shot", "first"),
-            "Two": ("had two shots", "second"),
+            "Two_Pfizer": ("had two shots of the Pfizer ", "Pfizer"),
+            "Two_Moderna": ("had two shots of the Moderna", "Moderna"),
         }
 
 
         if request.dose == "None":
-            comparison_doses = ["One", "Two"]
-        elif request.dose == "One":
-            comparison_doses = ["None", "Two"]
-        elif request.dose == "Two":
-            comparison_doses = ["None", "One"]
+            comparison_doses = ["Two_Pfizer", "Two_Moderna"]
+        elif request.dose == "Two_Pfizer":
+            comparison_doses = ["None"]
+        elif request.dose == "Two_Moderna":
+            comparison_doses = ["None"]
 
         network = SmileModel(PZ_children_model_file)
         baseline_outcomes = {
-            "get_myocarditis_vax": "n6_Vaccine_Myocarditis",
-            "get_myocarditis_bg": "n7_Background_Myocarditis",
+            "get_myocarditis_vax": "n10_Myo_Vax",
+            "get_myocarditis_bg": "n11_Myo_Background",
         }
 
         infected_outcomes = {
-            "get_myocarditis_given_infected": "n12_Myocarditis_Covid",
+            "get_myocarditis_given_infected": "n12_Myo_Covid",
             # unclear if these should be given infected or not
-            "hospitalisation_given_infected": "n10_Hospitalisation",
-            "MSIC_given_infected": "n13_MSI_Covid",
-            "severse_MSIC_given_infected": "n14_MSI_severe",
+            "hospitalisation_given_infected": "n13_Hospital",
+            "MSIC_given_infected": "n15_MSI_Covid",
+            "severse_MSIC_given_infected": "n16_MSI_severe",
         }
 
         cmp = []
@@ -761,18 +761,17 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                 "shot_ordinal": shot_ordinal,
             }
             evidence = {
-                "n4_Variant": "Omicron", # hardcoded omicron
                 "n3_Sex": sex_vec,
-                "n1_Pfizer_Dose": cdose,
+                "n1_Vax": cdose,
                 "n2_Age": age_label,
-                "n5_Transmission": request.ct
+                "n4_Transmission": request.ct
             }
 
             network.set_evidence(evidence)
             cur.update(network.get_binary_outcomes(baseline_outcomes))
-            network.set_evidence({"n9_Risk_of_Infection":"Yes"})
+            network.set_evidence({"n9_Risk_Infection":"Yes"})
             cur.update(network.get_binary_outcomes(infected_outcomes))
-            network.get_network().clear_evidence("n9_Risk_of_Infection")
+            network.get_network().clear_evidence("n9_Risk_Infection")
             
             cmp.append(cur)
         
@@ -785,7 +784,6 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             cmp[0]["MSIC_given_infected"] == 0.5):
             remove_severe_nodes = True
 
-
         scenario_description = f"Here are your results. These are for a {age_text} {sex_label} when there are {transmission_label} in your community. They are based on the number and timing of shots of Pfizer vaccines you have had."
         out = corical_pb2.ComputeRes(
             messages=messages,
@@ -797,12 +795,12 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of myocarditis after the {d['shot_ordinal']} shot of Pfizer vaccine will increase by:",
+                                label=f"Chance of myocarditis after two shots of the {d['shot_ordinal']} vaccine will increase by:",
                                 risk=d["get_myocarditis_vax"],
                                 is_other_shot=d["is_other_shot"],
                             )
                             for d in cmp 
-                            if d["get_myocarditis_vax"] > 0.0 or d['label'] == cmp[0]['label'] and  d['shot_ordinal'] != "no"
+                            if d["get_myocarditis_vax"] > 0.0 or d['label'] == cmp[0]['label'] and (d['shot_ordinal'] != "no")
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
@@ -818,30 +816,45 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                                 is_other_shot=True,
                             ),
                         ]
-
                     ),
                 ),
                 corical_pb2.BarGraph(
-                    title="What is the chance of my child having a serious problem after a Covid-19 infection?",
-                    subtitle="Covid-19 can cause serious health problems in children. Some children need to go to hospital. Children have died from Covid-19, but this is rare in healthy children. Some children get severe inflammation of their organs. This can affect the heart, brain, kidneys, blood vessels, skin, digestive track or eyes. The condition is known as Multisystem Inflammatory Syndrome in Children (MIS-C).  MIS-C can lead severe outcomes in some children. ",
+                    title=f"What is the chance of my child having a serious problem after a Covid-19 infection?",
+                    subtitle=f"Covid-19 can cause serious health problems in children. Some children need to go to hospital. Children have died from Covid-19, but this is rare in healthy children. Some children get severe inflammation of their organs. This can affect the heart, brain, kidneys, blood vessels, skin, digestive track or eyes. The condition is known as Multisystem Inflammatory Syndrome in Children (MIS-C).  MIS-C can lead severe outcomes in some children. ",
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of going to the hospital from Covid if infected",
-                                risk=cmp[0]["hospitalisation_given_infected"],
-                                is_other_shot=False,
-                            ),
-                            corical_pb2.BarGraphRisk( 
-                                label=f"Chance of Multisystem Inflammatory Syndrome in Children from Covid if infected",
-                                risk=cmp[0]["MSIC_given_infected"],
-                                is_other_shot=False,
-                            ),
-                            corical_pb2.BarGraphRisk(
-                                label=f"Chance of severe outcome from Multisystem Inflammatory Syndrome in Children from Covid if infected",
-                                risk=cmp[0]["severse_MSIC_given_infected"],
-                                is_other_shot=False,
+                                label=f"Chance of going to the hospital from Covid with 2 shots of the {d['shot_ordinal']} vaccine if infected  ",
+                                risk=d["hospitalisation_given_infected"],
+                                is_other_shot=d["is_other_shot"],
                             )
-                        ]
+                            for d in cmp 
+                            if d['hospitalisation_given_infected'] > 0.0 and d['shot_ordinal']  !=  "no"
+                        ] + [
+                            corical_pb2.BarGraphRisk(
+                                label=f"Chance of going to the hospital from Covid if not vaccinated and infected",
+                                risk=d["hospitalisation_given_infected"],
+                                is_other_shot=d["is_other_shot"],
+                            )
+                            for d in cmp 
+                            if d['hospitalisation_given_infected'] > 0.0 and d['shot_ordinal']  == "no"
+                        ] 
+                        + [
+                            corical_pb2.BarGraphRisk(
+                                label=f"Chance of Multisystem Inflammatory Syndrome in Children from Covid with 2 shots of the {d['shot_ordinal']} vaccine if infected  ",
+                                risk=d["MSIC_given_infected"],
+                                is_other_shot=d["is_other_shot"],
+                            ) for d in cmp
+                            if d["MSIC_given_infected"] > 0.0 and d['shot_ordinal']  != "no"
+                        ] 
+                        + [
+                            corical_pb2.BarGraphRisk(
+                                label=f"Chance of Multisystem Inflammatory Syndrome in Children from Covid if not vaccinated and infected",
+                                risk=d["MSIC_given_infected"],
+                                is_other_shot=d["is_other_shot"],
+                            ) for d in cmp
+                            if d["MSIC_given_infected"] > 0.0 and d['shot_ordinal']  == "no"
+                        ] 
                     ) if not remove_severe_nodes else 
                         generate_bar_graph_risks(
                         [
@@ -859,13 +872,6 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                                 bar_text="Not enough evidence available.",
                                 hover_text="There is not enough evidence to provide information on this."
                             ),
-                            corical_pb2.BarGraphRisk(
-                                label=f"Chance of severe outcome from Multisystem Inflammatory Syndrome in Children from Covid if infected",
-                                risk=0.0,
-                                is_other_shot=True,
-                                bar_text="Not enough evidence available.",
-                                hover_text="There is not enough evidence to provide information on this."
-                            )
                         ]
                     ),
                 ),

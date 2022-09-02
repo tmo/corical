@@ -119,12 +119,12 @@ export const CHILDREN_VACCINE_OPTIONS = [
     label: "None",
   },
   {
-    value: "One",
-    label: "One shot of Pfizer for children",
+    value: "Two_Pfizer",
+    label: "Two shots of Pfizer for children",
   },
   {
-    value: VACCINE_SECOND_VAL,
-    label: "Two shots of Pfizer for children",
+    value: "Two_Moderna",
+    label: "Two shots of Moderna for children",
   },
 ];
 
