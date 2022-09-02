@@ -185,6 +185,16 @@ function AZRoute() {
 function PubRoute() {
   return (
     <>
+      <Button
+        component={Link}
+        to="/"
+        color="primary"
+        variant="outlined"
+        size="small"
+        style={{ margin: "1em" }}
+      >
+        Back to calculator
+      </Button>
       <Box my={4}>
         <h1>Publications</h1>
         <Container maxWidth="lg">
@@ -231,6 +241,13 @@ function PubRoute() {
           </Container>
         </Container>
       </Box>
+    </>
+  );
+}
+
+function FaqRoute() {
+  return (
+    <>
       <Button
         component={Link}
         to="/"
@@ -241,13 +258,6 @@ function PubRoute() {
       >
         Back to calculator
       </Button>
-    </>
-  );
-}
-
-function FaqRoute() {
-  return (
-    <>
       <Box my={4}>
         <h1>FAQs</h1>
         <Container maxWidth="lg">
@@ -264,6 +274,13 @@ function FaqRoute() {
           </Typography>
         </Container>
       </Box>
+    </>
+  );
+}
+
+function InfoRoute() {
+  return (
+    <>
       <Button
         component={Link}
         to="/"
@@ -274,6 +291,46 @@ function FaqRoute() {
       >
         Back to calculator
       </Button>
+      <Box my={4}>
+        <h1>More Information</h1>
+        <Container maxWidth="lg">
+          <Typography>
+            <p>
+              The pdf files linked in this page contain more information about 
+              the models and outputs used in the risk calculators.
+            </p>
+
+            <a 
+              href="/docs/pfizer_assumptions_11_03_22.pdf"  
+              rel="noreferrer" 
+              target="_blank"> 
+              Assumptions and data sources for the Pfizer model (pdf) 
+            </a>
+            <br />
+            <a 
+              href="/docs/astrazeneca_assumptions_11_03_22.pdf" 
+              rel="noreferrer" 
+              target="_blank"> 
+              Assumptions and data sources for the AstraZeneca model (pdf) 
+            </a>
+            <br />
+            <a 
+              href="/docs/relatable_risks.pdf"
+              rel="noreferrer" 
+              target="_blank"> 
+              Explanations of the relatable risks used for comparison in the 
+              calculator outputs (pdf) 
+            </a>
+            <br />
+            <a 
+              href="/docs/tts_information.pdf"
+              rel="noreferrer" 
+              target="_blank"> 
+              Information on TTS (pdf) 
+            </a>
+          </Typography>
+        </Container>
+      </Box>
     </>
   );
 }
@@ -281,12 +338,6 @@ function FaqRoute() {
 function NewRoute() {
   return (
     <>
-      <Box my={4}>
-        <h1>What's New</h1>
-        <Container maxWidth="lg">
-          {RELEASE_NOTES}
-        </Container>
-      </Box>
       <Button
         component={Link}
         to="/"
@@ -297,6 +348,12 @@ function NewRoute() {
       >
         Back to calculator
       </Button>
+      <Box my={4}>
+        <h1>What's New</h1>
+        <Container maxWidth="lg">
+          {RELEASE_NOTES}
+        </Container>
+      </Box>
     </>
   );
 }
@@ -304,6 +361,16 @@ function NewRoute() {
 function VideoRoute() {
   return (
     <>
+      <Button
+        component={Link}
+        to="/"
+        color="primary"
+        variant="outlined"
+        size="small"
+        style={{ margin: "1em" }}
+      >
+        Back to calculator
+      </Button>
       <Box my={4}>
         <h1>Video Overview</h1>
         <p>The CoRiCal team have produced a few short film clips to outline:
@@ -378,16 +445,6 @@ function VideoRoute() {
         </Container>
 
       </Box>
-      <Button
-        component={Link}
-        to="/"
-        color="primary"
-        variant="outlined"
-        size="small"
-        style={{ margin: "1em" }}
-      >
-        Back to calculator
-      </Button>
     </>
   );
 }
@@ -405,6 +462,7 @@ export default function App() {
           <Route path="/faq" element={<FaqRoute />} />
           <Route path="/whatsnew" element={<NewRoute />} />
           <Route path="/videos" element={<VideoRoute />} />
+          <Route path="/moreinfo" element={<InfoRoute />} />
         </Routes>
       </BrowserRouter>
     </Skel>

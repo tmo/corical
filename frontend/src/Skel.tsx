@@ -172,69 +172,77 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
                 the chances of getting rare side effects from the vaccines.
               </p>
               <p>
-                The benefits and risks of the vaccines vary because of many 
-                reasons. Some of these are: 
-                <ul>
-                  <li>your age</li>
-                  <li>your sex</li>
-                  <li>how many vaccines you have had</li>
-                  <li>which vaccine(s) you have had</li>
-                  <li>the number of COVID-19 cases in your community</li>
-                </ul>
-              </p>
-              <p>
                 The tool shows you what your chances are of getting sick based 
-                on your age and sex. It shows you the risk out of a million 
+                on your age, sex, and if you are vaccinated. It shows you the risk out of a million 
                 people, or a one in x chance. You can choose how to show the 
                 results by clicking on the tabs: 'Show risk as a chance' or  
                 'Show risk per million people'.
               </p>
               <p>
-                It's important to know that the results shown are only a rough 
-                guide. The tool shows the average result for people with the 
-                same sex and age as you. It does not know about other things 
-                that can change your chances of getting COVID-19 or dying from 
-                it, like:
-                <ul>
-                  <li>any health problems you have, such as heart problems or diabetes </li>
-                  <li>if you live or work in a place with more COVID-19 cases </li>
-                  <li>if you have a job where you are close to a lot of people </li>
-                </ul>
+                The results shown are only a rough guide. The tool shows the 
+                average result for people with the same sex and age as you. It 
+                doesn't consider other things that can change your chances of 
+                getting COVID-19 or dying from it, like any health conditions 
+                you have, where you work, or your COVID-19 safe behaviours.
+              </p>
+              <p>
                 Even if there are not many cases in your community right now, 
                 this can change. The number of cases can go up quickly at any 
                 time. So when you make your decision about getting the COVID-19 
                 vaccine, you should also think about the future.
               </p>
-              <p>
-                The Moderna vaccine has similar effects to the Pfizer vaccine 
-                when used for the third (booster) dose. Last updated on 
-                11/03/2022. Estimates based on an assumed distribution of 100% 
-                Omicron variant.
-              </p>
-              <p>
-                Last updated on 11/03/2022. 
-                Estimates based on an assumed distribution of 100% Omicron 
-                variant.
-                <br/>
-              </p>
 
-              <Button
-                variant="outlined"
-                color="primary"
-                disableElevation
-                href="/whatsnew"
-              >
-                What's New!
-              </Button>{" "}
-
-              <Button
-                variant="outlined"
-                color="primary"
-                disableElevation
-                href="/videos"
-              >
-                Video Overview
-              </Button>{" "}
+              <Box py={1}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  disableElevation
+                  href="/"
+                >
+                  Calculator
+                </Button>{" "}
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  disableElevation
+                  href="/whatsnew"
+                >
+                  What's New!
+                </Button>{" "}
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  disableElevation
+                  href="/videos"
+                >
+                  Video Overview
+                </Button>{" "}
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  disableElevation
+                  href="/publications"
+                >
+                  Publications
+                </Button>{" "}
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  disableElevation
+                  href="/faq"
+                >
+                  FAQ
+                </Button>{" "}
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  disableElevation
+                  href="/moreinfo"
+                >
+                  More Info
+                </Button>{" "}
+                
+              </Box>
             </Typography>
             </Grid>
             {/* <Grid item xs={3} >
@@ -252,64 +260,7 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
         <Box mt={4} mb={2}>
           <Container maxWidth="lg">
             {children}
-            <Box py={5}>
-            <Button
-                variant="outlined"
-                color="primary"
-                disableElevation
-                href="/faq"
-              >
-                FAQ
-              </Button>{" "}
-              <Button
-                variant="outlined"
-                color="primary"
-                disableElevation
-                rel="noreferrer" 
-                target="_blank"
-                href="/docs/pfizer_assumptions_11_03_22.pdf"
-              >
-                Pfizer data sources
-              </Button>{" "}
-              <Button
-                variant="outlined"
-                color="primary"
-                disableElevation
-                rel="noreferrer" 
-                target="_blank"
-                href="/docs/astrazeneca_assumptions_11_03_22.pdf"
-              >
-                AstraZeneca data sources
-              </Button>{" "}
-              <Button
-                variant="outlined"
-                color="primary"
-                disableElevation
-                href="/publications"
-              >
-                Publications
-              </Button>{" "}
-              <Button
-                variant="outlined"
-                color="primary"
-                disableElevation
-                rel="noreferrer" 
-                target="_blank"
-                href="/docs/relatable_risks.pdf"
-              >
-                Relatable risks
-              </Button>{" "}
-              <Button
-                variant="outlined"
-                color="primary"
-                disableElevation
-                rel="noreferrer" 
-                target="_blank"
-                href="/docs/tts_information.pdf"
-              >
-                Information on TTS
-              </Button>{" "}
-            </Box>
+            <Box pt={5}>
             <Typography variant="caption" paragraph>
               <b>CoRiCal co-chairs</b>: Andrew Baird, Colleen Lau, John Litt, Kirsty Short
               <br />
@@ -344,6 +295,7 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
               John Litt, Helen Mayfield, Kim Sampson, Kirsty Short
               <br />
             </Typography>
+            </Box>
             <Box pt={5} pb={1}>
               <Button
                 variant="outlined"
