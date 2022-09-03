@@ -726,15 +726,12 @@ class Corical(corical_pb2_grpc.CoricalServicer):
         dose_labels = {
             "None": ("not had any vaccines", "no"),
             "Two_Pfizer": ("had two shots of the Pfizer ", "Pfizer"),
-            "Two_Moderna": ("had two shots of the Moderna", "Moderna"),
         }
 
 
         if request.dose == "None":
-            comparison_doses = ["Two_Pfizer", "Two_Moderna"]
+            comparison_doses = ["Two_Pfizer"]
         elif request.dose == "Two_Pfizer":
-            comparison_doses = ["None"]
-        elif request.dose == "Two_Moderna":
             comparison_doses = ["None"]
 
         network = SmileModel(PZ_children_model_file)

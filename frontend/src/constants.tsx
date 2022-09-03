@@ -122,10 +122,10 @@ export const CHILDREN_VACCINE_OPTIONS = [
     value: "Two_Pfizer",
     label: "Two shots of Pfizer for children",
   },
-  {
-    value: "Two_Moderna",
-    label: "Two shots of Moderna for children",
-  },
+  // {
+  //   value: "Two_Moderna",
+  //   label: "Two shots of Moderna for children",
+  // },
 ];
 
 export const CHILDREN_SCENARIOS_LABEL = "How many reported cases are there in your community?";
