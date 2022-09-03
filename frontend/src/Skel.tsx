@@ -202,6 +202,14 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
                   Calculator
                 </Button>{" "}
                 <Button
+                  variant="contained"
+                  color="primary"
+                  disableElevation
+                  href="/riskchart"
+                >
+                  Risk Chart
+                </Button>{" "}
+                <Button
                   variant="outlined"
                   color="primary"
                   disableElevation

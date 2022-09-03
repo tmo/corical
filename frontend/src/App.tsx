@@ -50,6 +50,13 @@ function IndexRoute() {
         Children's calculator
       </Button>
       </Box>
+    </>
+  );
+}
+
+function RiskChartRoute() {
+  return (
+    <>
       <h1>View risk chart </h1>
       <h2>Risk of dying from COVID-19 based on age, sex, and vaccination status - 90% Omicron/10% Delta Variants, updated January 2022</h2>
       <Button
@@ -452,6 +459,7 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<IndexRoute />} />
+          <Route path="/riskchart" element={<RiskChartRoute />} />
           <Route path="/pfizer" element={<PfizerRoute />} />
           <Route path="/pfizer_children" element={<PfizerChildrenRoute />} />
           <Route path="/astrazeneca" element={<AZRoute />} />
