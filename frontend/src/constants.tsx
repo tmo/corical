@@ -283,7 +283,7 @@ export const INFOBOX_RISK_TEXT = "cases per million people";
 export const TOS_HEADING = "Important information";
 export const TOS_1 = "I have read and agree to the";
 export const TOS_2 = "Terms and Conditions";
-export const TOS_3 = "for using the Covid-19 Risk Calculator (CoRiCal).";
+export const TOS_3 = "for using the COVID-19 Risk Calculator (CoRiCal).";
 
 export const TOS_TITLE = "Terms and Conditions";
 

@@ -8,7 +8,7 @@ export const RELEASE_NOTES = <>
           Charts can now be viewed with or without a <a rel="noreferrer" target="_blank" href="/docs/relatable_risks.pdf"> relatable risk</a> for each, depending on your preference
           </li>
           <li> 
-          Case fatality rates for each age group (used to calculate the risk of dying if infected with Covid-19) have been updated based on unvaccinated cases and deaths in NSW from 26/11/21 to 05/02/22
+          Case fatality rates for each age group (used to calculate the risk of dying if infected with COVID-19) have been updated based on unvaccinated cases and deaths in NSW from 26/11/21 to 05/02/22
           </li>
           <li> 
           Chart descriptions have been reworded to make them clearer to a broader audience
