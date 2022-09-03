@@ -210,33 +210,30 @@ function PubRoute() {
                 rel="noreferrer" target="_blank"
                 style={{ textDecoration: "underline", color: "inherit" }}
                 >https://doi.org/10.1016/j.vaccine.2021.10.079</a>
-            </Typography>
-          </Container>
-          <h2>Pre-prints</h2>
-          <Container maxWidth="lg">
-            <Typography>
-              Mayfield, H. J., C. L. Lau, J. E. Sinclair, S. J. Brown, A. Baird, 
-              J. Litt, A. Vuorinen, K. R. Short, M. Waller and K. Mengersen (2021). 
-              "Designing an evidence-based Bayesian network for estimating the risk 
-              versus benefits of AstraZeneca COVID-19 vaccine."  
-              medRxiv: 2021.2010.2028.21265588. 
-              <a
-                href="https://www.medrxiv.org/content/10.1101/2021.10.28.21265588v1" 
-                rel="noreferrer" target="_blank"
-                style={{ textDecoration: "underline", color: "inherit" }}
-                >https://www.medrxiv.org/content/10.1101/2021.10.28.21265588v1</a>
               <br />
               <br />
-              Sinclair, J. E., H. J. Mayfield, K. R. Short, S. J. Brown, R. Puranik, 
-              K. Mengersen, J. C. Litt and C. L. Lau (2022). 
-              "Quantifying the risks versus benefits of the Pfizer COVID-19 vaccine 
-              in Australia: a Bayesian network analysis." 
-              medRxiv: 2022.2002.2007.22270637.  
+              Mayfield H.J., Lau C.L., Sinclair J.E., Brown S.J., Baird A., 
+              Litt J., Vuorinen A., Short K.R., Waller M., Mengersen K. 
+              Designing an evidence-based Bayesian network for estimating the 
+              risk versus benefits of AstraZeneca COVID-19 vaccine. Vaccine. 
+              2022;40(22):3072-84. doi: 
               <a
-                href="https://www.medrxiv.org/content/10.1101/2022.02.07.22270637v1" 
+                href="https://doi.org/10.1016/j.vaccine.2022.04.004" 
                 rel="noreferrer" target="_blank"
                 style={{ textDecoration: "underline", color: "inherit" }}
-                >https://www.medrxiv.org/content/10.1101/2022.02.07.22270637v1</a>
+                >https://doi.org/10.1016/j.vaccine.2022.04.004</a>
+              <br />
+              <br />
+              Sinclair J.E., Mayfield H.J., Short K.R., Brown S.J., Puranik R., 
+              Mengersen K., Litt J.C.B., Lau C.L. A Bayesian network analysis 
+              quantifying risks versus benefits of the Pfizer COVID-19 vaccine 
+              in Australia. npj Vaccines. 2022;7(1):93. 
+              doi: 
+              <a
+                href="https://doi.org/10.1038/s41541-022-00517-6" 
+                rel="noreferrer" target="_blank"
+                style={{ textDecoration: "underline", color: "inherit" }}
+                >https://doi.org/10.1038/s41541-022-00517-6</a>
             </Typography>
           </Container>
         </Container>
