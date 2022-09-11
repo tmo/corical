@@ -738,6 +738,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
         baseline_outcomes = {
             "get_myocarditis_vax": "n10_Myo_Vax",
             "get_myocarditis_bg": "n11_Myo_Background",
+            "risk_of_infection": "n9_Risk_Infection",
         }
 
         infected_outcomes = {
@@ -787,6 +788,27 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             scenario_description=scenario_description,
             bar_graphs=[
                 corical_pb2.BarGraph(
+                    title=f"What is my child's chance of getting COVID-19",
+                    subtitle=f"[DESCRIPTION]....",
+                    risks=generate_bar_graph_risks(
+                        [
+                            corical_pb2.BarGraphRisk(
+                                label=f"Chance of infection after two shots of the {cmp[0]['shot_ordinal']} vaccine ",
+                                risk=cmp[0]["risk_of_infection"],
+                                is_other_shot=cmp[0]["is_other_shot"],
+                            )
+                        ]
+                        + [
+                            corical_pb2.BarGraphRisk(
+                                label=f"Chance of infection with no vaccine",
+                                risk=d["risk_of_infection"],
+                                is_other_shot=True,
+                            ) for d in cmp
+                            if d["risk_of_infection"] > 0.0 and (d['shot_ordinal'] == "no")
+                        ]
+                    ),
+                ),
+                corical_pb2.BarGraph(
                     title=f"What is my child's chance of having inflammation of their heart muscle (myocarditis)?",
                     subtitle=f"You may have heard that the Pfizer Vaccine can cause inflammation of the heart muscle. This is also called myocarditis. There are many other causes of myocarditis. Children can develop this problem even if they haven't had the vaccine (background rate). COVID-19 infection can also cause myocarditis in some people. These results are for a {age_text} {sex_label}. ",
                     risks=generate_bar_graph_risks(
@@ -795,8 +817,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                                 label=f"Chance of myocarditis after two shots of the {d['shot_ordinal']} vaccine will increase by:",
                                 risk=d["get_myocarditis_vax"],
                                 is_other_shot=d["is_other_shot"],
-                            )
-                            for d in cmp 
+                            ) for d in cmp
                             if d["get_myocarditis_vax"] > 0.0 or d['label'] == cmp[0]['label'] and (d['shot_ordinal'] != "no")
                         ]
                         + [
@@ -816,34 +837,39 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                     ),
                 ),
                 corical_pb2.BarGraph(
-                    title=f"What is the chance of my child having a serious problem after a COVID-19 infection?",
-                    subtitle=f"Covid-19 can cause serious health problems in children. Some children need to go to hospital. Children have died from COVID-19, but this is rare in healthy children. Some children get severe inflammation of their organs. This can affect the heart, brain, kidneys, blood vessels, skin, digestive track or eyes. The condition is known as Multisystem Inflammatory Syndrome in Children (MIS-C).  MIS-C can lead severe outcomes in some children. ",
+                    title=f"What is the chance of my child being hospitalised after a COVID-19 infection?",
+                    subtitle=f"[DESCRIPTION]...",
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
                                 label=f"Chance of going to the hospital from COVID-19 with 2 shots of the {d['shot_ordinal']} vaccine if infected  ",
                                 risk=d["hospitalisation_given_infected"],
                                 is_other_shot=d["is_other_shot"],
-                            )
-                            for d in cmp 
+                            ) for d in cmp
                             if d['hospitalisation_given_infected'] > 0.0 and d['shot_ordinal']  !=  "no"
-                        ] + [
+                        ] 
+                        + [
                             corical_pb2.BarGraphRisk(
                                 label=f"Chance of going to the hospital from COVID-19 if not vaccinated and infected",
                                 risk=d["hospitalisation_given_infected"],
                                 is_other_shot=d["is_other_shot"],
-                            )
-                            for d in cmp 
+                            ) for d in cmp
                             if d['hospitalisation_given_infected'] > 0.0 and d['shot_ordinal']  == "no"
-                        ] 
-                        + [
+                        ]
+                    ),
+                ),
+                corical_pb2.BarGraph(
+                    title=f"What is the chance of my child having a serious problem after a COVID-19 infection?",
+                    subtitle=f"Covid-19 can cause serious health problems in children. Some children need to go to hospital. Children have died from COVID-19, but this is rare in healthy children. Some children get severe inflammation of their organs. This can affect the heart, brain, kidneys, blood vessels, skin, digestive track or eyes. The condition is known as Multisystem Inflammatory Syndrome in Children (MIS-C).  MIS-C can lead severe outcomes in some children. ",
+                    risks=generate_bar_graph_risks(
+                        [
                             corical_pb2.BarGraphRisk(
                                 label=f"Chance of Multisystem Inflammatory Syndrome in Children from COVID-19 with 2 shots of the {d['shot_ordinal']} vaccine if infected  ",
                                 risk=d["MSIC_given_infected"],
                                 is_other_shot=d["is_other_shot"],
                             ) for d in cmp
                             if d["MSIC_given_infected"] > 0.0 and d['shot_ordinal']  != "no"
-                        ] 
+                        ]
                         + [
                             corical_pb2.BarGraphRisk(
                                 label=f"Chance of Multisystem Inflammatory Syndrome in Children from COVID-19 if not vaccinated and infected",
@@ -851,28 +877,28 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                                 is_other_shot=d["is_other_shot"],
                             ) for d in cmp
                             if d["MSIC_given_infected"] > 0.0 and d['shot_ordinal']  == "no"
-                        ] 
-                    ) if not remove_severe_nodes else 
-                        generate_bar_graph_risks(
-                        [
-                            corical_pb2.BarGraphRisk(
-                                label=f"Chance of going to the hospital from COVID-19 if infected",
-                                risk=0.0,
-                                is_other_shot=True,
-                                bar_text="Not enough evidence available.",
-                                hover_text="There is not enough evidence to provide information on this."
-                            ),
-                            corical_pb2.BarGraphRisk( 
-                                label=f"Chance of Multisystem Inflammatory Syndrome in Children from COVID-19 if infected",
-                                risk=0.0,
-                                is_other_shot=True,
-                                bar_text="Not enough evidence available.",
-                                hover_text="There is not enough evidence to provide information on this."
-                            ),
                         ]
+                    ) if not remove_severe_nodes else
+                        generate_bar_graph_risks(
+                            [
+                                corical_pb2.BarGraphRisk(
+                                    label=f"Chance of going to the hospital from COVID-19 if infected",
+                                    risk=0.0,
+                                    is_other_shot=True,
+                                    bar_text="Not enough evidence available.",
+                                    hover_text="There is not enough evidence to provide information on this."
+                                ),
+                                corical_pb2.BarGraphRisk(
+                                    label=f"Chance of Multisystem Inflammatory Syndrome in Children from COVID-19 if infected",
+                                    risk=0.0,
+                                    is_other_shot=True,
+                                    bar_text="Not enough evidence available.",
+                                    hover_text="There is not enough evidence to provide information on this."
+                                ),
+                            ]
+                        ),
                     ),
-                ),
-            ],
+                ],
             output_groups=[],
             success=True,
             msg=str(request),
