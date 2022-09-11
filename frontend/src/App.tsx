@@ -57,6 +57,16 @@ function IndexRoute() {
 function RiskChartRoute() {
   return (
     <>
+      <Button
+        component={Link}
+        to="/"
+        color="primary"
+        variant="outlined"
+        size="small"
+        style={{ margin: "1em" }}
+      >
+        Back to calculator
+      </Button>
       <h1>View risk chart </h1>
       <h2>Risk of dying from COVID-19 based on age, sex, and vaccination status - 90% Omicron/10% Delta Variants, updated January 2022</h2>
       <Button

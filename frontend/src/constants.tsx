@@ -1,5 +1,5 @@
 // top of page
-export const TITLE = "CoRiCal: Covid Risk Calculator";
+export const TITLE = "CoRiCal: COVID-19 Risk Calculator";
 export const BY_LINE = "By, credits, etc";
 
 // form elements
