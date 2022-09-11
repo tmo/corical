@@ -728,11 +728,16 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             "Two_Pfizer": ("had two shots of the Pfizer ", "Pfizer"),
         }
 
-
+        # The only case there is evidence of is two doses, so this is set here
+        # it is easiest to set this here in case there is more evidence later
+        request.dose = "Two_Pfizer"
+        
         if request.dose == "None":
             comparison_doses = ["Two_Pfizer"]
         elif request.dose == "Two_Pfizer":
             comparison_doses = ["None"]
+        else:
+            comparison_doses = []
 
         network = SmileModel(PZ_children_model_file)
         baseline_outcomes = {

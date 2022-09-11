@@ -171,7 +171,7 @@ export default function Form({ callback }: FormInputs) {
           )}
         />
       </div>
-      <div className={classNames(classes.formComp)}>
+      {/*<div className={classNames(classes.formComp)}>
         <Controller
           name="form_dose"
           control={control}
@@ -182,7 +182,7 @@ export default function Form({ callback }: FormInputs) {
             <FormControl component="fieldset">
               <FormLabel component="legend">{PZ_VACCINE_LABEL}</FormLabel>
               <Typography variant="caption">
-                {/* {left empty} */}
+                
               </Typography>
               <RadioGroup
                 // row
@@ -207,7 +207,7 @@ export default function Form({ callback }: FormInputs) {
             </FormControl>
           )}
         />
-      </div>
+      </div> */}
       {/* <div
         className={classNames(classes.formComp, classes.indent)}
         hidden={!enableDose2extras}
