@@ -128,7 +128,9 @@ export const CHILDREN_VACCINE_OPTIONS = [
   // },
 ];
 
-export const CHILDREN_SCENARIOS_LABEL = "How many reported cases are there in your community?";
+export const CHILDREN_SCENARIOS_LABEL = `How many reported cases are there in 
+            your area? If you’re not sure, the calculator will assume there is 
+            a large number of COVID-19 cases in your area.`;
 export const CHILDREN_SCENARIOS_DEFAULT = "Five_percent";
 export const CHILDREN_SCENARIOS = [
   {
@@ -155,7 +157,9 @@ export const CHILDREN_SCENARIOS = [
 
 export const SUBMIT_LABEL = "Calculate risk";
 
-export const SCENARIOS_LABEL = "How many reported cases are there in your community?";
+export const SCENARIOS_LABEL = `How many reported cases are there in 
+            your area? If you’re not sure, the calculator will assume there is 
+            a large number of COVID-19 cases in your area.`;
 export const SCENARIOS_DEFAULT = "Five_percent";
 export const SCENARIOS = [
   {
@@ -215,7 +219,9 @@ export const SCENARIOS = [
   // },
 ];
 
-export const PZ_SCENARIOS_LABEL = "How many reported cases are there in your community?";
+export const PZ_SCENARIOS_LABEL = `How many reported cases are there in 
+            your area? If you’re not sure, the calculator will assume there is 
+            a large number of COVID-19 cases in your area.`;
 export const PZ_SCENARIOS_DEFAULT = "Five_percent";
 export const PZ_SCENARIOS = [
   {
