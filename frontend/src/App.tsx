@@ -292,6 +292,71 @@ function FaqRoute() {
   );
 }
 
+function StateInfoRoute() {
+  return (
+    <>
+      <Button
+        component={Link}
+        to="/"
+        color="primary"
+        variant="outlined"
+        size="small"
+        style={{ margin: "1em" }}
+      >
+        Back to calculator
+      </Button>
+      <Box my={4}>
+        <h1>State Case Numbers</h1>
+        <Container maxWidth="lg">
+          <Typography>
+            <p>You can check the curent number of cases in your state from your state's health webpage below: </p>
+            <a
+                href="https://www.health.nsw.gov.au/" 
+                rel="noreferrer" target="_blank"
+                style={{ textDecoration: "underline", color: "inherit" }}
+                >New South Wales Health</a><br/>
+            <a
+                href="https://www.health.vic.gov.au/" 
+                rel="noreferrer" target="_blank"
+                style={{ textDecoration: "underline", color: "inherit" }}
+                >Victoria Health</a> <br/>
+            <a
+                href="https://www.health.qld.gov.au/" 
+                rel="noreferrer" target="_blank"
+                style={{ textDecoration: "underline", color: "inherit" }}
+                >Queensland Health</a><br/>
+            <a
+                href="https://www.health.wa.gov.au/" 
+                rel="noreferrer" target="_blank"
+                style={{ textDecoration: "underline", color: "inherit" }}
+                >Western Australia Health</a><br/>
+            <a
+                href="https://www.sahealth.sa.gov.au/" 
+                rel="noreferrer" target="_blank"
+                style={{ textDecoration: "underline", color: "inherit" }}
+                >South Australia Health</a><br/>
+            <a
+                href="https://www.health.tas.gov.au/" 
+                rel="noreferrer" target="_blank"
+                style={{ textDecoration: "underline", color: "inherit" }}
+                >Tasmania Health</a><br/>
+            <a
+                href="https://www.health.act.gov.au/" 
+                rel="noreferrer" target="_blank"
+                style={{ textDecoration: "underline", color: "inherit" }}
+                >Australian Capital Territory Health</a><br/>
+            <a
+                href="https://health.nt.gov.au" 
+                rel="noreferrer" target="_blank"
+                style={{ textDecoration: "underline", color: "inherit" }}
+                >Northern Territory Health</a><br/>
+          </Typography>
+        </Container>
+      </Box>
+    </>
+  );
+}
+
 function InfoRoute() {
   return (
     <>
@@ -478,6 +543,7 @@ export default function App() {
           <Route path="/whatsnew" element={<NewRoute />} />
           <Route path="/videos" element={<VideoRoute />} />
           <Route path="/moreinfo" element={<InfoRoute />} />
+          <Route path="/stateinfo" element={<StateInfoRoute />} />
         </Routes>
       </BrowserRouter>
     </Skel>

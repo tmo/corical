@@ -15,6 +15,8 @@ import {
   DialogContentText,
   DialogActions,
   Link,
+  Select,
+  MenuItem,
 } from "@material-ui/core";
 import { Alert, AlertTitle } from "@material-ui/lab/";
 import { Controller, useForm } from "react-hook-form";
@@ -29,6 +31,10 @@ import {
   PZ_CHILDREN_VERSION_ALERT,
   CHILDREN_AGE_TOO_SMALL,
   CHILDREN_AGE_TOO_BIG,
+  STATE_LABEL,
+  STATE_OPTIONS,
+  STATE_DEFAULT,
+  STATE_NUMBERS,
   SEX_LABEL,
   SEX_OPTIONS,
   FIELD_REQUIRED,
@@ -79,6 +85,7 @@ export type PfizerFullFormData = {
   age?: number;
   sex: string;
   ct: string;
+  state: string;
 };
 
 export default function Form({ callback }: FormInputs) {
@@ -105,6 +112,8 @@ export default function Form({ callback }: FormInputs) {
   const classes = useStyles();
 
   const [tosBoxOpen, setTosBoxOpen] = useState(false);
+
+  const [stateVal, setStateVal] = useState(STATE_DEFAULT); 
 
   return (
     <form onSubmit={submit}>
@@ -143,6 +152,32 @@ export default function Form({ callback }: FormInputs) {
       </div>
       <div className={classNames(classes.formComp)}>
         <Controller
+          name="state"
+          control={control}
+          rules={{
+            
+          }}
+          render={({ field: { onChange, value } }) => (
+            <FormControl component="fieldset">
+              <FormLabel component="legend">{STATE_LABEL}</FormLabel>
+              <Select
+                value={value}
+                defaultValue={STATE_DEFAULT}
+                label="State"
+                onChange={(e, value) => {setStateVal(e.target.value as string)}}
+              >
+                {STATE_OPTIONS.map(({ value, label }) => (
+                    <MenuItem 
+                      value={value}
+                    >{label}</MenuItem>
+                  ))}
+              </Select>
+            </FormControl>
+          )}
+        />
+      </div>
+      <div className={classNames(classes.formComp)}>
+        <Controller
           name="sex"
           control={control}
           rules={{ required: FIELD_REQUIRED }}
@@ -171,81 +206,6 @@ export default function Form({ callback }: FormInputs) {
           )}
         />
       </div>
-      {/*<div className={classNames(classes.formComp)}>
-        <Controller
-          name="form_dose"
-          control={control}
-          rules={{
-            validate: (value) => !!value || FIELD_REQUIRED,
-          }}
-          render={({ field: { onChange, value } }) => (
-            <FormControl component="fieldset">
-              <FormLabel component="legend">{PZ_VACCINE_LABEL}</FormLabel>
-              <Typography variant="caption">
-                
-              </Typography>
-              <RadioGroup
-                // row
-                name="form_dose-radio"
-                onChange={(e, value) => onChange(value)}
-                value={value}
-              >
-                {CHILDREN_VACCINE_OPTIONS.map(({ value, label }) => (
-                  <FormControlLabel
-                    key={label}
-                    value={value}
-                    control={<Radio />}
-                    label={ label }
-                  />
-                ))}
-              </RadioGroup>
-              {errors?.form_dose?.message && (
-                <FormHelperText error>
-                  {errors.form_dose.message}
-                </FormHelperText>
-              )}
-            </FormControl>
-          )}
-        />
-      </div> */}
-      {/* <div
-        className={classNames(classes.formComp, classes.indent)}
-        hidden={!enableDose2extras}
-      > */}
-        {/* <Controller
-          name="form_second_dose"
-          control={control}
-          rules={{
-            validate: (value) =>
-              !enableDose2extras || !!value || FIELD_REQUIRED,
-          }}
-          render={({ field: { onChange, value } }) => (
-            <FormControl component="fieldset">
-              <FormLabel component="legend">{PZ_VACCINE2_LABEL}</FormLabel>
-              <RadioGroup
-                name="form_second_dose-radio"
-                onChange={(e, value) => onChange(value)}
-                value={value}
-              >
-                {PZ_VACCINE2_OPTIONS.map(({ value, label }) => (
-                  <FormControlLabel
-                    disabled={!enableDose2extras}
-                    key={label}
-                    value={value}
-                    control={<Radio />}
-                    label={ label }
-                  />
-                ))}
-              </RadioGroup>
-              {errors?.form_second_dose?.message && (
-                <FormHelperText error>
-                  {errors.form_second_dose.message}
-                </FormHelperText>
-              )}
-            </FormControl>
-          )}
-        /> */}
-      {/* </div> */}
       <div className={classNames(classes.formComp)}>
         <Controller
           name="ct"
@@ -255,7 +215,20 @@ export default function Form({ callback }: FormInputs) {
           }}
           render={({ field: { onChange, value } }) => (
             <FormControl component="fieldset">
-              <FormLabel component="legend">{CHILDREN_SCENARIOS_LABEL}</FormLabel>
+              <FormLabel component="legend">
+                {CHILDREN_SCENARIOS_LABEL} 
+                <br/>
+                <br/>
+                <Button
+                  variant="outlined"
+                  color="default"
+                  disableElevation
+                  size="small"
+                  href="/stateinfo"
+                >
+                  More Information
+                </Button>{" "}
+              </FormLabel>
               <RadioGroup
                 name="ct-radio"
                 onChange={(e, value) => onChange(value)}
@@ -274,7 +247,9 @@ export default function Form({ callback }: FormInputs) {
                           variant="caption"
                           className={classes.ctDescription}
                         >
-                          {description}
+                          {description
+                            .replace('{case_number}', (STATE_NUMBERS as any)[stateVal][value])
+                            .replace('{state}', stateVal)}
                         </Typography>
                       </div>
                     }

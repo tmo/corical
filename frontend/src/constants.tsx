@@ -15,6 +15,94 @@ export const AGE_TOO_BIG = "Please enter an age under 100.";
 export const CHILDREN_AGE_TOO_SMALL = "Must be at least 5 years old.";
 export const CHILDREN_AGE_TOO_BIG = "Please enter an age under 18, or use the adult calculator.";
 
+export const STATE_LABEL = "State";
+export const STATE_DEFAULT = "NSW";
+export const STATE_OPTIONS = [
+  {
+    value: "NSW",
+    label: "NSW",
+  },
+  {
+    value: "VIC",
+    label: "VIC",
+  },
+  {
+    value: "QLD",
+    label: "QLD",
+  },
+  {
+    value: "WA",
+    label: "WA",
+  },
+  {
+    value: "SA",
+    label: "SA",
+  },
+  {
+    value: "TAS",
+    label: "TAS",
+  },
+  {
+    value: "ACT",
+    label: "ACT",
+  },
+  {
+    value: "NT",
+    label: "NT",
+  },
+];
+
+export const STATE_NUMBERS = {
+  "NSW": {
+    "Ten_percent": "13550",
+    "Five_percent": "6775",
+    "Two_percent": "2710",
+    "One_percent": "1355",
+  },
+  "QLD": {
+    "Ten_percent": "8827",
+    "Five_percent": "4413",
+    "Two_percent": "1765",
+    "One_percent": "883",
+  },
+  "SA": {
+    "Ten_percent": "3026",
+    "Five_percent": "1513",
+    "Two_percent": "605",
+    "One_percent": "303",
+  },
+  "TAS": {
+    "Ten_percent": "952",
+    "Five_percent": "476",
+    "Two_percent": "190",
+    "One_percent": "95",
+  },
+  "VIC": {
+    "Ten_percent": "10989",
+    "Five_percent": "5494",
+    "Two_percent": "2198",
+    "One_percent": "1099",
+  },
+  "WA": {
+    "Ten_percent": "4622",
+    "Five_percent": "2311",
+    "Two_percent": "924",
+    "One_percent": "462",
+  },
+  "NT": {
+    "Ten_percent": "417",
+    "Five_percent": "209",
+    "Two_percent": "83",
+    "One_percent": "42",
+  },
+  "ACT": {
+    "Ten_percent": "760",
+    "Five_percent": "380",
+    "Two_percent": "152",
+    "One_percent": "76",
+  },
+};
+
 export const SEX_LABEL = "Sex";
 export const SEX_OPTIONS = [
   {
@@ -134,24 +222,24 @@ export const CHILDREN_SCENARIOS_LABEL = `How many reported cases are there in
 export const CHILDREN_SCENARIOS_DEFAULT = "Five_percent";
 export const CHILDREN_SCENARIOS = [
   {
-    value: "Ten_Percent",
+    value: "Ten_percent",
     label: "A huge number of cases",
-    description: "10% chance of getting COVID-19 over 2 months – about the same as 13,600 cases per day in NSW",
+    description: "10% chance of getting COVID-19 over 2 months – about the same as {case_number} cases per day in {state}",
   },
   {
-    value: "Five_Percent",
+    value: "Five_percent",
     label: "A large number of cases",
-    description: "5% chance of getting COVID-19 over 2 months – about the same as 6,800 cases per day in NSW",
+    description: "5% chance of getting COVID-19 over 2 months – about the same as {case_number} cases per day in {state}",
   },
   {
-    value: "Two_Percent",
+    value: "Two_percent",
     label: "A lot of cases",
-    description: "2% chance of getting COVID-19 over 2 months – about the same as 2,500 cases per day in NSW",
+    description: "2% chance of getting COVID-19 over 2 months – about the same as {case_number} cases per day in {state}",
   },
   {
-  value: "One_Percent",
+  value: "One_percent",
   label: "A few cases",
-  description: "1% chance of getting COVID-19 over 2 months – about the same as 1,200 cases per day in NSW",
+  description: "1% chance of getting COVID-19 over 2 months – about the same as {case_number} cases per day in {state}",
   },
 ];
 
