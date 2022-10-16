@@ -253,58 +253,23 @@ export const SCENARIOS = [
   {
     value: "Ten_percent",
     label: "A huge number of cases",
-    description: "10% chance of getting COVID-19 over 2 months – about the same as 13,600 cases per day in NSW",
+    description: "10% chance of getting COVID-19 over 2 months – about the same as {case_number} cases per day in {state}",
   },
   {
     value: "Five_percent",
     label: "A large number of cases",
-    description: "5% chance of getting COVID-19 over 2 months – about the same as 6,800 cases per day in NSW",
+    description: "5% chance of getting COVID-19 over 2 months – about the same as {case_number} cases per day in {state}",
   },
-  // {
-  //   value: "ATAGI_High",
-  //   label: "A lot of cases ",
-  //   description: "2% chance of getting COVID-19 over 2 months – about the same as 2,500 cases per day in NSW",
-  // },
   {
     value: "Two_percent",
     label: "A lot of cases",
-    description: "2% chance of getting COVID-19 over 2 months – about the same as 2,500 cases per day in NSW",
+    description: "2% chance of getting COVID-19 over 2 months – about the same as {case_number} cases per day in {state}",
   },
   {
-    value: "ATAGI_Med",
-    label: "A few cases ",
-    description: "0.15% chance of getting COVID-19 over 2 months – about the same as 200 cases per day in NSW",
+  value: "One_percent",
+  label: "A few cases",
+  description: "1% chance of getting COVID-19 over 2 months – about the same as {case_number} cases per day in {state}",
   },
-  {
-    value: "ATAGI_Low",
-    label: "Not many cases ",
-    description: "0.02% chance of getting COVID-19 over 2 months – about the same as 20 cases per day in NSW",
-  },
-  // {
-  //   value: "None",
-  //   label: "No community transmission",
-  //   description: "No COVID-19 circulating in the community",
-  // },
-  // {
-  //   value: "One_percent",
-  //   label: "1%",
-  //   description: "Description for 1%",
-  // },
-  // {
-  //   value: "NSW_1000_cases",
-  //   label: "NSW 1000 cases",
-  //   description: "Description for NSW 1000 cases",
-  // },
-  // {
-  //   value: "VIC_1000_cases",
-  //   label: "VIC 1000 cases",
-  //   description: "Description for VIC 1000 cases",
-  // },
-  // {
-  //   value: "QLD_1000_cases",
-  //   label: "QLD 1000 cases",
-  //   description: "Description for QLD 1000 cases",
-  // },
 ];
 
 export const PZ_SCENARIOS_LABEL = `How many reported cases are there in 
@@ -315,32 +280,22 @@ export const PZ_SCENARIOS = [
   {
     value: "Ten_percent",
     label: "A huge number of cases",
-    description: "10% chance of getting COVID-19 over 2 months – about the same as 13,600 cases per day in NSW",
+    description: "10% chance of getting COVID-19 over 2 months – about the same as {case_number} cases per day in {state}",
   },
   {
     value: "Five_percent",
     label: "A large number of cases",
-    description: "5% chance of getting COVID-19 over 2 months – about the same as 6,800 cases per day in NSW",
+    description: "5% chance of getting COVID-19 over 2 months – about the same as {case_number} cases per day in {state}",
   },
-  // {
-  //   value: "ATAGI_High",
-  //   label: "A lot of cases ",
-  //   description: "2% chance of getting COVID-19 over 2 months – about the same as 2,500 cases per day in NSW",
-  // },
   {
     value: "Two_percent",
     label: "A lot of cases",
-    description: "2% chance of getting COVID-19 over 2 months – about the same as 2,500 cases per day in NSW",
+    description: "2% chance of getting COVID-19 over 2 months – about the same as {case_number} cases per day in {state}",
   },
   {
-    value: "ATAGI_Med",
-    label: "A few cases ",
-    description: "0.15% chance of getting COVID-19 over 2 months – about the same as 200 cases per day in NSW",
-  },
-  {
-    value: "ATAGI_Low",
-    label: "Not many cases ",
-    description: "0.02% chance of getting COVID-19 over 2 months – about the same as 20 cases per day in NSW",
+  value: "One_percent",
+  label: "A few cases",
+  description: "1% chance of getting COVID-19 over 2 months – about the same as {case_number} cases per day in {state}",
   },
 ];
 

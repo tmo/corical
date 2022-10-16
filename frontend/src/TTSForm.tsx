@@ -15,6 +15,8 @@ import {
   DialogContentText,
   DialogActions,
   Link,
+  Select,
+  MenuItem,
 } from "@material-ui/core";
 import { Alert, AlertTitle } from "@material-ui/lab/";
 import { Controller, useForm } from "react-hook-form";
@@ -29,6 +31,10 @@ import {
   AZ_VERSION_ALERT,
   AGE_TOO_SMALL,
   AGE_TOO_BIG,
+  STATE_LABEL,
+  STATE_OPTIONS,
+  STATE_DEFAULT,
+  STATE_NUMBERS,
   SEX_LABEL,
   SEX_OPTIONS,
   FIELD_REQUIRED,
@@ -83,6 +89,7 @@ export type TTSFullFormData = {
   dose: string;
   second_dose: string;
   transmission: string;
+  state: string;
 };
 
 export default function Form({ callback }: FormInputs) {
@@ -112,6 +119,8 @@ export default function Form({ callback }: FormInputs) {
   const classes = useStyles();
 
   const [tosBoxOpen, setTosBoxOpen] = useState(false);
+
+  const [stateVal, setStateVal] = useState(STATE_DEFAULT); 
 
   const enableDose2extras = watch("dose") === VACCINE_SECOND_VAL;
 
@@ -147,6 +156,32 @@ export default function Form({ callback }: FormInputs) {
               helperText={errors?.age?.message ?? " "}
               error={!!errors?.age?.message}
             />
+          )}
+        />
+      </div>
+      <div className={classNames(classes.formComp)}>
+        <Controller
+          name="state"
+          control={control}
+          rules={{
+            
+          }}
+          render={({ field: { onChange, value } }) => (
+            <FormControl component="fieldset">
+              <FormLabel component="legend">{STATE_LABEL}</FormLabel>
+              <Select
+                value={value}
+                defaultValue={STATE_DEFAULT}
+                label="State"
+                onChange={(e, value) => {setStateVal(e.target.value as string)}}
+              >
+                {STATE_OPTIONS.map(({ value, label }) => (
+                    <MenuItem 
+                      value={value}
+                    >{label}</MenuItem>
+                  ))}
+              </Select>
+            </FormControl>
           )}
         />
       </div>
@@ -262,7 +297,20 @@ export default function Form({ callback }: FormInputs) {
           }}
           render={({ field: { onChange, value } }) => (
             <FormControl component="fieldset">
-              <FormLabel component="legend">{SCENARIOS_LABEL}</FormLabel>
+              <FormLabel component="legend">
+                {SCENARIOS_LABEL}
+                <br/>
+                <br/>
+                <Button
+                  variant="outlined"
+                  color="default"
+                  disableElevation
+                  size="small"
+                  href="/stateinfo"
+                >
+                  More Information
+                </Button>{" "}
+              </FormLabel>
               <RadioGroup
                 name="transmission-radio"
                 onChange={(e, value) => onChange(value)}
@@ -281,7 +329,9 @@ export default function Form({ callback }: FormInputs) {
                           variant="caption"
                           className={classes.transmissionDescription}
                         >
-                          {description}
+                          {description
+                            .replace('{case_number}', (STATE_NUMBERS as any)[stateVal][value])
+                            .replace('{state}', stateVal)}
                         </Typography>
                       </div>
                     }
