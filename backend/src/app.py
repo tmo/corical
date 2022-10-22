@@ -703,13 +703,13 @@ class Corical(corical_pb2_grpc.CoricalServicer):
         age_text, age_label, age_ix = get_age_bracket_children(request.age)
         if request.ct == "None_0":
             transmission_label = "no"
-        elif request.ct == "Ten_Percent":
+        elif request.ct == "Ten_percent":
             transmission_label = "a huge number of cases "
-        elif request.ct == "Five_Percent":
+        elif request.ct == "Five_percent":
             transmission_label = "a large number of cases "
-        elif request.ct == "Two_Percent":
+        elif request.ct == "Two_percent":
             transmission_label = "a lot of cases "
-        elif request.ct == "One_Percent":
+        elif request.ct == "One_percent":
             transmission_label = "a few cases"
         else:
             transmission_label = request.ct
