@@ -248,6 +248,16 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
               >
                 Information on TTS
               </Button>{" "}
+              <Button
+                variant="outlined"
+                color="primary"
+                disableElevation
+                rel="noreferrer" 
+                target="_blank"
+                href="/docs/myocarditis_assumptions_21_10_22.pdf"
+              >
+                Information on Myocarditis 
+              </Button>{" "}
             </Box>
             <Typography variant="caption" paragraph>
               <b>CoRiCal co-chairs</b>: Andrew Baird, Colleen Lau, John Litt, Kirsty Short

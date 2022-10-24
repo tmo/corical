@@ -47,9 +47,18 @@ function IndexRoute() {
         rel="noreferrer" 
         target="_blank"
       >
-        Risk chart
+        Risk chart for Dying of COVID-19
       </Button>
-      
+      <h2>Risk of developing myocarditis from COVID-19 infection or vaccination based on age, sex, and vaccination status - updated October 2022</h2>
+      <Button
+        href="https://www.immunisationcoalition.org.au/wp-content/uploads/2022/10/FINAL_myocarditis-chart-Oct-22.pdf"
+        color="primary"
+        variant="contained"
+        rel="noreferrer" 
+        target="_blank"
+      >
+        Risk chart for Developing Myocarditis
+      </Button>
     </>
   );
 }
