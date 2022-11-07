@@ -152,32 +152,6 @@ export default function Form({ callback }: FormInputs) {
       </div>
       <div className={classNames(classes.formComp)}>
         <Controller
-          name="state"
-          control={control}
-          rules={{
-            
-          }}
-          render={({ field: { onChange, value } }) => (
-            <FormControl component="fieldset">
-              <FormLabel component="legend">{STATE_LABEL}</FormLabel>
-              <Select
-                value={value}
-                defaultValue={STATE_DEFAULT}
-                label="State"
-                onChange={(e, value) => {setStateVal(e.target.value as string)}}
-              >
-                {STATE_OPTIONS.map(({ value, label }) => (
-                    <MenuItem 
-                      value={value}
-                    >{label}</MenuItem>
-                  ))}
-              </Select>
-            </FormControl>
-          )}
-        />
-      </div>
-      <div className={classNames(classes.formComp)}>
-        <Controller
           name="sex"
           control={control}
           rules={{ required: FIELD_REQUIRED }}
@@ -202,6 +176,32 @@ export default function Form({ callback }: FormInputs) {
               {errors?.sex?.message && (
                 <FormHelperText error>{errors.sex.message}</FormHelperText>
               )}
+            </FormControl>
+          )}
+        />
+      </div>
+      <div className={classNames(classes.formComp)}>
+        <Controller
+          name="state"
+          control={control}
+          rules={{
+            
+          }}
+          render={({ field: { onChange, value } }) => (
+            <FormControl component="fieldset">
+              <FormLabel component="legend">{STATE_LABEL}</FormLabel>
+              <Select
+                value={value}
+                defaultValue={STATE_DEFAULT}
+                label="State"
+                onChange={(e, value) => {setStateVal(e.target.value as string)}}
+              >
+                {STATE_OPTIONS.map(({ value, label }) => (
+                    <MenuItem 
+                      value={value}
+                    >{label}</MenuItem>
+                  ))}
+              </Select>
             </FormControl>
           )}
         />
