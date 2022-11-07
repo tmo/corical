@@ -158,47 +158,100 @@ export const VACCINE_OPTIONS_TIME = [
 ]
 
 
-export const PZ_VACCINE_LABEL = "Vaccine";
+export const PZ_VACCINE_LABEL = "How many COVID-19 vaccine shots have you had?";
 export const PZ_VACCINE_SECOND_VAL = "Two";
+export const PZ_VACCINE_THIRD_VAL = "Three";
 export const DOSE_OVERDUE_DISCLAIMER = "We don't currently have estimates for people whose second or third shot is overdue";
 export const PZ_VACCINE_OPTIONS = [
   {
     value: "None",
     label: "None",
   },
-  {
-    value: "One_at_3wks",
-    label: "One shot of Pfizer (3 weeks ago)",
-  },
+  // {
+  //   value: "One_at_3wks",
+  //   label: "One shot of Pfizer (3 weeks ago)",
+  // },
   {
     value: PZ_VACCINE_SECOND_VAL,
-    label: "Two shots of Pfizer",
+    label: "2",
   },
   {
-    value: "Three",
-    label: "Three shots of Pfizer",
+    value: PZ_VACCINE_THIRD_VAL,
+    label: "3",
+  },
+  {
+    value: "Four_doses_any",
+    label: "4",
   },
 ];
 
-export const PZ_VACCINE2_LABEL =
-  "Time since second dose";
-export const PZ_VACCINE2_OPTIONS = [
+
+export const PZ_VACCINE_TYPE=
+  "Which vaccine did you have for your first 2 shots?";
+export const PZ_VACCINE_TYPE_SUBTITLE=
+  "If you had 2 different vaccine types, select the type of the second shot?";
+export const PZ_VACCINE_TYPE_OPTIONS = [
   {
-    value: "Two_under_2mths",
+    value: "AZ",
+    label: "Astra Zeneca",
+  },
+  {
+    value: "Pf",
+    label: "Pfizer",
+  },
+  {
+    value: "MD",
+    label: "Moderna",
+  },
+];
+
+export const PZ_VACCINE3_TYPE=
+  "Which vaccine did you have for your third shot?";
+export const PZ_VACCINE3_TYPE_OPTIONS = [
+  {
+    value: "Pf",
+    label: "Pfizer",
+  },
+  {
+    value: "MD",
+    label: "Moderna",
+  },
+];
+
+
+export const PZ_VACCINE_TIME_LABEL =
+  "How long ago was your last shot of COVID-19 vaccine? ";
+export const PZ_VACCINE2_TIME_OPTIONS = [
+  {
+    value: "under_2_months",
     label: "Less than 2 months",
   },
   {
-    value: "Two_2_4mths",
+    value: "2to4_months",
     label: "Between 2 and 4 months",
   },
   {
-    value: "Two_4_6mths",
+    value: "4to6_months",
     label: "Between 4 and 6 months",
   },
-  // {
-  //   value: "Two_last_dose_more_than_6_months_ago",
-  //   label: "More than 6 months",
-  // },
+  {
+    value: "6_months",
+    label: "More than 6 months",
+  },
+];
+export const PZ_VACCINE3_TIME_OPTIONS = [
+  {
+    value: "under_2_months",
+    label: "Less than 2 months",
+  },
+  {
+    value: "4to6_months",
+    label: "Between 4 and 6 months",
+  },
+  {
+    value: "6_months",
+    label: "More than 6 months",
+  },
 ];
 
 export const CHILDREN_VACCINE_OPTIONS = [

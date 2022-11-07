@@ -20,6 +20,13 @@ service Corical {
     };
   }
 
+  rpc ComputeCombined(ComputeCombinedReq) returns (ComputeRes) {
+    option (google.api.http) = {
+      post : "/v1/compute_combined"
+      body : "*"
+    };
+  }
+
   rpc ComputePfizerChildren(ComputePfizerReq) returns (ComputeRes) {
     option (google.api.http) = {
       post : "/v1/compute_pfizer_children"
@@ -47,6 +54,19 @@ message ComputePfizerReq {
   uint32 age = 2;
   string ct = 3;
   string sex = 4;
+}
+
+
+/// Combined 
+message ComputeCombinedReq {
+  string dose_number = 1;
+  uint32 age = 2;
+  string ct = 3;
+  string sex = 4;
+  string dose_2 = 5;
+  string dose_3 = 6;
+  string dose_time = 7;
+  
 }
 
 /// output
@@ -108,6 +128,7 @@ message BinLog {
   google.protobuf.Timestamp time = 1;
   ComputeTTSReq tts_req = 2;
   ComputePfizerReq pfizer_req = 5;
+  ComputeCombinedReq combined_req = 6;
   ComputeRes res = 3;
   double duration_ms = 4;
 }
