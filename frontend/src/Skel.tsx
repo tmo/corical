@@ -288,7 +288,7 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
               <b>Model design</b>: Colleen Lau, Helen Mayfield, Kerrie Mengersen
               <br />
               <b>Data acquisition</b>: Andrew Baird, Anoop Enjeti, Colleen Lau,
-              John Litt, Helen Mayfield, Kirsty Short
+              John Litt, Helen Mayfield, Kirsty Short, Sophie Wen, Phil Britton 
               <br />
               <b>Data analysis</b>: Samuel Brown, Colleen Lau, Helen Mayfield,
               Kerrie Mengersen, Jane Sinclair, Michael Waller
