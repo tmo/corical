@@ -193,7 +193,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             bar_graphs=[
                 corical_pb2.BarGraph(
                     title=f"What is my child's chance of getting COVID-19?",
-                    subtitle=f"The COVID-19 vaccines aim to stop children from getting very sick from the COVID-19 infection. The vaccines can also protect children from becoming infected with COVID-19.",
+                    subtitle=f"The COVID-19 vaccines aim to stop children from getting very sick from COVID-19. The vaccines can also protect children from getting COVID-19.",
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(

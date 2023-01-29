@@ -1,10 +1,11 @@
 export const FAQ_ITEMS =  [
   {
     question: "How is the risk of various scenarios calculated?",
-    answer: <> We have used trusted data sources to create a Bayesian Network 
+    answer: <> We have used trusted data sources (such as government reports 
+      and published scientific studies) to create a Bayesian Network 
       model. A Bayesian network is a graphical model that uses conditional 
       probabilities to determine the likely probability of certain events.
-      For examples of how these risks are calculated based on the assumptions, 
+      For examples of how these probabilities are calculated based on the assumptions, 
       see <a rel="noreferrer" target="_blank" href="/docs/AstraZeneca_and_Pfizer_Model_Manual_Calculations.pdf">here for Astrazeneca vaccine</a>  and <a rel="noreferrer" target="_blank" href="/docs/Pfizer_Model_Manual_Calculations.pdf">here for the Pfizer vaccine</a>.  
       Assumptions are listed <a rel="noreferrer" target="_blank" href="/docs/astrazeneca_assumptions_11_03_22.pdf">here for Astrazeneca vaccine</a> and <a rel="noreferrer" target="_blank" href="/docs/pfizer_assumptions_11_03_22.pdf">here for the Pfizer vaccine</a>.
       </>,
@@ -22,23 +23,19 @@ export const FAQ_ITEMS =  [
     answer: `The current calculator assumes that 100% of COVID-19 cases are caused by the Omicron variant. Should this change in the future we will look to update the calculator accordingly. `,
   },
   {
-    question: "Is there a risk calculator available for people under the age of 18? ",
-    answer: `This is something we are actively working on, we anticipate releasing this update as soon as it is available.`,
-  },
-  {
     question: "What are the chances of each outcome for someone who has had a prior COVID-19 infection with or without vaccination?",
     answer: `Prior COVID-19 infection can induce an immune response that may give people some level of protection from re-infection. We are currently collecting the latest available data on this and anticipate releasing this update once sufficient evidence has been obtained.`,
   },
   {
     question: "Are the rates per whole population or are the rates per the relevant age group population?",
-    answer: `The rates are displayed either as x per million people of the selected age and sex, or as a 1 in x chance of the event (e.g. 1 in 32 chance for people of the selected age and sex). `,
+    answer: `The rates are displayed either as number per million people of the selected age group and sex, or as a 1 in a number chance of the event for the selected age group and sex. `,
   },
   {
     question: "Why is the risk of dying different between the risk charts and the interactive calculator? ",
-    answer: `This is because the interactive calculator is the latest update which assumes 100% of cases are Omicron. The risk charts were designed in January 2022 and accordingly it was assumed that 10% of cases were Delta and 90% of cases were Omicron. `,
+    answer: `This is because the interactive calculator is the latest update which assumes 100% of cases are Omicron. The risk charts were designed in January 2022 and when it was assumed that 10% of cases were Delta and 90% of cases were Omicron. `,
   },
   {
-    question: "Is the calculator based on Australian data? If overseas data are used then from which countries?",
+    question: "Is the calculator based on Australian data? ",
     answer: <> Where possible we have tried to draw on Australian data sources 
       but where this is not available we have used international data sources. 
       All data sources are shown here (see  
@@ -47,7 +44,7 @@ export const FAQ_ITEMS =  [
       sources </a> and assumptions). </>,
   },
   {
-    question: "What are the common non-serious adverse effects of the vaccines, and how frequently do they occur?",
+    question: "What are the common non-serious adverse effects of the vaccines and how frequently do they occur?",
     answer: <> According to <a rel="noreferrer" target="_blank" href="https://www.sciencedirect.com/science/article/pii/S1473309921002243"> 
     a study of more than 600,000 individuals in the UK </a> local side-effects 
     were reported by 71·9% of individuals after the first dose of the Pfizer 
@@ -58,7 +55,7 @@ export const FAQ_ITEMS =  [
   },
   {
     question: "Does the calculator get any funding from pharmaceutical companies?",
-    answer: `This calculator receives funding from the Immunisation Coalition who in turn has receives educational grants from pharmaceutical companies that manufacture vaccines.  However, the CoRiCal project did not receive any direct funding from AstraZeneca, Pfizer, or any other companies that produce COVID-19 vaccines. `,
+    answer: `This calculator receives funding from the Immunisation Coalition who in turn receives educational grants from pharmaceutical companies that manufacture vaccines.  However, the CoRiCal project has not received any direct funding from AstraZeneca, Moderna, Pfizer, or any other companies that produce COVID-19 vaccines. `,
   },
   {
     question: "Does the calculator get any funding from governments?",
@@ -66,7 +63,7 @@ export const FAQ_ITEMS =  [
   },
   {
     question: "Is the calculator designed to push vaccination?",
-    answer: `No. While the support for the calculator came from the Immunisation Coalition, its development has been done by researchers and clinicians who are neither employed by the Immunisation Coalition (or vaccine manufacturers) nor have they received any specific directions as to the content. The risk estimates that have been used are provided and are in the public domain. The estimates are changed if the risks change. The primary purpose of the tool is to assist the public (and GPs) in coming to a decision that they feel comfortable with about having a COVID-19 vaccine. It presents the risk in a manner that is hopefully simple to understand and the decision about vaccination is left to the patient. The patient may want to discuss this information with their vaccine provider eg GP, practice nurse. Alternatively thay can look at the calculator online without any health care provider input`,
+    answer: `No. While the support for the calculator came from the Immunisation Coalition, its development has been done by researchers and clinicians who are neither employed by the Immunisation Coalition (or vaccine manufacturers) nor have they received any specific directions as to the content. The risk estimates that have been used are provided and are in the public domain. The estimates are changed if the risks change. The primary purpose of the tool is as a shared decision-making tool to assist the public (and GPs) in coming to a decision that they feel comfortable with about having a COVID-19 vaccine. It presents the risk in a manner that is hopefully simple to understand and the decision about vaccination is left to the patient. The patient may want to discuss this information with their vaccine provider eg GP, practice nurse. Alternatively thay can look at the calculator online without any health care provider input`,
   },
   {
     question: "Where can I get more information about the calculator CoRiCal?",
