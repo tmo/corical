@@ -166,30 +166,29 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
             <Grid item xs={10} >
             <Typography variant="caption" paragraph>
               <p>
-                CoRiCal is a tool to help people who are not sure about getting 
-                the COVID-19 vaccines. It tells you how the vaccine can lower 
-                your chance of getting or dying from COVID-19. It also shows 
-                the chances of getting rare side effects from the vaccines.
+                CoRiCal is a tool to help people make decisions about getting a 
+                COVID-19 vaccine. It shows how the vaccine can lower the chance 
+                of catching, getting sick from or dying from COVID-19. It also 
+                shows the chance of getting rare side effects from the vaccines.
               </p>
               <p>
-                The tool shows you what your chances are of getting sick based 
-                on your age, sex, and if you are vaccinated. It shows you the risk out of a million 
-                people, or a one in x chance. You can choose how to show the 
-                results by clicking on the tabs: 'Show risk as a chance' or  
-                'Show risk per million people'.
+                The tool shows the chance based on your age, sex, and 
+              vaccinations. You can choose to see the results ‘as a chance' or 
+              'per million people' by clicking on the tabs.
               </p>
               <p>
-                The results shown are only a rough guide. The tool shows the 
-                average result for people with the same sex and age as you. It 
-                doesn't consider other things that can change your chances of 
-                getting COVID-19 or dying from it, like any health conditions 
-                you have, where you work, or your COVID-19 safe behaviours.
+                The results shown are only a guide. The tool shows the average 
+                result for people with the same sex and age as you. This tool 
+                does not consider other things that can change your chance of 
+                infection or illness from COVID-19. This includes your general 
+                health, where you work or go to school, or your COVID-19 safe 
+                behaviours.
               </p>
               <p>
-                Even if there are not many cases in your community right now, 
-                this can change. The number of cases can go up quickly at any 
-                time. So when you make your decision about getting the COVID-19 
-                vaccine, you should also think about the future.
+                When making decisions about getting a COVID-19 vaccine, you 
+                should also consider how your chance might change in the future. 
+                This might include a change in the number of cases in your 
+                community or travel to an area with more cases.
               </p>
 
               <Box py={1}>

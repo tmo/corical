@@ -193,7 +193,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             bar_graphs=[
                 corical_pb2.BarGraph(
                     title=f"What is my child's chance of getting COVID-19?",
-                    subtitle=f"The COVID-19 vaccines aim to stop you from getting very sick. They can also protect you from getting COVID-19.",
+                    subtitle=f"The COVID-19 vaccines aim to stop children from getting very sick from the COVID-19 infection. The vaccines can also protect children from becoming infected with COVID-19.",
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
@@ -214,7 +214,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                 ),
                 corical_pb2.BarGraph(
                     title=f"What is my child's chance of having inflammation of their heart muscle (myocarditis)?",
-                    subtitle=f"The Pfizer vaccine can cause inflammation of the heart muscle. This is called myocarditis. Children can have this problem even if they haven't had the vaccine. Getting COVID-19 can also cause myocarditis in some people. ",
+                    subtitle=f"The Pfizer vaccine can cause inflammation of the heart muscle. This is called myocarditis. Children can get myocarditis from other causes even if they haven't had the vaccine. COVID-19 infection can also cause myocarditis in some children. ",
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
@@ -242,7 +242,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                 ),
                 corical_pb2.BarGraph(
                     title=f"What is the chance of my child going to hospital due to COVID-19?",
-                    subtitle=f"Most children do not get very sick from COVID-19, but some do need to go to hospital. Many of these children have other medical problems that raise their chance of getting very sick.",
+                    subtitle=f"Whilst most children do not get very sick from COVID-19, some do need to go to hospital. Many of these children have other health problems.",
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
@@ -264,7 +264,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                 ),
                 corical_pb2.BarGraph(
                     title=f"What is the chance of my child having Multisystem Inflammatory Syndrome due to COVID-19?",
-                    subtitle=f"COVID-19 can cause severe health problems in some children. A small number of children can get inflammation of their organs. This can affect the heart, brain, kidneys, blood vessels, skin, digestive system or eyes. This is called Multisystem Inflammatory Syndrome in Children, and some children can die from it. ",
+                    subtitle=f"COVID-19 can cause serious health problems in some children. A small number of children can get inflammation of their organs, such as the heart, brain, kidneys, blood vessels, skin, digestive system or eyes. This is called Multisystem Inflammatory Syndrome in Children.",
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
