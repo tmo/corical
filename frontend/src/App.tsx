@@ -31,7 +31,7 @@ function IndexRoute() {
       <h2>Pfizer for Children - Omicron Variant, updated 27/05/2022</h2>
       <Button
         component={Link}
-        to="/pfizer_children"
+        to="/children"
         color="primary"
         variant="contained"
       >
