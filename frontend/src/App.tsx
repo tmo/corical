@@ -1,7 +1,17 @@
 import { useState } from "react";
 import CombinedForm from "./CombinedForm";
+import TTSForm from "./TTSForm";
+import PfizerForm from "./PfizerForm";
 import PfizerChildrenForm from "./PfizerChildrenForm";
-import { CombinedFormData, PfizerFormData, computeCombined, computePfizerChildren } from "./api";
+import { 
+  CombinedFormData, 
+  PfizerFormData, 
+  computeCombined, 
+  computePfizerChildren,
+  TTSFormData, 
+  computeTts, 
+  computePfizer
+} from "./api";
 import Output from "./Output";
 import { Alert, AlertTitle } from "@material-ui/lab/";
 import { BY_LINE, TITLE } from "./constants";
@@ -22,9 +32,20 @@ function IndexRoute() {
     <>
       <h1>Choose a risk calculator</h1>
       <Box mb={4}>
-      <h2>Any vaccine for Adults - Omicron Variant, updated 24/10/2022</h2>
-      <Button component={Link} to="/adults" color="primary" variant="contained">
-        Adult calculator
+      <h2>First dose Pfizer - Omicron Variant, updated 11/03/2022</h2>
+      <Button component={Link} to="/pfizer" color="primary" variant="contained">
+        Pfizer calculator
+      </Button>
+      </Box>
+      <Box mb={5}>
+      <h2>First dose AstraZeneca - Omicron Variant, updated 11/03/2022</h2>
+      <Button
+        component={Link}
+        to="/astrazeneca"
+        color="primary"
+        variant="contained"
+      >
+        AstraZeneca calculator
       </Button>
       </Box>
       <Box mb={5}>
@@ -110,6 +131,85 @@ function CombinedRoute() {
     </>
   );
 }
+
+function PfizerRoute() {
+  const [error, setError] = useState<string | null>(null);
+  const [pfizerOutput, setPfizerOutput] = useState<any | null>(null);
+  const pfizerCallback = async (form: PfizerFormData) => {
+    setError(null);
+    try {
+      form.age = Math.round(form.age!);
+      const res = await computePfizer(form);
+      setPfizerOutput(res);
+    } catch (e: any) {
+      console.error(e);
+      setError(e.message);
+    }
+  };
+  return (
+    <>
+      <Button
+        component={Link}
+        to="/"
+        color="primary"
+        variant="outlined"
+        size="small"
+        style={{ margin: "1em" }}
+      >
+        Back to calculator selection
+      </Button>
+      <PfizerForm callback={pfizerCallback} />
+      {error ? (
+        <Alert severity="error">
+          <AlertTitle>An error occured</AlertTitle>
+          {error}
+        </Alert>
+      ) : (
+        <Output output={pfizerOutput} />
+      )}
+    </>
+  );
+}
+
+function AZRoute() {
+  const [error, setError] = useState<string | null>(null);
+  const [ttsOutput, setTTSOutput] = useState<any | null>(null);
+  const ttsCallback = async (form: TTSFormData) => {
+    setError(null);
+    try {
+      form.age = Math.round(form.age!);
+      const res = await computeTts(form);
+      setTTSOutput(res);
+    } catch (e: any) {
+      console.error(e);
+      setError(e.message);
+    }
+  };
+  return (
+    <>
+      <Button
+        component={Link}
+        to="/"
+        color="primary"
+        variant="outlined"
+        size="small"
+        style={{ margin: "1em" }}
+      >
+        Back to calculator selection
+      </Button>
+      <TTSForm callback={ttsCallback} />
+      {error ? (
+        <Alert severity="error">
+          <AlertTitle>An error occured</AlertTitle>
+          {error}
+        </Alert>
+      ) : (
+        <Output output={ttsOutput} />
+      )}
+    </>
+  );
+}
+
 
 function PfizerChildrenRoute() {
   const [error, setError] = useState<string | null>(null);
@@ -488,7 +588,8 @@ export default function App() {
         <Routes>
           <Route path="/" element={<IndexRoute />} />
           <Route path="/riskchart" element={<RiskChartRoute />} />
-          <Route path="/adults" element={<CombinedRoute />} />
+          <Route path="/pfizer" element={<PfizerRoute />} />
+          <Route path="/astrazeneca" element={<AZRoute />} />
           <Route path="/children" element={<PfizerChildrenRoute />} />
           <Route path="/publications" element={<PubRoute />} />
           <Route path="/faq" element={<FaqRoute />} />

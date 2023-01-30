@@ -157,6 +157,90 @@ export const VACCINE_OPTIONS_TIME = [
   },
 ]
 
+export const PZ_VACCINE_LABEL_SEP = "Vaccine";
+export const PZ_VACCINE_SECOND_VAL_SEP = "Two";
+// export const DOSE_OVERDUE_DISCLAIMER_SEP = "We don't currently have estimates for people whose second or third shot is overdue";
+export const PZ_VACCINE_OPTIONS_SEP = [
+  {
+    value: "None",
+    label: "None",
+  },
+  {
+    value: "One_at_3wks",
+    label: "One shot of Pfizer (3 weeks ago)",
+  },
+  {
+    value: PZ_VACCINE_SECOND_VAL_SEP,
+    label: "Two shots of Pfizer",
+  },
+  {
+    value: "Three",
+    label: "Three shots of Pfizer",
+  },
+];
+
+export const PZ_VACCINE2_LABEL_SEP =
+  "Time since second dose";
+export const PZ_VACCINE2_OPTIONS_SEP = [
+  {
+    value: "Two_under_2mths",
+    label: "Less than 2 months",
+  },
+  {
+    value: "Two_2_4mths",
+    label: "Between 2 and 4 months",
+  },
+  {
+    value: "Two_4_6mths",
+    label: "Between 4 and 6 months",
+  },
+  // {
+  //   value: "Two_last_dose_more_than_6_months_ago",
+  //   label: "More than 6 months",
+  // },
+];
+
+export const PZ_SCENARIOS_LABEL_SEP = "How many cases are there in your community?";
+export const PZ_SCENARIOS_DEFAULT_SEP = "Five_percent";
+export const PZ_SCENARIOS_SEP = [
+  {
+    value: "Ten_percent",
+    label: "A huge number of cases",
+    description: "10% chance of getting COVID-19 over 2 months – about the same as 13,600 cases per day in NSW",
+  },
+  {
+    value: "Five_percent",
+    label: "A large number of cases",
+    description: "5% chance of getting COVID-19 over 2 months – about the same as 6,800 cases per day in NSW",
+  },
+  // {
+  //   value: "ATAGI_High",
+  //   label: "A lot of cases ",
+  //   description: "2% chance of getting COVID-19 over 2 months – about the same as 2,500 cases per day in NSW",
+  // },
+  {
+    value: "Two_percent",
+    label: "A lot of cases",
+    description: "2% chance of getting COVID-19 over 2 months – about the same as 2,500 cases per day in NSW",
+  },
+  {
+    value: "ATAGI_Med",
+    label: "A few cases ",
+    description: "0.15% chance of getting COVID-19 over 2 months – about the same as 200 cases per day in NSW",
+  },
+  {
+    value: "ATAGI_Low",
+    label: "Not many cases ",
+    description: "0.02% chance of getting COVID-19 over 2 months – about the same as 20 cases per day in NSW",
+  },
+  // {
+  //   value: "None_0",
+  //   label: "No community transmission",
+  //   description: "No COVID-19 circulating in the community",
+  // },
+];
+
+export const SUBMIT_LABEL_SEP = "Calculate risk";
 
 export const PZ_VACCINE_LABEL = "How many COVID-19 vaccine shots have you had?";
 export const PZ_VACCINE_SECOND_VAL = "Two";
