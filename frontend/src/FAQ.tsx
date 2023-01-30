@@ -75,6 +75,76 @@ export const FAQ_ITEMS =  [
       Health Website (<a rel="noreferrer" target="_blank" href="https://www.health.gov.au/health-alerts/covid-19/treatments"> 
       https://www.health.gov.au/health-alerts/covid-19/treatments </a>). </>,
   },
+  {
+    question: "Information on myocarditis",
+    answer: ""
+  },
+  {
+    question: "What is myocarditis?",
+    answer: <> Myocarditis is inflammation of the heart, and pericarditis is 
+      inflammation of the lining around the heart. It can be caused by a number 
+      of viruses. Viral infections are the most commonly identified cause of 
+      myocarditis, in particular coxsackieviruses, adenoviruses and parvovirus 
+      B19 as well as human immunodeficiency virus (HIV), adenovirus, influenza 
+      and hepatitis C. Some viruses infect heart muscle and cause direct injury 
+      to the heart, while others cause heart damage indirectly through the 
+      immune system.
+      <br/><br/>
+      Cardiac inflammation and acute/life-threatening myocarditis has also 
+      become a well-recognised complication of severe acute respiratory 
+      syndrome coronavirus 2 (SARS-CoV-2) infection.
+      <br/><br/>
+      Before the emergence of COVID-19, the estimated global incidence of acute 
+      myocarditis was 1–10 cases per 100,000 people per year.
+      </>,
+  },
+  {
+    question: "How often does myocarditis occur after COVID?",
+    answer:`One study estimated that myocarditis affects about 40 people out of every 1,000,000 people who test positive for COVID-19, however, myocarditis is much more common in patients hospitalized for COVID-19 (226 per 100,000).`,
+  },
+  {
+    question: "How often does myocarditis occur after receipt of an mRNA vaccine?",
+    answer: <> Myocarditis is a known but very rare side effect of Comirnaty 
+      (Pfizer) and Spikevax (Moderna). It is usually temporary, with most 
+      people getting better within a few days. Myocarditis is reported in 
+      around 1-2 in every 100,000 people who receive Comirnaty (Pfizer) and 
+      around 2 in every 100,000 of those who receive Spikevax (Moderna). 
+      However, it is more common after the second dose in 12-17 year-old boys 
+      (13 cases per 100,000 Comirnaty doses and 21 cases per 100,000 Spikevax 
+      doses) and men under 30 (9 cases per 100,000 Comirnaty doses and 22 cases 
+      per 100,000 Spikevax doses).
+      <br/><br/>
+      COVID-19 vaccination reduces the relative risk of myocarditis and 
+      arrhythmia post COVID.
+      <br/><br/>
+      To 21 August 2022, the TGA has received 674 reports which have been 
+      assessed as likely to be myocarditis from about 43.7 million doses of 
+      Comirnaty (Pfizer) and 106 reports which have been assessed as likely 
+      to be myocarditis from about 5.3 million doses of Spikevax (Moderna). 
+      Reports of myocarditis after a booster dose are very rare, occurring in 
+      less than 1 in every 100,000 vaccinated people.
+    </>,
+  },
+  {
+    question: "What is the outcome of people who have had myocarditis following an mRNA vaccine?",
+    answer: `Most people recover fully with rest and a few days of supportive treatment while being monitored in a hospital.`,
+  },
+  {
+    question: "What is the incidence of myocarditis in children following an mRNA vaccine?",
+    answer: `The TGA is also closely monitoring adverse event reports in 5-11 year olds. To 21 August 2022, we have received about 1,620 reports from approximately 2.3 million Comirnaty (Pfizer) and Spikevax (Moderna) doses administered in this age group. The most common reactions reported included chest pain, vomiting, fever, headache and abdominal pain. We have received 38 reports of suspected myocarditis and/or pericarditis in this age group. Following review of the reports, 4 were likely to represent myocarditis and another 7 reports were likely to represent pericarditis.`,
+  },
+  {
+    question: "How is the incidence of myocarditis post-vaccination being monitored in Australia?",
+    answer: `The TGA is actively investigating reports of myocarditis (inflammation of the heart) and/or pericarditis (inflammation of the membrane around the heart) associated with mRNA vaccines. TGA are continuing to work with international regulators on this safety signal.`,
+  },
+  {
+    question: "Does myocarditis occur following other COVID vaccines?",
+    answer: `The TGA has received a small number of reports of suspected myocarditis and/or pericarditis in people who have received the Nuvaxovid (Novavax) vaccine. After assessing these against a set of internationally accepted criteria, 7 cases were likely to represent myocarditis and 26 were likely to represent pericarditis. As a result of the TGA investigation, the Product Information (PI) for Nuvaxovid (Novavax) has been updated to include pericarditis as a potential adverse event.`,
+  },
+  {
+    question: "What is the risk of myocarditis following COVID when compared with the risk of myocarditis following an mRNA COVID vaccine?",
+    answer: `A useful summary table showing the likelihood of myocarditis following either a COVID vaccine or getting COVID is included in the CoRiCal calculator. The table below highlights the incidence of myocarditis following COVID or a COVID vaccine. It is clear that the risk of myocarditis following COVID is much more common than myocarditis following an mRNA COVID vaccine.`,
+  },
 ];
 
 
