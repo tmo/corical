@@ -186,32 +186,11 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             cmp[0]["MSIC_given_infected"] == 0.5):
             remove_severe_nodes = True
 
-        scenario_description = f"Here are your results. These are for a {age_text} {sex_label} when there is {transmission_label} in your community. They are based on the number and timing of shots of vaccines the child has had."
+        scenario_description = f"Here are your results. These are for a {age_text} {sex_label} when there is {transmission_label} in your community. They are based on getting the Pfizer vaccine."
         out = corical_pb2.ComputeRes(
             messages=messages,
             scenario_description=scenario_description,
             bar_graphs=[
-                corical_pb2.BarGraph(
-                    title=f"What is my child's chance of getting COVID-19?",
-                    subtitle=f"The COVID-19 vaccines aim to stop children from getting very sick from COVID-19. The vaccines can also protect children from getting COVID-19.",
-                    risks=generate_bar_graph_risks(
-                        [
-                            corical_pb2.BarGraphRisk(
-                                label=f"Chance of getting COVID-19 if the child has had two shots of the vaccine ",
-                                risk=cmp[0]["risk_of_infection"],
-                                is_other_shot=cmp[0]["is_other_shot"],
-                            )
-                        ]
-                        + [
-                            corical_pb2.BarGraphRisk(
-                                label=f"Chance of getting COVID-19 if the child has had 0 shot of the vaccine",
-                                risk=d["risk_of_infection"],
-                                is_other_shot=True,
-                            ) for d in cmp
-                            if d["risk_of_infection"] > 0.0 and (d['shot_ordinal'] == "no")
-                        ]
-                    ),
-                ),
                 corical_pb2.BarGraph(
                     title=f"What is my child's chance of having inflammation of their heart muscle (myocarditis)?",
                     subtitle=f"The Pfizer vaccine can cause inflammation of the heart muscle. This is called myocarditis. Children can get myocarditis from other causes even if they haven't had the vaccine. COVID-19 infection can also cause myocarditis in some children. ",
@@ -226,7 +205,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of getting myocarditis over 2 weeks if the child has had 0 shots of the vaccine and no COVID-19",
+                                label=f"Chance of getting myocarditis over 2 months if the child has had 0 shots of the vaccine and no COVID-19",
                                 risk=cmp[0]["get_myocarditis_bg"],
                                 is_other_shot=True,
                             ),
@@ -301,7 +280,28 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                                 ),
                             ]
                         ),
+                ),
+                corical_pb2.BarGraph(
+                    title=f"What is my child's chance of getting COVID-19?",
+                    subtitle=f"The COVID-19 vaccines aim to stop children from getting very sick from COVID-19. The vaccines can also protect children from getting COVID-19.",
+                    risks=generate_bar_graph_risks(
+                        [
+                            corical_pb2.BarGraphRisk(
+                                label=f"Chance of getting COVID-19 if the child has had two shots of the vaccine ",
+                                risk=cmp[0]["risk_of_infection"],
+                                is_other_shot=cmp[0]["is_other_shot"],
+                            )
+                        ]
+                        + [
+                            corical_pb2.BarGraphRisk(
+                                label=f"Chance of getting COVID-19 if the child has had 0 shot of the vaccine",
+                                risk=d["risk_of_infection"],
+                                is_other_shot=True,
+                            ) for d in cmp
+                            if d["risk_of_infection"] > 0.0 and (d['shot_ordinal'] == "no")
+                        ]
                     ),
+                ),
                 ],
             output_groups=[],
             success=True,
