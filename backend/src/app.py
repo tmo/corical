@@ -26,7 +26,7 @@ server = grpc.server(futures.ThreadPoolExecutor(32))
 server.add_insecure_port(f"[::]:21000")
 
 
-PZ_children_model_file = "pfizer_children_02-09.xdsl"
+PZ_children_model_file = "pfizer_children_6th_Feb_23.xdsl"
 combined_model_file = "combined_22-09-22.xdsl"
 
 def now():
@@ -140,13 +140,13 @@ class Corical(corical_pb2_grpc.CoricalServicer):
 
         network = SmileModel(PZ_children_model_file)
         baseline_outcomes = {
-            "get_myocarditis_vax": "n10_Myo_Vax",
-            "get_myocarditis_bg": "n11_Myo_Background",
+            "get_myocarditis_vax": "n10_Vax_Myocarditis",
+            "get_myocarditis_bg": "n11_Myocarditis_Background",
             "risk_of_infection": "n9_Risk_Infection",
         }
 
         infected_outcomes = {
-            "get_myocarditis_given_infected": "n12_Myo_Covid",
+            "get_myocarditis_given_infected": "n12_Myocarditis_Covid",
             # unclear if these should be given infected or not
             "hospitalisation_given_infected": "n13_Hospital",
             "MSIC_given_infected": "n15_MSI_Covid",
