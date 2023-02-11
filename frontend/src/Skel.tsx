@@ -269,7 +269,7 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
             {children}
             <Box pt={5}>
             <Typography variant="caption" paragraph>
-              <b>CoRiCal co-chairs</b>: Andrew Baird, Colleen Lau, John Litt, Kirsty Short
+              <b>CoRiCal co-chairs</b>: Colleen Lau, John Litt, Kirsty Short
               <br />
               <b>Project conception</b>: Andrew Baird, John Litt, Kirsty Short
               <br />
@@ -279,27 +279,27 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
                 style={{ textDecoration: "inherit", color: "inherit" }}
               >
                 Aapeli Vuorinen
-              </a>, Tina Moghaddam
+              </a>, Tina Moghaddam, Hongen Lu
               <br />
-              <b>Subject expertise</b>: Andrew Baird, Anoop Enjeti, Colleen Lau,
-              John Litt, Raj Puranik, Kirsty Short, Sudhir Wahi
+              <b>Subject expertise</b>: Andrew Baird, Anoop Enjeti, Colleen Lau, 
+              John Litt, Raj Puranik, Kirsty Short, Tej Shukla, Sudhir Wahi, 
+              Olivia Williams, Sophie Wen, Phil Britton
               <br />
-              <b>Model design</b>: Colleen Lau, Helen Mayfield, Kerrie Mengersen
+              <b>Model design</b>: Colleen Lau, Helen Mayfield, 
+              Kerrie Mengersen, Tej Shukla, Jane Sinclair, Ramona Muttucumaru, 
+              Sam Brown, Olivia Williams
               <br />
-              <b>Data acquisition</b>: Andrew Baird, Anoop Enjeti, Colleen Lau,
-              John Litt, Helen Mayfield, Kirsty Short, Sophie Wen, Phil Britton 
+              <b>Data acquisition</b>: Andrew Baird, Anoop Enjeti, Colleen Lau, 
+              John Litt, Tej Shukla, Kirsty Short 
               <br />
-              <b>Data analysis</b>: Samuel Brown, Colleen Lau, Helen Mayfield,
+              <b>Data analysis</b>: Samuel Brown, Colleen Lau, Helen Mayfield, 
               Kerrie Mengersen, Jane Sinclair, Michael Waller
               <br />
-              <b>Data visualisation and communication</b>: Kirsty Short, Jane
-              Sinclair, Aapeli Vuorinen
+              <b>Risk Communication</b>: Carissa Bonner, Colleen Lau, John Litt, 
+              Kirsty Short, Jane Sinclair 
               <br />
-              <b>Risk Communication</b>: Carys Batcup, Carissa Bonner, 
-              Colleen Lau, John Litt, Kirsty Short, Jane Sinclair, Hassan Vally
-              <br />
-              <b>Administration and project management</b>: Andrew Baird, Jayne Geddes,
-              John Litt, Helen Mayfield, Kim Sampson, Kirsty Short
+              <b>Administration and project management</b>: Jayne Geddes, 
+              John Litt, Helen Mayfield, Kim Sampson, Kirsty Short, Hongen Lu
               <br />
             </Typography>
             </Box>
