@@ -81,7 +81,7 @@ export const FAQ_ITEMS =  [
     question: "Where can I get information about treatments for COVID-19?",
     answer: <>  Information about treatment for COVID-a9 can be found at the Australian Department of 
       Health Website (<a rel="noreferrer" target="_blank" href="https://www.health.gov.au/health-alerts/covid-19/treatments"> 
-      https://www.health.gov.au/health-alerts/covid-19/treatments </a>). </>,
+      https://www.health.gov.au/health-alerts/covid-19/treatments</a>). </>,
   },
   {
     question: "What is myocarditis?",

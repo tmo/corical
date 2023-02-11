@@ -337,7 +337,6 @@ function FaqRoute() {
               <br />
             </>
           ))}
-          <img src="/docs/myo_faq.svg" alt="Table of risks of myocarditis"/>
           </Typography>
         </Container>
       </Box>
