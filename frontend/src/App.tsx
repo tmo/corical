@@ -49,7 +49,7 @@ function IndexRoute() {
       </Button>
       </Box>
       <Box mb={5}>
-      <h2>Pfizer for Children - Omicron Variant, updated 27/05/2022</h2>
+      <h2>Pfizer for Children - Omicron Variant, updated 05/01/2022</h2>
       <Button
         component={Link}
         to="/children"

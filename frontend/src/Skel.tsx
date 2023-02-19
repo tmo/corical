@@ -279,7 +279,7 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
                 style={{ textDecoration: "inherit", color: "inherit" }}
               >
                 Aapeli Vuorinen
-              </a>, Tina Moghaddam, Hongen Lu
+              </a>, Tina Moghaddam
               <br />
               <b>Subject expertise</b>: Andrew Baird, Anoop Enjeti, Colleen Lau, 
               John Litt, Raj Puranik, Kirsty Short, Tej Shukla, Sudhir Wahi, 
@@ -354,7 +354,7 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
               />
             </Grid>
           </Grid>
-          <Box mt={3} mb={2}>&copy; 2022 Immunisation Coalition. </Box>
+          <Box mt={3} mb={2}>&copy; 2021-2023 Immunisation Coalition. </Box>
         </Container>
       </Box>
     </ThemeProvider>
