@@ -49,7 +49,7 @@ function IndexRoute() {
       </Button>
       </Box>
       <Box mb={5}>
-      <h2>Pfizer for Children - Omicron Variant, updated 05/01/2022</h2>
+      <h2>Pfizer for Children - Omicron Variant, updated 18/02/2023</h2>
       <Button
         component={Link}
         to="/children"
@@ -246,6 +246,11 @@ function PfizerChildrenRoute() {
       ) : (
         <Output output={pfizerChildrenOutput} />
       )}
+      <Box pt={5}>
+      <Typography variant="caption" paragraph>
+        The CoRiCal children's model is supported with funding from a GSK Immunisation Award.
+      </Typography>
+      </Box>
     </>
   );
 }

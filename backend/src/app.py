@@ -26,7 +26,7 @@ server = grpc.server(futures.ThreadPoolExecutor(32))
 server.add_insecure_port(f"[::]:21000")
 
 
-PZ_children_model_file = "pfizer_children_6th_Feb_23.xdsl"
+PZ_children_model_file = "pfizer_children_18_feb_2023.xdsl"
 combined_model_file = "combined_22-09-22.xdsl"
 
 def now():
@@ -205,7 +205,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of getting myocarditis over 2 months if the child has had 0 shots of the vaccine and no COVID-19",
+                                label=f"Chance of getting myocarditis over 3 months if the child has had 0 shots of the vaccine and no COVID-19",
                                 risk=cmp[0]["get_myocarditis_bg"],
                                 is_other_shot=True,
                             ),
