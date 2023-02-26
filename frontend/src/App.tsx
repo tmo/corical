@@ -25,6 +25,7 @@ import {
 import { Link, Routes, Route } from "react-router-dom";
 import { BrowserRouter } from "react-router-dom";
 import { FAQ_ITEMS }  from "./FAQ";
+import { CHILDREN_FAQ_ITEMS, CHILDREN_FAQ_HEADER, CHILDREN_FAQ_REFS }  from "./FAQ_children";
 import { RELEASE_NOTES } from "./ReleaseNotes" ;
 
 function IndexRoute() {
@@ -317,6 +318,7 @@ function PubRoute() {
 }
 
 function FaqRoute() {
+  const [showRefs,setShowRefs] = useState(false);
   return (
     <>
       <Button
@@ -342,6 +344,33 @@ function FaqRoute() {
               <br />
             </>
           ))}
+          </Typography>
+        </Container>
+        <h1>COVID and Children - FAQ</h1>
+        <Container maxWidth="lg">
+          <Typography>
+          {CHILDREN_FAQ_HEADER}
+          <br />
+          <br />
+          </Typography>
+          <Typography>
+          {CHILDREN_FAQ_ITEMS.map(({ question, answer }) => (
+            <>
+              <b>{question}</b>
+              <br />
+              {answer}
+              <br />
+              <br />
+            </>
+          ))}
+          </Typography>
+          <Typography>
+          <Button onClick={() => {setShowRefs(!showRefs)}} color="primary" variant="contained">
+            References
+          </Button>
+          {showRefs && (
+            <>{CHILDREN_FAQ_REFS}</>
+          )}
           </Typography>
         </Container>
       </Box>
@@ -448,6 +477,13 @@ function InfoRoute() {
               rel="noreferrer" 
               target="_blank"> 
               Assumptions and data sources for the AstraZeneca model (pdf) 
+            </a>
+            <br />
+            <a 
+              href="/docs/children_assumptions_26_02_2023.pdf" 
+              rel="noreferrer" 
+              target="_blank"> 
+              Assumptions and data sources for the Paediatric Pfizer model (pdf) 
             </a>
             <br />
             <a 
