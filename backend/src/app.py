@@ -26,7 +26,7 @@ server = grpc.server(futures.ThreadPoolExecutor(32))
 server.add_insecure_port(f"[::]:21000")
 
 
-PZ_children_model_file = "pfizer_children_18_feb_2023.xdsl"
+PZ_children_model_file = "pfizer_children_27_02_23.xdsl"
 combined_model_file = "combined_22-09-22.xdsl"
 
 def now():
@@ -100,27 +100,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             context.abort(grpc.StatusCode.FAILED_PRECONDITION, "Invalid sex")
 
         age_text, age_label, age_ix = get_age_bracket_children(request.age)
-        if request.ct == "None_0":
-            transmission_label = "no"
-        elif request.ct == "Ten_percent":
-            transmission_label = "a huge number of cases "
-        elif request.ct == "Five_percent":
-            transmission_label = "a large number of cases "
-        elif request.ct == "Two_percent":
-            transmission_label = "a lot of cases "
-        elif request.ct == "One_percent":
-            transmission_label = "a few cases"
-        else:
-            transmission_label = request.ct
-
-        if request.ct == "None_0":
-            messages.append(
-                corical_pb2.Message(
-                    heading="Note",
-                    text="You have selected a scenario with no community transmission. This is only a temporary situation and will change when state or national borders open.",
-                    severity="warning",
-                )
-            )
+        # transmission is ignored for the children's vaccine
 
         dose_labels = {
             "None": ("not had any vaccines", "no"),
@@ -166,7 +146,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                 "n3_Sex": sex_vec,
                 "n1_Vax": cdose,
                 "n2_Age": age_label,
-                "n4_Transmission": request.ct
+                # "n4_Transmission": [0, 0.25, 0.25, 0.25, 0.25] #request.ct
             }
 
             network.set_evidence(evidence)
@@ -186,7 +166,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             cmp[0]["MSIC_given_infected"] == 0.5):
             remove_severe_nodes = True
 
-        scenario_description = f"Here are your results. These are for a {age_text} {sex_label} when there is {transmission_label} in your community. They are based on getting the Pfizer vaccine."
+        scenario_description = f"Here are your results. These are for a {age_text} {sex_label}. They are based on getting the Pfizer vaccine."
         out = corical_pb2.ComputeRes(
             messages=messages,
             scenario_description=scenario_description,

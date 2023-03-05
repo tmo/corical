@@ -113,8 +113,6 @@ export default function Form({ callback }: FormInputs) {
 
   const [tosBoxOpen, setTosBoxOpen] = useState(false);
 
-  const [stateVal, setStateVal] = useState(STATE_DEFAULT); 
-
   return (
     <form onSubmit={submit}>
       <Alert key={PZ_CHILDREN_VERSION_ALERT} severity={"info"} className={classes.message}>
@@ -175,89 +173,6 @@ export default function Form({ callback }: FormInputs) {
               </RadioGroup>
               {errors?.sex?.message && (
                 <FormHelperText error>{errors.sex.message}</FormHelperText>
-              )}
-            </FormControl>
-          )}
-        />
-      </div>
-      <div className={classNames(classes.formComp)}>
-        <Controller
-          name="state"
-          control={control}
-          rules={{
-            
-          }}
-          render={({ field: { onChange, value } }) => (
-            <FormControl component="fieldset">
-              <FormLabel component="legend">{STATE_LABEL}</FormLabel>
-              <Select
-                value={value}
-                defaultValue={STATE_DEFAULT}
-                label="State"
-                onChange={(e, value) => {setStateVal(e.target.value as string)}}
-              >
-                {STATE_OPTIONS.map(({ value, label }) => (
-                    <MenuItem 
-                      value={value}
-                    >{label}</MenuItem>
-                  ))}
-              </Select>
-            </FormControl>
-          )}
-        />
-      </div>
-      <div className={classNames(classes.formComp)}>
-        <Controller
-          name="ct"
-          control={control}
-          rules={{
-            validate: (value) => !!value || FIELD_REQUIRED,
-          }}
-          render={({ field: { onChange, value } }) => (
-            <FormControl component="fieldset">
-              <FormLabel component="legend">
-                {CHILDREN_SCENARIOS_LABEL} 
-                <br/>
-                <br/>
-                <Button
-                  variant="outlined"
-                  color="default"
-                  disableElevation
-                  size="small"
-                  href="/stateinfo"
-                >
-                  More Information
-                </Button>{" "}
-              </FormLabel>
-              <RadioGroup
-                name="ct-radio"
-                onChange={(e, value) => onChange(value)}
-                value={value}
-              >
-                {CHILDREN_SCENARIOS.map(({ value, label, description }) => (
-                  <FormControlLabel
-                    className={classes.ctOption}
-                    key={label}
-                    value={value}
-                    control={<Radio />}
-                    label={
-                      <div>
-                        <Typography variant="body2">{label}</Typography>
-                        <Typography
-                          variant="caption"
-                          className={classes.ctDescription}
-                        >
-                          {description
-                            .replace('{case_number}', (STATE_NUMBERS as any)[stateVal][value])
-                            .replace('{state}', stateVal)}
-                        </Typography>
-                      </div>
-                    }
-                  />
-                ))}
-              </RadioGroup>
-              {errors?.ct?.message && (
-                <FormHelperText error>{errors.ct.message}</FormHelperText>
               )}
             </FormControl>
           )}

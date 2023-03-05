@@ -449,7 +449,7 @@ export const PZ_VERSION_ALERT = `This calculator is for people who had the
             11/03/2022. The tool assumes that all the cases are caused by the 
             Omicron variant.`;
 export const PZ_CHILDREN_VERSION_ALERT = `This calculator is for  people  under 
-            18 who had the Pfizer vaccine. Last updated on 18/02/2023. The tool 
+            18 who had the Pfizer vaccine. Last updated on 27/02/2023. The tool 
             assumes that all the cases are caused by the Omicron variant.`;
 
 
