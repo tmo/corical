@@ -346,7 +346,7 @@ function FaqRoute() {
           ))}
           </Typography>
         </Container>
-        <h1>COVID and Children - FAQ</h1>
+        <h1>COVID-19 and Children: Frequently Asked Questions</h1>
         <Container maxWidth="lg">
           <Typography>
           {CHILDREN_FAQ_HEADER}
