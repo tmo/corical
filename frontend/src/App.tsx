@@ -500,6 +500,13 @@ function InfoRoute() {
               target="_blank"> 
               Information on TTS (pdf) 
             </a>
+            <br />
+            <a 
+              href="/docs/myocarditis_information_sheet.pdf"
+              rel="noreferrer" 
+              target="_blank"> 
+              Information on myocarditis  (pdf) 
+            </a>
           </Typography>
         </Container>
       </Box>
