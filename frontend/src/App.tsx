@@ -1,7 +1,17 @@
 import { useState } from "react";
+import CombinedForm from "./CombinedForm";
 import TTSForm from "./TTSForm";
 import PfizerForm from "./PfizerForm";
-import { TTSFormData, PfizerFormData, computeTts, computePfizer } from "./api";
+import PfizerChildrenForm from "./PfizerChildrenForm";
+import { 
+  CombinedFormData, 
+  PfizerFormData, 
+  computeCombined, 
+  computePfizerChildren,
+  TTSFormData, 
+  computeTts, 
+  computePfizer
+} from "./api";
 import Output from "./Output";
 import { Alert, AlertTitle } from "@material-ui/lab/";
 import { BY_LINE, TITLE } from "./constants";
@@ -15,6 +25,7 @@ import {
 import { Link, Routes, Route } from "react-router-dom";
 import { BrowserRouter } from "react-router-dom";
 import { FAQ_ITEMS }  from "./FAQ";
+import { CHILDREN_FAQ_ITEMS, CHILDREN_FAQ_HEADER, CHILDREN_FAQ_REFS }  from "./FAQ_children";
 import { RELEASE_NOTES } from "./ReleaseNotes" ;
 
 function IndexRoute() {
@@ -38,6 +49,34 @@ function IndexRoute() {
         AstraZeneca calculator
       </Button>
       </Box>
+      <Box mb={5}>
+      <h2>Pfizer for Children - Omicron Variant, updated 27/02/2023</h2>
+      <Button
+        component={Link}
+        to="/children"
+        color="primary"
+        variant="contained"
+      >
+        Children's calculator
+      </Button>
+      </Box>
+    </>
+  );
+}
+
+function RiskChartRoute() {
+  return (
+    <>
+      <Button
+        component={Link}
+        to="/"
+        color="primary"
+        variant="outlined"
+        size="small"
+        style={{ margin: "1em" }}
+      >
+        Back to calculator
+      </Button>
       <h1>View risk chart </h1>
       <h2>Risk of dying from COVID-19 based on age, sex, and vaccination status - 90% Omicron/10% Delta Variants, updated January 2022</h2>
       <Button
@@ -59,6 +98,46 @@ function IndexRoute() {
       >
         Risk chart for Developing Myocarditis
       </Button>
+    </>
+  );
+}
+
+
+function CombinedRoute() {
+  const [error, setError] = useState<string | null>(null);
+  const [output, setOutput] = useState<any | null>(null);
+  const combinedCallback = async (form: CombinedFormData) => {
+    setError(null);
+    try {
+      form.age = Math.round(form.age!);
+      const res = await computeCombined(form);
+      setOutput(res);
+    } catch (e: any) {
+      console.error(e);
+      setError(e.message);
+    }
+  };
+  return (
+    <>
+      <Button
+        component={Link}
+        to="/"
+        color="primary"
+        variant="outlined"
+        size="small"
+        style={{ margin: "1em" }}
+      >
+        Back to calculator selection
+      </Button>
+      <CombinedForm callback={combinedCallback} />
+      {error ? (
+        <Alert severity="error">
+          <AlertTitle>An error occured</AlertTitle>
+          {error}
+        </Alert>
+      ) : (
+        <Output output={output} />
+      )}
     </>
   );
 }
@@ -141,9 +220,65 @@ function AZRoute() {
   );
 }
 
+
+function PfizerChildrenRoute() {
+  const [error, setError] = useState<string | null>(null);
+  const [pfizerChildrenOutput, setPfizerChildrenOutput] = useState<any | null>(null);
+  const pfizerChildrenCallback = async (form: PfizerFormData) => {
+    setError(null);
+    try {
+      form.age = Math.round(form.age!);
+      const res = await computePfizerChildren(form);
+      setPfizerChildrenOutput(res);
+    } catch (e: any) {
+      console.error(e);
+      setError(e.message);
+    }
+  };
+  return (
+    <>
+      <Button
+        component={Link}
+        to="/"
+        color="primary"
+        variant="outlined"
+        size="small"
+        style={{ margin: "1em" }}
+      >
+        Back to calculator selection
+      </Button>
+      <PfizerChildrenForm callback={pfizerChildrenCallback} />
+      {error ? (
+        <Alert severity="error">
+          <AlertTitle>An error occured</AlertTitle>
+          {error}
+        </Alert>
+      ) : (
+        <Output output={pfizerChildrenOutput} />
+      )}
+      <Box pt={5}>
+      <Typography variant="caption" paragraph>
+        The CoRiCal children's model is supported with funding from a GSK Immunisation Award.
+      </Typography>
+      </Box>
+    </>
+  );
+}
+
+
 function PubRoute() {
   return (
     <>
+      <Button
+        component={Link}
+        to="/"
+        color="primary"
+        variant="outlined"
+        size="small"
+        style={{ margin: "1em" }}
+      >
+        Back to calculator
+      </Button>
       <Box my={4}>
         <h1>Publications</h1>
         <Container maxWidth="lg">
@@ -159,37 +294,42 @@ function PubRoute() {
                 rel="noreferrer" target="_blank"
                 style={{ textDecoration: "underline", color: "inherit" }}
                 >https://doi.org/10.1016/j.vaccine.2021.10.079</a>
-            </Typography>
-          </Container>
-          <h2>Pre-prints</h2>
-          <Container maxWidth="lg">
-            <Typography>
-              Mayfield, H. J., C. L. Lau, J. E. Sinclair, S. J. Brown, A. Baird, 
-              J. Litt, A. Vuorinen, K. R. Short, M. Waller and K. Mengersen (2021). 
-              "Designing an evidence-based Bayesian network for estimating the risk 
-              versus benefits of AstraZeneca COVID-19 vaccine."  
-              medRxiv: 2021.2010.2028.21265588. 
-              <a
-                href="https://www.medrxiv.org/content/10.1101/2021.10.28.21265588v1" 
-                rel="noreferrer" target="_blank"
-                style={{ textDecoration: "underline", color: "inherit" }}
-                >https://www.medrxiv.org/content/10.1101/2021.10.28.21265588v1</a>
               <br />
               <br />
-              Sinclair, J. E., H. J. Mayfield, K. R. Short, S. J. Brown, R. Puranik, 
-              K. Mengersen, J. C. Litt and C. L. Lau (2022). 
-              "Quantifying the risks versus benefits of the Pfizer COVID-19 vaccine 
-              in Australia: a Bayesian network analysis." 
-              medRxiv: 2022.2002.2007.22270637.  
+              Mayfield H.J., Lau C.L., Sinclair J.E., Brown S.J., Baird A., 
+              Litt J., Vuorinen A., Short K.R., Waller M., Mengersen K. 
+              Designing an evidence-based Bayesian network for estimating the 
+              risk versus benefits of AstraZeneca COVID-19 vaccine. Vaccine. 
+              2022;40(22):3072-84. doi: 
               <a
-                href="https://www.medrxiv.org/content/10.1101/2022.02.07.22270637v1" 
+                href="https://doi.org/10.1016/j.vaccine.2022.04.004" 
                 rel="noreferrer" target="_blank"
                 style={{ textDecoration: "underline", color: "inherit" }}
-                >https://www.medrxiv.org/content/10.1101/2022.02.07.22270637v1</a>
+                >https://doi.org/10.1016/j.vaccine.2022.04.004</a>
+              <br />
+              <br />
+              Sinclair J.E., Mayfield H.J., Short K.R., Brown S.J., Puranik R., 
+              Mengersen K., Litt J.C.B., Lau C.L. A Bayesian network analysis 
+              quantifying risks versus benefits of the Pfizer COVID-19 vaccine 
+              in Australia. npj Vaccines. 2022;7(1):93. 
+              doi: 
+              <a
+                href="https://doi.org/10.1038/s41541-022-00517-6" 
+                rel="noreferrer" target="_blank"
+                style={{ textDecoration: "underline", color: "inherit" }}
+                >https://doi.org/10.1038/s41541-022-00517-6</a>
             </Typography>
           </Container>
         </Container>
       </Box>
+    </>
+  );
+}
+
+function FaqRoute() {
+  const [showRefs,setShowRefs] = useState(false);
+  return (
+    <>
       <Button
         component={Link}
         to="/"
@@ -200,13 +340,6 @@ function PubRoute() {
       >
         Back to calculator
       </Button>
-    </>
-  );
-}
-
-function FaqRoute() {
-  return (
-    <>
       <Box my={4}>
         <h1>FAQs</h1>
         <Container maxWidth="lg">
@@ -222,7 +355,41 @@ function FaqRoute() {
           ))}
           </Typography>
         </Container>
+        <h1>COVID-19 and Children: Frequently Asked Questions</h1>
+        <Container maxWidth="lg">
+          <Typography>
+          {CHILDREN_FAQ_HEADER}
+          <br />
+          <br />
+          </Typography>
+          <Typography>
+          {CHILDREN_FAQ_ITEMS.map(({ question, answer }) => (
+            <>
+              <b>{question}</b>
+              <br />
+              {answer}
+              <br />
+              <br />
+            </>
+          ))}
+          </Typography>
+          <Typography>
+          <Button onClick={() => {setShowRefs(!showRefs)}} color="primary" variant="contained">
+            References
+          </Button>
+          {showRefs && (
+            <>{CHILDREN_FAQ_REFS}</>
+          )}
+          </Typography>
+        </Container>
       </Box>
+    </>
+  );
+}
+
+function StateInfoRoute() {
+  return (
+    <>
       <Button
         component={Link}
         to="/"
@@ -233,6 +400,125 @@ function FaqRoute() {
       >
         Back to calculator
       </Button>
+      <Box my={4}>
+        <h1>State Case Numbers</h1>
+        <Container maxWidth="lg">
+          <Typography>
+            <p>You can check the curent number of cases in your state from your state's health webpage below: </p>
+            <a
+                href="https://www.health.nsw.gov.au/" 
+                rel="noreferrer" target="_blank"
+                style={{ textDecoration: "underline", color: "inherit" }}
+                >New South Wales Health</a><br/>
+            <a
+                href="https://www.health.vic.gov.au/" 
+                rel="noreferrer" target="_blank"
+                style={{ textDecoration: "underline", color: "inherit" }}
+                >Victoria Health</a> <br/>
+            <a
+                href="https://www.health.qld.gov.au/" 
+                rel="noreferrer" target="_blank"
+                style={{ textDecoration: "underline", color: "inherit" }}
+                >Queensland Health</a><br/>
+            <a
+                href="https://www.health.wa.gov.au/" 
+                rel="noreferrer" target="_blank"
+                style={{ textDecoration: "underline", color: "inherit" }}
+                >Western Australia Health</a><br/>
+            <a
+                href="https://www.sahealth.sa.gov.au/" 
+                rel="noreferrer" target="_blank"
+                style={{ textDecoration: "underline", color: "inherit" }}
+                >South Australia Health</a><br/>
+            <a
+                href="https://www.health.tas.gov.au/" 
+                rel="noreferrer" target="_blank"
+                style={{ textDecoration: "underline", color: "inherit" }}
+                >Tasmania Health</a><br/>
+            <a
+                href="https://www.health.act.gov.au/" 
+                rel="noreferrer" target="_blank"
+                style={{ textDecoration: "underline", color: "inherit" }}
+                >Australian Capital Territory Health</a><br/>
+            <a
+                href="https://health.nt.gov.au" 
+                rel="noreferrer" target="_blank"
+                style={{ textDecoration: "underline", color: "inherit" }}
+                >Northern Territory Health</a><br/>
+          </Typography>
+        </Container>
+      </Box>
+    </>
+  );
+}
+
+function InfoRoute() {
+  return (
+    <>
+      <Button
+        component={Link}
+        to="/"
+        color="primary"
+        variant="outlined"
+        size="small"
+        style={{ margin: "1em" }}
+      >
+        Back to calculator
+      </Button>
+      <Box my={4}>
+        <h1>More Information</h1>
+        <Container maxWidth="lg">
+          <Typography>
+            <p>
+              The pdf files linked in this page contain more information about 
+              the models and outputs used in the risk calculators.
+            </p>
+
+            <a 
+              href="/docs/pfizer_assumptions_11_03_22.pdf"  
+              rel="noreferrer" 
+              target="_blank"> 
+              Assumptions and data sources for the Pfizer model (pdf) 
+            </a>
+            <br />
+            <a 
+              href="/docs/astrazeneca_assumptions_11_03_22.pdf" 
+              rel="noreferrer" 
+              target="_blank"> 
+              Assumptions and data sources for the AstraZeneca model (pdf) 
+            </a>
+            <br />
+            <a 
+              href="/docs/children_assumptions_26_02_2023.pdf" 
+              rel="noreferrer" 
+              target="_blank"> 
+              Assumptions and data sources for the Paediatric Pfizer model (pdf) 
+            </a>
+            <br />
+            <a 
+              href="/docs/relatable_risks.pdf"
+              rel="noreferrer" 
+              target="_blank"> 
+              Explanations of the relatable risks used for comparison in the 
+              calculator outputs (pdf) 
+            </a>
+            <br />
+            <a 
+              href="/docs/tts_information.pdf"
+              rel="noreferrer" 
+              target="_blank"> 
+              Information on TTS (pdf) 
+            </a>
+            <br />
+            <a 
+              href="/docs/myocarditis_information_sheet.pdf"
+              rel="noreferrer" 
+              target="_blank"> 
+              Information on myocarditis  (pdf) 
+            </a>
+          </Typography>
+        </Container>
+      </Box>
     </>
   );
 }
@@ -240,12 +526,6 @@ function FaqRoute() {
 function NewRoute() {
   return (
     <>
-      <Box my={4}>
-        <h1>What's New</h1>
-        <Container maxWidth="lg">
-          {RELEASE_NOTES}
-        </Container>
-      </Box>
       <Button
         component={Link}
         to="/"
@@ -256,6 +536,113 @@ function NewRoute() {
       >
         Back to calculator
       </Button>
+      <Box my={4}>
+        <h1>What's New</h1>
+        <Container maxWidth="lg">
+          {RELEASE_NOTES}
+        </Container>
+      </Box>
+    </>
+  );
+}
+
+function VideoRoute() {
+  return (
+    <>
+      <Button
+        component={Link}
+        to="/"
+        color="primary"
+        variant="outlined"
+        size="small"
+        style={{ margin: "1em" }}
+      >
+        Back to calculator
+      </Button>
+      <Box my={4}>
+        <h1>Video Overview</h1>
+        <p>The CoRiCal team have produced a few short film clips to outline:
+        <ul> 
+          <li> what is CoRiCal, our COVID-19 Risk calculator, and who has 
+            contributed to its construction</li>
+          <li> why it was developed,</li>
+          <li> why it is both useful and unique,  summarising the strengths of 
+            using such a decision-making tool.</li>
+          <li> the risk chart for COVID-19 deaths to estimate the likely risk of 
+            dying from COVID-19 based upon age, sex and number of COVID-19 vaccine doses.</li>
+          <li> an example using the CoRiCal tool to explain the risk and benefit
+            of COVID-19 vaccination for children.</li>
+        </ul>
+        There are 5 very brief clips, each about 1 ½ minutes in length. There is 
+        one longer film clip (~7 ½ minutes) that puts all these sections together.
+        GPs and health care professionals offering COVID-19 vaccines are welcome to 
+        download the film clips to their desktop or even consider installing 
+        them on the TV in the patient waiting room.
+        </p>
+
+        <Container maxWidth="lg">
+          <Typography>
+          <h2>Full CoRiCal Video</h2>
+          <iframe title="main_video" 
+            src="https://player.vimeo.com/video/731968709?h=04dfd4374d" 
+            width="640" height="360" frameBorder="0" allow="autoplay; 
+            fullscreen; picture-in-picture" allowFullScreen></iframe>
+          <br />
+
+          <h2>What is CoRiCal? </h2>
+          <iframe title="what_video" 
+            src="https://player.vimeo.com/video/731969006?h=01779c0ebd" 
+            width="640" height="360" frameBorder="0" allow="autoplay; 
+            fullscreen; picture-in-picture" allowFullScreen></iframe>
+          <br />
+
+          <h2>Why did the academic team develop CoRiCal?</h2>
+          <p>A significant number of people ( ~30%) have not had a COVID-19 vaccine 
+            booster. This puts them at considerable risk from the more recent 
+            Omicron COVID-19 variants as they have little protection.
+          Given that nearly 75% of the deaths from COVID-19 have occurred this 
+          year and can be attributed to Omicron. 
+          </p>
+          <iframe title="rationale_video" 
+            src="https://player.vimeo.com/video/731969146?h=a6ef24648b" 
+            width="640" height="360" frameBorder="0" allow="autoplay; 
+            fullscreen; picture-in-picture" allowFullScreen></iframe>
+          <br />
+
+          <h2>Strengths of CoRiCal </h2>
+          <iframe title="strengths_video" 
+            src="https://player.vimeo.com/video/731969339?h=f8fad2c6ee" 
+            width="640" height="360" frameBorder="0" allow="autoplay; 
+            fullscreen; picture-in-picture" allowFullScreen></iframe>
+          <br />
+
+          <h2>Risk of dying from COVID-19</h2>
+          <iframe title="risks_video" 
+            src="https://player.vimeo.com/video/731968526?h=27f7b80c9f" 
+            width="640" height="360" frameBorder="0" allow="autoplay; 
+            fullscreen; picture-in-picture" allowFullScreen></iframe>
+          <br />
+
+          <h2>Explanation of the CoRiCal Kids Model </h2>
+          <iframe title="Explanation of the CoRiCal Kids Model" 
+            src="https://www.youtube.com/embed/AsFxpsCSDsw" 
+            width="640" height="360" frameborder="0" allow="accelerometer; 
+            autoplay; clipboard-write; encrypted-media; gyroscope; 
+            picture-in-picture; web-share" allowfullscreen></iframe>
+          <br />
+
+          <h2>Acknowledgements</h2>
+          <p>The CoRiCal team are very grateful to Dr Ramesh Manocha and his 
+            team HealthEd for graciously providing their film crew to film the 
+            CoRiCal clips at no cost. The CoRiCal team are also grateful to 
+            Kim Sampson, Jayne Geddes and the team at the Immunisation 
+            Coalition in providing ongoing administrative support to the 
+            development of CoRiCal.</p>
+
+          </Typography>
+        </Container>
+
+      </Box>
     </>
   );
 }
@@ -266,11 +653,16 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<IndexRoute />} />
+          <Route path="/riskchart" element={<RiskChartRoute />} />
           <Route path="/pfizer" element={<PfizerRoute />} />
           <Route path="/astrazeneca" element={<AZRoute />} />
+          <Route path="/children" element={<PfizerChildrenRoute />} />
           <Route path="/publications" element={<PubRoute />} />
           <Route path="/faq" element={<FaqRoute />} />
           <Route path="/whatsnew" element={<NewRoute />} />
+          <Route path="/videos" element={<VideoRoute />} />
+          <Route path="/moreinfo" element={<InfoRoute />} />
+          <Route path="/stateinfo" element={<StateInfoRoute />} />
         </Routes>
       </BrowserRouter>
     </Skel>

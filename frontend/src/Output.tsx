@@ -200,6 +200,7 @@ export default function Form({ output }: OutputProps) {
             </Tabs>
           </Paper>
           
+          {output.vaccine_type !== "Children" && (
           <Button
             onClick={() => setRelatable(!relatable)}
             color="primary"
@@ -209,11 +210,12 @@ export default function Form({ output }: OutputProps) {
               ? "Don't show relatable risks"
               : "Show relatable risks"}
           </Button>
+          )}
 
           {output.bar_graphs?.map(({ title, subtitle, risks }: any) => {
             let multiplier = 1e6;
             const data_full = risks.map(
-              ({ label, risk, is_relatable, is_other_shot , bar_text}: any) => {
+              ({ label, risk, is_relatable, is_other_shot , bar_text, hover_text}: any) => {
                 let color = "#413ea0";
                 if (is_relatable) {
                   color = "#ccc";
@@ -234,6 +236,7 @@ export default function Form({ output }: OutputProps) {
                   risk: multiplier * risk,
                   fill: color,
                   display_risk: display_risk,
+                  hover_text: hover_text,
                 };
               }
             );
@@ -280,15 +283,24 @@ export default function Form({ output }: OutputProps) {
                     content={({ label, payload, active }) => {
                       if (active && payload && payload.length) {
                         const { value } = payload![0] as any;
+                        var bar_properties = payload![0] as any;
+
+                        var tooltip_text;
+                        if (bar_properties.payload.hover_text) {
+                          tooltip_text = bar_properties.payload.hover_text
+                        } else {
+                          tooltip_text =  [displayRisk(value / 1e6, false, label) 
+                                            + " " + INFOBOX_RISK_TEXT, <br/>,
+                                            "This is the same as a " 
+                                            + displayRisk(value / 1e6, true, label)
+                                            + " chance."];
+                        }
+                        
                         return (
                           <div className={classes.tooltip}>
                             {/* {label}
                             <br /> */}
-                            {displayRisk(value / 1e6, false, label)}{" "}
-                            {INFOBOX_RISK_TEXT}.
-                            <br />
-                            This is the same as a{" "}
-                            {displayRisk(value / 1e6, true, label)} chance.
+                            {tooltip_text}
                           </div>
                         );
                       } else {

@@ -1,5 +1,5 @@
 // top of page
-export const TITLE = "CoRiCal: Covid Risk Calculator";
+export const TITLE = "CoRiCal: COVID-19 Risk Calculator";
 export const BY_LINE = "By, credits, etc";
 
 // form elements
@@ -12,6 +12,96 @@ export const FIELD_REQUIRED = "This field is required.";
 export const AGE_LABEL = "Age";
 export const AGE_TOO_SMALL = "Must be at least 18 years old.";
 export const AGE_TOO_BIG = "Please enter an age under 100.";
+export const CHILDREN_AGE_TOO_SMALL = "Must be at least 5 years old.";
+export const CHILDREN_AGE_TOO_BIG = "Please enter an age under 18, or use the adult calculator.";
+
+export const STATE_LABEL = "State";
+export const STATE_DEFAULT = "NSW";
+export const STATE_OPTIONS = [
+  {
+    value: "NSW",
+    label: "NSW",
+  },
+  {
+    value: "VIC",
+    label: "VIC",
+  },
+  {
+    value: "QLD",
+    label: "QLD",
+  },
+  {
+    value: "WA",
+    label: "WA",
+  },
+  {
+    value: "SA",
+    label: "SA",
+  },
+  {
+    value: "TAS",
+    label: "TAS",
+  },
+  {
+    value: "ACT",
+    label: "ACT",
+  },
+  {
+    value: "NT",
+    label: "NT",
+  },
+];
+
+export const STATE_NUMBERS = {
+  "NSW": {
+    "Ten_percent": "13550",
+    "Five_percent": "6775",
+    "Two_percent": "2710",
+    "One_percent": "1355",
+  },
+  "QLD": {
+    "Ten_percent": "8827",
+    "Five_percent": "4413",
+    "Two_percent": "1765",
+    "One_percent": "883",
+  },
+  "SA": {
+    "Ten_percent": "3026",
+    "Five_percent": "1513",
+    "Two_percent": "605",
+    "One_percent": "303",
+  },
+  "TAS": {
+    "Ten_percent": "952",
+    "Five_percent": "476",
+    "Two_percent": "190",
+    "One_percent": "95",
+  },
+  "VIC": {
+    "Ten_percent": "10989",
+    "Five_percent": "5494",
+    "Two_percent": "2198",
+    "One_percent": "1099",
+  },
+  "WA": {
+    "Ten_percent": "4622",
+    "Five_percent": "2311",
+    "Two_percent": "924",
+    "One_percent": "462",
+  },
+  "NT": {
+    "Ten_percent": "417",
+    "Five_percent": "209",
+    "Two_percent": "83",
+    "One_percent": "42",
+  },
+  "ACT": {
+    "Ten_percent": "760",
+    "Five_percent": "380",
+    "Two_percent": "152",
+    "One_percent": "76",
+  },
+};
 
 export const SEX_LABEL = "Sex";
 export const SEX_OPTIONS = [
@@ -67,11 +157,10 @@ export const VACCINE_OPTIONS_TIME = [
   },
 ]
 
-
-export const PZ_VACCINE_LABEL = "Vaccine";
-export const PZ_VACCINE_SECOND_VAL = "Two";
-export const DOSE_OVERDUE_DISCLAIMER = "We don't currently have estimates for people whose second or third shot is overdue";
-export const PZ_VACCINE_OPTIONS = [
+export const PZ_VACCINE_LABEL_SEP = "Vaccine";
+export const PZ_VACCINE_SECOND_VAL_SEP = "Two";
+// export const DOSE_OVERDUE_DISCLAIMER_SEP = "We don't currently have estimates for people whose second or third shot is overdue";
+export const PZ_VACCINE_OPTIONS_SEP = [
   {
     value: "None",
     label: "None",
@@ -81,7 +170,7 @@ export const PZ_VACCINE_OPTIONS = [
     label: "One shot of Pfizer (3 weeks ago)",
   },
   {
-    value: PZ_VACCINE_SECOND_VAL,
+    value: PZ_VACCINE_SECOND_VAL_SEP,
     label: "Two shots of Pfizer",
   },
   {
@@ -90,9 +179,9 @@ export const PZ_VACCINE_OPTIONS = [
   },
 ];
 
-export const PZ_VACCINE2_LABEL =
+export const PZ_VACCINE2_LABEL_SEP =
   "Time since second dose";
-export const PZ_VACCINE2_OPTIONS = [
+export const PZ_VACCINE2_OPTIONS_SEP = [
   {
     value: "Two_under_2mths",
     label: "Less than 2 months",
@@ -111,9 +200,9 @@ export const PZ_VACCINE2_OPTIONS = [
   // },
 ];
 
-export const PZ_SCENARIOS_LABEL = "How many cases are there in your community?";
-export const PZ_SCENARIOS_DEFAULT = "Five_percent";
-export const PZ_SCENARIOS = [
+export const PZ_SCENARIOS_LABEL_SEP = "How many cases are there in your community?";
+export const PZ_SCENARIOS_DEFAULT_SEP = "Five_percent";
+export const PZ_SCENARIOS_SEP = [
   {
     value: "Ten_percent",
     label: "A huge number of cases",
@@ -151,66 +240,200 @@ export const PZ_SCENARIOS = [
   // },
 ];
 
+export const SUBMIT_LABEL_SEP = "Calculate risk";
+
+export const PZ_VACCINE_LABEL = "How many COVID-19 vaccine shots have you had?";
+export const PZ_VACCINE_SECOND_VAL = "Two";
+export const PZ_VACCINE_THIRD_VAL = "Three";
+export const DOSE_OVERDUE_DISCLAIMER = "We don't currently have estimates for people whose second or third shot is overdue";
+export const PZ_VACCINE_OPTIONS = [
+  {
+    value: "None",
+    label: "None",
+  },
+  // {
+  //   value: "One_at_3wks",
+  //   label: "One shot of Pfizer (3 weeks ago)",
+  // },
+  {
+    value: PZ_VACCINE_SECOND_VAL,
+    label: "2",
+  },
+  {
+    value: PZ_VACCINE_THIRD_VAL,
+    label: "3",
+  },
+  {
+    value: "Four_doses_any",
+    label: "4",
+  },
+];
+
+
+export const PZ_VACCINE_TYPE=
+  "Which vaccine did you have for your first 2 shots?";
+export const PZ_VACCINE_TYPE_SUBTITLE=
+  "If you had 2 different vaccine types, select the type of the second shot?";
+export const PZ_VACCINE_TYPE_OPTIONS = [
+  {
+    value: "AZ",
+    label: "Astra Zeneca",
+  },
+  {
+    value: "Pf",
+    label: "Pfizer",
+  },
+  {
+    value: "MD",
+    label: "Moderna",
+  },
+];
+
+export const PZ_VACCINE3_TYPE=
+  "Which vaccine did you have for your third shot?";
+export const PZ_VACCINE3_TYPE_OPTIONS = [
+  {
+    value: "Pf",
+    label: "Pfizer",
+  },
+  {
+    value: "MD",
+    label: "Moderna",
+  },
+];
+
+
+export const PZ_VACCINE_TIME_LABEL =
+  "How long ago was your last shot of COVID-19 vaccine? ";
+export const PZ_VACCINE2_TIME_OPTIONS = [
+  {
+    value: "under_2_months",
+    label: "Less than 2 months",
+  },
+  {
+    value: "2to4_months",
+    label: "Between 2 and 4 months",
+  },
+  {
+    value: "4to6_months",
+    label: "Between 4 and 6 months",
+  },
+  {
+    value: "6_months",
+    label: "More than 6 months",
+  },
+];
+export const PZ_VACCINE3_TIME_OPTIONS = [
+  {
+    value: "under_2_months",
+    label: "Less than 2 months",
+  },
+  {
+    value: "4to6_months",
+    label: "Between 4 and 6 months",
+  },
+  {
+    value: "6_months",
+    label: "More than 6 months",
+  },
+];
+
+export const CHILDREN_VACCINE_OPTIONS = [
+  {
+    value: "None",
+    label: "None",
+  },
+  {
+    value: "Two_Pfizer",
+    label: "Two shots of Pfizer for children",
+  },
+  // {
+  //   value: "Two_Moderna",
+  //   label: "Two shots of Moderna for children",
+  // },
+];
+
+export const CHILDREN_SCENARIOS_LABEL = `How many reported cases are there in 
+            your area? If you’re not sure, the calculator will assume there is 
+            a large number of COVID-19 cases in your area.`;
+export const CHILDREN_SCENARIOS_DEFAULT = "Five_percent";
+export const CHILDREN_SCENARIOS = [
+  {
+    value: "Ten_percent",
+    label: "A huge number of cases",
+    description: "10% chance of getting COVID-19 over 2 months – about the same as {case_number} cases per day in {state}",
+  },
+  {
+    value: "Five_percent",
+    label: "A large number of cases",
+    description: "5% chance of getting COVID-19 over 2 months – about the same as {case_number} cases per day in {state}",
+  },
+  {
+    value: "Two_percent",
+    label: "A lot of cases",
+    description: "2% chance of getting COVID-19 over 2 months – about the same as {case_number} cases per day in {state}",
+  },
+  {
+  value: "One_percent",
+  label: "A few cases",
+  description: "1% chance of getting COVID-19 over 2 months – about the same as {case_number} cases per day in {state}",
+  },
+];
+
 export const SUBMIT_LABEL = "Calculate risk";
 
-export const SCENARIOS_LABEL = "How many cases are there in your community?";
+export const SCENARIOS_LABEL = `How many reported cases are there in 
+            your area? If you’re not sure, the calculator will assume there is 
+            a large number of COVID-19 cases in your area.`;
 export const SCENARIOS_DEFAULT = "Five_percent";
 export const SCENARIOS = [
   {
     value: "Ten_percent",
     label: "A huge number of cases",
-    description: "10% chance of getting COVID-19 over 2 months – about the same as 13,600 cases per day in NSW",
+    description: "10% chance of getting COVID-19 over 2 months – about the same as {case_number} cases per day in {state}",
   },
   {
     value: "Five_percent",
     label: "A large number of cases",
-    description: "5% chance of getting COVID-19 over 2 months – about the same as 6,800 cases per day in NSW",
+    description: "5% chance of getting COVID-19 over 2 months – about the same as {case_number} cases per day in {state}",
   },
-  // {
-  //   value: "ATAGI_High",
-  //   label: "A lot of cases ",
-  //   description: "2% chance of getting COVID-19 over 2 months – about the same as 2,500 cases per day in NSW",
-  // },
   {
     value: "Two_percent",
     label: "A lot of cases",
-    description: "2% chance of getting COVID-19 over 2 months – about the same as 2,500 cases per day in NSW",
+    description: "2% chance of getting COVID-19 over 2 months – about the same as {case_number} cases per day in {state}",
   },
   {
-    value: "ATAGI_Med",
-    label: "A few cases ",
-    description: "0.15% chance of getting COVID-19 over 2 months – about the same as 200 cases per day in NSW",
+  value: "One_percent",
+  label: "A few cases",
+  description: "1% chance of getting COVID-19 over 2 months – about the same as {case_number} cases per day in {state}",
+  },
+];
+
+export const PZ_SCENARIOS_LABEL = `How many reported cases are there in 
+            your area? If you’re not sure, the calculator will assume there is 
+            a large number of COVID-19 cases in your area.`;
+export const PZ_SCENARIOS_DEFAULT = "Five_percent";
+export const PZ_SCENARIOS = [
+  {
+    value: "Ten_percent",
+    label: "A huge number of cases",
+    description: "10% chance of getting COVID-19 over 2 months – about the same as {case_number} cases per day in {state}",
   },
   {
-    value: "ATAGI_Low",
-    label: "Not many cases ",
-    description: "0.02% chance of getting COVID-19 over 2 months – about the same as 20 cases per day in NSW",
+    value: "Five_percent",
+    label: "A large number of cases",
+    description: "5% chance of getting COVID-19 over 2 months – about the same as {case_number} cases per day in {state}",
   },
-  // {
-  //   value: "None",
-  //   label: "No community transmission",
-  //   description: "No COVID-19 circulating in the community",
-  // },
-  // {
-  //   value: "One_percent",
-  //   label: "1%",
-  //   description: "Description for 1%",
-  // },
-  // {
-  //   value: "NSW_1000_cases",
-  //   label: "NSW 1000 cases",
-  //   description: "Description for NSW 1000 cases",
-  // },
-  // {
-  //   value: "VIC_1000_cases",
-  //   label: "VIC 1000 cases",
-  //   description: "Description for VIC 1000 cases",
-  // },
-  // {
-  //   value: "QLD_1000_cases",
-  //   label: "QLD 1000 cases",
-  //   description: "Description for QLD 1000 cases",
-  // },
+  {
+    value: "Two_percent",
+    label: "A lot of cases",
+    description: "2% chance of getting COVID-19 over 2 months – about the same as {case_number} cases per day in {state}",
+  },
+  {
+  value: "One_percent",
+  label: "A few cases",
+  description: "1% chance of getting COVID-19 over 2 months – about the same as {case_number} cases per day in {state}",
+  },
 ];
 
 // output
@@ -225,6 +448,9 @@ export const PZ_VERSION_ALERT = `This calculator is for people who had the
             Pfizer vaccine for their first two shots. Last updated on 
             11/03/2022. The tool assumes that all the cases are caused by the 
             Omicron variant.`;
+export const PZ_CHILDREN_VERSION_ALERT = `This calculator is for  people  under 
+            18 who had the Pfizer vaccine. Last updated on 27/02/2023. The tool 
+            assumes that all the cases are caused by the Omicron variant.`;
 
 
 export const DESCRIPTION_LABEL = "Description";
@@ -243,7 +469,7 @@ export const INFOBOX_RISK_TEXT = "cases per million people";
 export const TOS_HEADING = "Important information";
 export const TOS_1 = "I have read and agree to the";
 export const TOS_2 = "Terms and Conditions";
-export const TOS_3 = "of use for the Covid-19 Risk Calculator (CoRiCal).";
+export const TOS_3 = "for using the COVID-19 Risk Calculator (CoRiCal).";
 
 export const TOS_TITLE = "Terms and Conditions";
 

@@ -18,6 +18,18 @@ export type PfizerFormData = {
   ct: string;
 };
 
+export type CombinedFormData = {
+  tos: boolean;
+  vaccine?: string;
+  dose_number: string;
+  dose_2?: string;
+  dose_3?: string;
+  dose_time?: string;
+  age?: number;
+  sex: string;
+  ct: string;
+};
+
 export async function computeTts(form: TTSFormData) {
   const res = await axios.post(API_URL + "/compute_tts", form);
   return res.data;
@@ -25,5 +37,16 @@ export async function computeTts(form: TTSFormData) {
 
 export async function computePfizer(form: PfizerFormData) {
   const res = await axios.post(API_URL + "/compute_pfizer", form);
+  return res.data;
+}
+
+
+export async function computeCombined(form: CombinedFormData) {
+  const res = await axios.post(API_URL + "/compute_combined", form);
+  return res.data;
+}
+
+export async function computePfizerChildren(form: PfizerFormData) {
+  const res = await axios.post(API_URL + "/compute_pfizer_children", form);
   return res.data;
 }
