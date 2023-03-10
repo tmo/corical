@@ -561,8 +561,10 @@ function VideoRoute() {
             using such a decision-making tool.</li>
           <li> the risk chart for COVID-19 deaths to estimate the likely risk of 
             dying from COVID-19 based upon age, sex and number of COVID-19 vaccine doses.</li>
+          <li> an example using the CoRiCal tool to explain the risk and benefit
+            of COVID-19 vaccination for children.</li>
         </ul>
-        There are 4 very brief clips, each about 1 ½ minutes in length. There is 
+        There are 5 very brief clips, each about 1 ½ minutes in length. There is 
         one longer film clip (~7 ½ minutes) that puts all these sections together.
         GPs and health care professionals offering COVID-19 vaccines are welcome to 
         download the film clips to their desktop or even consider installing 
@@ -610,6 +612,14 @@ function VideoRoute() {
             src="https://player.vimeo.com/video/731968526?h=27f7b80c9f" 
             width="640" height="360" frameBorder="0" allow="autoplay; 
             fullscreen; picture-in-picture" allowFullScreen></iframe>
+          <br />
+
+          <h2>Explanation of the CoRiCal Kids Model </h2>
+          <iframe title="Explanation of the CoRiCal Kids Model" 
+            src="https://www.youtube.com/embed/AsFxpsCSDsw" 
+            width="640" height="360" frameborder="0" allow="accelerometer; 
+            autoplay; clipboard-write; encrypted-media; gyroscope; 
+            picture-in-picture; web-share" allowfullscreen></iframe>
           <br />
 
           <h2>Acknowledgements</h2>
