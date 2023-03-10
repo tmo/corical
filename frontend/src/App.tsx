@@ -617,9 +617,9 @@ function VideoRoute() {
           <h2>Explanation of the CoRiCal Kids Model </h2>
           <iframe title="Explanation of the CoRiCal Kids Model" 
             src="https://www.youtube.com/embed/AsFxpsCSDsw" 
-            width="640" height="360" frameborder="0" allow="accelerometer; 
+            width="640" height="360" frameBorder="0" allow="accelerometer; 
             autoplay; clipboard-write; encrypted-media; gyroscope; 
-            picture-in-picture; web-share" allowfullscreen></iframe>
+            picture-in-picture; web-share" allowFullScreen></iframe>
           <br />
 
           <h2>Acknowledgements</h2>
