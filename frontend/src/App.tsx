@@ -516,6 +516,13 @@ function InfoRoute() {
               target="_blank"> 
               Information on myocarditis  (pdf) 
             </a>
+            <br />
+            <a 
+              href="/docs/myocarditis_assumptions.pdf"
+              rel="noreferrer" 
+              target="_blank"> 
+              Assumptions and data sources for myocarditis information (pdf) 
+            </a>
           </Typography>
         </Container>
       </Box>
