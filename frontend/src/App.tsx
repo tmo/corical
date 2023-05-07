@@ -523,6 +523,13 @@ function InfoRoute() {
               target="_blank"> 
               Assumptions and data sources for myocarditis information (pdf) 
             </a>
+            <br />
+            <a 
+              href="/docs/RACGP_Paediatric_COVID_vaccination_FAQs.pdf"
+              rel="noreferrer" 
+              target="_blank"> 
+              RACGP: Paediatric COVID-19 vaccination FAQs (pdf) 
+            </a>
           </Typography>
         </Container>
       </Box>
