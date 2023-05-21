@@ -7,7 +7,7 @@ export const FAQ_ITEMS =  [
       relationship between multiple factors and how they can influence the 
       chance of something occurring. Examples of how these chances are 
       calculated can be found <a rel="noreferrer" target="_blank" href="/docs/AstraZeneca_and_Pfizer_Model_Manual_Calculations.pdf">here for Astrazeneca vaccine</a>  and <a rel="noreferrer" target="_blank" href="/docs/Pfizer_Model_Manual_Calculations.pdf">here for the Pfizer vaccine</a>.  
-      The data sources used and assumptions are listed <a rel="noreferrer" target="_blank" href="/docs/astrazeneca_assumptions_11_03_22.pdf">here for Astrazeneca vaccine</a>, <a rel="noreferrer" target="_blank" href="/docs/pfizer_assumptions_11_03_22.pdf">here for the Pfizer vaccine</a>, and <a rel="noreferrer" target="_blank" href="/docs/children_assumptions_26_02_2023.pdf">here for the Paediatric Pfizer vaccine</a>.
+      The data sources used and assumptions are listed <a rel="noreferrer" target="_blank" href="/docs/astrazeneca_assumptions_11_03_22.pdf">here for Astrazeneca vaccine</a>, <a rel="noreferrer" target="_blank" href="/docs/pfizer_assumptions_10_05_23.pdf">here for the Pfizer vaccine</a>, and <a rel="noreferrer" target="_blank" href="/docs/children_assumptions_26_02_2023.pdf">here for the Paediatric Pfizer vaccine</a>.
       </>,
   },
   {
@@ -39,7 +39,7 @@ export const FAQ_ITEMS =  [
     answer: <> We have used Australian data sources where possible. Where 
       Australian data is not available, we have used overseas data. 
       All data sources are shown here (see  
-      <a rel="noreferrer" target="_blank" href="/docs/pfizer_assumptions_11_03_22.pdf"> Pfizer data sources </a> 
+      <a rel="noreferrer" target="_blank" href="/docs/pfizer_assumptions_10_05_23.pdf"> Pfizer data sources </a> 
       and <a rel="noreferrer" target="_blank" href="/docs/astrazeneca_assumptions_11_03_22.pdf"> AstraZeneca data
       sources </a>). </>,
   },
