@@ -390,22 +390,22 @@ export const SCENARIOS = [
   {
     value: "Ten_percent",
     label: "A huge number of cases",
-    description: "10% chance of getting COVID-19 over 2 months – about the same as {case_number} cases per day in {state}",
+    description: "10% chance of getting COVID-19 over 2 months – about the same as 13,600 cases per day in NSW",
   },
   {
     value: "Five_percent",
     label: "A large number of cases",
-    description: "5% chance of getting COVID-19 over 2 months – about the same as {case_number} cases per day in {state}",
+    description: "5% chance of getting COVID-19 over 2 months – about the same as 6,800 cases per day in NSW",
   },
   {
     value: "Two_percent",
     label: "A lot of cases",
-    description: "2% chance of getting COVID-19 over 2 months – about the same as {case_number} cases per day in {state}",
+    description: "2% chance of getting COVID-19 over 2 months – about the same as 2,500 cases per day in NSW",
   },
   {
-  value: "One_percent",
-  label: "A few cases",
-  description: "1% chance of getting COVID-19 over 2 months – about the same as {case_number} cases per day in {state}",
+    value: "One_percent",
+    label: "A few cases",
+    description: "1% chance of getting COVID-19 over 2 months – about the same as 1,300 cases per day in NSW",
   },
 ];
 

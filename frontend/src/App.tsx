@@ -530,6 +530,13 @@ function InfoRoute() {
               target="_blank"> 
               RACGP: Paediatric COVID-19 vaccination FAQs (pdf) 
             </a>
+            <br />
+            <a 
+              href="/docs/NewsGP_Article_Should_children_get_the_COVID_vaccine_May_2023.pdf"
+              rel="noreferrer" 
+              target="_blank"> 
+              NewsGP: Should children get the COVID vaccine? (May 2023) (pdf) 
+            </a>
           </Typography>
         </Container>
       </Box>
