@@ -1,6 +1,6 @@
 import xdsl
 
-pfizer = xdsl.Model("Pf_March_GeNie_01-03-22.xdsl")
+pfizer = xdsl.Model("Pf_May_GeNie_17_05_2023.xdsl")
 
 # n1_Pfizer_dose
 # n2_Age_group

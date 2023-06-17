@@ -986,11 +986,11 @@ class Corical(corical_pb2_grpc.CoricalServicer):
 
         dose_labels = {
             "None": ("not had any vaccines", "no"),
-            "One_at_3wks": ("had one shot (3 weeks ago)", "first"),
-            "Two_under_2mths": ("had two shots (2 months ago)", "second"),
-            "Two_2_4mths": ("had two shots (2-4 months after the vaccine)", "second"),
-            "Two_4_6mths": ("had two shots (4-6 months after the vaccine)", "second"),
-            "Three": ("had three shots", "third"),
+            "One": ("had one shot ", "first"),
+            "Two_under_3mths": ("had two shots (3 months ago)", "second"),
+            "Two_3_6mths": ("had two shots (3-6 months after the vaccine)", "second"),
+            "Two_6_8mths": ("had two shots (6-8 months after the vaccine)", "second"),
+            "Three_under_3mths": ("had three shots (3 months ago)", "third"),
         }
 
         # for graphs
@@ -1005,17 +1005,17 @@ class Corical(corical_pb2_grpc.CoricalServicer):
 
 
         if request.dose == "None":
-            comparison_doses = ["One_at_3wks", "Two_under_2mths"]
-        elif request.dose == "One_at_3wks":
-            comparison_doses = ["None", "Two_under_2mths"]
-        elif request.dose == "Two_under_2mths":
-            comparison_doses = ["One_at_3wks", "Three"]
-        elif request.dose == "Two_2_4mths":
-            comparison_doses = ["One_at_3wks", "Three"]
-        elif request.dose == "Two_4_6mths":
-            comparison_doses = ["One_at_3wks", "Three"]
-        elif request.dose == "Three":
-            comparison_doses = ["One_at_3wks", "Two_under_2mths", "None"]
+            comparison_doses = ["One", "Two_under_3mths"]
+        elif request.dose == "One":
+            comparison_doses = ["None", "Two_under_3mths"]
+        elif request.dose == "Two_under_3mths":
+            comparison_doses = ["One", "Three_under_3mths"]
+        elif request.dose == "Two_3_6mths":
+            comparison_doses = ["One", "Three_under_3mths"]
+        elif request.dose == "Two_6_8mths":
+            comparison_doses = ["One", "Three_under_3mths"]
+        elif request.dose == "Three_under_3mths":
+            comparison_doses = ["One", "Two_under_3mths", "None"]
 
         # variant
         # hardcoded as 100% omicron
@@ -1096,7 +1096,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Your chance of myocarditis after the {d['shot_ordinal']} shot of Pfizer vaccine will increase by:",
+                                label=f"Your chance of myocarditis after the {d['shot_ordinal']} shot of Pfizer vaccine",
                                 risk=d["get_myocarditis_vax"],
                                 is_other_shot=d["is_other_shot"],
                             )
@@ -1125,7 +1125,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Your chance of dying from myocarditis after the {d['shot_ordinal']} shot of Pfizer vaccine will increase by:",
+                                label=f"Your chance of dying from myocarditis after the {d['shot_ordinal']} shot of Pfizer vaccine",
                                 risk=d["die_myocarditis_vax"],
                                 is_other_shot=d["is_other_shot"],
                             )

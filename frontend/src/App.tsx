@@ -33,7 +33,7 @@ function IndexRoute() {
     <>
       <h1>Choose a risk calculator</h1>
       <Box mb={4}>
-      <h2>First dose Pfizer - Omicron Variant, updated 11/03/2022</h2>
+      <h2>First dose Pfizer - Omicron Variant, updated 22/05/2023</h2>
       <Button component={Link} to="/pfizer" color="primary" variant="contained">
         Pfizer calculator
       </Button>
@@ -475,7 +475,7 @@ function InfoRoute() {
             </p>
 
             <a 
-              href="/docs/pfizer_assumptions_11_03_22.pdf"  
+              href="/docs/pfizer_assumptions_10_05_23.pdf"  
               rel="noreferrer" 
               target="_blank"> 
               Assumptions and data sources for the Pfizer model (pdf) 
@@ -529,6 +529,13 @@ function InfoRoute() {
               rel="noreferrer" 
               target="_blank"> 
               RACGP: Paediatric COVID-19 vaccination FAQs (pdf) 
+            </a>
+            <br />
+            <a 
+              href="/docs/NewsGP_Article_Should_children_get_the_COVID_vaccine_May_2023.pdf"
+              rel="noreferrer" 
+              target="_blank"> 
+              NewsGP: Should children get the COVID vaccine? (May 2023) (pdf) 
             </a>
           </Typography>
         </Container>

@@ -166,16 +166,16 @@ export const PZ_VACCINE_OPTIONS_SEP = [
     label: "None",
   },
   {
-    value: "One_at_3wks",
-    label: "One shot of Pfizer (3 weeks ago)",
+    value: "One",
+    label: "One shot of Pfizer",
   },
   {
     value: PZ_VACCINE_SECOND_VAL_SEP,
     label: "Two shots of Pfizer",
   },
   {
-    value: "Three",
-    label: "Three shots of Pfizer",
+    value: "Three_under_3mths",
+    label: "Three shots of Pfizer (Less than 3 months ago)",
   },
 ];
 
@@ -183,16 +183,16 @@ export const PZ_VACCINE2_LABEL_SEP =
   "Time since second dose";
 export const PZ_VACCINE2_OPTIONS_SEP = [
   {
-    value: "Two_under_2mths",
-    label: "Less than 2 months",
+    value: "Two_under_3mths",
+    label: "Less than 3 months",
   },
   {
-    value: "Two_2_4mths",
-    label: "Between 2 and 4 months",
+    value: "Two_3_6mths",
+    label: "Between 3 and 6 months",
   },
   {
-    value: "Two_4_6mths",
-    label: "Between 4 and 6 months",
+    value: "Two_6_8mths",
+    label: "Between 6 and 8 months",
   },
   // {
   //   value: "Two_last_dose_more_than_6_months_ago",
@@ -390,22 +390,22 @@ export const SCENARIOS = [
   {
     value: "Ten_percent",
     label: "A huge number of cases",
-    description: "10% chance of getting COVID-19 over 2 months – about the same as {case_number} cases per day in {state}",
+    description: "10% chance of getting COVID-19 over 2 months – about the same as 13,600 cases per day in NSW",
   },
   {
     value: "Five_percent",
     label: "A large number of cases",
-    description: "5% chance of getting COVID-19 over 2 months – about the same as {case_number} cases per day in {state}",
+    description: "5% chance of getting COVID-19 over 2 months – about the same as 6,800 cases per day in NSW",
   },
   {
     value: "Two_percent",
     label: "A lot of cases",
-    description: "2% chance of getting COVID-19 over 2 months – about the same as {case_number} cases per day in {state}",
+    description: "2% chance of getting COVID-19 over 2 months – about the same as 2,500 cases per day in NSW",
   },
   {
-  value: "One_percent",
-  label: "A few cases",
-  description: "1% chance of getting COVID-19 over 2 months – about the same as {case_number} cases per day in {state}",
+    value: "One_percent",
+    label: "A few cases",
+    description: "1% chance of getting COVID-19 over 2 months – about the same as 1,300 cases per day in NSW",
   },
 ];
 
