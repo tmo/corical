@@ -144,6 +144,7 @@ message BinLog {
   google.protobuf.Timestamp time = 1;
   ComputeTTSReq tts_req = 2;
   ComputePfizerReq pfizer_req = 5;
+  ComputeLongCovidReq longcovid_req = 7;
   ComputeCombinedReq combined_req = 6;
   ComputeRes res = 3;
   double duration_ms = 4;
