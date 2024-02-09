@@ -11,10 +11,11 @@ import pytz
 from google.protobuf.timestamp_pb2 import Timestamp
 
 from pfizer import compute_probs as compute_pfizer_probs
+from long_covid import compute_long_covid_probs
 from proto import corical_pb2, corical_pb2_grpc
 from risks import generate_relatable_risks
 from tts import compute_probs, scenario_to_vec
-from tts_util import get_age_bracket, get_age_bracket_pz, get_age_bracket_children, get_link, get_comparison_doses, get_age_bracket_cap
+from tts_util import get_age_bracket, get_age_bracket_pz, get_age_bracket_children, get_age_bracket_lc, get_link, get_comparison_doses, get_age_bracket_cap
 from model import SmileModel
 
 utc = pytz.UTC
@@ -28,6 +29,7 @@ server.add_insecure_port(f"[::]:21000")
 
 PZ_children_model_file = "pfizer_children_27_02_23.xdsl"
 combined_model_file = "combined_22-09-22.xdsl"
+long_covid_model_file = "LC_BN_050224.xdsl"
 
 def now():
     return datetime.now(utc)
@@ -1154,6 +1156,165 @@ class Corical(corical_pb2_grpc.CoricalServicer):
 
         return out
 
+    def ComputeLongCovid(self, request, context):
+        start = perf_counter_ns()
+        time = Timestamp_from_datetime(now())
+
+        logger.info(request)
+
+        messages = []
+
+        # sex
+        if request.sex == "female":
+            sex_label = "Female"
+            sex_vec = np.array([0.0, 1.0])
+        elif request.sex == "male":
+            sex_label = "Male"
+            sex_vec = np.array([1.0, 0.0])
+        elif request.sex == "other":
+            sex_label = "person of unspecified sex"
+            sex_vec = np.array([0.5, 0.5])
+            messages.append(
+                corical_pb2.Message(
+                    heading="Sex disclaimer",
+                    text="We do not have data on the chosen sex, so the results reflect a population with 50% females and 50% males",
+                    severity="info",
+                )
+            )
+        else:
+            context.abort(grpc.StatusCode.FAILED_PRECONDITION, "Invalid sex")
+
+        age_text, age_label, age_ix = get_age_bracket_lc(request.age)
+
+        comor_no = request.comor 
+
+        infection_no = "First"
+        if request.infection == "1":
+            infection_no = "Second"
+        elif request.infection == "2 or more":
+            infection_no = "Third_plus"
+
+        dose_labels = {
+            "None": ("not had any vaccines", "no"),
+            "First_3weeks_ago": ("had one shot 3 weeks ago", "first"),
+            "Second_2wks_5mnths": ("last shot 2 week to 5 months ago", "second"),
+            "Second_6_11mnths": ("last shot 6 to 11 months ago", "second"),
+            "Second_12plus_mnths": ("last shot 12 or more months ago", "second"),
+            "Third_2wks_5mths": ("last shot 2 weeks to 5 months ago", "third"),
+            "Third_6_11mnths": ("last shot 6 to 11 months ago", "third"),
+            "Third_12plus_mnths": ("last shot 12 or more months ago", "third"),
+            "Fourth_2_4wks": ("last shot 2 weeks to 4 weeks ago", "fourth"),
+            "Fourth_5_9wks": ("last shot 5 to 9 weeks ago", "fourth"),
+            "Fourth_10_14wks": ("last shot 10 to 14 weeks ago", "fourth"),
+            "Fourth_15_19wks": ("last shot 15 to 19 weeks ago", "fourth"),
+            "Fourth_20plus_wks": ("last shot 20 or more weeks ago", "fourth"),
+        }
+
+        # for graphs
+        subtitle = f"These results are for a {age_text} {sex_label}."
+        myo_subtitle = f"You may have heard that the Pfizer vaccine can give you inflammation of your heart muscle. This is also called myocarditis. There are many other causes of myocarditis, so people can develop this problem even if they haven’t had the vaccine. Myocarditis is also very common in people who have had COVID-19 (infection).  "
+        
+        # for tables
+        if request.dose == "None":
+            explanation = f"Results shown for a {age_text} {sex_label} who has not been vaccinated"
+        else:
+            explanation = f"Results shown for a {age_text} {sex_label} are shown."
+
+        comparison_doses = []
+        # the comparied cases, check n2_Dose names
+        if request.dose == "None":
+            comparison_doses = ["First_3weeks_ago"]
+        elif request.dose == "First_3weeks_ago":
+            comparison_doses = ["Second_2wks_5mnths", "Second_6_11mnths", "Second_12plus_mnths"] 
+        elif request.dose in ["Second_2wks_5mnths", "Second_6_11mnths", "Second_12plus_mnths"]:
+            # comparison_doses = ["Third_2wks_5mths"]
+            comparison_doses = ["Third_2wks_5mths", "Third_6_11mnths", "Third_12plus_mnths"]
+        elif request.dose in ["Third_2wks_5mths", "Third_6_11mnths", "Third_12plus_mnths"]:
+            comparison_doses = ["Fourth_2_4wks"]
+        elif request.dose == "Fourth_2_4wks":
+            comparison_doses = ["Fourth_5_9wks"]
+        elif request.dose == "Fourth_5_9wks":
+            comparison_doses = ["Fourth_10_14wks"]
+        elif request.dose == "Fourth_10_14wks":
+            comparison_doses = ["Fourth_15_19wks"]
+        elif request.dose == "Fourth_15_19wks":
+            comparison_doses = ["Fourth_20plus_wks"]
+        elif request.dose == "Fourth_20plus_wks":
+            comparison_doses = ["None"]
+
+        cmp = []
+
+        for i, cdose in enumerate([request.dose] + comparison_doses):
+            label, shot_ordinal = dose_labels[cdose]
+            cur = {
+                "label": label,
+                "is_other_shot": i != 0,
+                "shot_ordinal": shot_ordinal,
+            }
+            (
+                cur["get_hospitalisation"],
+                cur["get_icu"],
+                cur["get_symptom"],
+                cur["get_pulmonary"],
+                cur["get_coagulation"],
+                cur["get_neurologic"],
+                cur["get_metabolic"],
+            ) = compute_long_covid_probs(cdose, age_label, sex_label, comor_no, infection_no)
+            cmp.append(cur)
+
+        scenario_description = f"Here are your results. These are tests. They are based on the number and timing of shots of Pfizer vaccines you have had."
+        out = corical_pb2.ComputeRes(
+            messages=messages,
+            scenario_description=scenario_description,
+            bar_graphs=[
+                corical_pb2.BarGraph(
+                    title=f"If I get COVID-19, what is my chance of being hospitalised?",
+                    subtitle=f"Here are your results. These are for a {age_text} {sex_label} with {comor_no} pre-existing comorbidity/ies and {infection_no} previous SARS-CoV-2 infection/s. They are based on the number and timing of COVID-19 vaccine shots you have had.",
+                    risks=generate_bar_graph_risks(
+                        [
+                            corical_pb2.BarGraphRisk(
+                                label=f"Chance of being hospitalised from COVID-19 if you have {request.dose} shots",
+                                risk=d["get_hospitalisation"],
+                                is_other_shot=d["is_other_shot"],
+                            )
+                            for d in cmp
+                        ]
+                    ),
+                ),
+                corical_pb2.BarGraph(
+                    title=f"If I get COVID-19, what is my chance of attending ICU?",
+                    subtitle=f"Here are your results. These are for a {age_text} {sex_label} with {comor_no} pre-existing comorbidity/ies and {infection_no} previous SARS-CoV-2 infection/s. They are based on the number and timing of COVID-19 vaccine shots you have had.",
+                    risks=generate_bar_graph_risks(
+                        [
+                            corical_pb2.BarGraphRisk(
+                                label=f"Chance of attending ICU from COVID-19 if you have {request.dose} shots",
+                                risk=d["get_icu"],
+                                is_other_shot=d["is_other_shot"],
+                            )
+                            for d in cmp
+                        ]
+                    ),
+                ),
+            ],
+            
+            output_groups=[],
+            success=True,
+            msg=str(request),
+            vaccine_type = "PZ",
+        )
+        duration = (perf_counter_ns() - start) / 1e6  # ms
+        binlog = corical_pb2.BinLog(
+            time=time,
+            longcovid_req=request,
+            res=out,
+            duration_ms=duration,
+        )
+
+        binlog_out = b64encode(binlog.SerializeToString()).decode("utf8")
+
+        logger.info(f"binlog: {binlog_out}")
+
+        return out
 
 corical_pb2_grpc.add_CoricalServicer_to_server(Corical(), server)
 server.start()
