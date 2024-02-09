@@ -3,14 +3,17 @@ import CombinedForm from "./CombinedForm";
 import TTSForm from "./TTSForm";
 import PfizerForm from "./PfizerForm";
 import PfizerChildrenForm from "./PfizerChildrenForm";
+import LongCovidForm from "./LongCovidForm";
 import { 
   CombinedFormData, 
-  PfizerFormData, 
+  PfizerFormData,
+  LongCovidFormData, 
   computeCombined, 
   computePfizerChildren,
   TTSFormData, 
   computeTts, 
-  computePfizer
+  computePfizer,
+  computeLongCovid
 } from "./api";
 import Output from "./Output";
 import { Alert, AlertTitle } from "@material-ui/lab/";
@@ -58,6 +61,17 @@ function IndexRoute() {
         variant="contained"
       >
         Children's calculator
+      </Button>
+      </Box>
+      <Box mb={5}>
+      <h2>Long COVID for Adults - Omicron variant, updated 13/02/2024</h2>
+      <Button
+        component={Link}
+        to="/longcovid"
+        color="primary"
+        variant="contained"
+      >
+        Long Covid calculator
       </Button>
       </Box>
     </>
@@ -176,6 +190,45 @@ function PfizerRoute() {
         </Alert>
       ) : (
         <Output output={pfizerOutput} />
+      )}
+    </>
+  );
+}
+
+function LongCovidRoute() {
+  const [error, setError] = useState<string | null>(null);
+  const [longCovidOutput, setLongCovidOutput] = useState<any | null>(null);
+  const longCovidCallback = async (form: LongCovidFormData) => {
+    setError(null);
+    try {
+      form.age = Math.round(form.age!);
+      const res = await computeLongCovid(form);
+      setLongCovidOutput(res);
+    } catch (e: any) {
+      console.error(e);
+      setError(e.message);
+    }
+  };
+  return (
+    <>
+      <Button
+        component={Link}
+        to="/"
+        color="primary"
+        variant="outlined"
+        size="small"
+        style={{ margin: "1em" }}
+      >
+        Back to calculator selection
+      </Button>
+      <LongCovidForm callback={longCovidCallback} />
+      {error ? (
+        <Alert severity="error">
+          <AlertTitle>An error occured</AlertTitle>
+          {error}
+        </Alert>
+      ) : (
+        <Output output={longCovidOutput} />
       )}
     </>
   );
@@ -676,6 +729,7 @@ export default function App() {
           <Route path="/" element={<IndexRoute />} />
           <Route path="/riskchart" element={<RiskChartRoute />} />
           <Route path="/pfizer" element={<PfizerRoute />} />
+          <Route path="/longcovid" element={<LongCovidRoute />} />
           <Route path="/astrazeneca" element={<AZRoute />} />
           <Route path="/children" element={<PfizerChildrenRoute />} />
           <Route path="/publications" element={<PubRoute />} />
