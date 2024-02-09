@@ -20,6 +20,13 @@ service Corical {
     };
   }
 
+  rpc ComputeLongCovid(ComputeLongCovidReq) returns (ComputeRes) {
+    option (google.api.http) = {
+      post : "/v1/compute_long_covid"
+      body : "*"
+    };
+  }
+
   rpc ComputeCombined(ComputeCombinedReq) returns (ComputeRes) {
     option (google.api.http) = {
       post : "/v1/compute_combined"
@@ -56,6 +63,15 @@ message ComputePfizerReq {
   string sex = 4;
 }
 
+/// Long Covid
+
+message ComputeLongCovidReq {
+  string dose = 1;
+  uint32 age = 2;
+  string comor = 3;
+  string sex = 4;
+  sting infection = 5;
+}
 
 /// Combined 
 message ComputeCombinedReq {
