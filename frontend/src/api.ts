@@ -18,6 +18,15 @@ export type PfizerFormData = {
   ct: string;
 };
 
+export type LongCovidFormData = {
+  tos: boolean;
+  dose: string;
+  age?: number;
+  sex: string;
+  comor: string;
+  infection: string;
+};
+
 export type CombinedFormData = {
   tos: boolean;
   vaccine?: string;
@@ -48,5 +57,10 @@ export async function computeCombined(form: CombinedFormData) {
 
 export async function computePfizerChildren(form: PfizerFormData) {
   const res = await axios.post(API_URL + "/compute_pfizer_children", form);
+  return res.data;
+}
+
+export async function computeLongCovid(form: LongCovidFormData) {
+  const res = await axios.post(API_URL + "/compute_long_covid", form);
   return res.data;
 }
