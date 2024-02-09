@@ -26,20 +26,26 @@ import {
     AGE_LABEL,
     STEP1_HELPER,
     STEP1_TITLE,
-    PZ_VERSION_ALERT,
+    LC_VERSION_ALERT,
     AGE_TOO_SMALL,
     AGE_TOO_BIG,
     SEX_LABEL,
     SEX_OPTIONS,
     FIELD_REQUIRED,
+    LC_COMOR_LABEL,
+    LC_COMOR_HELPER,
+    LC_COMOR_OPTIONS,
+    LC_INFECTION_LABEL,
+    LC_INFECTION_OPTIONS,
+    VACCINE_LABEL,
     LC_VACCINE2_LABEL,
     LC_VACCINE_OPTIONS,
     LC_VACCINE2_OPTIONS,
-    DOSE_OVERDUE_DISCLAIMER,
-    PZ_SCENARIOS_LABEL_SEP,
-    PZ_SCENARIOS_DEFAULT_SEP,
-    PZ_SCENARIOS_SEP,
+    LC_VACCINE3_OPTIONS,
+    LC_VACCINE4_OPTIONS,
     LC_VACCINE_SECOND_VAL,
+    LC_VACCINE_THIRD_VAL,
+    LC_VACCINE_FOURTH_VAL,
     SUBMIT_LABEL_SEP,
     TOS_HEADING,
     TOS_1,
@@ -102,6 +108,10 @@ import {
         dose:
           form.form_dose === LC_VACCINE_SECOND_VAL
             ? form.form_second_dose
+            : form.form_dose === LC_VACCINE_THIRD_VAL 
+            ? form.form_third_dose
+            : form.form_dose === LC_VACCINE_FOURTH_VAL
+            ? form.form_fourth_dose 
             : form.form_dose,
         age: form.age,
         sex: form.sex,
@@ -121,7 +131,7 @@ import {
       <form onSubmit={submit}>
         <Alert key={LC_VERSION_ALERT} severity={"info"} className={classes.message}>
           <AlertTitle>{"Calculator Version"}</AlertTitle>
-          {PZ_VERSION_ALERT}
+          {LC_VERSION_ALERT}
         </Alert>
         <Typography variant="h5" component="h2">
           {STEP1_TITLE}
@@ -184,6 +194,77 @@ import {
         </div>
         <div className={classNames(classes.formComp)}>
           <Controller
+            name="comor"
+            control={control}
+            rules={{
+              validate: (value) => !!value || FIELD_REQUIRED,
+            }}
+            render={({ field: { onChange, value } }) => (
+              <FormControl component="fieldset">
+                <FormLabel component="legend">{LC_COMOR_LABEL}</FormLabel>
+                <Typography variant="caption">
+                  {LC_COMOR_HELPER}
+                </Typography>
+                <RadioGroup
+                  // row
+                  name="form_comor-radio"
+                  onChange={(e, value) => onChange(value)}
+                  value={value}
+                >
+                  {LC_COMOR_OPTIONS.map(({ value, label }) => (
+                    <FormControlLabel
+                      key={label}
+                      value={value}
+                      control={<Radio />}
+                      label={ label }
+                    />
+                  ))}
+                </RadioGroup>
+                {errors?.comor?.message && (
+                  <FormHelperText error>
+                    {errors.comor.message}
+                  </FormHelperText>
+                )}
+              </FormControl>
+            )}
+          />
+        </div>
+        <div className={classNames(classes.formComp)}>
+          <Controller
+            name="infection"
+            control={control}
+            rules={{
+              validate: (value) => !!value || FIELD_REQUIRED,
+            }}
+            render={({ field: { onChange, value } }) => (
+              <FormControl component="fieldset">
+                <FormLabel component="legend">{LC_INFECTION_LABEL}</FormLabel>
+                <RadioGroup
+                  // row
+                  name="form_infection-radio"
+                  onChange={(e, value) => onChange(value)}
+                  value={value}
+                >
+                  {LC_INFECTION_OPTIONS.map(({ value, label }) => (
+                    <FormControlLabel
+                      key={label}
+                      value={value}
+                      control={<Radio />}
+                      label={ label }
+                    />
+                  ))}
+                </RadioGroup>
+                {errors?.comor?.message && (
+                  <FormHelperText error>
+                    {errors.comor.message}
+                  </FormHelperText>
+                )}
+              </FormControl>
+            )}
+          />
+        </div>
+        <div className={classNames(classes.formComp)}>
+          <Controller
             name="form_dose"
             control={control}
             rules={{
@@ -191,10 +272,7 @@ import {
             }}
             render={({ field: { onChange, value } }) => (
               <FormControl component="fieldset">
-                <FormLabel component="legend">{LC_VACCINE_LABEL}</FormLabel>
-                <Typography variant="caption">
-                  {DOSE_OVERDUE_DISCLAIMER}
-                </Typography>
+                <FormLabel component="legend">{VACCINE_LABEL}</FormLabel>
                 <RadioGroup
                   // row
                   name="form_dose-radio"
@@ -257,7 +335,82 @@ import {
             )}
           />
         </div>
-       
+        <div
+          className={classNames(classes.formComp, classes.indent)}
+          hidden={!enableDose3extras}
+        >
+          <Controller
+            name="form_third_dose"
+            control={control}
+            rules={{
+              validate: (value) =>
+                !enableDose3extras || !!value || FIELD_REQUIRED,
+            }}
+            render={({ field: { onChange, value } }) => (
+              <FormControl component="fieldset">
+                <FormLabel component="legend">{LC_VACCINE2_LABEL}</FormLabel>
+                <RadioGroup
+                  name="form_third_dose-radio"
+                  onChange={(e, value) => onChange(value)}
+                  value={value}
+                >
+                  {LC_VACCINE3_OPTIONS.map(({ value, label }) => (
+                    <FormControlLabel
+                      disabled={!enableDose3extras}
+                      key={label}
+                      value={value}
+                      control={<Radio />}
+                      label={ label }
+                    />
+                  ))}
+                </RadioGroup>
+                {errors?.form_third_dose?.message && (
+                  <FormHelperText error>
+                    {errors.form_third_dose.message}
+                  </FormHelperText>
+                )}
+              </FormControl>
+            )}
+          />
+        </div>
+        <div
+          className={classNames(classes.formComp, classes.indent)}
+          hidden={!enableDose4extras}
+        >
+          <Controller
+            name="form_fourth_dose"
+            control={control}
+            rules={{
+              validate: (value) =>
+                !enableDose4extras || !!value || FIELD_REQUIRED,
+            }}
+            render={({ field: { onChange, value } }) => (
+              <FormControl component="fieldset">
+                <FormLabel component="legend">{LC_VACCINE2_LABEL}</FormLabel>
+                <RadioGroup
+                  name="form_second_dose-radio"
+                  onChange={(e, value) => onChange(value)}
+                  value={value}
+                >
+                  {LC_VACCINE4_OPTIONS.map(({ value, label }) => (
+                    <FormControlLabel
+                      disabled={!enableDose4extras}
+                      key={label}
+                      value={value}
+                      control={<Radio />}
+                      label={ label }
+                    />
+                  ))}
+                </RadioGroup>
+                {errors?.form_fourth_dose?.message && (
+                  <FormHelperText error>
+                    {errors.form_fourth_dose.message}
+                  </FormHelperText>
+                )}
+              </FormControl>
+            )}
+          />
+        </div>
         <Dialog
           open={tosBoxOpen}
           onClose={() => setTosBoxOpen(false)}
