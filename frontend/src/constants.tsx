@@ -200,6 +200,126 @@ export const PZ_VACCINE2_OPTIONS_SEP = [
   // },
 ];
 
+export const LC_COMOR_LABEL = "Number of pre-existing comorbidities";
+export const LC_COMOR_HELPER = "Comorbidities may include, but are not limited to chronic lung disease, cancer, cardiovascular disease, cerebrovascular disease, dementia, diabetes mellitus, hypertension, hyperlipidemia, depression, anxiety, chronic kidney disease, hepatitis C, and peripheral artery disease. We don’t currently have estimates for specific types of comorbidities.";
+
+export const LC_COMOR_OPTIONS = [
+  {
+    value: "None",
+    label: "None",
+  },
+  {
+    value: "One_to_three",
+    label: "One to three",
+  },
+  {
+    value: "Four_plus",
+    label: "Four or more",
+  },
+];
+
+export const LC_INFECTION_LABEL = "Number of previous SARS-CoV-2 infections";
+export const LC_INFECTION_OPTIONS = [
+  {
+    value: "First",
+    label: "None",
+  },
+  {
+    value: "Second",
+    label: "One",
+  },
+  {
+    value: "Third_plus",
+    label: "Two or more",
+  },
+];
+export const LC_VACCINE_LABEL = "Vaccine";
+export const LC_VACCINE_SECOND_VAL = "Two";
+export const LC_VACCINE_THIRD_VAL = "Three";
+export const LC_VACCINE_FOURTH_VAL = "Four";
+
+export const LC_VACCINE_OPTIONS = [
+  {
+    value: "None",
+    label: "None",
+  },
+  {
+    value: "One",
+    label: "One shot (3 weeks ago)",
+  },
+  {
+    value: LC_VACCINE_SECOND_VAL,
+    label: "Two shots",
+  },
+  {
+    value: LC_VACCINE_THIRD_VAL,
+    label: "Three shots",
+  },  
+  {
+    value: LC_VACCINE_FOURTH_VAL,
+    label: "Four shots",
+  },
+
+];
+
+export const LC_VACCINE2_LABEL =
+  "Time since last shot";
+
+export const LC_VACCINE2_OPTIONS = [
+  {
+    value: "Second_2weeks_5mnths",
+    label: "Last shot 2 weeks to 5 months ago",
+  },
+  {
+    value: "Second_6_11mnths",
+    label: "Last shot 6 to 11 months ago",
+  },
+  {
+    value: "Second_12plus_mnths",
+    label: "Last shot 12 or more months ago",
+  },
+
+];
+
+export const LC_VACCINE3_OPTIONS = [
+  {
+    value: "Third_2wks_5mths",
+    label: "Last shot 2 weeks to 5 months ago",
+  },
+  {
+    value: "Third_6_11mnths",
+    label: "Last shot 6 to 11 months ago",
+  },
+  {
+    value: "Third_12plus_mnths",
+    label: "Last shot 12 or more months ago",
+  },
+
+];
+
+export const LC_VACCINE4_OPTIONS = [
+  {
+    value: "Fourth_2_4wks",
+    label: "Last shot 2 to 4 weeks ago",
+  },
+  {
+    value: "Fourth_5_9wks",
+    label: "Last shot 5 to 9 weeks ago",
+  },
+  {
+    value: "Fourth_10_14wks",
+    label: "Last shot 10 to 14 weeks ago",
+  },
+  {
+    value: "Fourth_15_19wks",
+    label: "Last shot 15 to 19 weeks ago",
+  },
+  {
+    value: "Fourth_20plus_wks",
+    label: "Last shot 20 or more weeks ago",
+  },
+];
+
 export const PZ_SCENARIOS_LABEL_SEP = "How many cases are there in your community?";
 export const PZ_SCENARIOS_DEFAULT_SEP = "Five_percent";
 export const PZ_SCENARIOS_SEP = [
@@ -444,6 +564,9 @@ export const AZ_VERSION_ALERT = `This calculator is for people who had the
             AstraZeneca vaccine for their first two shots. Last updated on 
             11/03/2022. The tool assumes that all the cases are caused by the 
             Omicron variant.`;
+export const LC_VERSION_ALERT = `This calculator is for people who are looking to 
+              assess long COVID risk if infected with symptomatic SARS-CoV-2. Last updated
+               on 13/02/2024. The tool assumes that all the cases are caused by the Omicron variant.`;
 export const PZ_VERSION_ALERT = `This calculator is for people who had the 
             Pfizer vaccine for their first two shots. Last updated on 
             11/03/2022. The tool assumes that all the cases are caused by the 
