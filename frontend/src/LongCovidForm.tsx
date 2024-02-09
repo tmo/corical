@@ -24,7 +24,7 @@ import {
   import { LongCovidFormData } from "./api";
   import {
     AGE_LABEL,
-    STEP1_HELPER,
+    STEP1_LC_HELPER,
     STEP1_TITLE,
     LC_VERSION_ALERT,
     AGE_TOO_SMALL,
@@ -137,7 +137,7 @@ import {
           {STEP1_TITLE}
         </Typography>
         <Typography variant="body1" gutterBottom>
-          {STEP1_HELPER}
+          {STEP1_LC_HELPER}
         </Typography>
         <div className={classNames(classes.formComp)}>
           <Controller

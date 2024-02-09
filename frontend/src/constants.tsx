@@ -200,6 +200,9 @@ export const PZ_VACCINE2_OPTIONS_SEP = [
   // },
 ];
 
+export const STEP1_LC_HELPER =
+  "Enter your age, sex, number of pre-existing comorbidities, number of previous SARS-CoV-2 infections, and if you’ve had a vaccine to check your risks.";
+
 export const LC_COMOR_LABEL = "Number of pre-existing comorbidities";
 export const LC_COMOR_HELPER = "Comorbidities may include, but are not limited to chronic lung disease, cancer, cardiovascular disease, cerebrovascular disease, dementia, diabetes mellitus, hypertension, hyperlipidemia, depression, anxiety, chronic kidney disease, hepatitis C, and peripheral artery disease. We don’t currently have estimates for specific types of comorbidities.";
 
@@ -233,7 +236,7 @@ export const LC_INFECTION_OPTIONS = [
     label: "Two or more",
   },
 ];
-export const LC_VACCINE_LABEL = "Vaccine";
+export const LC_VACCINE_LABFirst_3weeks_agoEL = "Vaccine";
 export const LC_VACCINE_SECOND_VAL = "Two";
 export const LC_VACCINE_THIRD_VAL = "Three";
 export const LC_VACCINE_FOURTH_VAL = "Four";
@@ -244,7 +247,7 @@ export const LC_VACCINE_OPTIONS = [
     label: "None",
   },
   {
-    value: "One",
+    value: "First_3weeks_ago",
     label: "One shot (3 weeks ago)",
   },
   {
@@ -267,7 +270,7 @@ export const LC_VACCINE2_LABEL =
 
 export const LC_VACCINE2_OPTIONS = [
   {
-    value: "Second_2weeks_5mnths",
+    value: "Second_2wks_5mnths",
     label: "Last shot 2 weeks to 5 months ago",
   },
   {
