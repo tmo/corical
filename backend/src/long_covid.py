@@ -66,11 +66,7 @@ def compute_long_covid_probs(n2_Dose, n4_Age, n5_Sex, n6_ComorbidityNo, n8_Infec
     
     # if infected
     lc.set_fact(values_infected, "n1_Infection", "Yes")
-    # die_covid_if_got_it = lc.infer(values_infected, "n14_Die_from_COVID19")[0]
-    # get_myocarditis_given_covid = lc.infer(values_infected, "n11_Myocarditis_from_COVID19")[0]
-    # die_myocarditis_given_covid = lc.infer(values_infected, "n15_Die_from_COVID19_myocarditis")[0]
-
-    # return ()
+    
     return (
         get_hospitalisation,
         get_icu,
