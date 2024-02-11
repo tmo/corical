@@ -70,7 +70,7 @@ message ComputeLongCovidReq {
   uint32 age = 2;
   string comor = 3;
   string sex = 4;
-  sting infection = 5;
+  string infection = 5;
 }
 
 /// Combined 
