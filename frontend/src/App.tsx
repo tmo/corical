@@ -528,6 +528,13 @@ function InfoRoute() {
             </p>
 
             <a 
+              href="/docs/Long_Covid_Assumptions_100224.pdf"  
+              rel="noreferrer" 
+              target="_blank"> 
+              Assumptions and data sources for the Long Covid model (pdf) 
+            </a>
+            <br />
+            <a 
               href="/docs/pfizer_assumptions_10_05_23.pdf"  
               rel="noreferrer" 
               target="_blank"> 
