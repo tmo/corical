@@ -60,19 +60,63 @@ def compute_long_covid_probs(n2_Dose, n4_Age, n5_Sex, n6_ComorbidityNo, n8_Infec
     get_icu = lc.infer(values, "n12_ICU")[0]
     get_symptom = lc.infer(values, "n14_LC_1_symptom")[0]
     get_pulmonary = lc.infer(values, "n28_LC_pulmonary")[0]
-    get_coagulation = lc.infer(values, "n18_LC_coagulation")[0]
+    get_cardiovascular = lc.infer(values, "n15_LC_cardiovascular")[0]
     get_neurologic = lc.infer(values, "n30_LC_neurologic")[0]
     get_metabolic = lc.infer(values, "n26_LC_metabolic")[0]
+    get_gastrointestinal =lc.infer(values, "n20_LC_GI")[0]
     
-    # if infected
-    lc.set_fact(values_infected, "n1_Infection", "Yes")
+    # other scenarios
+    values_infected = dict(values)
+    n8_InfectionNo_plus = n8_InfectionNo
+    if n8_InfectionNo == "None":
+        n8_InfectionNo_plus = "First"
+    elif n8_InfectionNo == "First":
+        n8_InfectionNo_plus = "Second"
+    # lc.set_fact(values_infected, "n7_Drug", {"Molnupiravir": "0.25", "Metformin_within7days": "0.25", "Metformin_within3days": "0.25", "Nirmatrelvir_paxlovid": "0.25"})
+    lc.set_fact(values_infected, "n7_Drug", "Molnupiravir")
+    get_hospitalisation_drug = lc.infer(values_infected, "n11_Hospitalisation")[0]
+    get_icu_drug = lc.infer(values_infected, "n12_ICU")[0]
+    get_symptom_drug = lc.infer(values_infected, "n14_LC_1_symptom")[0]
+    get_pulmonary_drug = lc.infer(values_infected, "n28_LC_pulmonary")[0]
+    get_cardiovascular_drug = lc.infer(values_infected, "n15_LC_cardiovascular")[0]
+    get_neurologic_drug = lc.infer(values_infected, "n30_LC_neurologic")[0]
+    get_metabolic_drug = lc.infer(values_infected, "n26_LC_metabolic")[0]
+    get_gastrointestinal_drug =lc.infer(values_infected, "n20_LC_GI")[0]
+
+    values_infected = dict(values)
+    lc.set_fact(values_infected, "n8_InfectionNo", n8_InfectionNo_plus)
+    getget_hospitalisation_infection = lc.infer(values_infected, "n11_Hospitalisation")[0]
+    get_icu_infection = lc.infer(values_infected, "n12_ICU")[0]
+    get_symptom_infection = lc.infer(values_infected, "n14_LC_1_symptom")[0]
+    get_pulmonary_infection = lc.infer(values_infected, "n28_LC_pulmonary")[0]
+    get_cardiovascular_infection = lc.infer(values_infected, "n15_LC_cardiovascular")[0]
+    get_neurologic_infection = lc.infer(values_infected, "n30_LC_neurologic")[0]
+    get_metabolic_infection = lc.infer(values_infected, "n26_LC_metabolic")[0]
+    get_gastrointestinal_infection =lc.infer(values_infected, "n20_LC_GI")[0]
     
     return (
         get_hospitalisation,
+        get_hospitalisation_drug,
+        getget_hospitalisation_infection,
         get_icu,
+        get_icu_drug,
+        get_icu_infection,
         get_symptom,
+        get_symptom_drug,
+        get_symptom_infection,
         get_pulmonary,
-        get_coagulation,
+        get_pulmonary_drug,
+        get_pulmonary_infection,
+        get_cardiovascular,
+        get_cardiovascular_drug,
+        get_cardiovascular_infection,
         get_neurologic,
+        get_neurologic_drug,
+        get_neurologic_infection,
         get_metabolic,
+        get_metabolic_drug,
+        get_metabolic_infection,
+        get_gastrointestinal,
+        get_gastrointestinal_drug,
+        get_gastrointestinal_infection,
     )
