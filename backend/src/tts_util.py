@@ -102,7 +102,7 @@ def get_age_bracket_lc(age):
     age_brackets = [
         [18, 60, "age_18_60", "18–60 year-old"],
         [61, 70, "age_61_70", "61–70 year-old"],
-        [71, 1000, "age_70plus", "70+ year-old"],
+        [71, 1000, "age_71plus", "70+ year-old"],
     ]
     for ix, (lower, upper, label, text) in enumerate(age_brackets):
         if lower <= age <= upper:
