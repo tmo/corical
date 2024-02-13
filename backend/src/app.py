@@ -1219,14 +1219,14 @@ class Corical(corical_pb2_grpc.CoricalServicer):
         }
 
         # for graphs
-        subtitle = f"These results are for a {age_label} {sex_label}."
+        subtitle = f"These results are for a {age_label_lc} {sex_label}."
         myo_subtitle = f"You may have heard that the Pfizer vaccine can give you inflammation of your heart muscle. This is also called myocarditis. There are many other causes of myocarditis, so people can develop this problem even if they haven’t had the vaccine. Myocarditis is also very common in people who have had COVID-19 (infection).  "
         
         # for tables
         if request.dose == "None":
-            explanation = f"Results shown for a {age_label} {sex_label} who has not been vaccinated"
+            explanation = f"Results shown for a {age_label_lc} {sex_label} who has not been vaccinated"
         else:
-            explanation = f"Results shown for a {age_label} {sex_label} are shown."
+            explanation = f"Results shown for a {age_label_lc} {sex_label} are shown."
 
         # comparison_doses = []
         # shots = "none"
@@ -1241,10 +1241,12 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             comparison_doses = ["Third_2wks_5mths"]
             shots = "two"
         elif request.dose == "Second_6_11mnths": 
-            comparison_doses = ["Third_6_11mnths"]
+            comparison_doses = ["Third_12plus_mnths"]
+            # comparison_doses = ["Third_2wks_5mths"]
             shots = "two" 
         elif request.dose == "Second_12plus_mnths":
-            comparison_doses = ["Third_12plus_mnths"]
+            # comparison_doses = ["Third_12plus_mnths"]
+            comparison_doses = ["Third_6_11mnths"]
             shots = "two"    
         elif request.dose == "Third_2wks_5mths": 
             comparison_doses = ["Fourth_2_4wks"] 
@@ -1320,7 +1322,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of being hospitalised from COVID-19 if you had {shots} shots {d['label']}",
+                                label=f"Chance of being hospitalised from COVID-19 if you had {d['shot_ordinal']} shot {d['label']}",
                                 risk=d["get_hospitalisation"],
                                 is_other_shot=d["is_other_shot"],
                             )
@@ -1348,7 +1350,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of being admitted to ICU from COVID-19 if you had {shots} shots {d['label']}",
+                                label=f"Chance of being admitted to ICU from COVID-19 if you had {d['shot_ordinal']} shot {d['label']}",
                                 risk=d["get_icu"],
                                 is_other_shot=d["is_other_shot"],
                             )
@@ -1376,7 +1378,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having at least 1 long COVID symptom 6 months after infection if you had {shots} shots {d['label']}",
+                                label=f"Chance of having at least 1 long COVID symptom 6 months after infection if you had {d['shot_ordinal']} shot {d['label']}",
                                 risk=d["get_symptom"],
                                 is_other_shot=d["is_other_shot"],
                             )
@@ -1404,7 +1406,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having pulmonary long COVID symptoms 6 months after infection if you had {shots} shots {d['label']}",
+                                label=f"Chance of having pulmonary long COVID symptoms 6 months after infection if you had {d['shot_ordinal']} shot {d['label']}",
                                 risk=d["get_pulmonary"],
                                 is_other_shot=d["is_other_shot"],
                             )
@@ -1432,7 +1434,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having cardiovascular long COVID symptoms 6 months after infection if you had {shots} shots {d['label']}",
+                                label=f"Chance of having cardiovascular long COVID symptoms 6 months after infection if you had {d['shot_ordinal']} shot {d['label']}",
                                 risk=d["get_cardiovascular"],
                                 is_other_shot=d["is_other_shot"],
                             )
@@ -1460,7 +1462,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having neurological long COVID symptoms 6 months after infection if you had {shots} shots {d['label']}",
+                                label=f"Chance of having neurological long COVID symptoms 6 months after infection if you had {d['shot_ordinal']} shot {d['label']}",
                                 risk=d["get_neurologic"],
                                 is_other_shot=d["is_other_shot"],
                             )
@@ -1488,7 +1490,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having metabolic long COVID symptoms 6 months after infection if you had {shots} shots {d['label']}",
+                                label=f"Chance of having metabolic long COVID symptoms 6 months after infection if you had {d['shot_ordinal']} shot {d['label']}",
                                 risk=d["get_metabolic"],
                                 is_other_shot=d["is_other_shot"],
                             )
@@ -1516,7 +1518,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having gastrointestinal long COVID symptoms 6 months after infection if you had {shots} shots {d['label']}",
+                                label=f"Chance of having gastrointestinal long COVID symptoms 6 months after infection if you had {d['shot_ordinal']} shot {d['label']}",
                                 risk=d["get_gastrointestinal"],
                                 is_other_shot=d["is_other_shot"],
                             )
