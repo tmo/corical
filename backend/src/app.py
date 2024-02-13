@@ -1204,18 +1204,18 @@ class Corical(corical_pb2_grpc.CoricalServicer):
 
         dose_labels = {
             "None": ("not had any vaccines", "no"),
-            "First_3weeks_ago": ("had one shot 3 weeks ago", "first"),
-            "Second_2wks_5mnths": ("last shot 2 week to 5 months ago", "second"),
-            "Second_6_11mnths": ("last shot 6 to 11 months ago", "second"),
-            "Second_12plus_mnths": ("last shot 12 or more months ago", "second"),
-            "Third_2wks_5mths": ("last shot 2 weeks to 5 months ago", "third"),
-            "Third_6_11mnths": ("last shot 6 to 11 months ago", "third"),
-            "Third_12plus_mnths": ("last shot 12 or more months ago", "third"),
-            "Fourth_2_4wks": ("last shot 2 weeks to 4 weeks ago", "fourth"),
-            "Fourth_5_9wks": ("last shot 5 to 9 weeks ago", "fourth"),
-            "Fourth_10_14wks": ("last shot 10 to 14 weeks ago", "fourth"),
-            "Fourth_15_19wks": ("last shot 15 to 19 weeks ago", "fourth"),
-            "Fourth_20plus_wks": ("last shot 20 or more weeks ago", "fourth"),
+            "First_3weeks_ago": ("3 weeks ago", "first"),
+            "Second_2wks_5mnths": ("2 week to 5 months ago", "second"),
+            "Second_6_11mnths": ("6 to 11 months ago", "second"),
+            "Second_12plus_mnths": ("12 or more months ago", "second"),
+            "Third_2wks_5mths": ("2 weeks to 5 months ago", "third"),
+            "Third_6_11mnths": ("6 to 11 months ago", "third"),
+            "Third_12plus_mnths": ("12 or more months ago", "third"),
+            "Fourth_2_4wks": ("2 weeks to 4 weeks ago", "fourth"),
+            "Fourth_5_9wks": ("5 to 9 weeks ago", "fourth"),
+            "Fourth_10_14wks": ("10 to 14 weeks ago", "fourth"),
+            "Fourth_15_19wks": ("15 to 19 weeks ago", "fourth"),
+            "Fourth_20plus_wks": ("20 or more weeks ago", "fourth"),
         }
 
         # for graphs
