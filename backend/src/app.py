@@ -1240,12 +1240,12 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             comparison_doses = ["Third_2wks_5mths"]
             shots = "two"
         elif request.dose == "Second_6_11mnths": 
-            comparison_doses = ["Third_12plus_mnths"]
-            # comparison_doses = ["Third_2wks_5mths"]
-            shots = "two" 
-        elif request.dose == "Second_12plus_mnths":
             # comparison_doses = ["Third_12plus_mnths"]
             comparison_doses = ["Third_6_11mnths"]
+            shots = "two" 
+        elif request.dose == "Second_12plus_mnths":
+            comparison_doses = ["Third_12plus_mnths"]
+            # comparison_doses = ["Third_6_11mnths"]
             shots = "two"    
         elif request.dose == "Third_2wks_5mths": 
             comparison_doses = ["Fourth_2_4wks"] 
