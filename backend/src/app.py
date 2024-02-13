@@ -1229,7 +1229,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
 
         # comparison_doses = []
         # shots = "none"
-        # the comparied cases, check n2_Dose names
+        # the compared cases, check n2_Dose names
         if request.dose == "None":
             comparison_doses = ["First_3weeks_ago"]
             shots = "none"

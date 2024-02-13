@@ -1,5 +1,4 @@
 import xdsl
-import numpy as np
 
 lc = xdsl.Model("LC_BN_050224.xdsl")
 
@@ -78,7 +77,7 @@ def compute_long_covid_probs(n2_Dose, n4_Age, n5_Sex, n6_ComorbidityNo, n8_Infec
     # lc.set_fact(values_infected, "n7_Drug", "Metformin_within7days")
     # lc.set_fact(values_infected, "n7_Drug", "Metformin_within3days")
     # lc.set_fact(values_infected, "n7_Drug", "Nirmatrelvir_paxlovid")
-    values_infected["n7_Drug"] = np.array([0.0, 0.25, 0.25, 0.25, 0.25])
+    values_infected["n7_Drug"] = [0.0, 0.25, 0.25, 0.25, 0.25]
     get_hospitalisation_drug = lc.infer(values_infected, "n11_Hospitalisation")[0]
     get_icu_drug = lc.infer(values_infected, "n12_ICU")[0]
     get_symptom_drug = lc.infer(values_infected, "n14_LC_1_symptom")[0]
