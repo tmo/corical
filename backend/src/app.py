@@ -1269,7 +1269,8 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             comparison_doses = ["Fourth_20plus_wks"]
             shots = "four"
         elif request.dose == "Fourth_20plus_wks":
-            comparison_doses = ["None"]
+            comparison_doses = ["Fourth_15_19wks"]
+            # comparison_doses = ["None"]
             shots = "four"
 
         cmp = []
