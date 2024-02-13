@@ -1185,7 +1185,6 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             context.abort(grpc.StatusCode.FAILED_PRECONDITION, "Invalid sex")
 
         age_text, age_label, age_ix = get_age_bracket_lc(request.age)
-        age_label_lc = str(request.age) + " year-old"
 
         comor_no = request.comor
         comor_no_label = comor_no.replace("_", " ").lower() 
@@ -1219,14 +1218,14 @@ class Corical(corical_pb2_grpc.CoricalServicer):
         }
 
         # for graphs
-        subtitle = f"These results are for a {age_label_lc} {sex_label}."
+        subtitle = f"These results are for a {age_text} {sex_label}."
         myo_subtitle = f"You may have heard that the Pfizer vaccine can give you inflammation of your heart muscle. This is also called myocarditis. There are many other causes of myocarditis, so people can develop this problem even if they haven’t had the vaccine. Myocarditis is also very common in people who have had COVID-19 (infection).  "
         
         # for tables
         if request.dose == "None":
-            explanation = f"Results shown for a {age_label_lc} {sex_label} who has not been vaccinated"
+            explanation = f"Results shown for a {age_text} {sex_label} who has not been vaccinated"
         else:
-            explanation = f"Results shown for a {age_label_lc} {sex_label} are shown."
+            explanation = f"Results shown for a {age_text} {sex_label} are shown."
 
         # comparison_doses = []
         # shots = "none"
@@ -1311,14 +1310,14 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             ) = compute_long_covid_probs(cdose, age_label, sex_label, comor_no, infection_no)
             cmp.append(cur)
 
-        scenario_description = f"Here are your results. These are for a {age_label_lc} {sex_label} with {comor_no_label} pre-existing comorbidity/ies and {infection_no_label} previous SARS-CoV-2 infection/s, and {shots} COVID-19 shots. They are based on the number and timing of COVID-19 vaccine shots you have had."
+        scenario_description = f"Here are your results. These are for a {age_text} {sex_label} with {comor_no_label} pre-existing comorbidity/ies and {infection_no_label} previous SARS-CoV-2 infection/s, and {shots} COVID-19 shots. They are based on the number and timing of COVID-19 vaccine shots you have had."
         out = corical_pb2.ComputeRes(
             messages=messages,
             scenario_description=scenario_description,
             bar_graphs=[
                 corical_pb2.BarGraph(
                     title=f"If I get COVID-19, what is my chance of being hospitalised?",
-                    subtitle=f"This is your chance of being hospitalised due to acute COVID-19 if infected with SARS-CoV-2 These are results for a {age_label_lc} {sex_label} with {comor_no_label} pre-existing comorbidity/ies and {infection_no_label} previous SARS-CoV-2 infection/s, and {shots} COVID-19 shots.",
+                    subtitle=f"This is your chance of being hospitalised due to acute COVID-19 if infected with SARS-CoV-2 These are results for a {age_text} {sex_label} with {comor_no_label} pre-existing comorbidity/ies and {infection_no_label} previous SARS-CoV-2 infection/s, and {shots} COVID-19 shots.",
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
@@ -1346,7 +1345,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                 ),
                 corical_pb2.BarGraph(
                     title=f"If I get COVID-19, what is my chance of being admitted to ICU?",
-                    subtitle=f"This is your chance of being admitted to ICU due to acute COVID-19 if infected with SARS-CoV-2. These are results for a {age_label_lc} {sex_label} with {comor_no_label} pre-existing comorbidity/ies and {infection_no_label} previous SARS-CoV-2 infection/s, and {shots} COVID-19 shots.",
+                    subtitle=f"This is your chance of being admitted to ICU due to acute COVID-19 if infected with SARS-CoV-2. These are results for a {age_text} {sex_label} with {comor_no_label} pre-existing comorbidity/ies and {infection_no_label} previous SARS-CoV-2 infection/s, and {shots} COVID-19 shots.",
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
@@ -1374,7 +1373,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                 ),
                  corical_pb2.BarGraph(
                     title=f"If I get COVID-19, what is my chance of having at least 1 long COVID symptom six months later?",
-                    subtitle=f"Symptoms may be continued, recurring or new and not attributable to any other diagnosis. These are results for a {age_label_lc} {sex_label} with {comor_no_label} pre-existing comorbidity/ies and {infection_no_label} previous SARS-CoV-2 infection/s, and {shots} COVID-19 shots.",
+                    subtitle=f"Symptoms may be continued, recurring or new and not attributable to any other diagnosis. These are results for a {age_text} {sex_label} with {comor_no_label} pre-existing comorbidity/ies and {infection_no_label} previous SARS-CoV-2 infection/s, and {shots} COVID-19 shots.",
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
@@ -1402,7 +1401,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                 ),
                 corical_pb2.BarGraph(
                     title=f"If I get COVID-19, what is my chance of having pulmonary long COVID symptoms six months later?",
-                    subtitle=f"Symptoms may include cough, hypoxemia, and/or shortness of breath. These are results for a {age_label_lc} {sex_label} with {comor_no_label} pre-existing comorbidity/ies and {infection_no_label} previous SARS-CoV-2 infection/s, and {shots} COVID-19 shots.",
+                    subtitle=f"Symptoms may include cough, hypoxemia, and/or shortness of breath. These are results for a {age_text} {sex_label} with {comor_no_label} pre-existing comorbidity/ies and {infection_no_label} previous SARS-CoV-2 infection/s, and {shots} COVID-19 shots.",
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
@@ -1430,7 +1429,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                 ),
                 corical_pb2.BarGraph(
                     title=f"If I get COVID-19, what is my chance of having cardiovascular long COVID symptoms six months later?",
-                    subtitle=f"Symptoms may include acute coronary disease, arrhythmias, bradycardia, chest pain, heart failure, myocarditis, and/or tachycardia. These are results for a {age_label_lc} {sex_label} with {comor_no_label} pre-existing comorbidity/ies and {infection_no_label} previous SARS-CoV-2 infection/s, and {shots} COVID-19 shots.",
+                    subtitle=f"Symptoms may include acute coronary disease, arrhythmias, bradycardia, chest pain, heart failure, myocarditis, and/or tachycardia. These are results for a {age_text} {sex_label} with {comor_no_label} pre-existing comorbidity/ies and {infection_no_label} previous SARS-CoV-2 infection/s, and {shots} COVID-19 shots.",
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
@@ -1458,7 +1457,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                 ),
                 corical_pb2.BarGraph(
                     title=f"If I get COVID-19, what is my chance of having neurological long COVID symptoms six months later?",
-                    subtitle=f"Symptoms may include headache, memory problems, smell problems, and/or stroke. These are results for a {age_label_lc} {sex_label} with {comor_no_label} pre-existing comorbidity/ies and {infection_no_label} previous SARS-CoV-2 infection/s, and {shots} COVID-19 shots.",
+                    subtitle=f"Symptoms may include headache, memory problems, smell problems, and/or stroke. These are results for a {age_text} {sex_label} with {comor_no_label} pre-existing comorbidity/ies and {infection_no_label} previous SARS-CoV-2 infection/s, and {shots} COVID-19 shots.",
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
@@ -1486,7 +1485,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                 ),
                 corical_pb2.BarGraph(
                     title=f"If I get COVID-19, what is my chance of having metabolic long COVID symptoms six months later?",
-                    subtitle=f"Symptoms may include diabetes, hyperlipidemia, and/or insulin use. These are results for a {age_label_lc} {sex_label} with {comor_no_label} pre-existing comorbidity/ies and {infection_no_label} previous SARS-CoV-2 infection/s, and {shots} COVID-19 shots.",
+                    subtitle=f"Symptoms may include diabetes, hyperlipidemia, and/or insulin use. These are results for a {age_text} {sex_label} with {comor_no_label} pre-existing comorbidity/ies and {infection_no_label} previous SARS-CoV-2 infection/s, and {shots} COVID-19 shots.",
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
@@ -1514,7 +1513,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                 ),
                 corical_pb2.BarGraph(
                     title=f"If I get COVID-19, what is my chance of having gastrointestinal COVID symptoms six months later?",
-                    subtitle=f"Symptoms may include constipation, diarrhoea, and/or GERD. These are results for a {age_label_lc} {sex_label} with {comor_no_label} pre-existing comorbidity/ies and {infection_no_label} previous SARS-CoV-2 infection/s, and {shots} COVID-19 shots.",
+                    subtitle=f"Symptoms may include constipation, diarrhoea, and/or GERD. These are results for a {age_text} {sex_label} with {comor_no_label} pre-existing comorbidity/ies and {infection_no_label} previous SARS-CoV-2 infection/s, and {shots} COVID-19 shots.",
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
