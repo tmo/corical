@@ -1308,7 +1308,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                 cur["get_gastrointestinal_drug"],
                 cur["get_gastrointestinal_infection"],
 
-            ) = compute_long_covid_probs(cdose, age_label, sex_label, comor_no, infection_no)
+            ) = compute_long_covid_probs(cdose, age_label, sex_vec, comor_no, infection_no)
             cmp.append(cur)
 
         scenario_description = f"Here are your results. These are for a {age_text} {sex_label} with {comor_no_label} pre-existing comorbidity/ies and {infection_no_label} previous SARS-CoV-2 infection/s, and {shots} COVID-19 shots. They are based on the number and timing of COVID-19 vaccine shots you have had."

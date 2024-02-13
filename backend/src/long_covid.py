@@ -38,6 +38,7 @@ lc = xdsl.Model("LC_BN_050224.xdsl")
 
 def compute_long_covid_probs(n2_Dose, n4_Age, n5_Sex, n6_ComorbidityNo, n8_InfectionNo):
     values = {
+        "n5_Sex": n5_Sex,
     }
 
     if n8_InfectionNo != "None":
@@ -48,7 +49,6 @@ def compute_long_covid_probs(n2_Dose, n4_Age, n5_Sex, n6_ComorbidityNo, n8_Infec
     # always hardcode delta
     lc.set_fact(values, "n2_Dose", n2_Dose)
     lc.set_fact(values, "n4_Age", n4_Age)
-    lc.set_fact(values, "n5_Sex", n5_Sex)
     lc.set_fact(values, "n6_ComorbidityNo", n6_ComorbidityNo)
     lc.set_fact(values, "n8_InfectionNo", n8_InfectionNo)
     lc.set_fact(values, "n7_Drug", "None")
