@@ -35,6 +35,28 @@ function IndexRoute() {
   return (
     <>
       <h1>Choose a risk calculator</h1>
+      <Box mb={5}>
+      <h2>Long COVID for Adults - Omicron variant, updated 13/02/2024</h2>
+      <Button
+        component={Link}
+        to="/longcovid"
+        color="primary"
+        variant="contained"
+      >
+        Long Covid calculator
+      </Button>
+      </Box>
+      <Box mb={5}>
+      <h2>Pfizer for Children - Omicron Variant, updated 27/02/2023</h2>
+      <Button
+        component={Link}
+        to="/children"
+        color="primary"
+        variant="contained"
+      >
+        Children's calculator
+      </Button>
+      </Box>
       <Box mb={4}>
       <h2>First dose Pfizer - Omicron Variant, updated 22/05/2023</h2>
       <Button component={Link} to="/pfizer" color="primary" variant="contained">
@@ -50,28 +72,6 @@ function IndexRoute() {
         variant="contained"
       >
         AstraZeneca calculator
-      </Button>
-      </Box>
-      <Box mb={5}>
-      <h2>Pfizer for Children - Omicron Variant, updated 27/02/2023</h2>
-      <Button
-        component={Link}
-        to="/children"
-        color="primary"
-        variant="contained"
-      >
-        Children's calculator
-      </Button>
-      </Box>
-      <Box mb={5}>
-      <h2>Long COVID for Adults - Omicron variant, updated 13/02/2024</h2>
-      <Button
-        component={Link}
-        to="/longcovid"
-        color="primary"
-        variant="contained"
-      >
-        Long Covid calculator
       </Button>
       </Box>
     </>
