@@ -1185,8 +1185,13 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             context.abort(grpc.StatusCode.FAILED_PRECONDITION, "Invalid sex")
 
         age_text, age_label, age_ix = get_age_bracket_lc(request.age)
-
-        comor_no = request.comor
+        comors = request.comors 
+        if len(comors) == 0:
+            comor_no = "None"
+        elif len(comors) <= 3:
+            comor_no = "One_to_three"
+        else:
+            comor_no = "Four_plus"
         comor_no_label = comor_no.replace("_", " ").lower() 
 
         infection_no = "First"
