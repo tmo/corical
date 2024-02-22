@@ -23,7 +23,8 @@ export type LongCovidFormData = {
   dose: string;
   age?: number;
   sex: string;
-  comor: string;
+  // comor: string;
+  comors: string[];
   infection: string;
 };
 

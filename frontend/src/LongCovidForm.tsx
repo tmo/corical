@@ -7,6 +7,7 @@ import {
     RadioGroup,
     FormControlLabel,
     Radio,
+    FormGroup,
     FormHelperText,
     Checkbox,
     Dialog,
@@ -35,6 +36,7 @@ import {
     LC_COMOR_LABEL,
     LC_COMOR_HELPER,
     LC_COMOR_OPTIONS,
+    LC_COMOR_LIST,
     LC_INFECTION_LABEL,
     LC_INFECTION_OPTIONS,
     VACCINE_LABEL,
@@ -89,7 +91,8 @@ import {
     form_fourth_dose: string;
     age?: number;
     sex: string;
-    comor: string;
+    // comor: string;
+    comors: string[];
     infection: string;
   };
   
@@ -115,18 +118,29 @@ import {
             : form.form_dose,
         age: form.age,
         sex: form.sex,
-        comor: form.comor,
+        comors: comors,
         infection: form.infection,
       });
     });
     const classes = useStyles();
   
     const [tosBoxOpen, setTosBoxOpen] = useState(false);
-  
+    const [comors, setComors] = useState<Array<string>>([]);
+
     const enableDose2extras = watch("form_dose") === LC_VACCINE_SECOND_VAL;
     const enableDose3extras = watch("form_dose") === LC_VACCINE_THIRD_VAL;
     const enableDose4extras = watch("form_dose") === LC_VACCINE_FOURTH_VAL;
-  
+    
+    const selectComor = (event: React.ChangeEvent<HTMLInputElement>, value:boolean) => {
+      const selectedComor = event.target.value;
+      if (value) {
+        comors.push(selectedComor)
+      } else {
+        comors.forEach ( (item, index) => {
+          if (item == selectedComor) comors.splice(index, 1);
+        });
+      }
+    };
     return (
       <form onSubmit={submit}>
         <Alert key={LC_VERSION_ALERT} severity={"info"} className={classes.message}>
@@ -194,10 +208,10 @@ import {
         </div>
         <div className={classNames(classes.formComp)}>
           <Controller
-            name="comor"
+            name="comors"
             control={control}
             rules={{
-              validate: (value) => !!value || FIELD_REQUIRED,
+              // validate: (value) => !!value || FIELD_REQUIRED,
             }}
             render={({ field: { onChange, value } }) => (
               <FormControl component="fieldset">
@@ -205,26 +219,26 @@ import {
                 <Typography variant="caption">
                   {LC_COMOR_HELPER}
                 </Typography>
-                <RadioGroup
-                  // row
-                  name="form_comor-radio"
-                  onChange={(e, value) => onChange(value)}
-                  value={value}
+                <FormGroup
+                  row
+                  // name="form_comor-checkbox"
+                  // onChange={(e, value) => onChange(value)}
+                  // value={value}
                 >
-                  {LC_COMOR_OPTIONS.map(({ value, label }) => (
+                  {LC_COMOR_LIST.map(({ value, label }) => (
                     <FormControlLabel
                       key={label}
                       value={value}
-                      control={<Radio />}
+                      control={<Checkbox onChange={(e, value) => selectComor(e, value)} name={label}/>}
                       label={ label }
                     />
                   ))}
-                </RadioGroup>
-                {errors?.comor?.message && (
+                </FormGroup>
+                {/* {errors?.comors?.message && (
                   <FormHelperText error>
-                    {errors.comor.message}
+                    {errors.comors.message}
                   </FormHelperText>
-                )}
+                )} */}
               </FormControl>
             )}
           />
@@ -254,9 +268,9 @@ import {
                     />
                   ))}
                 </RadioGroup>
-                {errors?.comor?.message && (
+                {errors?.infection?.message && (
                   <FormHelperText error>
-                    {errors.comor.message}
+                    {errors.infection.message}
                   </FormHelperText>
                 )}
               </FormControl>
