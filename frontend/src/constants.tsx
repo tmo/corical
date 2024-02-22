@@ -221,6 +221,61 @@ export const LC_COMOR_OPTIONS = [
   },
 ];
 
+export const LC_COMOR_LIST = [
+  {
+    value: "chronic lung disease",
+    label: "chronic lung disease",
+  },
+  {
+    value: "cancer",
+    label: "cancer",
+  },
+  {
+    value: "cardiovascular disease",
+    label: "cardiovascular disease",
+  },
+  {
+    value: "cerebrovascular disease",
+    label: "cerebrovascular disease",
+  },
+  {
+    value: "dementia",
+    label: "dementia",
+  },
+  {
+    value: "diabetes mellitus",
+    label: "diabetes mellitus",
+  },
+  {
+    value: "hypertension",
+    label: "hypertension",
+  },
+  {
+    value: "hyperlipidemia",
+    label: "hyperlipidemia",
+  },
+  {
+    value: "depression",
+    label: "depression",
+  },
+  {
+    value: "anxiety",
+    label: "anxiety",
+  },
+  {
+    value: "chronic kidney disease",
+    label: "chronic kidney disease",
+  },
+  {
+    value: "hepatitis C",
+    label: "hepatitis C",
+  },
+  {
+    value: "peripheral artery disease",
+    label: "peripheral artery disease",
+  },
+];
+
 export const LC_INFECTION_LABEL = "Number of previous SARS-CoV-2 infections";
 export const LC_INFECTION_OPTIONS = [
   {
