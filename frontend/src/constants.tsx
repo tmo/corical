@@ -279,15 +279,15 @@ export const LC_COMOR_LIST = [
 export const LC_INFECTION_LABEL = "Number of previous SARS-CoV-2 infections";
 export const LC_INFECTION_OPTIONS = [
   {
-    value: "First",
+    value: "None",
     label: "None",
   },
   {
-    value: "Second",
+    value: "One",
     label: "One",
   },
   {
-    value: "Third_plus",
+    value: "Two or more",
     label: "Two or more",
   },
 ];
