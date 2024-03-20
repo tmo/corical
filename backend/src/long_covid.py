@@ -50,11 +50,16 @@ def compute_long_covid_probs(n2_Dose, n4_Age, n5_Sex, n6_ComorbidityNo, n8_Infec
     lc.set_fact(values, "n2_Dose", n2_Dose)
     lc.set_fact(values, "n4_Age", n4_Age)
     lc.set_fact(values, "n6_ComorbidityNo", n6_ComorbidityNo)
-    lc.set_fact(values, "n8_InfectionNo", n8_InfectionNo)
+    
+    # To Do
+    # check model node n8 if "None"
+    if n8_InfectionNo != "None":
+        lc.set_fact(values, "n8_InfectionNo", n8_InfectionNo)
+    else:
+        values["n8_InfectionNo"] = [0.34, 0.33, 0.33]
+
     lc.set_fact(values, "n7_Drug", "None")
     lc.set_fact(values, "n1_Infection", infection)
-
-    values_infected = dict(values)
 
     get_hospitalisation = lc.infer(values, "n11_Hospitalisation")[0]
     get_icu = lc.infer(values, "n12_ICU")[0]
@@ -67,11 +72,12 @@ def compute_long_covid_probs(n2_Dose, n4_Age, n5_Sex, n6_ComorbidityNo, n8_Infec
     
     # other scenarios
     values_infected = dict(values)
-    n8_InfectionNo_plus = n8_InfectionNo
     if n8_InfectionNo == "None":
         n8_InfectionNo_plus = "First"
     elif n8_InfectionNo == "First":
         n8_InfectionNo_plus = "Second"
+    else:
+        n8_InfectionNo_plus = "Third_plus"
 
     # lc.set_fact(values_infected, "n7_Drug", "Molnupiravir")
     # lc.set_fact(values_infected, "n7_Drug", "Metformin_within7days")
