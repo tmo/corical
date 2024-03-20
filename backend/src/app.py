@@ -1194,17 +1194,18 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             comor_no = "Four_plus"
         comor_no_label = comor_no.replace("_", " ").lower() 
 
-        infection_no = "First"
-        infection_no_label = "none"
-        infection_no_plus = "two"
-        if request.infection == "1":
-            infection_no = "Second"
+        if request.infection == "None":
+            infection_no = "None"
+            infection_no_label = "none"
+            infection_no_plus = "First"
+        elif request.infection == "One":
+            infection_no = "First"
             infection_no_label = "one"
-            infection_no_plus = "three"
-        elif request.infection == "2 or more":
-            infection_no = "Third_plus"
-            infection_no_plus = "three"
-            infection_no_label = "2 or more"
+            infection_no_plus = "Second"
+        elif request.infection == "Two or more":
+            infection_no = "Second"
+            infection_no_label = "two or more"
+            infection_no_plus = "Third_plus"
 
         dose_labels = {
             "None": ("not had any vaccines", "no"),
@@ -1341,7 +1342,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of being hospitalised from COVID-19 if you had {infection_no_plus} previous SARS-CoV-2 infection/s",
+                                label=f"Chance of being hospitalised from COVID-19 if you had {infection_no_label} previous SARS-CoV-2 infection/s",
                                 risk=cmp[0]["get_hospitalisation_infection"],
                                 is_other_shot=True,
                             ),
@@ -1369,7 +1370,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of being admitted to ICU from COVID-19 if you had {infection_no_plus} previous SARS-CoV-2 infection/s",
+                                label=f"Chance of being admitted to ICU from COVID-19 if you had {infection_no_label} previous SARS-CoV-2 infection/s",
                                 risk=cmp[0]["get_icu_infection"],
                                 is_other_shot=True,
                             ),
@@ -1397,7 +1398,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having at least 1 long COVID symptom 6 months after infection if you had {infection_no_plus} previous SARS-CoV-2 infection/s",
+                                label=f"Chance of having at least 1 long COVID symptom 6 months after infection if you had {infection_no_label} previous SARS-CoV-2 infection/s",
                                 risk=cmp[0]["get_symptom_infection"],
                                 is_other_shot=True,
                             ),
@@ -1425,7 +1426,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having pulmonary long COVID symptoms 6 months after infection if you had {infection_no_plus} previous SARS-CoV-2 infection/s",
+                                label=f"Chance of having pulmonary long COVID symptoms 6 months after infection if you had {infection_no_label} previous SARS-CoV-2 infection/s",
                                 risk=cmp[0]["get_pulmonary_infection"],
                                 is_other_shot=True,
                             ),
@@ -1453,7 +1454,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having cardiovascular long COVID symptoms 6 months after infection if you had {infection_no_plus} previous SARS-CoV-2 infection/s",
+                                label=f"Chance of having cardiovascular long COVID symptoms 6 months after infection if you had {infection_no_label} previous SARS-CoV-2 infection/s",
                                 risk=cmp[0]["get_cardiovascular_infection"],
                                 is_other_shot=True,
                             ),
@@ -1481,7 +1482,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having neurological long COVID symptoms 6 months after infection if you had {infection_no_plus} previous SARS-CoV-2 infection/s",
+                                label=f"Chance of having neurological long COVID symptoms 6 months after infection if you had {infection_no_label} previous SARS-CoV-2 infection/s",
                                 risk=cmp[0]["get_neurologic_infection"],
                                 is_other_shot=True,
                             ),
@@ -1509,7 +1510,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having metabolic long COVID symptoms 6 months after infection if you had {infection_no_plus} previous SARS-CoV-2 infection/s",
+                                label=f"Chance of having metabolic long COVID symptoms 6 months after infection if you had {infection_no_label} previous SARS-CoV-2 infection/s",
                                 risk=cmp[0]["get_metabolic_infection"],
                                 is_other_shot=True,
                             ),
@@ -1537,7 +1538,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having gastrointestinal long COVID symptoms 6 months after infection if you had {infection_no_plus} previous SARS-CoV-2 infection/s",
+                                label=f"Chance of having gastrointestinal long COVID symptoms 6 months after infection if you had {infection_no_label} previous SARS-CoV-2 infection/s",
                                 risk=cmp[0]["get_gastrointestinal_infection"],
                                 is_other_shot=True,
                             ),
