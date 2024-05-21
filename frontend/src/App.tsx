@@ -36,7 +36,7 @@ function IndexRoute() {
     <>
       <h1>Choose a risk calculator</h1>
       <Box mb={5}>
-      <h2>Long COVID for Adults - Omicron variant, updated 13/02/2024</h2>
+      <h2>Long COVID for Adults, updated 27/05/2024</h2>
       <Button
         component={Link}
         to="/longcovid"

@@ -645,7 +645,7 @@ export const AZ_VERSION_ALERT = `This calculator is for people who had the
             Omicron variant.`;
 export const LC_VERSION_ALERT = `This calculator is for people who are looking to 
               assess long COVID risk if infected with symptomatic SARS-CoV-2. Last updated
-               on 13/02/2024. The tool assumes that all the cases are caused by the Omicron variant.`;
+               on 27/05/2024. The tool assumes that all the cases are caused by the Omicron variant.`;
 export const PZ_VERSION_ALERT = `This calculator is for people who had the 
             Pfizer vaccine for their first two shots. Last updated on 
             11/03/2022. The tool assumes that all the cases are caused by the 
