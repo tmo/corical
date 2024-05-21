@@ -29,7 +29,7 @@ server.add_insecure_port(f"[::]:21000")
 
 PZ_children_model_file = "pfizer_children_27_02_23.xdsl"
 combined_model_file = "combined_22-09-22.xdsl"
-long_covid_model_file = "LC_BN_050224.xdsl"
+long_covid_model_file = "LC_BN_30042024.xdsl" 
 
 def now():
     return datetime.now(utc)
