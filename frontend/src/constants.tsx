@@ -325,6 +325,9 @@ export const LC_VACCINE_OPTIONS = [
     value: "None",
     label: "None",
   },
+];
+
+export const LC_VACCINE_PRIMARY_OPTIONS = [
   {
     value: "First_3weeks_ago",
     label: "One shot (3 weeks ago)",
@@ -333,17 +336,19 @@ export const LC_VACCINE_OPTIONS = [
     value: LC_VACCINE_SECOND_VAL,
     label: "Two shots",
   },
+];
+
+export const LC_VACCINE_BOOSTER_OPTIONS = [
   {
     value: LC_VACCINE_THIRD_VAL,
-    label: "Three shots",
+    label: "One booster (3 shots total)",
   },  
   {
     value: LC_VACCINE_FOURTH_VAL,
-    label: "Four shots",
+    label: "Two or more boosters (4 or more shots total)",
   },
 
 ];
-
 export const LC_VACCINE2_LABEL =
   "Time since last shot";
 

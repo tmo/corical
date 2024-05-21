@@ -55,6 +55,10 @@ import {
     TOS_3,
     TOS_TITLE,
     TOS_TEXT,
+    LC_VACCINE_LABEL,
+    LC_SEX_OPTIONS,
+    LC_VACCINE_BOOSTER_OPTIONS,
+    LC_VACCINE_PRIMARY_OPTIONS,
   } from "./constants";
   import { useState } from "react";
   
@@ -190,7 +194,7 @@ import {
                   onChange={(e, value) => onChange(value)}
                   value={value}
                 >
-                  {SEX_OPTIONS.map(({ value, label }) => (
+                  {LC_SEX_OPTIONS.map(({ value, label }) => (
                     <FormControlLabel
                       key={label}
                       value={value}
@@ -220,7 +224,7 @@ import {
                   {LC_COMOR_HELPER}
                 </Typography>
                 <FormGroup
-                  row
+                  // row
                   // name="form_comor-checkbox"
                   // onChange={(e, value) => onChange(value)}
                   // value={value}
@@ -286,7 +290,7 @@ import {
             }}
             render={({ field: { onChange, value } }) => (
               <FormControl component="fieldset">
-                <FormLabel component="legend">{VACCINE_LABEL}</FormLabel>
+                <FormLabel component="legend">{LC_VACCINE_LABEL}</FormLabel>
                 <RadioGroup
                   // row
                   name="form_dose-radio"
@@ -294,6 +298,24 @@ import {
                   value={value}
                 >
                   {LC_VACCINE_OPTIONS.map(({ value, label }) => (
+                    <FormControlLabel
+                      key={label}
+                      value={value}
+                      control={<Radio />}
+                      label={ label }
+                    />
+                  ))}
+                  <b>Primary course</b>
+                  {LC_VACCINE_PRIMARY_OPTIONS.map(({ value, label }) => (
+                    <FormControlLabel
+                      key={label}
+                      value={value}
+                      control={<Radio />}
+                      label={ label }
+                    />
+                  ))}
+                <b>Boosters</b>
+                {LC_VACCINE_BOOSTER_OPTIONS.map(({ value, label }) => (
                     <FormControlLabel
                       key={label}
                       value={value}
