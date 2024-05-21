@@ -200,11 +200,26 @@ export const PZ_VACCINE2_OPTIONS_SEP = [
   // },
 ];
 
+export const LC_SEX_OPTIONS = [
+  {
+    value: "female",
+    label: "Female",
+  },
+  {
+    value: "male",
+    label: "Male",
+  },
+  {
+    value: "other",
+    label: "Prefer not to say",
+  },
+];
+
 export const STEP1_LC_HELPER =
   "Enter your age, sex, number of pre-existing comorbidities, number of previous SARS-CoV-2 infections, and if you’ve had a vaccine to check your risks.";
 
-export const LC_COMOR_LABEL = "Number of pre-existing comorbidities";
-export const LC_COMOR_HELPER = "Comorbidities may include, but are not limited to chronic lung disease, cancer, cardiovascular disease, cerebrovascular disease, dementia, diabetes mellitus, hypertension, hyperlipidemia, depression, anxiety, chronic kidney disease, hepatitis C, and peripheral artery disease. We don’t currently have estimates for specific types of comorbidities.";
+export const LC_COMOR_LABEL = "What ongoing medical conditions do you have?";
+export const LC_COMOR_HELPER = "These are conditions that have lasted at least 3 months and are likely to get worse over time without treatment. While most are able to be treated, few are curable. Common examples include, but are not limited to:";
 
 export const LC_COMOR_OPTIONS = [
   {
@@ -223,60 +238,69 @@ export const LC_COMOR_OPTIONS = [
 
 export const LC_COMOR_LIST = [
   {
-    value: "chronic lung disease",
-    label: "chronic lung disease",
+    value: "anxiety",
+    label: "Anxiety",
   },
   {
     value: "cancer",
-    label: "cancer",
+    label: "Cancer",
   },
   {
     value: "cardiovascular disease",
-    label: "cardiovascular disease",
+    label: "Cardiovascular disease (such as heart disease)",
   },
   {
     value: "cerebrovascular disease",
-    label: "cerebrovascular disease",
+    label: "Cerebrovascular disease (affected blood vessels and blood flow in the brain from blood vessels narrowing, clot formation, or arterial blocking or rupturing)",
+  },
+  {
+    value: "chronic ongoing kidney",
+    label: "Chronic (ongoing) kidney disease",
+  },
+  {
+    value: "chronic ongoing lung",
+    label: "Chronic (ongoing) lung disease (such as emphysema or asthma)",
   },
   {
     value: "dementia",
-    label: "dementia",
-  },
-  {
-    value: "diabetes mellitus",
-    label: "diabetes mellitus",
-  },
-  {
-    value: "hypertension",
-    label: "hypertension",
-  },
-  {
-    value: "hyperlipidemia",
-    label: "hyperlipidemia",
+    label: "Dementia",
   },
   {
     value: "depression",
-    label: "depression",
+    label: "Depression",
   },
   {
-    value: "anxiety",
-    label: "anxiety",
-  },
-  {
-    value: "chronic kidney disease",
-    label: "chronic kidney disease",
+    value: "diabetes mellitus",
+    label: "Diabetes mellitus (high blood sugar)",
   },
   {
     value: "hepatitis C",
-    label: "hepatitis C",
+    label: "Hepatitis C (an ongoing infection of the liver caused by a virus)",
+  },
+  {
+    value: "hyperlipidemia",
+    label: "Hyperlipidaemia (high blood levels of fat including cholesterol)",
+  },
+  {
+    value: "hypertension",
+    label: "Hypertension (high blood pressure)",
+  },
+  {
+    value: "obesity",
+    label: "Obesity",
   },
   {
     value: "peripheral artery disease",
-    label: "peripheral artery disease",
+    label: "Peripheral artery disease (narrowing of the arteries in the legs)",
   },
+  // {
+  //   value: "None",
+  //   label: "None of the above",
+  // },
 ];
 
-export const LC_INFECTION_LABEL = "Number of previous SARS-CoV-2 infections";
+export const LC_VACCINE_LABEL = "How many COVID-19 vaccine doses have you had?";
+export const LC_INFECTION_LABEL = "How many previous SARS-CoV-2 infections have you had?";
 export const LC_INFECTION_OPTIONS = [
   {
     value: "None",
@@ -291,7 +315,7 @@ export const LC_INFECTION_OPTIONS = [
     label: "Two or more",
   },
 ];
-export const LC_VACCINE_LABFirst_3weeks_agoEL = "Vaccine";
+export const LC_VACCINE_LABFirst_3weeks_agoEL = "How many COVID-19 vaccine doses have you had?";
 export const LC_VACCINE_SECOND_VAL = "Two";
 export const LC_VACCINE_THIRD_VAL = "Three";
 export const LC_VACCINE_FOURTH_VAL = "Four";
@@ -326,7 +350,7 @@ export const LC_VACCINE2_LABEL =
 export const LC_VACCINE2_OPTIONS = [
   {
     value: "Second_2wks_5mnths",
-    label: "Last shot 2 weeks to 5 months ago",
+    label: "Last shot less than 6 months ago",
   },
   {
     value: "Second_6_11mnths",
@@ -334,7 +358,7 @@ export const LC_VACCINE2_OPTIONS = [
   },
   {
     value: "Second_12plus_mnths",
-    label: "Last shot 12 or more months ago",
+    label: "Last shot 1 or more years ago",
   },
 
 ];
@@ -342,7 +366,7 @@ export const LC_VACCINE2_OPTIONS = [
 export const LC_VACCINE3_OPTIONS = [
   {
     value: "Third_2wks_5mths",
-    label: "Last shot 2 weeks to 5 months ago",
+    label: "Last shot less than 6 months ago",
   },
   {
     value: "Third_6_11mnths",
@@ -350,31 +374,23 @@ export const LC_VACCINE3_OPTIONS = [
   },
   {
     value: "Third_12plus_mnths",
-    label: "Last shot 12 or more months ago",
+    label: "Last shot 1 or more years ago",
   },
 
 ];
 
 export const LC_VACCINE4_OPTIONS = [
   {
-    value: "Fourth_2_4wks",
-    label: "Last shot 2 to 4 weeks ago",
+    value: "Fourth_upto3mnths",
+    label: "Last shot less than 3 months ago",
   },
   {
-    value: "Fourth_5_9wks",
-    label: "Last shot 5 to 9 weeks ago",
+    value: "Fourth_3_6mnths",
+    label: "Last shot 4 to 6 months ago",
   },
   {
-    value: "Fourth_10_14wks",
-    label: "Last shot 10 to 14 weeks ago",
-  },
-  {
-    value: "Fourth_15_19wks",
-    label: "Last shot 15 to 19 weeks ago",
-  },
-  {
-    value: "Fourth_20plus_wks",
-    label: "Last shot 20 or more weeks ago",
+    value: "Fourth_6plus_mnths",
+    label: "Last shot more than 6 months ago",
   },
 ];
 
