@@ -9,7 +9,7 @@ lc = xdsl.Model("LC_BN_30042024.xdsl")
 # n5_Sex
 # n6_ComorbidityNo
 # n7_Drug
-# n8_InfectionNo
+# n8_NoOfPrevInfect
 # n9_Vax_vs_hospICU
 # n10_Vax_vs_death
 # n11_Hospitalisation
