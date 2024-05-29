@@ -1197,15 +1197,15 @@ class Corical(corical_pb2_grpc.CoricalServicer):
         if request.infection == "None":
             infection_no = "None"
             infection_no_label = "none"
-            infection_no_plus = "First"
+            infection_no_plus = "One"
         elif request.infection == "One":
-            infection_no = "First"
+            infection_no = "One"
             infection_no_label = "one"
-            infection_no_plus = "Second"
+            infection_no_plus = "Two_plus"
         elif request.infection == "Two or more":
-            infection_no = "Second"
+            infection_no = "Two_plus"
             infection_no_label = "two or more"
-            infection_no_plus = "Third_plus"
+            infection_no_plus = "Two_plus"
 
         dose_labels = {
             "None": ("not had any vaccines", "no"),
@@ -1216,11 +1216,9 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             "Third_2wks_5mths": ("2 weeks to 5 months ago", "third"),
             "Third_6_11mnths": ("6 to 11 months ago", "third"),
             "Third_12plus_mnths": ("12 or more months ago", "third"),
-            "Fourth_2_4wks": ("2 weeks to 4 weeks ago", "fourth"),
-            "Fourth_5_9wks": ("5 to 9 weeks ago", "fourth"),
-            "Fourth_10_14wks": ("10 to 14 weeks ago", "fourth"),
-            "Fourth_15_19wks": ("15 to 19 weeks ago", "fourth"),
-            "Fourth_20plus_wks": ("20 or more weeks ago", "fourth"),
+            "Fourth_upto3mnths": ("last shot less than 3 months ago", "fourth"),
+            "Fourth_3_6mnths": ("last shot 4 to 6 months ago", "fourth"),
+            "Fourth_6plus_mnths": ("last shot more than 6 months ago", "fourth"),
         }
 
         # for graphs
@@ -1246,36 +1244,28 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             comparison_doses = ["Third_2wks_5mths"]
             shots = "two"
         elif request.dose == "Second_6_11mnths": 
-            # comparison_doses = ["Third_12plus_mnths"]
             comparison_doses = ["Third_2wks_5mths"]
             shots = "two" 
         elif request.dose == "Second_12plus_mnths":
             comparison_doses = ["Third_2wks_5mths"]
             shots = "two"    
         elif request.dose == "Third_2wks_5mths": 
-            comparison_doses = ["Fourth_2_4wks"] 
+            comparison_doses = ["Fourth_upto3mnths"] 
             shots = "three"
         elif request.dose == "Third_6_11mnths": 
-            comparison_doses = ["Fourth_2_4wks"] 
+            comparison_doses = ["Fourth_3_6mnths"] 
             shots = "three"  
         elif request.dose == "Third_12plus_mnths":
-            comparison_doses = ["Fourth_2_4wks"]
+            comparison_doses = ["Fourth_3_6mnths"]
             shots = "three"  
-        elif request.dose == "Fourth_2_4wks":
-            comparison_doses = ["Fourth_5_9wks"] 
+        elif request.dose == "Fourth_upto3mnths":
+            comparison_doses = ["Fourth_3_6mnths"] 
             shots = "four"
-        elif request.dose == "Fourth_5_9wks":
-            comparison_doses = ["Fourth_10_14wks"] 
+        elif request.dose == "Fourth_3_6mnths":
+            comparison_doses = ["Fourth_6plus_mnths"] 
             shots = "four"
-        elif request.dose == "Fourth_10_14wks":
-            comparison_doses = ["Fourth_15_19wks"] 
-            shots = "four"
-        elif request.dose == "Fourth_15_19wks":
-            comparison_doses = ["Fourth_20plus_wks"]
-            shots = "four"
-        elif request.dose == "Fourth_20plus_wks":
-            comparison_doses = ["Fourth_15_19wks"]
-            # comparison_doses = ["None"]
+        elif request.dose == "Fourth_6plus_mnths":
+            comparison_doses = ["Fourth_6plus_mnths"] 
             shots = "four"
 
         cmp = []
@@ -1322,27 +1312,33 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             scenario_description=scenario_description,
             bar_graphs=[
                 corical_pb2.BarGraph(
-                    title=f"If I get COVID-19, what is my chance of being hospitalised?",
-                    subtitle=f"This is your chance of being hospitalised due to acute COVID-19 if infected with SARS-CoV-2 These are results for a {age_text} {sex_label} with {comor_no_label} pre-existing comorbidity/ies and {infection_no_label} previous SARS-CoV-2 infection/s, and {shots} COVID-19 shots.",
+                    title=f"If I get COVID-19, what is my chance of going to hospital?*",
+                    # subtitle=f"This is your chance of being hospitalised due to acute COVID-19 if infected with SARS-CoV-2 These are results for a {age_text} {sex_label} with {comor_no_label} pre-existing comorbidity/ies and {infection_no_label} previous SARS-CoV-2 infection/s, and {shots} COVID-19 shots.",
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of being hospitalised from COVID-19 if you had {d['shot_ordinal']} shot {d['label']}",
-                                risk=d["get_hospitalisation"],
-                                is_other_shot=d["is_other_shot"],
+                                label=f"Your chance of going to hospital from COVID-19",
+                                risk=cmp[0]["get_hospitalisation"],
+                                is_other_shot=False,
                             )
-                            for d in cmp
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of being hospitalised from COVID-19 if you received drug treatment during the acute infection",
+                                label=f"Your chance of going to hospital from COVID-19 if you got one extra shot in the last 6 months",
+                                risk=cmp[1]["get_hospitalisation"],
+                                is_other_shot=True,
+                            )
+                        ]
+                        + [
+                            corical_pb2.BarGraphRisk(
+                                label=f"Chance of going to hospital from COVID-19 if you get drug treatment during the first week of infection",
                                 risk=cmp[0]["get_hospitalisation_drug"],
                                 is_other_shot=True,
                             ),
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of being hospitalised from COVID-19 if you had {infection_no_label} previous SARS-CoV-2 infection/s",
+                                label=f"Chance of going to hospital from COVID-19 after one extra SARS-CoV-2 infection",
                                 risk=cmp[0]["get_hospitalisation_infection"],
                                 is_other_shot=True,
                             ),
@@ -1350,8 +1346,8 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                     ),
                 ),
                 corical_pb2.BarGraph(
-                    title=f"If I get COVID-19, what is my chance of being admitted to ICU?",
-                    subtitle=f"This is your chance of being admitted to ICU due to acute COVID-19 if infected with SARS-CoV-2. These are results for a {age_text} {sex_label} with {comor_no_label} pre-existing comorbidity/ies and {infection_no_label} previous SARS-CoV-2 infection/s, and {shots} COVID-19 shots.",
+                    title=f"If I get COVID-19, what is my chance of being admitted to ICU?*",
+                    # subtitle=f"This is your chance of being admitted to ICU due to acute COVID-19 if infected with SARS-CoV-2. These are results for a {age_text} {sex_label} with {comor_no_label} pre-existing comorbidity/ies and {infection_no_label} previous SARS-CoV-2 infection/s, and {shots} COVID-19 shots.",
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
