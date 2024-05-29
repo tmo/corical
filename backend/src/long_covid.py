@@ -1,6 +1,6 @@
 import xdsl
 
-lc = xdsl.Model("LC_BN_050224.xdsl")
+lc = xdsl.Model("LC_BN_30042024.xdsl")
 
 # n1_Infection
 # n2_Dose
@@ -53,10 +53,11 @@ def compute_long_covid_probs(n2_Dose, n4_Age, n5_Sex, n6_ComorbidityNo, n8_Infec
     
     # To Do
     # check model node n8 if "None"
-    if n8_InfectionNo != "None":
-        lc.set_fact(values, "n8_InfectionNo", n8_InfectionNo)
-    else:
-        values["n8_InfectionNo"] = [0.34, 0.33, 0.33]
+    lc.set_fact(values, "n8_NoOfPrevInfect", n8_InfectionNo)
+    # if n8_InfectionNo != "None":
+    #     lc.set_fact(values, "n8_InfectionNo", n8_InfectionNo)
+    # else:
+    #     values["n8_InfectionNo"] = [0.34, 0.33, 0.33]
 
     lc.set_fact(values, "n7_Drug", "None")
     lc.set_fact(values, "n1_Infection", infection)
@@ -73,11 +74,11 @@ def compute_long_covid_probs(n2_Dose, n4_Age, n5_Sex, n6_ComorbidityNo, n8_Infec
     # other scenarios
     values_infected = dict(values)
     if n8_InfectionNo == "None":
-        n8_InfectionNo_plus = "First"
-    elif n8_InfectionNo == "First":
-        n8_InfectionNo_plus = "Second"
+        n8_InfectionNo_plus = "One"
+    elif n8_InfectionNo == "One":
+        n8_InfectionNo_plus = "Two_plus"
     else:
-        n8_InfectionNo_plus = "Third_plus"
+        n8_InfectionNo_plus = "Two_plus"
 
     # lc.set_fact(values_infected, "n7_Drug", "Molnupiravir")
     # lc.set_fact(values_infected, "n7_Drug", "Metformin_within7days")
@@ -94,7 +95,7 @@ def compute_long_covid_probs(n2_Dose, n4_Age, n5_Sex, n6_ComorbidityNo, n8_Infec
     get_gastrointestinal_drug =lc.infer(values_infected, "n20_LC_GI")[0]
 
     values_infected = dict(values)
-    lc.set_fact(values_infected, "n8_InfectionNo", n8_InfectionNo_plus)
+    lc.set_fact(values_infected, "n8_NoOfPrevInfect", n8_InfectionNo_plus)
     getget_hospitalisation_infection = lc.infer(values_infected, "n11_Hospitalisation")[0]
     get_icu_infection = lc.infer(values_infected, "n12_ICU")[0]
     get_symptom_infection = lc.infer(values_infected, "n14_LC_1_symptom")[0]
