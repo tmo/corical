@@ -6,17 +6,14 @@ export const FAQ_ITEMS =  [
       model. A Bayesian network is a mathematical model that shows the 
       relationship between multiple factors and how they can influence the 
       chance of something occurring. Examples of how these chances are 
-      calculated can be found <a rel="noreferrer" target="_blank" href="/docs/AstraZeneca_and_Pfizer_Model_Manual_Calculations.pdf">here for Astrazeneca vaccine</a>  and <a rel="noreferrer" target="_blank" href="/docs/Pfizer_Model_Manual_Calculations.pdf">here for the Pfizer vaccine</a>.  
+      calculated can be found <a rel="noreferrer" target="_blank" href="/docs/AstraZeneca_and_Pfizer_Model_Manual_Calculations.pdf">here for Astrazeneca vaccine</a>, <a rel="noreferrer" target="_blank" href="/docs/Pfizer_Model_Manual_Calculations.pdf">here for the Pfizer vaccine</a>, 
+      and <a rel="noreferrer" target="_blank" href="/docs/Long_Covid_Assumptions_100224.pdf">here for long COVID</a>.  
       The data sources used and assumptions are listed <a rel="noreferrer" target="_blank" href="/docs/astrazeneca_assumptions_11_03_22.pdf">here for Astrazeneca vaccine</a>, <a rel="noreferrer" target="_blank" href="/docs/pfizer_assumptions_10_05_23.pdf">here for the Pfizer vaccine</a>, and <a rel="noreferrer" target="_blank" href="/docs/children_assumptions_26_02_2023.pdf">here for the Paediatric Pfizer vaccine</a>.
       </>,
   },
   {
     question: "Why are health conditions that can affect the chances of getting complications from COVID-19 (e.g. obesity, diabetes, cardiovascular disease, immunosuppression etc) not included in this calculator?",
-    answer: `We are currently designing an updated model and calculator that takes these factors into account. We plan to release this new version as soon as possible.`,
-  },
-  {
-    question: "Will future versions include other outcomes of COVID-19 (e.g. hospitalisation, ICU admission, long COVID, etc)?",
-    answer: `Yes. We will release these versions as data become available. `,
+    answer: `Currently, only the long COVID risk calculator takes these factors into account. We are currently designing an updated model and calculator that takes these factors into account for the Pfizer and Astrazeneca vaccines. We plan to release this new version as soon as possible.`,
   },
   {
     question: "What viral variant is the calculator based upon? ",
@@ -24,7 +21,10 @@ export const FAQ_ITEMS =  [
   },
   {
     question: "What are the chances of each outcome for someone who has had a prior COVID-19 infection with or without vaccination?",
-    answer: ` COVID-19 can induce an immune response that may give people some protection from getting COVID-19 again. We are currently collecting the latest available data on this and plan to update CoRiCAL once we have enough evidence.`,
+    answer: `The long COVID risk calculator allows you to select how many previous COVID-19 infections you have had. 
+    COVID-19 can induce an immune response that may give people some protection from getting COVID-19 again,
+    but may also increase your risk of getting long COVID. For the Pfizer and Astrazeneca vaccines, we are currently collecting the latest available data on 
+    this and plan to update CoRiCAL once we have enough evidence.`,
   },
   {
     question: "Are the rates given per whole population or are the rates per the relevant age group population?",
@@ -39,9 +39,9 @@ export const FAQ_ITEMS =  [
     answer: <> We have used Australian data sources where possible. Where 
       Australian data is not available, we have used overseas data. 
       All data sources are shown here (see  
-      <a rel="noreferrer" target="_blank" href="/docs/pfizer_assumptions_10_05_23.pdf"> Pfizer data sources </a> 
-      and <a rel="noreferrer" target="_blank" href="/docs/astrazeneca_assumptions_11_03_22.pdf"> AstraZeneca data
-      sources </a>). </>,
+      <a rel="noreferrer" target="_blank" href="/docs/pfizer_assumptions_10_05_23.pdf"> Pfizer data sources </a>,  
+      <a rel="noreferrer" target="_blank" href="/docs/astrazeneca_assumptions_11_03_22.pdf"> AstraZeneca data
+      sources </a>, <a rel="noreferrer" target="_blank" href="/docs/Long_Covid_Assumptions_100224.pdf">and long COVID data sources</a>).</>,
   },
   {
     question: "What are assumptions?",
@@ -76,12 +76,6 @@ export const FAQ_ITEMS =  [
     please complete form via <a href="https://forms.gle/8DW7NRF5z3JE8JCGA"> this link </a>. 
     You will need to include your email address if you would like someone to get back to you.
     </>
-  },
-  {
-    question: "Where can I get information about treatments for COVID-19?",
-    answer: <>  Information about treatment for COVID-a9 can be found at the Australian Department of 
-      Health Website (<a rel="noreferrer" target="_blank" href="https://www.health.gov.au/health-alerts/covid-19/treatments"> 
-      https://www.health.gov.au/health-alerts/covid-19/treatments</a>). </>,
   },
   {
     question: "What is myocarditis?",
