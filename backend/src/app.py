@@ -1235,37 +1235,37 @@ class Corical(corical_pb2_grpc.CoricalServicer):
         # shots = "none"
         # the compared cases, check n2_Dose names
         if request.dose == "None":
-            comparison_doses = ["First_3weeks_ago"]
+            comparison_doses = ["First_3weeks_ago", "Second_2wks_5mnths"]
             shots = "none"
         elif request.dose == "First_3weeks_ago":
-            comparison_doses = ["Second_2wks_5mnths"] 
+            comparison_doses = ["Second_2wks_5mnths", "Second_2wks_5mnths"] 
             shots = "one" 
         elif request.dose == "Second_2wks_5mnths": 
-            comparison_doses = ["Third_2wks_5mths"]
+            comparison_doses = ["Third_2wks_5mths", "Third_2wks_5mths"]
             shots = "two"
         elif request.dose == "Second_6_11mnths": 
-            comparison_doses = ["Third_2wks_5mths"]
+            comparison_doses = ["Third_2wks_5mths", "Third_2wks_5mths"]
             shots = "two" 
         elif request.dose == "Second_12plus_mnths":
-            comparison_doses = ["Third_2wks_5mths"]
+            comparison_doses = ["Third_2wks_5mths", "Third_2wks_5mths"]
             shots = "two"    
         elif request.dose == "Third_2wks_5mths": 
-            comparison_doses = ["Fourth_upto3mnths"] 
+            comparison_doses = ["Fourth_upto3mnths", "Fourth_upto3mnths"] 
             shots = "three"
         elif request.dose == "Third_6_11mnths": 
-            comparison_doses = ["Fourth_3_6mnths"] 
+            comparison_doses = ["Fourth_3_6mnths", "Fourth_upto3mnths"] 
             shots = "three"  
         elif request.dose == "Third_12plus_mnths":
-            comparison_doses = ["Fourth_3_6mnths"]
+            comparison_doses = ["Fourth_3_6mnths", "Fourth_upto3mnths"]
             shots = "three"  
         elif request.dose == "Fourth_upto3mnths":
-            comparison_doses = ["Fourth_3_6mnths"] 
+            comparison_doses = ["Fourth_3_6mnths", "Fourth_upto3mnths"] 
             shots = "four"
         elif request.dose == "Fourth_3_6mnths":
-            comparison_doses = ["Fourth_6plus_mnths"] 
+            comparison_doses = ["Fourth_6plus_mnths", "Fourth_upto3mnths"] 
             shots = "four"
         elif request.dose == "Fourth_6plus_mnths":
-            comparison_doses = ["Fourth_6plus_mnths"] 
+            comparison_doses = ["Fourth_6plus_mnths", "Fourth_upto3mnths"] 
             shots = "four"
 
         cmp = []
@@ -1324,14 +1324,14 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Your chance of going to hospital from COVID-19 if you got one extra shot in the last 6 months",
+                                label=f"Chance of going to hospital from COVID-19 if you got one extra shot in the last 6 months+",
                                 risk=cmp[1]["get_hospitalisation"],
                                 is_other_shot=True,
                             )
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of going to hospital from COVID-19 if you get drug treatment during the first week of infection",
+                                label=f"Chance of going to hospital from COVID-19 if you get antiviral drug treatment during the first week of infection",
                                 risk=cmp[0]["get_hospitalisation_drug"],
                                 is_other_shot=True,
                             ),
@@ -1346,27 +1346,32 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                     ),
                 ),
                 corical_pb2.BarGraph(
-                    title=f"If I get COVID-19, what is my chance of being admitted to ICU?*",
-                    # subtitle=f"This is your chance of being admitted to ICU due to acute COVID-19 if infected with SARS-CoV-2. These are results for a {age_text} {sex_label} with {comor_no_label} pre-existing comorbidity/ies and {infection_no_label} previous SARS-CoV-2 infection/s, and {shots} COVID-19 shots.",
+                    title=f"If I get COVID-19, what is my chance of going to ICU?*",
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of being admitted to ICU from COVID-19 if you had {d['shot_ordinal']} shot {d['label']}",
-                                risk=d["get_icu"],
-                                is_other_shot=d["is_other_shot"],
+                                label=f"Your chance of going to ICU from COVID-19",
+                                risk=cmp[0]["get_icu"],
+                                is_other_shot=False,
                             )
-                            for d in cmp
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of being admitted to ICU from COVID-19 if you received drug treatment during the acute infection",
+                                label=f"Chance of going to ICU from COVID-19 if you got one extra shot in the last 6 months",
+                                risk=cmp[1]["get_icu"],
+                                is_other_shot=True,
+                            )
+                        ]
+                        + [
+                            corical_pb2.BarGraphRisk(
+                                label=f"Chance of going to ICU from COVID-19 if you get antiviral drug treatment during the first week infection",
                                 risk=cmp[0]["get_icu_drug"],
                                 is_other_shot=True,
                             ),
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of being admitted to ICU from COVID-19 if you had {infection_no_label} previous SARS-CoV-2 infection/s",
+                                label=f"Chance of going to ICU from COVID-19 after one extra SARS-CoV-2 infection",
                                 risk=cmp[0]["get_icu_infection"],
                                 is_other_shot=True,
                             ),
@@ -1375,26 +1380,32 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                 ),
                  corical_pb2.BarGraph(
                     title=f"If I get COVID-19, what is my chance of having at least 1 long COVID symptom six months later?",
-                    subtitle=f"Symptoms may be continued, recurring or new and not attributable to any other diagnosis. These are results for a {age_text} {sex_label} with {comor_no_label} pre-existing comorbidity/ies and {infection_no_label} previous SARS-CoV-2 infection/s, and {shots} COVID-19 shots.",
+                    subtitle=f"Symptoms may be continued, recurring or new and not attributable to any other diagnosis. See our FAQ section for more information.",
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having at least 1 long COVID symptom 6 months after infection if you had {d['shot_ordinal']} shot {d['label']}",
-                                risk=d["get_symptom"],
-                                is_other_shot=d["is_other_shot"],
+                                label=f"Your chance of having at least 1 long COVID symptom 6 months after infection",
+                                risk=cmp[0]["get_symptom"],
+                                is_other_shot=False,
                             )
-                            for d in cmp
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having at least 1 long COVID symptom 6 months after infection if you received drug treatment during the acute infection",
+                                label=f"Chance of having at least 1 long COVID symptom 6 months after infection if you were unvaccinated / fully vaccinated",
+                                risk=cmp[2]["get_symptom"],
+                                is_other_shot=True,
+                            )
+                        ]
+                        + [
+                            corical_pb2.BarGraphRisk(
+                                label=f"Chance of having at least 1 long COVID symptom 6 months after infection if you got antiviral drug treatment during the first week of infection",
                                 risk=cmp[0]["get_symptom_drug"],
                                 is_other_shot=True,
                             ),
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having at least 1 long COVID symptom 6 months after infection if you had {infection_no_label} previous SARS-CoV-2 infection/s",
+                                label=f"Chance of having at least 1 long COVID symptom 6 months after one extra SARS-CoV-2 infection",
                                 risk=cmp[0]["get_symptom_infection"],
                                 is_other_shot=True,
                             ),
@@ -1403,26 +1414,32 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                 ),
                 corical_pb2.BarGraph(
                     title=f"If I get COVID-19, what is my chance of having pulmonary long COVID symptoms six months later?",
-                    subtitle=f"Symptoms may include cough, hypoxemia, and/or shortness of breath. These are results for a {age_text} {sex_label} with {comor_no_label} pre-existing comorbidity/ies and {infection_no_label} previous SARS-CoV-2 infection/s, and {shots} COVID-19 shots.",
+                    subtitle=f"Symptoms may include cough, hypoxemia (low blood oxygen), and/or shortness of breath.",
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having pulmonary long COVID symptoms 6 months after infection if you had {d['shot_ordinal']} shot {d['label']}",
-                                risk=d["get_pulmonary"],
-                                is_other_shot=d["is_other_shot"],
+                                label=f"Your chance of having pulmonary long COVID symptoms 6 months after infection",
+                                risk=cmp[0]["get_pulmonary"],
+                                is_other_shot=False,
                             )
-                            for d in cmp
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having pulmonary long COVID symptoms 6 months after infection if you received drug treatment during the acute infection",
+                                label=f"Chance of having pulmonary long COVID symptoms 6 months after infection if you were unvaccinated / fully vaccinated",
+                                risk=cmp[2]["get_pulmonary"],
+                                is_other_shot=False,
+                            )
+                        ]
+                        + [
+                            corical_pb2.BarGraphRisk(
+                                label=f"Chance of having pulmonary long COVID symptoms 6 months after infection if you got antiviral drug treatment during the first week of infection",
                                 risk=cmp[0]["get_pulmonary_drug"],
                                 is_other_shot=True,
                             ),
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having pulmonary long COVID symptoms 6 months after infection if you had {infection_no_label} previous SARS-CoV-2 infection/s",
+                                label=f"Chance of having pulmonary long COVID symptoms 6 months after one extra SARS-CoV-2 infection",
                                 risk=cmp[0]["get_pulmonary_infection"],
                                 is_other_shot=True,
                             ),
@@ -1431,26 +1448,32 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                 ),
                 corical_pb2.BarGraph(
                     title=f"If I get COVID-19, what is my chance of having cardiovascular long COVID symptoms six months later?",
-                    subtitle=f"Symptoms may include acute coronary disease, arrhythmias, bradycardia, chest pain, heart failure, myocarditis, and/or tachycardia. These are results for a {age_text} {sex_label} with {comor_no_label} pre-existing comorbidity/ies and {infection_no_label} previous SARS-CoV-2 infection/s, and {shots} COVID-19 shots.",
+                    subtitle=f"Symptoms may include acute coronary (heart vessel) disease, arrhythmias/bradycardia/tachycardia (irregular heart beats), chest pain, myocarditis (inflammation of heart muscle), and/or heart failure.",
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having cardiovascular long COVID symptoms 6 months after infection if you had {d['shot_ordinal']} shot {d['label']}",
-                                risk=d["get_cardiovascular"],
-                                is_other_shot=d["is_other_shot"],
+                                label=f"Your chance of having cardiovascular long COVID symptoms 6 months after infection",
+                                risk=cmp[0]["get_cardiovascular"],
+                                is_other_shot=False,
                             )
-                            for d in cmp
+                        ]
+                        +  [
+                            corical_pb2.BarGraphRisk(
+                                label=f"Chance of having cardiovascular long COVID symptoms 6 months after infection if you were unvaccinated / fully vaccinated",
+                                risk=cmp[2]["get_cardiovascular"],
+                                is_other_shot=True,
+                            )
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having cardiovascular long COVID symptoms 6 months after infection if you received drug treatment during the acute infection",
+                                label=f"Chance of having cardiovascular long COVID symptoms 6 months after infection if you got antiviral drug treatment during the first week of infection",
                                 risk=cmp[0]["get_cardiovascular_drug"],
                                 is_other_shot=True,
                             ),
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having cardiovascular long COVID symptoms 6 months after infection if you had {infection_no_label} previous SARS-CoV-2 infection/s",
+                                label=f"Chance of having cardiovascular long COVID symptoms 6 months after one extra SARS-CoV-2 infection",
                                 risk=cmp[0]["get_cardiovascular_infection"],
                                 is_other_shot=True,
                             ),
@@ -1459,26 +1482,32 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                 ),
                 corical_pb2.BarGraph(
                     title=f"If I get COVID-19, what is my chance of having neurological long COVID symptoms six months later?",
-                    subtitle=f"Symptoms may include headache, memory problems, smell problems, and/or stroke. These are results for a {age_text} {sex_label} with {comor_no_label} pre-existing comorbidity/ies and {infection_no_label} previous SARS-CoV-2 infection/s, and {shots} COVID-19 shots.",
+                    subtitle=f"Symptoms may include headache, memory problems, smell problems, and/or stroke.",
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having neurological long COVID symptoms 6 months after infection if you had {d['shot_ordinal']} shot {d['label']}",
-                                risk=d["get_neurologic"],
-                                is_other_shot=d["is_other_shot"],
+                                label=f"Your chance of having neurological long COVID symptoms 6 months after infection",
+                                risk=cmp[0]["get_neurologic"],
+                                is_other_shot=False,
                             )
-                            for d in cmp
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having neurological long COVID symptoms 6 months after infection if you received drug treatment during the acute infection",
+                                label=f"Chance of having neurological long COVID symptoms 6 months after infection if you were unvaccinated / fully vaccinated",
+                                risk=cmp[2]["get_neurologic"],
+                                is_other_shot=True,
+                            )
+                        ]
+                        + [
+                            corical_pb2.BarGraphRisk(
+                                label=f"Chance of having neurological long COVID symptoms 6 months after infection if you got antiviral drug treatment during the first week of infection",
                                 risk=cmp[0]["get_neurologic_drug"],
                                 is_other_shot=True,
                             ),
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having neurological long COVID symptoms 6 months after infection if you had {infection_no_label} previous SARS-CoV-2 infection/s",
+                                label=f"Chance of having neurological long COVID symptoms 6 months after one extra SARS-CoV-2 infection",
                                 risk=cmp[0]["get_neurologic_infection"],
                                 is_other_shot=True,
                             ),
@@ -1487,26 +1516,32 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                 ),
                 corical_pb2.BarGraph(
                     title=f"If I get COVID-19, what is my chance of having metabolic long COVID symptoms six months later?",
-                    subtitle=f"Symptoms may include diabetes, hyperlipidemia, and/or insulin use. These are results for a {age_text} {sex_label} with {comor_no_label} pre-existing comorbidity/ies and {infection_no_label} previous SARS-CoV-2 infection/s, and {shots} COVID-19 shots.",
+                    subtitle=f"Symptoms may include diabetes mellitus (high blood sugar), hyperlipidemia (high blood levels of fat including cholesterol), and/or need for insulin use.",
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having metabolic long COVID symptoms 6 months after infection if you had {d['shot_ordinal']} shot {d['label']}",
-                                risk=d["get_metabolic"],
-                                is_other_shot=d["is_other_shot"],
+                                label=f"Your chance of having metabolic long COVID symptoms 6 months after infection",
+                                risk=cmp[0]["get_metabolic"],
+                                is_other_shot=False,
                             )
-                            for d in cmp
+                        ]
+                        +  [
+                            corical_pb2.BarGraphRisk(
+                                label=f"Your chance of having metabolic long COVID symptoms 6 months after infection if you were unvaccinated / fully vaccinated",
+                                risk=cmp[2]["get_metabolic"],
+                                is_other_shot=True,
+                            )
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having metabolic long COVID symptoms 6 months after infection if you received drug treatment during the acute infection",
+                                label=f"Chance of having metabolic long COVID symptoms 6 months after infection if you got antiviral drug treatment during the first week of infection",
                                 risk=cmp[0]["get_metabolic_drug"],
                                 is_other_shot=True,
                             ),
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having metabolic long COVID symptoms 6 months after infection if you had {infection_no_label} previous SARS-CoV-2 infection/s",
+                                label=f"Chance of having metabolic long COVID symptoms 6 months after one extra SARS-CoV-2 infection",
                                 risk=cmp[0]["get_metabolic_infection"],
                                 is_other_shot=True,
                             ),
@@ -1515,26 +1550,32 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                 ),
                 corical_pb2.BarGraph(
                     title=f"If I get COVID-19, what is my chance of having gastrointestinal COVID symptoms six months later?",
-                    subtitle=f"Symptoms may include constipation, diarrhoea, and/or GERD. These are results for a {age_text} {sex_label} with {comor_no_label} pre-existing comorbidity/ies and {infection_no_label} previous SARS-CoV-2 infection/s, and {shots} COVID-19 shots.",
+                    subtitle=f"Symptoms may include constipation, diarrhoea, and/or gastroesophageal reflux disease (reflux).",
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having gastrointestinal long COVID symptoms 6 months after infection if you had {d['shot_ordinal']} shot {d['label']}",
-                                risk=d["get_gastrointestinal"],
-                                is_other_shot=d["is_other_shot"],
+                                label=f"Your chance of having gastrointestinal long COVID symptoms 6 months after infection",
+                                risk=cmp[0]["get_gastrointestinal"],
+                                is_other_shot=False,
                             )
-                            for d in cmp
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having gastrointestinal long COVID symptoms 6 months after infection  if you received drug treatment during the acute infection",
+                                label=f"Chance of having gastrointestinal long COVID symptoms 6 months after infection if you were unvaccinated / fully vaccinated",
+                                risk=cmp[2]["get_gastrointestinal"],
+                                is_other_shot=True,
+                            )
+                        ]
+                        + [
+                            corical_pb2.BarGraphRisk(
+                                label=f"Chance of having gastrointestinal long COVID symptoms 6 months after infection if you got antiviral drug treatment during the first week of infection",
                                 risk=cmp[0]["get_gastrointestinal_drug"],
                                 is_other_shot=True,
                             ),
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having gastrointestinal long COVID symptoms 6 months after infection if you had {infection_no_label} previous SARS-CoV-2 infection/s",
+                                label=f"Chance of having gastrointestinal long COVID symptoms 6 months after one extra SARS-CoV-2 infection",
                                 risk=cmp[0]["get_gastrointestinal_infection"],
                                 is_other_shot=True,
                             ),
