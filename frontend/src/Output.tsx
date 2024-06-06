@@ -310,6 +310,7 @@ export default function Form({ output }: OutputProps) {
                   />
                 </ComposedChart>
               </div>
+                              
             );
           })}
 
@@ -363,6 +364,16 @@ export default function Form({ output }: OutputProps) {
               </TableContainer>
             </div>
           ))}
+          <div id="note">
+          <Typography variant="body1" paragraph>
+          *The more severe your first week of infection, the higher your chances are of going to hospital or ICU from COVID-19, 
+          and the higher your chances of having long COVID symptoms six months after infection.
+          <br></br>
+          †To lower your risks even more, you can consider having vaccines before infection AND drug treatment during infection! 
+          For more detail on drug treatment, read our FAQs.
+          </Typography>
+          </div>
+
         </>
       ) : (
         <Typography variant="body1" gutterBottom>
