@@ -1235,38 +1235,49 @@ class Corical(corical_pb2_grpc.CoricalServicer):
         # shots = "none"
         # the compared cases, check n2_Dose names
         if request.dose == "None":
-            comparison_doses = ["First_3weeks_ago", "Second_2wks_5mnths"]
+            comparison_doses = ["Second_2wks_5mnths", "Second_2wks_5mnths"]
             shots = "none"
+            vaccination = "fully vaccinated"
         elif request.dose == "First_3weeks_ago":
             comparison_doses = ["Second_2wks_5mnths", "Second_2wks_5mnths"] 
-            shots = "one" 
+            shots = "one"
+            vaccination = "fully vaccinated" 
         elif request.dose == "Second_2wks_5mnths": 
-            comparison_doses = ["Third_2wks_5mths", "Third_2wks_5mths"]
+            comparison_doses = ["Third_2wks_5mths", "None"]
             shots = "two"
+            vaccination = "unvaccinated"
         elif request.dose == "Second_6_11mnths": 
-            comparison_doses = ["Third_2wks_5mths", "Third_2wks_5mths"]
-            shots = "two" 
+            comparison_doses = ["Third_2wks_5mths", "None"]
+            shots = "two"
+            vaccination = "unvaccinated" 
         elif request.dose == "Second_12plus_mnths":
-            comparison_doses = ["Third_2wks_5mths", "Third_2wks_5mths"]
-            shots = "two"    
+            comparison_doses = ["Third_2wks_5mths", "None"]
+            shots = "two"
+            vaccination = "unvaccinated"    
         elif request.dose == "Third_2wks_5mths": 
-            comparison_doses = ["Fourth_upto3mnths", "Fourth_upto3mnths"] 
+            comparison_doses = ["Fourth_upto3mnths", "None"] 
             shots = "three"
+            vaccination = "unvaccinated"
         elif request.dose == "Third_6_11mnths": 
-            comparison_doses = ["Fourth_3_6mnths", "Fourth_upto3mnths"] 
-            shots = "three"  
+            comparison_doses = ["Fourth_3_6mnths", "None"] 
+            shots = "three"
+            vaccination = "unvaccinated"  
         elif request.dose == "Third_12plus_mnths":
-            comparison_doses = ["Fourth_3_6mnths", "Fourth_upto3mnths"]
-            shots = "three"  
+            comparison_doses = ["Fourth_3_6mnths", "None"]
+            shots = "three" 
+            vaccination = "unvaccinated" 
         elif request.dose == "Fourth_upto3mnths":
-            comparison_doses = ["Fourth_3_6mnths", "Fourth_upto3mnths"] 
+            comparison_doses = ["Fourth_3_6mnths", "None"] 
             shots = "four"
+            vaccination = "unvaccinated"
         elif request.dose == "Fourth_3_6mnths":
-            comparison_doses = ["Fourth_6plus_mnths", "Fourth_upto3mnths"] 
+            comparison_doses = ["Fourth_6plus_mnths", "None"] 
             shots = "four"
+            vaccination = "unvaccinated"
         elif request.dose == "Fourth_6plus_mnths":
-            comparison_doses = ["Fourth_6plus_mnths", "Fourth_upto3mnths"] 
+            comparison_doses = ["Fourth_6plus_mnths", "None"] 
             shots = "four"
+            vaccination = "unvaccinated"
 
         cmp = []
 
@@ -1324,14 +1335,14 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of going to hospital from COVID-19 if you got one extra shot in the last 6 months+",
+                                label=f"Chance of going to hospital from COVID-19 if you got one extra shot in the last 6 months†",
                                 risk=cmp[1]["get_hospitalisation"],
                                 is_other_shot=True,
                             )
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of going to hospital from COVID-19 if you get antiviral drug treatment during the first week of infection",
+                                label=f"Chance of going to hospital from COVID-19 if you get antiviral drug treatment during the first week of infection†",
                                 risk=cmp[0]["get_hospitalisation_drug"],
                                 is_other_shot=True,
                             ),
@@ -1357,14 +1368,14 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of going to ICU from COVID-19 if you got one extra shot in the last 6 months",
+                                label=f"Chance of going to ICU from COVID-19 if you got one extra shot in the last 6 months†",
                                 risk=cmp[1]["get_icu"],
                                 is_other_shot=True,
                             )
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of going to ICU from COVID-19 if you get antiviral drug treatment during the first week infection",
+                                label=f"Chance of going to ICU from COVID-19 if you get antiviral drug treatment during the first week infection†",
                                 risk=cmp[0]["get_icu_drug"],
                                 is_other_shot=True,
                             ),
@@ -1391,7 +1402,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having at least 1 long COVID symptom 6 months after infection if you were unvaccinated / fully vaccinated",
+                                label=f"Chance of having at least 1 long COVID symptom 6 months after infection if you were {vaccination}",
                                 risk=cmp[2]["get_symptom"],
                                 is_other_shot=True,
                             )
@@ -1425,7 +1436,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having pulmonary long COVID symptoms 6 months after infection if you were unvaccinated / fully vaccinated",
+                                label=f"Chance of having pulmonary long COVID symptoms 6 months after infection if you were {vaccination}",
                                 risk=cmp[2]["get_pulmonary"],
                                 is_other_shot=False,
                             )
@@ -1459,7 +1470,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                         ]
                         +  [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having cardiovascular long COVID symptoms 6 months after infection if you were unvaccinated / fully vaccinated",
+                                label=f"Chance of having cardiovascular long COVID symptoms 6 months after infection if you were {vaccination}",
                                 risk=cmp[2]["get_cardiovascular"],
                                 is_other_shot=True,
                             )
@@ -1493,7 +1504,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having neurological long COVID symptoms 6 months after infection if you were unvaccinated / fully vaccinated",
+                                label=f"Chance of having neurological long COVID symptoms 6 months after infection if you were {vaccination}",
                                 risk=cmp[2]["get_neurologic"],
                                 is_other_shot=True,
                             )
@@ -1527,7 +1538,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                         ]
                         +  [
                             corical_pb2.BarGraphRisk(
-                                label=f"Your chance of having metabolic long COVID symptoms 6 months after infection if you were unvaccinated / fully vaccinated",
+                                label=f"Your chance of having metabolic long COVID symptoms 6 months after infection if you were {vaccination}",
                                 risk=cmp[2]["get_metabolic"],
                                 is_other_shot=True,
                             )
@@ -1561,7 +1572,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having gastrointestinal long COVID symptoms 6 months after infection if you were unvaccinated / fully vaccinated",
+                                label=f"Chance of having gastrointestinal long COVID symptoms 6 months after infection if you were {vaccination}",
                                 risk=cmp[2]["get_gastrointestinal"],
                                 is_other_shot=True,
                             )
