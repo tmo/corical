@@ -365,7 +365,7 @@ export default function Form({ output }: OutputProps) {
             </div>
           ))}
           <div id="note">
-          <Typography variant="body2" paragraph style={{color:"red", fontStyle:"bold", fontSize:18}}>
+          <Typography variant="body2" paragraph style={{color:"red", fontWeight: 500, fontSize:18}}>
           *The more severe your first week of infection, the higher your chances are of going to hospital or ICU from COVID-19, 
           and the higher your chances of having long COVID symptoms six months after infection.
           <br></br>
