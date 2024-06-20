@@ -67,11 +67,11 @@ risks = [
         "event": "Chance of getting shingles some time in your life",
         "risk": 1 / 3,
     },
-    {
-        "event": "100%",
-        "risk": 1,
-    },
-]
+#     {
+#         "event": "100%",
+#         "risk": 1,
+#     },
+ ]
 
 
 def generate_relatable_risks_orig(risk_vals):
