@@ -74,9 +74,9 @@ def compute_long_covid_probs(n2_Dose, n4_Age, n5_Sex, n6_ComorbidityNo, n8_Infec
     # other scenarios
     values_infected = dict(values)
     if n8_InfectionNo == "None":
-        n8_InfectionNo_plus = "One"
+        n8_InfectionNo_plus = "None"
     elif n8_InfectionNo == "One":
-        n8_InfectionNo_plus = "Two_plus"
+        n8_InfectionNo_plus = "One"
     else:
         n8_InfectionNo_plus = "Two_plus"
 
