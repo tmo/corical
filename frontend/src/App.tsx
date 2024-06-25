@@ -16,7 +16,7 @@ import {
   computeLongCovid
 } from "./api";
 import Output from "./Output";
-import { Alert, AlertTitle } from "@material-ui/lab/";
+import { Alert, AlertTitle} from "@material-ui/lab/";
 import { BY_LINE, TITLE } from "./constants";
 import Skel from "./Skel";
 import { 
@@ -29,6 +29,7 @@ import { Link, Routes, Route } from "react-router-dom";
 import { BrowserRouter } from "react-router-dom";
 import { FAQ_ITEMS }  from "./FAQ";
 import { CHILDREN_FAQ_ITEMS, CHILDREN_FAQ_HEADER, CHILDREN_FAQ_REFS }  from "./FAQ_children";
+import { LONG_COVID_FAQ_ITEMS, LONG_COVID_FAQ_HEADER }  from "./FAQ_long_covid";
 import { RELEASE_NOTES } from "./ReleaseNotes" ;
 
 function IndexRoute() {
@@ -394,7 +395,7 @@ function FaqRoute() {
         Back to calculator
       </Button>
       <Box my={4}>
-        <h1>FAQs</h1>
+        <h1>General FAQs about the CoRiCal tool</h1>
         <Container maxWidth="lg">
           <Typography>
           {FAQ_ITEMS.map(({ question, answer }) => (
@@ -426,13 +427,32 @@ function FaqRoute() {
             </>
           ))}
           </Typography>
-          <Typography>
+          {/* <Typography>
           <Button onClick={() => {setShowRefs(!showRefs)}} color="primary" variant="contained">
             References
           </Button>
           {showRefs && (
             <>{CHILDREN_FAQ_REFS}</>
           )}
+          </Typography> */}
+        </Container>
+        <h1>Long COVID: Frequently Asked Questions</h1>
+        <Container maxWidth="lg">
+          <Typography>
+          {LONG_COVID_FAQ_HEADER}
+          <br />
+          <br />
+          </Typography>
+          <Typography>
+          {LONG_COVID_FAQ_ITEMS.map(({ question, answer }) => (
+            <>
+              <b>{question}</b>
+              <br />
+              {answer}
+              <br />
+              <br />
+            </>
+          ))}
           </Typography>
         </Container>
       </Box>

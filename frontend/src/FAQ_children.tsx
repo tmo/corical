@@ -1,43 +1,54 @@
 export const CHILDREN_FAQ_HEADER = <>
-  <p>Children over the age of 5 years are recommended to get 2 doses of the COVID-19 vaccine. To help parents make informed decisions, the CoRiCal team has developed a children’s version of the CoRiCal tool. </p>
-  <p>This frequently asked questions (FAQ) webpage outlines some of the questions that parents have asked about the COVID-19 vaccines. This includes side effects and how likely the COVID-19 vaccine is to prevent serious illness. </p>
+  <p>To help parents make informed decisions, we developed a child version of the CoRiCal tool.  Children with weak immune systems should consider a COVID vaccine booster every 12 months, for ages 5 to 17 (ATAGI advice, 2024). 
+    A COVID vaccine booster is not recommended for any children under the age of 5 years. </p>
+  <p>This frequently asked questions (FAQ) webpage outlines some of the questions that parents have asked about the COVID-19 vaccines. This includes side effects and how likely the COVID-19 vaccine is to prevent serious illness.  </p>
   <p>The information is consistent with ATAGI and the National Centre for Immunisation Research and Surveillance (NCIRS). </p>
 </>
 
 export const CHILDREN_FAQ_ITEMS =  [
   {
     question: "Are children at risk of getting COVID-19?",
-    answer: <><p>Yes. </p> 
-    <p>Everyone, including children, is at risk of getting COVID-19. Studies show that like adults, both children and adolescents can play a role in spreading the SARS-CoV-2 virus. This is the virus that causes COVID-19. Spread between young children or from young children to adults in the household setting is just as common as spread between adults. </p>
-    <p>The Omicron variants of COVID-19 are more transmissible than the original strain and earlier variants. They are causing more cases in children, but they are not causing more severe disease. Children are most likely to catch COVID-19 from household or close family contact with unvaccinated adults. Children tend to get mild disease and most do not need to go to hospital. Rarely, around 1 in 3000 children infected with COVID-19 develop a post-COVID inflammatory syndrome that affects many organs in their body, called PIMS-TS (also known as MIS-C). </p>
-    </>,
+    answer: "Yes. Everyone is at risk of getting COVID-19. Studies show that children and adolescents can play a role in spreading the SARS-CoV-2 virus. This is the virus that causes COVID-19. Spread between young children is just as common as spread between adults. The Omicron variants of COVID-19 are easier to spread. They cause more cases in children, but do not cause more severe disease. Children are most likely to catch COVID-19 from unvaccinated adults (household or close family) and at school. Children tend to get mild disease, and most do not need to go to hospital. Rarely, around 1 in 3000 children infected with COVID-19 develop a post-COVID inflammatory syndrome that affects many organs in their body. This is called paediatric inflammatory multisystem syndrome temporarily associated with SARS-CoV-2 (PIMS-TS). It is also called multisystem inflammatory syndrome in children (MIS-C). ",
   },
   {
     question: "Which children are most at risk from getting COVID-19?",
-    answer: `Some conditions increase the risk of children needing to go to hospital with COVID-19. This includes diabetes, congenital heart disease, chronic pulmonary disease, neurological diseases, being born premature or being overweight.`,
+    answer: <>Some conditions increase the risk of children needing to go to hospital with COVID-19. This includes:
+    <ul>
+      <li>diabetes</li>
+      <li>congenital heart disease</li>
+      <li>chronic pulmonary disease</li>
+      <li>neurological diseases</li>
+      <li>being born premature</li>
+      <li>being overweight</li>
+    </ul> </>,
   },
   {
     question: "Should children get the COVID-19 vaccine?",
     answer: <>
-      <p>While COVID-19 is mild in most children, a few can become very sick and have long term effects. Children are more likely to become very sick from COVID-19 if they have a complex or chronic illness. Tis includes heart disease, diabetes, being born premature or being quite overweight for their age.</p>
-      <p>The COVID-19 vaccine reduces the chance that a child will get very sick from COVID-19. There is also some evidence that the vaccine reduces the chance of children getting multi-inflammatory syndrome after they catch COVID-19.</p>
-      <p>Children can spread COVID-19 in their community and especially to members of their family and household. Vaccinated people are less likely to pass on the virus than unvaccinated people.</p>
+      <p>While COVID-19 is mild in most children, a few can become very sick and have long term effects. 
+        Children are more likely to become very sick from COVID-19 if they have certain conditions (see list above). 
+        The COVID-19 vaccine reduces the chance that a child will get very sick from COVID-19. 
+        There is also some evidence that the vaccine reduces the chance of children getting multi-inflammatory syndrome after they catch COVID-19. 
+        Children can spread COVID-19 to others, especially members of their family and household. 
+        Vaccinated people are less likely to pass on the virus than unvaccinated people. The 2024 ATAGI advice on COVID vaccination boosters is shown below (Table 1).</p>
+        <img src="table1.png" alt="table 1"></img>
     </>,
   },
   {
     question: "What are the side effects of the COVID-19 vaccine?",
     answer: <>
-      <p>Side effects are not common, but the COVID-19 vaccine can cause local injection-site pain, redness and swelling, headaches or general aches and pains. These side effects usually go away quickly.</p>
-      <p>More severe reactions are very uncommon. A very small number of children get myocarditis (inflammation of the heart muscle) after the COVID-19 vaccine, but this is more likely to happen after catching COVID-19. Myocarditis after getting COVID-19 is more severe than myocarditis after a COVID-19 vaccine in children.</p>
+      <p>Side effects are not common, but the COVID-19 vaccine can cause local injection-site pain, redness and swelling, headaches or general aches and pains. These side effects usually go away quickly. More severe reactions are very uncommon. A very small number of children get myocarditis (inflammation of the heart muscle) after the COVID-19 vaccine. This is more likely to happen after catching COVID-19 (see above). Myocarditis after getting COVID-19 is more severe than myocarditis after a COVID-19 vaccine.</p>
     </>,
   },
   {
     question: "Do the COVID-19 vaccines reduce the risk of myocarditis and going to hospital?",
-    answer: `The chance of getting myocarditis and going to hospital is higher in unvaccinated children who catch COVID-19. The best protection is provided by having two doses of a COVID-19 vaccine. The vaccine also reduces the risk of multi-inflammatory syndrome after catching COVID-19.`,
+    answer: `The chance of getting myocarditis and going to hospital is higher in unvaccinated children who catch COVID-19. The best protection is provided by having at least two doses of a COVID-19 vaccine. The vaccine also reduces the risk of multi-inflammatory syndrome after catching COVID-19. `,
   },
   {
     question: "Why does the kids model only look at the Pfizer vaccine?",
-    answer: `In Australia, Pfizer and Moderna COVID-19 vaccines are approved and available for children aged over 5 years. The Novavax COVID-19 vaccine is approved and available for children aged over 12 years.  At the time of developing this model, there was limited data available for the Moderna and Novavax vaccines in children.  Once more information is available, these vaccines will be added to the model.`,
+    answer: <><p>In Australia, the Pfizer COVID-19 vaccine is approved and available for children aged over 5 years. The Moderna COVID-19 vaccine is registered and available for children ≥ 12 years. 
+    This is based on 2024 ATAGI advice. See their <a href="https://www.health.gov.au/resources/publications/atagi-statement-on-the-administration-of-covid-19-vaccines-in-2024?language=en">website</a> for the most up-to-date information. </p>
+    <p>Novavax XBB.1.5 vaccine was not available when this model was developed. The original Novavax vaccine can be given to people aged 12 years and older, but ATAGI suggests that XBB.1.5-based vaccines are preferred. See their <a href="https://www.health.gov.au/news/atagi-recommendations-on-use-of-the-moderna-and-pfizer-monovalent-omicron-xbb15-covid-19-vaccines ">website</a> for more information. </p></>
   }
 ];
 
