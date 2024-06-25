@@ -1433,33 +1433,33 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                     ),
                 ),
                 corical_pb2.BarGraph(
-                    title=f"If I get COVID-19, what is my chance of having pulmonary long COVID symptoms six months later?",
+                    title=f"If I get COVID-19, what is my chance of having lung-related long COVID symptoms six months later?",
                     subtitle=f"Symptoms may include cough, hypoxemia (low blood oxygen), and/or shortness of breath.",
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
-                                label=f"Your chance of having pulmonary long COVID symptoms 6 months after infection",
+                                label=f"Your chance of having lung-related long COVID symptoms 6 months after infection",
                                 risk=cmp[0]["get_pulmonary"],
                                 is_other_shot=False,
                             )
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having pulmonary long COVID symptoms 6 months after infection if you were {vaccination}",
+                                label=f"Chance of having lung-related long COVID symptoms 6 months after infection if you were {vaccination}",
                                 risk=cmp[2]["get_pulmonary"],
                                 is_other_shot=True
                             )
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having pulmonary long COVID symptoms 6 months after infection if you got antiviral drug treatment during the first week of infection",
+                                label=f"Chance of having lung-related long COVID symptoms 6 months after infection if you got antiviral drug treatment during the first week of infection",
                                 risk=cmp[0]["get_pulmonary_drug"],
                                 is_other_shot=True,
                             ),
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having pulmonary long COVID symptoms 6 months after {infection_no_label}",
+                                label=f"Chance of having lung-related long COVID symptoms 6 months after {infection_no_label}",
                                 risk=cmp[3]["get_pulmonary_infection"],
                                 is_other_shot=True,
                             ),
@@ -1501,33 +1501,33 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                     ),
                 ),
                 corical_pb2.BarGraph(
-                    title=f"If I get COVID-19, what is my chance of having neurological long COVID symptoms six months later?",
+                    title=f"If I get COVID-19, what is my chance of having brain-related long COVID symptoms six months later?",
                     subtitle=f"Symptoms may include headache, memory problems, smell problems, and/or stroke.",
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
-                                label=f"Your chance of having neurological long COVID symptoms 6 months after infection",
+                                label=f"Your chance of having brain-related long COVID symptoms 6 months after infection",
                                 risk=cmp[0]["get_neurologic"],
                                 is_other_shot=False,
                             )
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having neurological long COVID symptoms 6 months after infection if you were {vaccination}",
+                                label=f"Chance of having brain-related long COVID symptoms 6 months after infection if you were {vaccination}",
                                 risk=cmp[2]["get_neurologic"],
                                 is_other_shot=True,
                             )
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having neurological long COVID symptoms 6 months after infection if you got antiviral drug treatment during the first week of infection",
+                                label=f"Chance of having brain-related long COVID symptoms 6 months after infection if you got antiviral drug treatment during the first week of infection",
                                 risk=cmp[0]["get_neurologic_drug"],
                                 is_other_shot=True,
                             ),
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having neurological long COVID symptoms 6 months after {infection_no_label}",
+                                label=f"Chance of having brain-related long COVID symptoms 6 months after {infection_no_label}",
                                 risk=cmp[3]["get_neurologic_infection"],
                                 is_other_shot=True,
                             ),
@@ -1569,33 +1569,33 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                     ),
                 ),
                 corical_pb2.BarGraph(
-                    title=f"If I get COVID-19, what is my chance of having gastrointestinal COVID symptoms six months later?",
+                    title=f"If I get COVID-19, what is my chance of having stomach-related COVID symptoms six months later?",
                     subtitle=f"Symptoms may include constipation, diarrhoea, and/or gastroesophageal reflux disease (reflux).",
                     risks=generate_bar_graph_risks(
                         [
                             corical_pb2.BarGraphRisk(
-                                label=f"Your chance of having gastrointestinal long COVID symptoms 6 months after infection",
+                                label=f"Your chance of having stomach-related long COVID symptoms 6 months after infection",
                                 risk=cmp[0]["get_gastrointestinal"],
                                 is_other_shot=False,
                             )
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having gastrointestinal long COVID symptoms 6 months after infection if you were {vaccination}",
+                                label=f"Chance of having stomach-related long COVID symptoms 6 months after infection if you were {vaccination}",
                                 risk=cmp[2]["get_gastrointestinal"],
                                 is_other_shot=True,
                             )
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having gastrointestinal long COVID symptoms 6 months after infection if you got antiviral drug treatment during the first week of infection",
+                                label=f"Chance of having stomach-related long COVID symptoms 6 months after infection if you got antiviral drug treatment during the first week of infection",
                                 risk=cmp[0]["get_gastrointestinal_drug"],
                                 is_other_shot=True,
                             ),
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of having gastrointestinal long COVID symptoms 6 months after {infection_no_label}",
+                                label=f"Chance of having stomach-related long COVID symptoms 6 months after {infection_no_label}",
                                 risk=cmp[3]["get_gastrointestinal_infection"],
                                 is_other_shot=True,
                             ),
