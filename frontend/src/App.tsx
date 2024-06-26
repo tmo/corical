@@ -732,6 +732,16 @@ function VideoRoute() {
             picture-in-picture; web-share" allowFullScreen></iframe>
           <br />
 
+          <h2>Using the CoRiCal tool for a personalised COVID-19 vaccine risk assessment - Long COVID model </h2>
+          <iframe title="Using the CoRiCal tool for a personalised COVID-19 vaccine risk assessment - Long COVID model" 
+            src="https://www.youtube.com/embed/j1LcbxNrx7s" 
+            width="640" height="360" frameBorder="0" allow="accelerometer; 
+            autoplay; clipboard-write; encrypted-media; gyroscope; 
+            picture-in-picture; web-share" allowFullScreen></iframe>
+          <br />
+          <br />
+
+
           <h2>Acknowledgements</h2>
           <p>The CoRiCal team are very grateful to Dr Ramesh Manocha and his 
             team HealthEd for graciously providing their film crew to film the 
