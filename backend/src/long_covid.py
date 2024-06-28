@@ -41,11 +41,6 @@ def compute_long_covid_probs(n2_Dose, n4_Age, n5_Sex, n6_ComorbidityNo, n8_Infec
         "n5_Sex": n5_Sex,
     }
 
-    if n8_InfectionNo != "None":
-        infection = "Yes"
-    else: 
-        infection = "No"
-
     # always hardcode delta
     lc.set_fact(values, "n2_Dose", n2_Dose)
     lc.set_fact(values, "n4_Age", n4_Age)
@@ -54,13 +49,11 @@ def compute_long_covid_probs(n2_Dose, n4_Age, n5_Sex, n6_ComorbidityNo, n8_Infec
     # To Do
     # check model node n8 if "None"
     lc.set_fact(values, "n8_NoOfPrevInfect", n8_InfectionNo)
-    # if n8_InfectionNo != "None":
-    #     lc.set_fact(values, "n8_InfectionNo", n8_InfectionNo)
-    # else:
-    #     values["n8_InfectionNo"] = [0.34, 0.33, 0.33]
 
     lc.set_fact(values, "n7_Drug", "None")
-    lc.set_fact(values, "n1_Infection", infection)
+
+    # check n1 logic
+    lc.set_fact(values, "n1_Infection", "Yes")
 
     get_hospitalisation = lc.infer(values, "n11_Hospitalisation")[0]
     get_icu = lc.infer(values, "n12_ICU")[0]
@@ -85,6 +78,7 @@ def compute_long_covid_probs(n2_Dose, n4_Age, n5_Sex, n6_ComorbidityNo, n8_Infec
     # lc.set_fact(values_infected, "n7_Drug", "Metformin_within3days")
     # lc.set_fact(values_infected, "n7_Drug", "Nirmatrelvir_paxlovid")
     values_infected["n7_Drug"] = [0.0, 0.25, 0.25, 0.25, 0.25]
+    lc.set_fact(values, "n1_Infection", "Yes")
     get_hospitalisation_drug = lc.infer(values_infected, "n11_Hospitalisation")[0]
     get_icu_drug = lc.infer(values_infected, "n12_ICU")[0]
     get_symptom_drug = lc.infer(values_infected, "n14_LC_1_symptom")[0]
@@ -96,6 +90,7 @@ def compute_long_covid_probs(n2_Dose, n4_Age, n5_Sex, n6_ComorbidityNo, n8_Infec
 
     values_infected = dict(values)
     lc.set_fact(values_infected, "n8_NoOfPrevInfect", n8_InfectionNo_plus)
+    lc.set_fact(values, "n1_Infection", "Yes")
     getget_hospitalisation_infection = lc.infer(values_infected, "n11_Hospitalisation")[0]
     get_icu_infection = lc.infer(values_infected, "n12_ICU")[0]
     get_symptom_infection = lc.infer(values_infected, "n14_LC_1_symptom")[0]
