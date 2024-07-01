@@ -39,6 +39,10 @@ lc = xdsl.Model("LC_BN_30042024.xdsl")
 def compute_long_covid_probs(n2_Dose, n4_Age, n5_Sex, n6_ComorbidityNo, n8_InfectionNo):
     values = {
         "n5_Sex": n5_Sex,
+        # "n4_Age": n4_Age,
+        # "n6_ComorbidityNo": n6_ComorbidityNo,
+        # "n2_Dose": n2_Dose,
+        # "n8_NoOfPrevInfect": n8_InfectionNo,
     }
 
     # always hardcode delta
@@ -65,7 +69,8 @@ def compute_long_covid_probs(n2_Dose, n4_Age, n5_Sex, n6_ComorbidityNo, n8_Infec
     get_gastrointestinal =lc.infer(values, "n20_LC_GI")[0]
     
     # other scenarios
-    values_infected = dict(values)
+    values_drug = dict(values)
+    # values_infected = dict(values)
     if n8_InfectionNo == "None":
         n8_InfectionNo_plus = "None"
     elif n8_InfectionNo == "One":
@@ -73,24 +78,20 @@ def compute_long_covid_probs(n2_Dose, n4_Age, n5_Sex, n6_ComorbidityNo, n8_Infec
     else:
         n8_InfectionNo_plus = "Two_plus"
 
-    # lc.set_fact(values_infected, "n7_Drug", "Molnupiravir")
-    # lc.set_fact(values_infected, "n7_Drug", "Metformin_within7days")
-    # lc.set_fact(values_infected, "n7_Drug", "Metformin_within3days")
-    # lc.set_fact(values_infected, "n7_Drug", "Nirmatrelvir_paxlovid")
-    values_infected["n7_Drug"] = [0.0, 0.25, 0.25, 0.25, 0.25]
-    lc.set_fact(values, "n1_Infection", "Yes")
-    get_hospitalisation_drug = lc.infer(values_infected, "n11_Hospitalisation")[0]
-    get_icu_drug = lc.infer(values_infected, "n12_ICU")[0]
-    get_symptom_drug = lc.infer(values_infected, "n14_LC_1_symptom")[0]
-    get_pulmonary_drug = lc.infer(values_infected, "n28_LC_pulmonary")[0]
-    get_cardiovascular_drug = lc.infer(values_infected, "n15_LC_cardiovascular")[0]
-    get_neurologic_drug = lc.infer(values_infected, "n30_LC_neurologic")[0]
-    get_metabolic_drug = lc.infer(values_infected, "n26_LC_metabolic")[0]
-    get_gastrointestinal_drug =lc.infer(values_infected, "n20_LC_GI")[0]
+    values_drug["n7_Drug"] = [0.0, 0.25, 0.25, 0.25, 0.25]
+    lc.set_fact(values_drug, "n1_Infection", "Yes")
+    get_hospitalisation_drug = lc.infer(values_drug, "n11_Hospitalisation")[0]
+    get_icu_drug = lc.infer(values_drug, "n12_ICU")[0]
+    get_symptom_drug = lc.infer(values_drug, "n14_LC_1_symptom")[0]
+    get_pulmonary_drug = lc.infer(values_drug, "n28_LC_pulmonary")[0]
+    get_cardiovascular_drug = lc.infer(values_drug, "n15_LC_cardiovascular")[0]
+    get_neurologic_drug = lc.infer(values_drug, "n30_LC_neurologic")[0]
+    get_metabolic_drug = lc.infer(values_drug, "n26_LC_metabolic")[0]
+    get_gastrointestinal_drug =lc.infer(values_drug, "n20_LC_GI")[0]
 
     values_infected = dict(values)
     lc.set_fact(values_infected, "n8_NoOfPrevInfect", n8_InfectionNo_plus)
-    lc.set_fact(values, "n1_Infection", "Yes")
+    lc.set_fact(values_infected, "n1_Infection", "Yes")
     getget_hospitalisation_infection = lc.infer(values_infected, "n11_Hospitalisation")[0]
     get_icu_infection = lc.infer(values_infected, "n12_ICU")[0]
     get_symptom_infection = lc.infer(values_infected, "n14_LC_1_symptom")[0]

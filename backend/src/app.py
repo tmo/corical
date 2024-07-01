@@ -1235,7 +1235,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
         # shots = "none"
         # the compared cases, check n2_Dose names
         if request.dose == "None":
-            comparison_doses = ["Second_2wks_5mnths", "Second_2wks_5mnths"]
+            comparison_doses = ["First_3weeks_ago", "Second_2wks_5mnths"]
             shots = "none"
             vaccination = "fully vaccinated"
         elif request.dose == "First_3weeks_ago":
@@ -1259,23 +1259,23 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             shots = "three"
             vaccination = "unvaccinated"
         elif request.dose == "Third_6_11mnths": 
-            comparison_doses = ["Fourth_3_6mnths", "None"] 
+            comparison_doses = ["Fourth_upto3mnths", "None"] 
             shots = "three"
             vaccination = "unvaccinated"  
         elif request.dose == "Third_12plus_mnths":
-            comparison_doses = ["Fourth_3_6mnths", "None"]
+            comparison_doses = ["Fourth_upto3mnths", "None"]
             shots = "three" 
             vaccination = "unvaccinated" 
         elif request.dose == "Fourth_upto3mnths":
-            comparison_doses = ["Fourth_3_6mnths", "None"] 
+            comparison_doses = ["Fourth_upto3mnths", "None"] 
             shots = "four"
             vaccination = "unvaccinated"
         elif request.dose == "Fourth_3_6mnths":
-            comparison_doses = ["Fourth_6plus_mnths", "None"] 
+            comparison_doses = ["Fourth_upto3mnths", "None"] 
             shots = "four"
             vaccination = "unvaccinated"
         elif request.dose == "Fourth_6plus_mnths":
-            comparison_doses = ["Fourth_6plus_mnths", "None"] 
+            comparison_doses = ["Fourth_upto3mnths", "None"] 
             shots = "four"
             vaccination = "unvaccinated"
 
