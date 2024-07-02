@@ -1204,7 +1204,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             infection_no_plus = "Two_plus"
         elif request.infection == "Two or more":
             infection_no = "Two_plus"
-            infection_no_label = "after your previous SARS-CoV-2 infection"
+            infection_no_label = "your previous SARS-CoV-2 infection"
             infection_no_plus = "Two_plus"
 
         dose_labels = {
@@ -1326,7 +1326,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             ) = compute_long_covid_probs(cdose, age_label, sex_vec, comor_no, infection_no_adjust)
             cmp.append(cur)
 
-        scenario_description = f"Here are your results. These are for a {age_text} {sex_label} with {comor_no_label} pre-existing comorbidity/ies and {infection_no_label} previous SARS-CoV-2 infection/s, and {shots} COVID-19 shots. They are based on the number and timing of COVID-19 vaccine shots you have had."
+        scenario_description = f"Here are your results. These are for a {age_text} {sex_label} with {comor_no_label} pre-existing comorbidity/ies and {infection_no} previous SARS-CoV-2 infection/s, and {shots} COVID-19 shots. They are based on the number and timing of COVID-19 vaccine shots you have had."
         out = corical_pb2.ComputeRes(
             messages=messages,
             scenario_description=scenario_description,
@@ -1358,7 +1358,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of going to hospital from COVID-19 {infection_no_label}",
+                                label=f"Chance of going to hospital from COVID-19 after {infection_no_label}",
                                 risk=cmp[3]["get_hospitalisation_infection"],
                                 is_other_shot=True,
                             ),
