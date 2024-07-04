@@ -1279,6 +1279,40 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             shots = "four"
             vaccination = "unvaccinated"
 
+        network = SmileModel(long_covid_model_file)
+        baseline_outcomes = {
+            "get_hospitalisation": "n11_Hospitalisation",
+            "get_icu": "n12_ICU",
+            "get_symptom": "n14_LC_1_symptom",
+            "get_pulmonary": "n28_LC_pulmonary",
+            "get_cardiovascular": "n15_LC_cardiovascular",
+            "get_neurologic": "n30_LC_neurologic",
+            "get_metabolic": "n26_LC_metabolic",
+            "get_gastrointestinal": "n20_LC_GI",
+        }
+
+        infected_outcomes = {
+            "get_hospitalisation_infection": "n11_Hospitalisation",
+            "get_icu_infection": "n12_ICU",
+            "get_symptom_infection": "n14_LC_1_symptom",
+            "get_pulmonary_infection": "n28_LC_pulmonary",
+            "get_cardiovascular_infection": "n15_LC_cardiovascular",
+            "get_neurologic_infection": "n30_LC_neurologic",
+            "get_metabolic_infection": "n26_LC_metabolic",
+            "get_gastrointestinal_infection": "n20_LC_GI",
+        }
+
+        drug_outcomes = {
+            "get_hospitalisation_drug": "n11_Hospitalisation",
+            "get_icu_drug": "n12_ICU",
+            "get_symptom_drug": "n14_LC_1_symptom",
+            "get_pulmonary_drug": "n28_LC_pulmonary",
+            "get_cardiovascular_drug": "n15_LC_cardiovascular",
+            "get_neurologic_drug": "n30_LC_neurologic",
+            "get_metabolic_drug": "n26_LC_metabolic",
+            "get_gastrointestinal_drug": "n20_LC_GI",
+            }
+        
         cmp = []
 
         for i, cdose in enumerate([request.dose] + comparison_doses + [request.dose]):
@@ -1297,33 +1331,32 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                 "is_other_shot": i != 0,
                 "shot_ordinal": shot_ordinal,
             }
-            (
-                cur["get_hospitalisation"],
-                cur["get_hospitalisation_drug"],
-                cur["get_hospitalisation_infection"],
-                cur["get_icu"],
-                cur["get_icu_drug"],
-                cur["get_icu_infection"],
-                cur["get_symptom"],
-                cur["get_symptom_drug"],
-                cur["get_symptom_infection"],
-                cur["get_pulmonary"],
-                cur["get_pulmonary_drug"],
-                cur["get_pulmonary_infection"],
-                cur["get_cardiovascular"],
-                cur["get_cardiovascular_drug"],
-                cur["get_cardiovascular_infection"],
-                cur["get_neurologic"],
-                cur["get_neurologic_drug"],
-                cur["get_neurologic_infection"],
-                cur["get_metabolic"],
-                cur["get_metabolic_drug"],
-                cur["get_metabolic_infection"],
-                cur["get_gastrointestinal"],
-                cur["get_gastrointestinal_drug"],
-                cur["get_gastrointestinal_infection"],
+            evidence = {
+                "n2_Dose":cdose,
+                "n4_Age": age_label,
+                "n5_Sex": sex_vec,
+                "n6_ComorbidityNo": comor_no,
+                "n8_NoOfPrevInfect": infection_no_adjust,
+                "n7_Drug": "None",
+                "n1_Infection": "Yes",
+            }
 
-            ) = compute_long_covid_probs(cdose, age_label, sex_vec, comor_no, infection_no_adjust)
+            if infection_no_adjust == "None":
+                n8_InfectionNo_plus = "None"
+            elif infection_no_adjust == "One":
+                n8_InfectionNo_plus = "One"
+            else:
+                n8_InfectionNo_plus = "Two_plus"
+            logger.info(f'INFECT {n8_InfectionNo_plus}')
+    
+            network.set_evidence(evidence)
+            cur.update(network.get_binary_outcomes(baseline_outcomes))
+            network.set_evidence({"n7_Drug":[0.0, 0.25, 0.25, 0.25, 0.25]})
+            cur.update(network.get_binary_outcomes(drug_outcomes))
+            network.set_evidence({"n7_Drug":"None"})
+            network.set_evidence({"n8_NoOfPrevInfect":n8_InfectionNo_plus})
+            cur.update(network.get_binary_outcomes(infected_outcomes))
+
             cmp.append(cur)
 
         scenario_description = f"Here are your results. These are for a {age_text} {sex_label} with {comor_no_label} pre-existing comorbidity/ies and {infection_no} previous SARS-CoV-2 infection/s, and {shots} COVID-19 shots. They are based on the number and timing of COVID-19 vaccine shots you have had."
