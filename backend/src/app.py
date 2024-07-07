@@ -1166,10 +1166,10 @@ class Corical(corical_pb2_grpc.CoricalServicer):
 
         # sex
         if request.sex == "female":
-            sex_label = "Female"
+            sex_label = "female"
             sex_vec = np.array([0.0, 1.0])
         elif request.sex == "male":
-            sex_label = "Male"
+            sex_label = "male"
             sex_vec = np.array([1.0, 0.0])
         elif request.sex == "other":
             sex_label = "person of unspecified sex"
@@ -1188,24 +1188,37 @@ class Corical(corical_pb2_grpc.CoricalServicer):
         comors = request.comors 
         if len(comors) == 0:
             comor_no = "None"
+            comor_description = "none ongoing medical conditions"
         elif len(comors) <= 3:
             comor_no = "One_to_three"
+            comor_description = "one to three ongoing medical conditions"
         else:
             comor_no = "Four_plus"
-        comor_no_label = comor_no.replace("_", " ").lower() 
+            comor_description = "four or more ongoing medical conditions"
+        comor_no_label = comor_no.replace("_", " ").lower()
+
+        # if len(comors) == 0:
+        #     comor_description = "none ongoing medical conditions"
+        # elif len(comors) == 1:
+        #     comor_description = "one ongoing medical condition"
+        # else:
+        #     comor_description = str(len(comors)) + " ongoing medical conditions"
 
         if request.infection == "None":
             infection_no = "None"
             infection_no_label = "one extra SARS-CoV-2 infection"
             infection_no_plus = "One"
+            infection_description = "no previous SARS-CoV-2 infection"
         elif request.infection == "One":
             infection_no = "One"
             infection_no_label = "one extra SARS-CoV-2 infection"
             infection_no_plus = "Two_plus"
+            infection_description = "one previous SARS-CoV-2 infection"
         elif request.infection == "Two or more":
             infection_no = "Two_plus"
             infection_no_label = "your previous SARS-CoV-2 infection"
             infection_no_plus = "Two_plus"
+            infection_description = "two or more previous SARS-CoV-2 infections"
 
         dose_labels = {
             "None": ("not had any vaccines", "no"),
@@ -1235,49 +1248,65 @@ class Corical(corical_pb2_grpc.CoricalServicer):
         # shots = "none"
         # the compared cases, check n2_Dose names
         if request.dose == "None":
-            comparison_doses = ["First_3weeks_ago", "Second_2wks_5mnths"]
+            comparison_doses = ["Second_2wks_5mnths", "Second_2wks_5mnths"]
             shots = "none"
             vaccination = "fully vaccinated"
+            shots_description = "no COVID-19 shots"
         elif request.dose == "First_3weeks_ago":
             comparison_doses = ["Second_2wks_5mnths", "Second_2wks_5mnths"] 
             shots = "one"
-            vaccination = "fully vaccinated" 
+            vaccination = "fully vaccinated"
+            shots_description = "one COVID-19 shot" 
         elif request.dose == "Second_2wks_5mnths": 
             comparison_doses = ["Third_2wks_5mths", "None"]
             shots = "two"
             vaccination = "unvaccinated"
+            shots_description = "two COVID-19 shots"
         elif request.dose == "Second_6_11mnths": 
             comparison_doses = ["Third_2wks_5mths", "None"]
             shots = "two"
-            vaccination = "unvaccinated" 
+            vaccination = "unvaccinated"
+            shots_description = "two COVID-19 shots" 
         elif request.dose == "Second_12plus_mnths":
             comparison_doses = ["Third_2wks_5mths", "None"]
             shots = "two"
             vaccination = "unvaccinated"    
+            shots_description = "two COVID-19 shots" 
         elif request.dose == "Third_2wks_5mths": 
             comparison_doses = ["Fourth_upto3mnths", "None"] 
             shots = "three"
             vaccination = "unvaccinated"
+            shots_description = "three COVID-19 shots" 
         elif request.dose == "Third_6_11mnths": 
             comparison_doses = ["Fourth_upto3mnths", "None"] 
             shots = "three"
-            vaccination = "unvaccinated"  
+            vaccination = "unvaccinated"
+            shots_description = "three COVID-19 shots"   
         elif request.dose == "Third_12plus_mnths":
             comparison_doses = ["Fourth_upto3mnths", "None"]
             shots = "three" 
             vaccination = "unvaccinated" 
+            shots_description = "three COVID-19 shots"
         elif request.dose == "Fourth_upto3mnths":
             comparison_doses = ["Fourth_upto3mnths", "None"] 
             shots = "four"
             vaccination = "unvaccinated"
+            shots_description = "four COVID-19 shots"
         elif request.dose == "Fourth_3_6mnths":
             comparison_doses = ["Fourth_upto3mnths", "None"] 
             shots = "four"
             vaccination = "unvaccinated"
+            shots_description = "four COVID-19 shots"
         elif request.dose == "Fourth_6plus_mnths":
             comparison_doses = ["Fourth_upto3mnths", "None"] 
             shots = "four"
             vaccination = "unvaccinated"
+            shots_description = "four COVID-19 shots"
+        
+        if request.dose == "None":
+            shots_label = "were fully vaccinated"
+        else:
+            shots_label = "got one extra shot in the last 6 months†"
 
         network = SmileModel(long_covid_model_file)
         baseline_outcomes = {
@@ -1359,7 +1388,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
 
             cmp.append(cur)
 
-        scenario_description = f"Here are your results. These are for a {age_text} {sex_label} with {comor_no_label} pre-existing comorbidity/ies and {infection_no} previous SARS-CoV-2 infection/s, and {shots} COVID-19 shots. They are based on the number and timing of COVID-19 vaccine shots you have had."
+        scenario_description = f"Here are your results. These are for {age_text} {sex_label} with {comor_description}  and {infection_description}, and {shots_description}"
         out = corical_pb2.ComputeRes(
             messages=messages,
             scenario_description=scenario_description,
@@ -1377,7 +1406,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of going to hospital from COVID-19 if you got one extra shot in the last 6 months†",
+                                label=f"Chance of going to hospital from COVID-19 if you {shots_label}",
                                 risk=cmp[1]["get_hospitalisation"],
                                 is_other_shot=True,
                             )
@@ -1410,7 +1439,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
                         ]
                         + [
                             corical_pb2.BarGraphRisk(
-                                label=f"Chance of going to ICU from COVID-19 if you got one extra shot in the last 6 months†",
+                                label=f"Chance of going to ICU from COVID-19 if you {shots_label}",
                                 risk=cmp[1]["get_icu"],
                                 is_other_shot=True,
                             )
