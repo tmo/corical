@@ -1188,7 +1188,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
         comors = request.comors 
         if len(comors) == 0:
             comor_no = "None"
-            comor_description = "none ongoing medical conditions"
+            comor_description = "no ongoing medical conditions"
         elif len(comors) <= 3:
             comor_no = "One_to_three"
             comor_description = "one to three ongoing medical conditions"
@@ -1208,7 +1208,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             infection_no = "None"
             infection_no_label = "one extra SARS-CoV-2 infection"
             infection_no_plus = "One"
-            infection_description = "no previous SARS-CoV-2 infection"
+            infection_description = "no previous SARS-CoV-2 infections"
         elif request.infection == "One":
             infection_no = "One"
             infection_no_label = "one extra SARS-CoV-2 infection"
