@@ -216,7 +216,7 @@ export const LC_SEX_OPTIONS = [
 ];
 
 export const STEP1_LC_HELPER =
-  "Enter your age, sex, number of pre-existing comorbidities, number of previous SARS-CoV-2 infections, and if you’ve had a vaccine to check your risks.";
+  "Enter your age, sex, number of ongoing medical conditions, number of previous SARS-CoV-2 infections, and if you’ve had a vaccine to check your risks.";
 
 export const LC_COMOR_LABEL = "What ongoing medical conditions do you have?";
 export const LC_COMOR_HELPER = "These are conditions that have lasted at least 3 months and are likely to get worse over time without treatment. While most are able to be treated, few are curable. Common examples include, but are not limited to:";
@@ -300,19 +300,19 @@ export const LC_COMOR_LIST = [
 ];
 
 export const LC_VACCINE_LABEL = "How many COVID-19 vaccine doses have you had?";
-export const LC_INFECTION_LABEL = "How many previous SARS-CoV-2 infections have you had?";
+export const LC_INFECTION_LABEL = "How many previous SARS-CoV-2 infections have you had? CoRiCal shows you risks for your next  infection.";
 export const LC_INFECTION_OPTIONS = [
   {
     value: "None",
-    label: "None",
+    label: "None (This shows you risks for your first infection)",
   },
   {
     value: "One",
-    label: "One",
+    label: "One (This shows you risks for your second infection)",
   },
   {
     value: "Two or more",
-    label: "Two or more",
+    label: "Two or more (This shows you risks for your third or higher infection)",
   },
 ];
 export const LC_VACCINE_LABFirst_3weeks_agoEL = "How many COVID-19 vaccine doses have you had?";
