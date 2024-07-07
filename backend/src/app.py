@@ -1388,7 +1388,7 @@ class Corical(corical_pb2_grpc.CoricalServicer):
 
             cmp.append(cur)
 
-        scenario_description = f"Here are your results. These are for {age_text} {sex_label} with {comor_description}  and {infection_description}, and {shots_description}"
+        scenario_description = f"Here are your results. These are for {age_text} {sex_label} with {comor_description}  and {infection_description}, and {shots_description}."
         out = corical_pb2.ComputeRes(
             messages=messages,
             scenario_description=scenario_description,
