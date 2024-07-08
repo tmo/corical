@@ -1197,13 +1197,6 @@ class Corical(corical_pb2_grpc.CoricalServicer):
             comor_description = "four or more ongoing medical conditions"
         comor_no_label = comor_no.replace("_", " ").lower()
 
-        # if len(comors) == 0:
-        #     comor_description = "none ongoing medical conditions"
-        # elif len(comors) == 1:
-        #     comor_description = "one ongoing medical condition"
-        # else:
-        #     comor_description = str(len(comors)) + " ongoing medical conditions"
-
         if request.infection == "None":
             infection_no = "None"
             infection_no_label = "one extra SARS-CoV-2 infection"
@@ -1236,17 +1229,14 @@ class Corical(corical_pb2_grpc.CoricalServicer):
 
         # for graphs
         subtitle = f"These results are for a {age_text} {sex_label}."
-        myo_subtitle = f"You may have heard that the Pfizer vaccine can give you inflammation of your heart muscle. This is also called myocarditis. There are many other causes of myocarditis, so people can develop this problem even if they haven’t had the vaccine. Myocarditis is also very common in people who have had COVID-19 (infection).  "
-        
+                
         # for tables
         if request.dose == "None":
             explanation = f"Results shown for a {age_text} {sex_label} who has not been vaccinated"
         else:
             explanation = f"Results shown for a {age_text} {sex_label} are shown."
 
-        # comparison_doses = []
-        # shots = "none"
-        # the compared cases, check n2_Dose names
+        # comparison doses
         if request.dose == "None":
             comparison_doses = ["Second_2wks_5mnths", "Second_2wks_5mnths"]
             shots = "none"
