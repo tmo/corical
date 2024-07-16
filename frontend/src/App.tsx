@@ -739,6 +739,15 @@ function VideoRoute() {
             autoplay; clipboard-write; encrypted-media; gyroscope; 
             picture-in-picture; web-share" allowFullScreen></iframe>
           <br />
+
+          <h2>Using the CoRiCal tool for a personalised COVID-19 vaccine risk assessment - Long COVID animation </h2>
+          <iframe title="Using the CoRiCal tool for a personalised COVID-19 vaccine risk assessment - Long COVID animation" 
+            src="https://www.youtube.com/embed/bRYRF_biHJw" 
+            width="640" height="360" frameBorder="0" allow="accelerometer; 
+            clipboard-write; encrypted-media; gyroscope; 
+            picture-in-picture; web-share" allowFullScreen></iframe>
+          <br />
+
           <br />
 
 
