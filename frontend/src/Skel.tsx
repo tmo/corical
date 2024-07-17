@@ -156,9 +156,9 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
                                             backgroundRepeat: "no-repeat",
                                             backgroundPosition: "right center",
                                             }}>
-            <Typography style={{color:"#C14B4F", backgroundColor:"#DAE1ED"}} variant="h3" component="h1" paragraph>
+            {/* <Typography style={{color:"#C14B4F", backgroundColor:"#DAE1ED"}} variant="h3" component="h1" paragraph>
               <p>    BETA VERSION FOR TESTING ONLY  - RESULTS NOT APPROVED FOR USE</p>
-            </Typography>                                  
+            </Typography>                                   */}
             <Typography variant="h4" component="h1" paragraph>
               {title}
             </Typography>
