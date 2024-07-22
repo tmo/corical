@@ -12,10 +12,10 @@ export const FAQ_ITEMS =  [
   },
   {
     question: "Why don’t all the CoRiCal models include health conditions that affect COVID-19 outcomes? (e.g. obesity, diabetes, cardiovascular disease, immunosuppression etc.)",
-    answer: `The current calculator assumes that 100% of COVID-19 cases are caused by the Omicron variant. We may update this in future.`,
+    answer: `Currently, only the long COVID risk calculator can take these factors into account. This is because of limited data for the other calculators. However, we are working on a new model for the Pfizer COVID-19 vaccine that will take health conditions into account. `,
   },
   {
-    question: "What viral variant is the calculator based on? ",
+    question: "Which COVID-19 variant is the calculator based on? ",
     answer: `The current calculator assumes that 100% of COVID-19 cases are caused by the Omicron variant. We may update this in future. `,
   },
   {

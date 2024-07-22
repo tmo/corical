@@ -47,7 +47,7 @@ export const CHILDREN_FAQ_ITEMS =  [
   {
     question: "Why does the kids model only look at the Pfizer vaccine?",
     answer: <><p>In Australia, the Pfizer COVID-19 vaccine is approved and available for children aged over 5 years. The Moderna COVID-19 vaccine is registered and available for children ≥ 12 years. 
-    This is based on 2024 ATAGI advice. See their <a href="https://www.health.gov.au/resources/publications/atagi-statement-on-the-administration-of-covid-19-vaccines-in-2024?language=en">website</a> for the most up-to-date information. </p>
+    This is based on 2024 ATAGI advice. See their <a href="https://www.health.gov.au/our-work/covid-19-vaccines/getting-your-vaccination#:~:text=Regular%20COVID%2D19%20vaccinations%20(also,risk%20of%20severe%20COVID%2D19">website</a> for the most up-to-date information. </p>
     <p>Novavax XBB.1.5 vaccine was not available when this model was developed. The original Novavax vaccine can be given to people aged 12 years and older, but ATAGI suggests that XBB.1.5-based vaccines are preferred. See their <a href="https://www.health.gov.au/news/atagi-recommendations-on-use-of-the-moderna-and-pfizer-monovalent-omicron-xbb15-covid-19-vaccines ">website</a> for more information. </p></>
   }
 ];
