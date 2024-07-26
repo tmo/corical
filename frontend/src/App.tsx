@@ -683,6 +683,31 @@ function VideoRoute() {
 
         <Container maxWidth="lg">
           <Typography>
+
+          <h2>Using the CoRiCal tool for a personalised COVID-19 vaccine risk assessment - Long COVID </h2>
+          <iframe title="Using the CoRiCal tool for a personalised COVID-19 vaccine risk assessment - Long COVID animation" 
+            src="https://www.youtube.com/embed/bRYRF_biHJw" 
+            width="640" height="360" frameBorder="0" allow="accelerometer; 
+            clipboard-write; encrypted-media; gyroscope; 
+            picture-in-picture; web-share" allowFullScreen></iframe>
+          <br />
+
+          <h2>Explanation of the CoRiCal Kids Model </h2>
+          <iframe title="Explanation of the CoRiCal Kids Model" 
+            src="https://www.youtube.com/embed/AsFxpsCSDsw" 
+            width="640" height="360" frameBorder="0" allow="accelerometer; 
+            autoplay; clipboard-write; encrypted-media; gyroscope; 
+            picture-in-picture; web-share" allowFullScreen></iframe>
+          <br />
+
+          <h2>General Model </h2>
+          <iframe title="COVID-19 vaccine" 
+            src="https://www.youtube.com/embed/MADKZ-Nx1mE" 
+            width="640" height="360" frameBorder="0" allow="accelerometer; 
+            autoplay; clipboard-write; encrypted-media; gyroscope; 
+            picture-in-picture; web-share" allowFullScreen></iframe>
+          <br />
+
           <h2>Full CoRiCal Video</h2>
           <iframe title="main_video" 
             src="https://player.vimeo.com/video/731968709?h=04dfd4374d" 
@@ -724,32 +749,15 @@ function VideoRoute() {
             fullscreen; picture-in-picture" allowFullScreen></iframe>
           <br />
 
-          <h2>Explanation of the CoRiCal Kids Model </h2>
-          <iframe title="Explanation of the CoRiCal Kids Model" 
-            src="https://www.youtube.com/embed/AsFxpsCSDsw" 
-            width="640" height="360" frameBorder="0" allow="accelerometer; 
-            autoplay; clipboard-write; encrypted-media; gyroscope; 
-            picture-in-picture; web-share" allowFullScreen></iframe>
-          <br />
-
-          <h2>Using the CoRiCal tool for a personalised COVID-19 vaccine risk assessment - Long COVID model </h2>
+          {/* <h2>Using the CoRiCal tool for a personalised COVID-19 vaccine risk assessment - Long COVID model </h2>
           <iframe title="Using the CoRiCal tool for a personalised COVID-19 vaccine risk assessment - Long COVID model" 
             src="https://www.youtube.com/embed/j1LcbxNrx7s" 
             width="640" height="360" frameBorder="0" allow="accelerometer; 
             clipboard-write; encrypted-media; gyroscope; 
             picture-in-picture; web-share" allowFullScreen></iframe>
-          <br />
-
-          <h2>Using the CoRiCal tool for a personalised COVID-19 vaccine risk assessment - Long COVID animation </h2>
-          <iframe title="Using the CoRiCal tool for a personalised COVID-19 vaccine risk assessment - Long COVID animation" 
-            src="https://www.youtube.com/embed/bRYRF_biHJw" 
-            width="640" height="360" frameBorder="0" allow="accelerometer; 
-            clipboard-write; encrypted-media; gyroscope; 
-            picture-in-picture; web-share" allowFullScreen></iframe>
-          <br />
+          <br /> */}
 
           <br />
-
 
           <h2>Acknowledgements</h2>
           <p>The CoRiCal team are very grateful to Dr Ramesh Manocha and his 
