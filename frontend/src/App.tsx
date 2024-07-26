@@ -309,7 +309,7 @@ function PfizerChildrenRoute() {
         Back to calculator selection
       </Button>
       <Typography variant="h5" component="h2">
-        Childeren's Calculator
+        Children's Calculator
       </Typography>
       <PfizerChildrenForm callback={pfizerChildrenCallback} />
       {error ? (
