@@ -694,7 +694,7 @@ function VideoRoute() {
 
           <h2>Explanation of the CoRiCal Kids Model </h2>
           <iframe title="Explanation of the CoRiCal Kids Model" 
-            src="https://www.youtube.com/embed/AsFxpsCSDsw" 
+            src="https://www.youtube.com/embed/Llh_LBDsYks" 
             width="640" height="360" frameBorder="0" allow="accelerometer; 
             autoplay; clipboard-write; encrypted-media; gyroscope; 
             picture-in-picture; web-share" allowFullScreen></iframe>
@@ -748,14 +748,6 @@ function VideoRoute() {
             width="640" height="360" frameBorder="0" allow="autoplay; 
             fullscreen; picture-in-picture" allowFullScreen></iframe>
           <br />
-
-          {/* <h2>Using the CoRiCal tool for a personalised COVID-19 vaccine risk assessment - Long COVID model </h2>
-          <iframe title="Using the CoRiCal tool for a personalised COVID-19 vaccine risk assessment - Long COVID model" 
-            src="https://www.youtube.com/embed/j1LcbxNrx7s" 
-            width="640" height="360" frameBorder="0" allow="accelerometer; 
-            clipboard-write; encrypted-media; gyroscope; 
-            picture-in-picture; web-share" allowFullScreen></iframe>
-          <br /> */}
 
           <br />
 
