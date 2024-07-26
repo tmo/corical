@@ -183,6 +183,9 @@ function PfizerRoute() {
       >
         Back to calculator selection
       </Button>
+      <Typography variant="h5" component="h2">
+        Pfizer Calculator
+      </Typography>
       <PfizerForm callback={pfizerCallback} />
       {error ? (
         <Alert severity="error">
@@ -222,6 +225,10 @@ function LongCovidRoute() {
       >
         Back to calculator selection
       </Button>
+      <Typography variant="h5" component="h2">
+        Long COVID Calculator
+      </Typography>
+      
       <LongCovidForm callback={longCovidCallback} />
       {error ? (
         <Alert severity="error">
@@ -301,6 +308,9 @@ function PfizerChildrenRoute() {
       >
         Back to calculator selection
       </Button>
+      <Typography variant="h5" component="h2">
+        Childeren's Calculator
+      </Typography>
       <PfizerChildrenForm callback={pfizerChildrenCallback} />
       {error ? (
         <Alert severity="error">
