@@ -191,7 +191,10 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
                 community or travel to an area with more cases.
               </p>
               <p>
-                Watch these videos for examples of how to understand the risk calculator results: general model, kids model, long covid model.
+                Watch these videos for examples of how to understand the risk calculator results: 
+                <a href="https://www.youtube.com/watch?v=MADKZ-Nx1mE" target="_blank"> general model</a>, 
+                <a href="https://www.youtube.com/watch?v=Llh_LBDsYks" target="_blank"> kids model</a>, 
+                <a href="https://www.youtube.com/watch?v=bRYRF_biHJw" target="_blank"> long covid model</a>.
               </p>
 
               <Box py={1}>
