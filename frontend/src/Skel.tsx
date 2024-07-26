@@ -295,7 +295,7 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
               <b>Data analysis</b>: Samuel Brown, Colleen Lau, Helen Mayfield, 
               Kerrie Mengersen, Jane Sinclair, Michael Waller
               <br />
-              <b>Risk Communication</b>: Carissa Bonner, Colleen Lau, John Litt, 
+              <b>Risk Communication</b>: Carissa Bonner (videos), Colleen Lau, John Litt, 
               Kirsty Short, Jane Sinclair 
               <br />
               <b>Administration and project management</b>: Jayne Geddes, 
