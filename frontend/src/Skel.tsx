@@ -190,6 +190,9 @@ export default function Skel({ title, subtitle, children }: SkelProps) {
                 This might include a change in the number of cases in your 
                 community or travel to an area with more cases.
               </p>
+              <p>
+                Watch these videos for examples of how to understand the risk calculator results: general model, kids model, long covid model.
+              </p>
 
               <Box py={1}>
                 <Button
